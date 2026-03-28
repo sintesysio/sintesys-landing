@@ -1,0 +1,20 @@
+CREATE TABLE `qualified_leads` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(255) NOT NULL,
+	`email` varchar(320) NOT NULL,
+	`phone` varchar(50),
+	`companyName` varchar(255),
+	`revenue` varchar(100) NOT NULL,
+	`employees` varchar(100) NOT NULL,
+	`sector` varchar(100) NOT NULL,
+	`mainObstacle` varchar(500) NOT NULL,
+	`manualHoursPerWeek` varchar(50),
+	`dataLocation` varchar(300) NOT NULL,
+	`currentTools` text,
+	`usesAI` varchar(10) NOT NULL,
+	`aiDetails` text,
+	`priority` varchar(200) NOT NULL,
+	`isDecisionMaker` varchar(10) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `qualified_leads_id` PRIMARY KEY(`id`)
+);

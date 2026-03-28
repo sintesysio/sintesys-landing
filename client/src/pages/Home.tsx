@@ -11,6 +11,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { trpc } from "@/lib/trpc";
+import NavBar from "@/components/NavBar";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/sintesys-logo_8369f699.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
@@ -143,6 +144,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }} role="main">
+      <NavBar />
       {/* ═══════════════════════════════════════════════════════ */}
       {/* MASTHEAD — Newspaper Header */}
       {/* ═══════════════════════════════════════════════════════ */}

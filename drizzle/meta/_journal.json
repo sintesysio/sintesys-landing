@@ -22,6 +22,13 @@
       "when": 1774707898562,
       "tag": "0002_safe_maggott",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1774716541383,
+      "tag": "0003_brown_tomas",
+      "breakpoints": true
     }
   ]
 }

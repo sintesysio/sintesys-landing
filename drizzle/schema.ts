@@ -80,3 +80,34 @@ export const dailyEditions = mysqlTable("daily_editions", {
 
 export type DailyEdition = typeof dailyEditions.$inferSelect;
 export type InsertDailyEdition = typeof dailyEditions.$inferInsert;
+
+/**
+ * Qualified leads from the Contattaci multi-step form.
+ * Separate from newsletter leads — these are sales-qualified.
+ */
+export const qualifiedLeads = mysqlTable("qualified_leads", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  phone: varchar("phone", { length: 50 }),
+  companyName: varchar("companyName", { length: 255 }),
+  // Section 1: Profile & Segmentation
+  revenue: varchar("revenue", { length: 100 }).notNull(),
+  employees: varchar("employees", { length: 100 }).notNull(),
+  sector: varchar("sector", { length: 100 }).notNull(),
+  // Section 2: Pain Diagnosis
+  mainObstacle: varchar("mainObstacle", { length: 500 }).notNull(),
+  manualHoursPerWeek: varchar("manualHoursPerWeek", { length: 50 }),
+  dataLocation: varchar("dataLocation", { length: 300 }).notNull(),
+  // Section 3: Tech Maturity
+  currentTools: text("currentTools"),
+  usesAI: varchar("usesAI", { length: 10 }).notNull(),
+  aiDetails: text("aiDetails"),
+  // Section 4: Urgency & Authority
+  priority: varchar("priority", { length: 200 }).notNull(),
+  isDecisionMaker: varchar("isDecisionMaker", { length: 10 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type QualifiedLead = typeof qualifiedLeads.$inferSelect;
+export type InsertQualifiedLead = typeof qualifiedLeads.$inferInsert;

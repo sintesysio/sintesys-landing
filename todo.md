@@ -39,3 +39,14 @@
 - [x] Adicionar fallback para conteúdo estático caso API falhe
 - [x] Escrever testes vitest para o endpoint de conteúdo diário
 - [x] Salvar checkpoint com sistema de conteúdo dinâmico
+- [x] Criar barra de menu editorial no estilo jornal (Home, Chi Siamo, Contattaci)
+- [x] Criar página Chi Siamo com perfil do Lamberto Grinover (foco inovação tecnológica, não facilities)
+- [x] Criar seção de missão da Sintesys.io na página Chi Siamo
+- [x] Criar página Contattaci com formulário estilo Typeform embutido (multi-step)
+- [x] Implementar campos do formulário de qualificação (4 seções: Perfil, Dores, Maturidade, Urgência)
+- [x] Criar tabela separada no banco para leads qualificados (qualifiedLeads)
+- [x] Criar endpoint tRPC para salvar leads qualificados
+- [x] Exportação Excel dos leads qualificados em pasta/tabela separada
+- [x] Configurar rotas no App.tsx para as novas páginas
+- [x] Escrever testes vitest para os novos endpoints
+- [x] Salvar checkpoint com menu e novas páginas

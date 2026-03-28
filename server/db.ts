@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition } from "../drizzle/schema";
+import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition, qualifiedLeads, InsertQualifiedLead, QualifiedLead } from "../drizzle/schema";
 import { desc, sql } from "drizzle-orm";
 import { ENV } from './_core/env';
 
@@ -143,6 +143,34 @@ export async function getEditionCount(): Promise<number> {
   const result = await db.select({ count: sql<number>`count(*)` }).from(dailyEditions);
   return result[0]?.count ?? 0;
 }
+
+// ─── Qualified Lead Queries ──────────────────────────────────────────
+
+export async function createQualifiedLead(lead: InsertQualifiedLead): Promise<QualifiedLead> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const [result] = await db.insert(qualifiedLeads).values(lead).$returningId();
+  const [created] = await db.select().from(qualifiedLeads).where(eq(qualifiedLeads.id, result.id)).limit(1);
+  return created;
+}
+
+export async function getQualifiedLeadByEmail(email: string): Promise<QualifiedLead | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(qualifiedLeads).where(eq(qualifiedLeads.email, email)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getAllQualifiedLeads(): Promise<QualifiedLead[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db.select().from(qualifiedLeads).orderBy(desc(qualifiedLeads.createdAt));
+}
+
+// ─── Daily Edition Queries ──────────────────────────────────────────
 
 export async function insertDailyEdition(edition: InsertDailyEdition): Promise<void> {
   const db = await getDb();

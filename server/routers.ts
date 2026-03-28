@@ -2,7 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition } from "./db";
+import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
 import { z } from "zod";
@@ -251,6 +251,157 @@ export const appRouter = router({
       }
 
       const url = await generateLeadsSpreadsheet();
+      return { success: true, url } as const;
+    }),
+  }),
+
+  qualifiedLeads: router({
+    /**
+     * Public endpoint: submit a qualified lead from the Contattaci multi-step form.
+     */
+    submit: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(2, "Nome richiesto"),
+          email: z.string().email("Email non valida"),
+          phone: z.string().optional(),
+          companyName: z.string().optional(),
+          revenue: z.string().min(1),
+          employees: z.string().min(1),
+          sector: z.string().min(1),
+          mainObstacle: z.string().min(1),
+          manualHoursPerWeek: z.string().optional(),
+          dataLocation: z.string().min(1),
+          currentTools: z.string().optional(),
+          usesAI: z.string().min(1),
+          aiDetails: z.string().optional(),
+          priority: z.string().min(1),
+          isDecisionMaker: z.string().min(1),
+        })
+      )
+      .mutation(async ({ input }) => {
+        // Check for duplicate
+        const existing = await getQualifiedLeadByEmail(input.email);
+        if (existing) {
+          return { success: true, message: "Gi\u00e0 registrato", duplicate: true } as const;
+        }
+
+        const lead = await createQualifiedLead({
+          name: input.name,
+          email: input.email,
+          phone: input.phone ?? null,
+          companyName: input.companyName ?? null,
+          revenue: input.revenue,
+          employees: input.employees,
+          sector: input.sector,
+          mainObstacle: input.mainObstacle,
+          manualHoursPerWeek: input.manualHoursPerWeek ?? null,
+          dataLocation: input.dataLocation,
+          currentTools: input.currentTools ?? null,
+          usesAI: input.usesAI,
+          aiDetails: input.aiDetails ?? null,
+          priority: input.priority,
+          isDecisionMaker: input.isDecisionMaker,
+        });
+
+        // Notify owner about qualified lead
+        try {
+          await notifyOwner({
+            title: `Lead Qualificato: ${lead.name} (${lead.companyName || "N/A"})`,
+            content: `LEAD QUALIFICATO\n\nNome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nAzienda: ${lead.companyName || "N/A"}\n\nPROFILO\nFatturato: ${lead.revenue}\nDipendenti: ${lead.employees}\nSettore: ${lead.sector}\n\nCRITICIT\u00c0\nOstacolo: ${lead.mainObstacle}\nOre manuali/sett: ${lead.manualHoursPerWeek || "N/A"}\nDati: ${lead.dataLocation}\n\nTECNOLOGIA\nStrumenti: ${lead.currentTools || "N/A"}\nUsa IA: ${lead.usesAI}\nDettagli IA: ${lead.aiDetails || "N/A"}\n\nURGENZA\nPriorit\u00e0: ${lead.priority}\nDecision maker: ${lead.isDecisionMaker}`,
+          });
+        } catch (err) {
+          console.warn("[Notification] Failed to notify owner about qualified lead:", err);
+        }
+
+        return { success: true, message: "Audit inviato", duplicate: false } as const;
+      }),
+
+    /**
+     * Protected endpoint: export qualified leads as Excel spreadsheet.
+     */
+    exportSpreadsheet: protectedProcedure.mutation(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Accesso non autorizzato");
+      }
+
+      const qLeads = await getAllQualifiedLeads();
+
+      const workbook = new ExcelJS.Workbook();
+      workbook.creator = "Sintesys.io";
+      workbook.created = new Date();
+
+      const sheet = workbook.addWorksheet("Lead Qualificati", {
+        properties: { defaultColWidth: 20 },
+      });
+
+      sheet.columns = [
+        { header: "ID", key: "id", width: 8 },
+        { header: "Nome", key: "name", width: 25 },
+        { header: "Email", key: "email", width: 30 },
+        { header: "Telefono", key: "phone", width: 18 },
+        { header: "Azienda", key: "companyName", width: 25 },
+        { header: "Fatturato", key: "revenue", width: 18 },
+        { header: "Dipendenti", key: "employees", width: 14 },
+        { header: "Settore", key: "sector", width: 16 },
+        { header: "Ostacolo Principale", key: "mainObstacle", width: 35 },
+        { header: "Ore Manuali/Sett", key: "manualHoursPerWeek", width: 18 },
+        { header: "Dove Dati", key: "dataLocation", width: 30 },
+        { header: "Strumenti Attuali", key: "currentTools", width: 30 },
+        { header: "Usa IA", key: "usesAI", width: 10 },
+        { header: "Dettagli IA", key: "aiDetails", width: 30 },
+        { header: "Priorit\u00e0", key: "priority", width: 25 },
+        { header: "Decision Maker", key: "isDecisionMaker", width: 16 },
+        { header: "Data", key: "createdAt", width: 22 },
+      ];
+
+      const headerRow = sheet.getRow(1);
+      headerRow.font = { bold: true, color: { argb: "FFFFFFFF" }, size: 11 };
+      headerRow.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF1B2A4A" } };
+      headerRow.alignment = { vertical: "middle", horizontal: "center" };
+      headerRow.height = 28;
+
+      for (const ql of qLeads) {
+        sheet.addRow({
+          id: ql.id,
+          name: ql.name,
+          email: ql.email,
+          phone: ql.phone || "",
+          companyName: ql.companyName || "",
+          revenue: ql.revenue,
+          employees: ql.employees,
+          sector: ql.sector,
+          mainObstacle: ql.mainObstacle,
+          manualHoursPerWeek: ql.manualHoursPerWeek || "",
+          dataLocation: ql.dataLocation,
+          currentTools: ql.currentTools || "",
+          usesAI: ql.usesAI,
+          aiDetails: ql.aiDetails || "",
+          priority: ql.priority,
+          isDecisionMaker: ql.isDecisionMaker,
+          createdAt: ql.createdAt.toISOString().replace("T", " ").slice(0, 19),
+        });
+      }
+
+      for (let i = 2; i <= sheet.rowCount; i++) {
+        const row = sheet.getRow(i);
+        row.alignment = { vertical: "middle" };
+        if (i % 2 === 0) {
+          row.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF5F5F0" } };
+        }
+      }
+
+      sheet.autoFilter = { from: { row: 1, column: 1 }, to: { row: 1, column: 17 } };
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const fileKey = `qualified-leads/sintesys-qualified-leads-${timestamp}-${nanoid(6)}.xlsx`;
+      const { url } = await storagePut(
+        fileKey,
+        Buffer.from(buffer),
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      );
+
       return { success: true, url } as const;
     }),
   }),
