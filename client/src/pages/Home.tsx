@@ -101,11 +101,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }} role="main">
       {/* ═══════════════════════════════════════════════════════ */}
       {/* MASTHEAD — Newspaper Header */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <header className="container pt-6 pb-0">
+      <header className="container pt-6 pb-0" role="banner" aria-label="Il Giornale dell'IA - Testata">
         {/* Top rule */}
         <div className="rule-thick mb-3" />
 
@@ -157,7 +157,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* HERO — Main Headline + Subscription Form */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-8 lg:mt-12">
+      <section className="container mt-8 lg:mt-12" id="editoriale" aria-label="Editoriale principale">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left column: Main article */}
           <div className="lg:col-span-7">
@@ -235,8 +235,11 @@ export default function Home() {
               <div className="mt-8 mb-2">
                 <img
                   src={HERO_IMG}
-                  alt="Il Giornale dell'IA - Intelligenza Artificiale per PMI"
+                  alt="Intelligenza Artificiale per PMI italiane — strategie operative per imprenditori"
                   className="w-full"
+                  loading="lazy"
+                  width="800"
+                  height="500"
                   style={{ filter: "grayscale(10%)" }}
                 />
                 <p
@@ -274,6 +277,7 @@ export default function Home() {
                   >
                     Accesso Riservato
                   </p>
+                  {/* id for anchor link from CTA */}
                   <h3
                     className="mb-2"
                     style={{
@@ -301,9 +305,10 @@ export default function Home() {
 
                   {/* Form */}
                   {!submitted ? (
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-5" id="iscrizione" aria-label="Modulo di iscrizione alla newsletter strategica">
                       <div>
                         <label
+                          htmlFor="lead-name"
                           className="block mb-1.5 uppercase tracking-[0.1em]"
                           style={{
                             fontFamily: "'Inter', sans-serif",
@@ -315,8 +320,10 @@ export default function Home() {
                           Nome e Cognome
                         </label>
                         <input
+                          id="lead-name"
                           type="text"
                           required
+                          autoComplete="name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Il tuo nome"
@@ -334,6 +341,7 @@ export default function Home() {
 
                       <div>
                         <label
+                          htmlFor="lead-email"
                           className="block mb-1.5 uppercase tracking-[0.1em]"
                           style={{
                             fontFamily: "'Inter', sans-serif",
@@ -345,8 +353,10 @@ export default function Home() {
                           Email Professionale
                         </label>
                         <input
+                          id="lead-email"
                           type="email"
                           required
+                          autoComplete="email"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="la.tua.email@azienda.it"
@@ -364,6 +374,7 @@ export default function Home() {
 
                       <div>
                         <label
+                          htmlFor="lead-phone"
                           className="block mb-1.5 uppercase tracking-[0.1em]"
                           style={{
                             fontFamily: "'Inter', sans-serif",
@@ -375,7 +386,9 @@ export default function Home() {
                           Telefono
                         </label>
                         <input
+                          id="lead-phone"
                           type="tel"
+                          autoComplete="tel"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+39 000 000 0000"
@@ -403,6 +416,7 @@ export default function Home() {
 
                       <div>
                         <label
+                          htmlFor="lead-sector"
                           className="block mb-1.5 uppercase tracking-[0.1em]"
                           style={{
                             fontFamily: "'Inter', sans-serif",
@@ -414,6 +428,7 @@ export default function Home() {
                           Settore / Tipo di Business
                         </label>
                         <select
+                          id="lead-sector"
                           required
                           value={formData.sector}
                           onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
@@ -540,7 +555,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* DATA SECTION — Statistics */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-16 lg:mt-24">
+      <section className="container mt-16 lg:mt-24" id="numeri" aria-label="Statistiche sulle PMI italiane">
         <div className="rule-thick mb-8" />
         <FadeIn>
           <p
@@ -652,7 +667,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* VALUE PROPS — Three columns like newspaper sections */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-16 lg:mt-24">
+      <section className="container mt-16 lg:mt-24" id="materiali" aria-label="Materiali strategici">
         <div className="rule-thick mb-8" />
         <FadeIn>
           <p
@@ -751,15 +766,18 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* DATA IMAGE — Infographic */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-16 lg:mt-24">
+      <section className="container mt-16 lg:mt-24" id="analisi" aria-label="Analisi del divario digitale">
         <FadeIn>
           <div className="rule-thin mb-6" />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7">
               <img
                 src={DATA_IMG}
-                alt="L'Adozione dell'IA nelle PMI Italiane — 88% vs 26%"
+                alt="Infografica: adozione dell'Intelligenza Artificiale nelle PMI italiane — 88% vuole innovare ma solo 26% agisce"
                 className="w-full"
+                loading="lazy"
+                width="800"
+                height="500"
               />
             </div>
             <div className="lg:col-span-5">
@@ -808,7 +826,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* QUOTE — Pull quote section */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-16 lg:mt-24">
+      <section className="container mt-16 lg:mt-24" id="citazione" aria-label="Citazione editoriale">
         <FadeIn>
           <div className="max-w-3xl mx-auto text-center py-12">
             <span
@@ -844,7 +862,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* SECONDARY CTA — Bottom subscription */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-8 lg:mt-16 mb-16">
+      <section className="container mt-8 lg:mt-16 mb-16" id="cta" aria-label="Invito all'iscrizione">
         <div className="rule-thick mb-8" />
         <FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -905,13 +923,16 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* FOOTER */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <footer className="container pb-8">
+      <footer className="container pb-8" role="contentinfo" aria-label="Informazioni su Sintesys.io">
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <img
             src={LOGO_URL}
-            alt="Sintesys.io"
+            alt="Sintesys.io — Consulenza Intelligenza Artificiale per PMI italiane"
             className="h-8 object-contain"
+            loading="lazy"
+            width="200"
+            height="32"
             style={{ filter: "brightness(0)" }}
           />
           <p

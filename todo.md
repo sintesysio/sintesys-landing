@@ -17,3 +17,13 @@
 - [x] Upload da planilha para S3 e retornar URL de download
 - [x] Escrever testes vitest para o endpoint de exportação
 - [x] Salvar checkpoint final
+- [x] Pesquisar palavras-chave estratégicas para PMI + IA na Itália
+- [x] Adicionar meta tags SEO completas (title, description, keywords) em italiano
+- [x] Implementar Open Graph e Twitter Card para compartilhamento social
+- [x] Adicionar hreflang para direcionar ao público italiano
+- [x] Criar schema markup JSON-LD (Organization, WebPage, FAQPage)
+- [x] Adicionar robots.txt e sitemap.xml
+- [x] Otimizar semântica HTML (headings hierarchy, alt tags, aria labels)
+- [x] Adicionar canonical URL e geo meta tags para Itália
+- [x] Otimizar performance: lazy loading de imagens, preconnect fonts
+- [x] Salvar checkpoint com SEO completo
