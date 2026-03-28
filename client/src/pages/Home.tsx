@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { trpc } from "@/lib/trpc";
 
 const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/sintesys-logo_8369f699.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
@@ -69,6 +70,18 @@ export default function Home() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const submitLead = trpc.leads.submit.useMutation({
+    onSuccess: (data) => {
+      setSubmitted(true);
+      setSubmitting(false);
+    },
+    onError: (error) => {
+      setSubmitting(false);
+      setErrorMsg(error.message || "Errore durante l'iscrizione. Riprova.");
+    },
+  });
 
   const today = new Date();
   const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
@@ -77,10 +90,14 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitted(true);
-      setSubmitting(false);
-    }, 1200);
+    setErrorMsg("");
+    submitLead.mutate({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || undefined,
+      sector: formData.sector,
+      source: "landing_page",
+    });
   };
 
   return (
@@ -457,6 +474,20 @@ export default function Home() {
                         I tuoi dati sono al sicuro. Rispettiamo la tua privacy
                         e odiamo lo spam esattamente quanto te.
                       </p>
+
+                      {errorMsg && (
+                        <p
+                          className="text-center mt-2"
+                          style={{
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: "0.75rem",
+                            color: "#c0392b",
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          {errorMsg}
+                        </p>
+                      )}
                     </form>
                   ) : (
                     <motion.div
