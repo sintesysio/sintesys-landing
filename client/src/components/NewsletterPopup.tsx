@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 
 const STORAGE_KEY = "sintesys_popup_dismissed";
-const DELAY_MS = 15_000; // 15 seconds
+const DELAY_MS = 10_000; // 10 seconds
 
 const SECTORS = [
   "Manifattura",

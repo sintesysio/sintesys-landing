@@ -66,3 +66,5 @@
 - [x] Adicionar o pop-up na Home page
 - [x] Salvar checkpoint
 - [x] Reduzir timer do pop-up de 60s para 15s
+- [x] Remover botão do LinkedIn do Lamberto na página Chi Siamo (já não existia no código)
+- [x] Reduzir timer do pop-up de 15s para 10s
