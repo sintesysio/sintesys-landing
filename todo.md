@@ -65,3 +65,4 @@
 - [x] Animação suave de entrada/saída
 - [x] Adicionar o pop-up na Home page
 - [x] Salvar checkpoint
+- [x] Reduzir timer do pop-up de 60s para 15s
