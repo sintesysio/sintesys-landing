@@ -3,9 +3,12 @@
  * Paleta: Off-white (#FAFAF7), Preto (#1A1A1A), Navy (#1B2A4A)
  * Tipografia: Playfair Display (headlines), Source Serif 4 (body), Inter (labels/UI)
  * Layout: Grid assimétrico de jornal com masthead, manchetes e formulário
+ * 
+ * DYNAMIC CONTENT: The page fetches today's editorial edition from the API.
+ * If no edition is available, it falls back to static default content.
  */
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 
@@ -24,6 +27,30 @@ const SECTORS = [
   "Tecnologia",
   "Altro",
 ];
+
+// ─── Static fallback content (used when API has no edition) ─────────
+const FALLBACK = {
+  dateFormatted: (() => {
+    const now = new Date();
+    const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+    return `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+  })(),
+  editionNumber: "001",
+  headline: "Riprendi il controllo della tua azienda.",
+  editorialP1: "L'88% degli imprenditori italiani sa di dover innovare, ma solo il 26% agisce. Il motivo? Troppo rumore di fondo, troppa confusione e soluzioni pensate per le multinazionali, non per la realtà di una PMI con 10-50 dipendenti.",
+  editorialP2: "Mentre gli altri ti parlano di \"rivoluzione\" e tool miracolosi, noi parliamo la tua lingua: Marginalità, Controllo, Efficienza e Flusso di Cassa.",
+  editorialP3: "Iscrivendoti alla nostra lista esclusiva, riceverai materiali strategici periodici che tradurranno l'Intelligenza Artificiale in impatto reale sui tuoi margini. Nessun gergo tecnico. Solo strategia pura, da imprenditore a imprenditore.",
+  imageCaption: "L'Intelligenza Artificiale non è più un'opzione. È l'infrastruttura del futuro.",
+  statsTitle: "Il paradosso delle PMI italiane.",
+  stats: [
+    { number: 88, suffix: "%", label: "vuole innovare", desc: "degli imprenditori italiani dichiara di voler innovare la propria azienda", source: "Politecnico di Milano" },
+    { number: 26, suffix: "%", label: "agisce davvero", desc: "ha effettivamente implementato soluzioni digitali strutturate", source: "Politecnico di Milano" },
+    { number: 42, suffix: "%", label: "fatica col credito", desc: "delle PMI ha difficoltà di accesso al credito bancario per investire", source: "Banca d'Italia" },
+  ],
+  quote: "Nessuna formula magica. Nessuna vendita aggressiva. Solo strategia pura, da imprenditore a imprenditore, con il rigore analitico che meriti.",
+  ctaTitle: "Non restare indietro.",
+  ctaText: "Ogni settimana, migliaia di PMI italiane perdono terreno perché non hanno accesso alle informazioni giuste. Iscriviti per ricevere analisi esclusive che trasformano la complessità dell'IA in decisioni operative concrete.",
+};
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -72,8 +99,20 @@ export default function Home() {
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  // ─── Fetch today's dynamic content ─────────────────────────
+  const { data: dailyContent } = trpc.dailyContent.today.useQuery(undefined, {
+    staleTime: 1000 * 60 * 30, // Cache for 30 minutes
+    retry: 1,
+  });
+
+  // Merge API content with fallback
+  const content = useMemo(() => {
+    if (dailyContent) return dailyContent;
+    return FALLBACK;
+  }, [dailyContent]);
+
   const submitLead = trpc.leads.submit.useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       setSubmitted(true);
       setSubmitting(false);
     },
@@ -82,10 +121,6 @@ export default function Home() {
       setErrorMsg(error.message || "Errore durante l'iscrizione. Riprova.");
     },
   });
-
-  const today = new Date();
-  const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-  const dateStr = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,6 +135,12 @@ export default function Home() {
     });
   };
 
+  // Highlight bold text in editorial paragraphs
+  const renderBoldText = (text: string) => {
+    // Simple bold: wrap text between ** ** or words like "Marginalità, Controllo..."
+    return text;
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }} role="main">
       {/* ═══════════════════════════════════════════════════════ */}
@@ -109,13 +150,13 @@ export default function Home() {
         {/* Top rule */}
         <div className="rule-thick mb-3" />
 
-        {/* Top bar: date + edition */}
+        {/* Top bar: date + edition — DYNAMIC */}
         <div className="flex items-center justify-between mb-2" style={{ fontFamily: "'Inter', sans-serif" }}>
           <span className="text-xs tracking-[0.2em] uppercase" style={{ color: "#666" }}>
-            {dateStr}
+            {content.dateFormatted}
           </span>
           <span className="text-xs tracking-[0.2em] uppercase" style={{ color: "#666" }}>
-            Edizione N°001
+            Edizione N°{content.editionNumber}
           </span>
         </div>
 
@@ -155,7 +196,7 @@ export default function Home() {
       </header>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* HERO — Main Headline + Subscription Form */}
+      {/* HERO — Main Headline + Subscription Form — DYNAMIC */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container mt-8 lg:mt-12" id="editoriale" aria-label="Editoriale principale">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -182,9 +223,7 @@ export default function Home() {
                   color: "#1A1A1A",
                 }}
               >
-                Riprendi il controllo
-                <br />
-                della tua azienda.
+                {content.headline}
               </h2>
             </FadeIn>
 
@@ -199,9 +238,7 @@ export default function Home() {
                   lineHeight: 1.8,
                 }}
               >
-                L'88% degli imprenditori italiani sa di dover innovare, ma solo il 26% agisce.
-                Il motivo? Troppo rumore di fondo, troppa confusione e soluzioni pensate per le
-                multinazionali, non per la realtà di una PMI con 10-50 dipendenti.
+                {content.editorialP1}
               </p>
               <p
                 className="leading-relaxed mb-6"
@@ -212,8 +249,7 @@ export default function Home() {
                   lineHeight: 1.8,
                 }}
               >
-                Mentre gli altri ti parlano di "rivoluzione" e tool miracolosi, noi parliamo la tua lingua:{" "}
-                <strong style={{ color: "#1B2A4A" }}>Marginalità, Controllo, Efficienza e Flusso di Cassa.</strong>
+                {content.editorialP2}
               </p>
               <p
                 className="leading-relaxed"
@@ -224,9 +260,7 @@ export default function Home() {
                   lineHeight: 1.8,
                 }}
               >
-                Iscrivendoti alla nostra lista esclusiva, riceverai materiali strategici periodici
-                che tradurranno l'Intelligenza Artificiale in impatto reale sui tuoi margini.
-                Nessun gergo tecnico. Solo strategia pura, da imprenditore a imprenditore.
+                {content.editorialP3}
               </p>
             </FadeIn>
 
@@ -250,7 +284,7 @@ export default function Home() {
                     color: "#888",
                   }}
                 >
-                  L'Intelligenza Artificiale non è più un'opzione. È l'infrastruttura del futuro.
+                  {content.imageCaption}
                 </p>
               </div>
             </FadeIn>
@@ -277,18 +311,17 @@ export default function Home() {
                   >
                     Accesso Riservato
                   </p>
-                  {/* id for anchor link from CTA */}
                   <h3
-                    className="mb-2"
+                    className="mb-1"
                     style={{
                       fontFamily: "'Playfair Display', serif",
-                      fontSize: "clamp(1.3rem, 2.2vw, 1.8rem)",
+                      fontSize: "1.6rem",
                       fontWeight: 700,
                       color: "#1A1A1A",
                       lineHeight: 1.2,
                     }}
                   >
-                    Unisciti agli imprenditori che non navigano più a vista.
+                    Ricevi materiali strategici.
                   </h3>
                   <p
                     className="mb-6"
@@ -299,173 +332,187 @@ export default function Home() {
                       lineHeight: 1.6,
                     }}
                   >
-                    Ricevi analisi, dati e strategie operative sull'IA, pensate esclusivamente per i titolari di PMI italiane.
+                    Analisi esclusive sull'IA per PMI italiane, direttamente nella tua casella di posta.
                   </p>
-                  <div className="rule-thin mb-6" />
 
-                  {/* Form */}
                   {!submitted ? (
-                    <form onSubmit={handleSubmit} className="space-y-5" id="iscrizione" aria-label="Modulo di iscrizione alla newsletter strategica">
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      {/* Name */}
                       <div>
                         <label
-                          htmlFor="lead-name"
-                          className="block mb-1.5 uppercase tracking-[0.1em]"
+                          htmlFor="name"
+                          className="block mb-1"
                           style={{
                             fontFamily: "'Inter', sans-serif",
                             fontSize: "0.65rem",
                             fontWeight: 600,
-                            color: "#1B2A4A",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#666",
                           }}
                         >
-                          Nome e Cognome
+                          Nome e Cognome *
                         </label>
                         <input
-                          id="lead-name"
+                          id="name"
                           type="text"
                           required
                           autoComplete="name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Il tuo nome"
-                          className="w-full px-0 py-2.5 bg-transparent border-0 border-b transition-colors focus:outline-none focus:ring-0"
+                          className="w-full px-3 py-2.5 transition-colors"
                           style={{
                             fontFamily: "'Source Serif 4', serif",
-                            fontSize: "1rem",
+                            fontSize: "0.95rem",
+                            border: "1px solid oklch(0.80 0.005 60)",
+                            backgroundColor: "transparent",
                             color: "#1A1A1A",
-                            borderColor: "#ddd",
+                            outline: "none",
                           }}
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
+                          placeholder="Mario Rossi"
                         />
                       </div>
 
+                      {/* Email */}
                       <div>
                         <label
-                          htmlFor="lead-email"
-                          className="block mb-1.5 uppercase tracking-[0.1em]"
+                          htmlFor="email"
+                          className="block mb-1"
                           style={{
                             fontFamily: "'Inter', sans-serif",
                             fontSize: "0.65rem",
                             fontWeight: 600,
-                            color: "#1B2A4A",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#666",
                           }}
                         >
-                          Email Professionale
+                          Email Aziendale *
                         </label>
                         <input
-                          id="lead-email"
+                          id="email"
                           type="email"
                           required
                           autoComplete="email"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="la.tua.email@azienda.it"
-                          className="w-full px-0 py-2.5 bg-transparent border-0 border-b transition-colors focus:outline-none focus:ring-0"
+                          className="w-full px-3 py-2.5 transition-colors"
                           style={{
                             fontFamily: "'Source Serif 4', serif",
-                            fontSize: "1rem",
+                            fontSize: "0.95rem",
+                            border: "1px solid oklch(0.80 0.005 60)",
+                            backgroundColor: "transparent",
                             color: "#1A1A1A",
-                            borderColor: "#ddd",
+                            outline: "none",
                           }}
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
+                          placeholder="mario@azienda.it"
                         />
                       </div>
 
+                      {/* Phone */}
                       <div>
                         <label
-                          htmlFor="lead-phone"
-                          className="block mb-1.5 uppercase tracking-[0.1em]"
+                          htmlFor="phone"
+                          className="block mb-1"
                           style={{
                             fontFamily: "'Inter', sans-serif",
                             fontSize: "0.65rem",
                             fontWeight: 600,
-                            color: "#1B2A4A",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#666",
                           }}
                         >
                           Telefono
                         </label>
                         <input
-                          id="lead-phone"
+                          id="phone"
                           type="tel"
                           autoComplete="tel"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+39 000 000 0000"
-                          className="w-full px-0 py-2.5 bg-transparent border-0 border-b transition-colors focus:outline-none focus:ring-0"
+                          className="w-full px-3 py-2.5 transition-colors"
                           style={{
                             fontFamily: "'Source Serif 4', serif",
-                            fontSize: "1rem",
+                            fontSize: "0.95rem",
+                            border: "1px solid oklch(0.80 0.005 60)",
+                            backgroundColor: "transparent",
                             color: "#1A1A1A",
-                            borderColor: "#ddd",
+                            outline: "none",
                           }}
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
+                          placeholder="+39 333 1234567"
                         />
-                        <p
-                          className="mt-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.65rem",
-                            color: "#999",
-                          }}
-                        >
-                          Per inviti a tavole rotonde esclusive
-                        </p>
                       </div>
 
+                      {/* Sector */}
                       <div>
                         <label
-                          htmlFor="lead-sector"
-                          className="block mb-1.5 uppercase tracking-[0.1em]"
+                          htmlFor="sector"
+                          className="block mb-1"
                           style={{
                             fontFamily: "'Inter', sans-serif",
                             fontSize: "0.65rem",
                             fontWeight: 600,
-                            color: "#1B2A4A",
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#666",
                           }}
                         >
-                          Settore / Tipo di Business
+                          Settore *
                         </label>
                         <select
-                          id="lead-sector"
+                          id="sector"
                           required
                           value={formData.sector}
                           onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                          className="w-full px-0 py-2.5 bg-transparent border-0 border-b transition-colors focus:outline-none focus:ring-0 appearance-none"
+                          className="w-full px-3 py-2.5 transition-colors"
                           style={{
                             fontFamily: "'Source Serif 4', serif",
-                            fontSize: "1rem",
+                            fontSize: "0.95rem",
+                            border: "1px solid oklch(0.80 0.005 60)",
+                            backgroundColor: "transparent",
                             color: formData.sector ? "#1A1A1A" : "#999",
-                            borderColor: "#ddd",
+                            outline: "none",
+                            appearance: "none",
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E")`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "right 12px center",
                           }}
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
                         >
                           <option value="" disabled>
                             Seleziona il tuo settore
                           </option>
                           {SECTORS.map((s) => (
-                            <option key={s} value={s} style={{ color: "#1A1A1A" }}>
+                            <option key={s} value={s}>
                               {s}
                             </option>
                           ))}
                         </select>
                       </div>
 
+                      {/* Submit */}
                       <button
                         type="submit"
                         disabled={submitting}
-                        className="w-full py-3.5 mt-2 transition-all duration-300"
+                        className="w-full py-3 transition-all duration-300"
                         style={{
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: "0.75rem",
+                          fontSize: "0.7rem",
                           fontWeight: 600,
                           letterSpacing: "0.15em",
                           textTransform: "uppercase",
-                          backgroundColor: submitting ? "#2a3a5a" : "#1B2A4A",
+                          backgroundColor: submitting ? "#555" : "#1B2A4A",
                           color: "#FAFAF7",
                           border: "none",
+                          cursor: submitting ? "wait" : "pointer",
                         }}
                         onMouseEnter={(e) => {
                           if (!submitting) e.currentTarget.style.backgroundColor = "#0f1d36";
@@ -474,30 +521,33 @@ export default function Home() {
                           if (!submitting) e.currentTarget.style.backgroundColor = "#1B2A4A";
                         }}
                       >
-                        {submitting ? "Elaborazione..." : "Accedi ai Materiali Strategici"}
+                        {submitting ? "Invio in corso..." : "Iscriviti — È Gratuito"}
                       </button>
 
+                      {/* Privacy note */}
                       <p
-                        className="text-center mt-3"
                         style={{
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: "0.65rem",
-                          color: "#aaa",
+                          fontSize: "0.6rem",
+                          color: "#999",
                           lineHeight: 1.5,
+                          textAlign: "center",
                         }}
                       >
-                        I tuoi dati sono al sicuro. Rispettiamo la tua privacy
-                        e odiamo lo spam esattamente quanto te.
+                        I tuoi dati sono al sicuro. Nessuno spam, solo contenuti di valore.
+                        <br />
+                        Puoi cancellarti in qualsiasi momento.
                       </p>
 
+                      {/* Error message */}
                       {errorMsg && (
                         <p
-                          className="text-center mt-2"
                           style={{
                             fontFamily: "'Inter', sans-serif",
                             fontSize: "0.75rem",
                             color: "#c0392b",
-                            lineHeight: 1.5,
+                            textAlign: "center",
+                            marginTop: "0.5rem",
                           }}
                         >
                           {errorMsg}
@@ -553,7 +603,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* DATA SECTION — Statistics */}
+      {/* DATA SECTION — Statistics — DYNAMIC */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container mt-16 lg:mt-24" id="numeri" aria-label="Statistiche sulle PMI italiane">
         <div className="rule-thick mb-8" />
@@ -579,34 +629,12 @@ export default function Home() {
               lineHeight: 1.15,
             }}
           >
-            Il paradosso delle PMI italiane.
+            {content.statsTitle}
           </h2>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-          {[
-            {
-              number: 88,
-              suffix: "%",
-              label: "vuole innovare",
-              desc: "degli imprenditori italiani dichiara di voler innovare la propria azienda",
-              source: "Politecnico di Milano",
-            },
-            {
-              number: 26,
-              suffix: "%",
-              label: "agisce davvero",
-              desc: "ha effettivamente implementato soluzioni digitali strutturate",
-              source: "Politecnico di Milano",
-            },
-            {
-              number: 42,
-              suffix: "%",
-              label: "fatica col credito",
-              desc: "delle PMI ha difficoltà di accesso al credito bancario per investire",
-              source: "Banca d'Italia",
-            },
-          ].map((stat, i) => (
+          {content.stats.map((stat, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <div
                 className="py-8 md:px-8 first:md:pl-0 last:md:pr-0"
@@ -824,7 +852,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* QUOTE — Pull quote section */}
+      {/* QUOTE — Pull quote section — DYNAMIC */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container mt-16 lg:mt-24" id="citazione" aria-label="Citazione editoriale">
         <FadeIn>
@@ -851,16 +879,14 @@ export default function Home() {
                 lineHeight: 1.5,
               }}
             >
-              Nessuna formula magica. Nessuna vendita aggressiva.
-              Solo strategia pura, da imprenditore a imprenditore,
-              con il rigore analitico che meriti.
+              {content.quote}
             </blockquote>
           </div>
         </FadeIn>
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* SECONDARY CTA — Bottom subscription */}
+      {/* SECONDARY CTA — Bottom subscription — DYNAMIC */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container mt-8 lg:mt-16 mb-16" id="cta" aria-label="Invito all'iscrizione">
         <div className="rule-thick mb-8" />
@@ -877,7 +903,7 @@ export default function Home() {
                   lineHeight: 1.15,
                 }}
               >
-                Non restare indietro.
+                {content.ctaTitle}
               </h2>
               <p
                 style={{
@@ -887,9 +913,7 @@ export default function Home() {
                   lineHeight: 1.7,
                 }}
               >
-                Ogni settimana, migliaia di PMI italiane perdono terreno perché non hanno accesso
-                alle informazioni giuste. Iscriviti per ricevere analisi esclusive che trasformano
-                la complessità dell'IA in decisioni operative concrete.
+                {content.ctaText}
               </p>
             </div>
             <div className="lg:col-span-5">
@@ -942,7 +966,7 @@ export default function Home() {
               color: "#999",
             }}
           >
-            © {today.getFullYear()} Sintesys.io — Tutti i diritti riservati.
+            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati.
           </p>
           <div className="flex gap-6">
             <a

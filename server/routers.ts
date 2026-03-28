@@ -2,7 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createLead, getLeadByEmail, getAllLeads } from "./db";
+import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
 import { z } from "zod";
@@ -101,6 +101,78 @@ export const appRouter = router({
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });
       return { success: true } as const;
+    }),
+  }),
+
+  dailyContent: router({
+    /**
+     * Public endpoint: get today's editorial content.
+     * Uses Rome timezone (Europe/Rome) to determine "today".
+     * Falls back to latest available edition if today has no content.
+     */
+    today: publicProcedure.query(async () => {
+      // Get today's date in Rome timezone
+      const now = new Date();
+      const romeDate = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Europe/Rome",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(now); // Returns YYYY-MM-DD
+
+      // Try to get today's edition
+      let edition = await getDailyEdition(romeDate);
+
+      // Fallback: get the latest available edition
+      if (!edition) {
+        edition = await getLatestEdition();
+      }
+
+      if (!edition) {
+        return null; // No content available, frontend uses static fallback
+      }
+
+      // Format the date in Italian
+      const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+      const [year, month, day] = romeDate.split("-").map(Number);
+      const dateFormatted = `${day} ${months[month - 1]} ${year}`;
+
+      return {
+        dateFormatted,
+        editionNumber: String(edition.editionNumber).padStart(3, "0"),
+        headline: edition.headline,
+        editorialP1: edition.editorialP1,
+        editorialP2: edition.editorialP2,
+        editorialP3: edition.editorialP3,
+        imageCaption: edition.imageCaption,
+        statsTitle: edition.statsTitle,
+        stats: [
+          {
+            number: edition.stat1Number,
+            suffix: edition.stat1Suffix,
+            label: edition.stat1Label,
+            desc: edition.stat1Desc,
+            source: edition.stat1Source,
+          },
+          {
+            number: edition.stat2Number,
+            suffix: edition.stat2Suffix,
+            label: edition.stat2Label,
+            desc: edition.stat2Desc,
+            source: edition.stat2Source,
+          },
+          {
+            number: edition.stat3Number,
+            suffix: edition.stat3Suffix,
+            label: edition.stat3Label,
+            desc: edition.stat3Desc,
+            source: edition.stat3Source,
+          },
+        ],
+        quote: edition.quote,
+        ctaTitle: edition.ctaTitle,
+        ctaText: edition.ctaText,
+      };
     }),
   }),
 

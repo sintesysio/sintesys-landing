@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, leads, InsertLead, Lead } from "../drizzle/schema";
-import { desc } from "drizzle-orm";
+import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition } from "../drizzle/schema";
+import { desc, sql } from "drizzle-orm";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -116,4 +116,64 @@ export async function getAllLeads(): Promise<Lead[]> {
   if (!db) return [];
 
   return db.select().from(leads).orderBy(desc(leads.createdAt));
+}
+
+// ─── Daily Edition Queries ──────────────────────────────────────────
+
+export async function getDailyEdition(dateStr: string): Promise<DailyEdition | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(dailyEditions).where(eq(dailyEditions.editionDate, dateStr)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getLatestEdition(): Promise<DailyEdition | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(dailyEditions).orderBy(desc(dailyEditions.editionDate)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getEditionCount(): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+
+  const result = await db.select({ count: sql<number>`count(*)` }).from(dailyEditions);
+  return result[0]?.count ?? 0;
+}
+
+export async function insertDailyEdition(edition: InsertDailyEdition): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.insert(dailyEditions).values(edition).onDuplicateKeyUpdate({
+    set: {
+      headline: edition.headline,
+      editorialP1: edition.editorialP1,
+      editorialP2: edition.editorialP2,
+      editorialP3: edition.editorialP3,
+      imageCaption: edition.imageCaption,
+      statsTitle: edition.statsTitle,
+      stat1Number: edition.stat1Number,
+      stat1Suffix: edition.stat1Suffix,
+      stat1Label: edition.stat1Label,
+      stat1Desc: edition.stat1Desc,
+      stat1Source: edition.stat1Source,
+      stat2Number: edition.stat2Number,
+      stat2Suffix: edition.stat2Suffix,
+      stat2Label: edition.stat2Label,
+      stat2Desc: edition.stat2Desc,
+      stat2Source: edition.stat2Source,
+      stat3Number: edition.stat3Number,
+      stat3Suffix: edition.stat3Suffix,
+      stat3Label: edition.stat3Label,
+      stat3Desc: edition.stat3Desc,
+      stat3Source: edition.stat3Source,
+      quote: edition.quote,
+      ctaTitle: edition.ctaTitle,
+      ctaText: edition.ctaText,
+    },
+  });
 }

@@ -15,6 +15,13 @@
       "when": 1774701995901,
       "tag": "0001_hesitant_wallop",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1774707898562,
+      "tag": "0002_safe_maggott",
+      "breakpoints": true
     }
   ]
 }

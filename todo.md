@@ -27,3 +27,15 @@
 - [x] Adicionar canonical URL e geo meta tags para Itália
 - [x] Otimizar performance: lazy loading de imagens, preconnect fonts
 - [x] Salvar checkpoint com SEO completo
+- [x] Criar tabela de conteúdos diários no schema do Drizzle (dailyContent)
+- [x] Popular banco com 30+ dias de conteúdo editorial variado
+- [x] Criar endpoint tRPC para servir o conteúdo do dia (baseado na data)
+- [x] Atualizar data do masthead para mostrar a data real do dia
+- [x] Atualizar número da edição dinamicamente (incremento diário)
+- [x] Tornar manchete principal dinâmica (muda diariamente)
+- [x] Tornar texto editorial dinâmico (muda diariamente)
+- [x] Tornar citação do dia dinâmica (muda diariamente)
+- [x] Tornar dados/estatísticas dinâmicos (muda diariamente)
+- [x] Adicionar fallback para conteúdo estático caso API falhe
+- [x] Escrever testes vitest para o endpoint de conteúdo diário
+- [x] Salvar checkpoint com sistema de conteúdo dinâmico
