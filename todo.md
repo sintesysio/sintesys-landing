@@ -57,3 +57,11 @@
 - [x] Substituir logo na página Contattaci
 - [x] Usar o cérebro como assinatura de marca em todo o site
 - [x] Salvar checkpoint
+- [x] Criar componente NewsletterPopup com timer de 60 segundos
+- [x] Campos: nome, email, telefone, setor com copy de convite semanal por setor
+- [x] Estilo editorial consistente com o jornal (Playfair Display, cores navy/off-white)
+- [x] Integrar com endpoint tRPC de leads existente (source: popup)
+- [x] Não mostrar novamente se já fechou ou já se inscreveu (localStorage)
+- [x] Animação suave de entrada/saída
+- [x] Adicionar o pop-up na Home page
+- [x] Salvar checkpoint
