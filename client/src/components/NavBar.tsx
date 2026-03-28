@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 
-const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/sintesys-logo_8369f699.png";
+const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
 const NAV_ITEMS = [
   { label: "Prima Pagina", href: "/" },
@@ -28,9 +28,9 @@ export default function NavBar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <img
-            src={LOGO_URL}
+            src={BRAIN_ICON}
             alt="Sintesys.io"
-            className="h-7 w-auto"
+            className="h-8 w-8 rounded-full"
             loading="eager"
           />
         </Link>

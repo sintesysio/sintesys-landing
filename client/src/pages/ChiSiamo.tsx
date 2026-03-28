@@ -7,7 +7,7 @@
 import { motion } from "framer-motion";
 import NavBar from "@/components/NavBar";
 
-const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/sintesys-logo_8369f699.png";
+const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -356,7 +356,7 @@ export default function ChiSiamo() {
         <div className="rule-thick mb-4" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <img src={LOGO_URL} alt="Sintesys.io" className="h-5 w-auto opacity-60" />
+            <img src={BRAIN_ICON} alt="Sintesys.io" className="h-6 w-6 rounded-full opacity-60" />
             <span
               style={{
                 fontFamily: "'Inter', sans-serif",

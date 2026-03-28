@@ -50,3 +50,10 @@
 - [x] Configurar rotas no App.tsx para as novas páginas
 - [x] Escrever testes vitest para os novos endpoints
 - [x] Salvar checkpoint com menu e novas páginas
+- [x] Upload do ícone do cérebro (sem texto) para CDN
+- [x] Substituir logo completo pelo ícone do cérebro na NavBar
+- [x] Substituir logo no footer da Home
+- [x] Substituir logo na página Chi Siamo
+- [x] Substituir logo na página Contattaci
+- [x] Usar o cérebro como assinatura de marca em todo o site
+- [x] Salvar checkpoint

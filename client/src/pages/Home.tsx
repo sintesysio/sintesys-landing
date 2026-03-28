@@ -13,7 +13,7 @@ import { motion, useInView } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
 
-const LOGO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/sintesys-logo_8369f699.png";
+const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const DATA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/data-section-9fYjcLRyFVkjjbgNw5fX7E.webp";
 
@@ -953,11 +953,11 @@ export default function Home() {
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <img
-            src={LOGO_URL}
+            src={BRAIN_ICON}
             alt="Sintesys.io — Consulenza Intelligenza Artificiale per PMI italiane"
-            className="h-8 object-contain"
+            className="h-8 w-8 rounded-full"
             loading="lazy"
-            width="200"
+            width="32"
             height="32"
             style={{ filter: "brightness(0)" }}
           />
