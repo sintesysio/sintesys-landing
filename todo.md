@@ -112,3 +112,7 @@
 - [x] Validar que Contattaci dispara Mailchimp sync (tag "Qualificado" + merge fields)
 - [x] Validar que Contattaci dispara Notion sync (status "Qualificado")
 - [x] Incluir foto real do Lamberto Grinover na página Chi Siamo (substituir placeholder "LG")
+- [x] Configurar commerciale@sintesys.info como remetente verificado no Mailchimp
+- [x] Autenticar domínio sintesys.info no Mailchimp (DKIM/SPF)
+- [x] Confirmar verificação via email no Gmail
+- [x] Atualizar configurações de campanha para usar novo remetente
