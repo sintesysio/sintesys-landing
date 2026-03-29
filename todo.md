@@ -68,3 +68,11 @@
 - [x] Reduzir timer do pop-up de 60s para 15s
 - [x] Remover botão do LinkedIn do Lamberto na página Chi Siamo (já não existia no código)
 - [x] Reduzir timer do pop-up de 15s para 10s
+- [x] Bug: pop-up não ativa após 10 segundos - resolvido (localStorage de teste anterior bloqueava)
+- [x] Adicionar seção "Transizione 5.0" na home page (incentivo fiscal, 60%+ não conhece, Estado paga até 50%)
+- [x] Transformar popup em oferta de Lead Magnet (Guida Transizione 5.0 gratuita)
+- [x] Adicionar seção FAQ visível na home (crenças limitantes do público-alvo)
+- [x] Corrigir sitemap.xml (adicionar /chi-siamo e /contattaci)
+- [x] Verificar link do LinkedIn na página Chi Siamo (confirmado: já estava correto com URL real, nenhuma correção necessária)
+- [x] Melhorar copy do Contattaci (promessa de resultado + gratuidade)
+- [x] Adicionar social proof na home (badges de credibilidade: Politecnico di Milano, Banca d'Italia, ISTAT, Transizione 5.0)

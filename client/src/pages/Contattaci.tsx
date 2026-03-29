@@ -420,7 +420,19 @@ export default function Contattaci() {
               lineHeight: 1.6,
             }}
           >
-            Rispondi a poche domande strategiche e ricevi un'analisi preliminare personalizzata — senza impegno.
+            Rispondi a poche domande strategiche e ricevi un'analisi preliminare personalizzata — <strong style={{ color: '#1A1A1A' }}>gratuita e senza impegno</strong>.
+          </p>
+          <p
+            className="mt-2 max-w-xl mx-auto"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.75rem",
+              color: "#1B2A4A",
+              fontWeight: 500,
+              letterSpacing: "0.05em",
+            }}
+          >
+            Riceverai il tuo report personalizzato entro 48 ore lavorative.
           </p>
         </div>
       </header>

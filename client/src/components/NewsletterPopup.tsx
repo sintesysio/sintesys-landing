@@ -144,20 +144,20 @@ export default function NewsletterPopup() {
                     fontWeight: 600,
                   }}
                 >
-                  Edizione Speciale
+                  Guida Gratuita
                 </p>
 
                 <h2
                   style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.5rem",
+                    fontSize: "1.4rem",
                     fontWeight: 700,
                     color: "#1A1A1A",
                     lineHeight: 1.2,
                     marginBottom: "0.5rem",
                   }}
                 >
-                  Ricevi ogni settimana le strategie IA per il tuo settore.
+                  Transizione 5.0: come far pagare allo Stato fino al 50% della tua innovazione.
                 </h2>
 
                 <p
@@ -168,7 +168,7 @@ export default function NewsletterPopup() {
                     lineHeight: 1.5,
                   }}
                 >
-                  Analisi esclusive, dati di mercato e casi studio selezionati per la tua industria. Zero spam, solo contenuti strategici.
+                  Oltre il 60% degli imprenditori italiani non conosce questi incentivi. Iscriviti e ricevi aggiornamenti settimanali su incentivi fiscali, strategie IA e casi studio per il tuo settore.
                 </p>
               </div>
 
@@ -209,7 +209,7 @@ export default function NewsletterPopup() {
                         color: "#666",
                       }}
                     >
-                      Riceverai la prossima edizione direttamente nella tua casella.
+                      Riceverai la guida e gli aggiornamenti settimanali direttamente nella tua casella.
                     </p>
                   </motion.div>
                 ) : (
@@ -380,7 +380,7 @@ export default function NewsletterPopup() {
                         opacity: submitLead.isPending ? 0.7 : 1,
                       }}
                     >
-                      {submitLead.isPending ? "Invio in corso..." : "Ricevi Aggiornamenti Settimanali"}
+                      {submitLead.isPending ? "Invio in corso..." : "Scarica la Guida Gratuita"}
                     </button>
 
                     {/* Privacy note */}

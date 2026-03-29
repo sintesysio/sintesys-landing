@@ -856,6 +856,228 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
+      {/* TRANSIZIONE 5.0 — Incentivi Fiscali */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section className="container mt-16 lg:mt-24" id="transizione" aria-label="Incentivi Transizione 5.0">
+        <div className="rule-thick mb-8" />
+        <FadeIn>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-7">
+              <p
+                className="uppercase tracking-[0.15em] mb-2"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.65rem",
+                  color: "#1B2A4A",
+                  fontWeight: 600,
+                }}
+              >
+                Incentivi Fiscali
+              </p>
+              <h2
+                className="mb-6"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
+                  fontWeight: 700,
+                  color: "#1A1A1A",
+                  lineHeight: 1.15,
+                }}
+              >
+                Transizione 5.0: lo Stato paga fino al 50% della tua innovazione.
+              </h2>
+              <div
+                className="space-y-4"
+                style={{
+                  fontFamily: "'Source Serif 4', serif",
+                  fontSize: "1.05rem",
+                  color: "#333",
+                  lineHeight: 1.75,
+                }}
+              >
+                <p>
+                  Il programma italiano <strong>Transizione 5.0</strong> offre crediti d'imposta e sussidi per la digitalizzazione delle PMI. Eppure, oltre il <strong>60% degli imprenditori italiani</strong> non conosce ancora questi incentivi — perdendo l'opportunità di finanziare fino alla metà del proprio progetto di innovazione.
+                </p>
+                <p>
+                  La nostra newsletter ti tiene aggiornato su come accedere a questi fondi, quali requisiti servono e come strutturare il tuo investimento per massimizzare il ritorno. <strong>Non è teoria: è denaro reale che lo Stato mette a disposizione della tua azienda.</strong>
+                </p>
+              </div>
+            </div>
+            <div className="lg:col-span-5">
+              <div
+                className="p-6 lg:p-8"
+                style={{
+                  backgroundColor: "#1B2A4A",
+                }}
+              >
+                <p
+                  className="uppercase tracking-[0.15em] mb-4"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.65rem",
+                    color: "rgba(250,250,247,0.5)",
+                    fontWeight: 500,
+                  }}
+                >
+                  Il Dato Chiave
+                </p>
+                <div
+                  className="mb-4"
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "clamp(3.5rem, 7vw, 5rem)",
+                    fontWeight: 900,
+                    color: "#FAFAF7",
+                    lineHeight: 1,
+                  }}
+                >
+                  <AnimatedCounter target={60} suffix="%+" />
+                </div>
+                <p
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "1rem",
+                    color: "rgba(250,250,247,0.8)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  degli imprenditori italiani non conosce gli incentivi di Transizione 5.0 per la digitalizzazione della propria azienda.
+                </p>
+                <p
+                  className="mt-3 italic"
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.75rem",
+                    color: "rgba(250,250,247,0.4)",
+                  }}
+                >
+                  Fonte: MIMIT — Ministero delle Imprese e del Made in Italy
+                </p>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* FAQ — Domande Frequenti */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section className="container mt-16 lg:mt-24" id="faq" aria-label="Domande frequenti">
+        <div className="rule-thick mb-8" />
+        <FadeIn>
+          <p
+            className="uppercase tracking-[0.15em] mb-2"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.65rem",
+              color: "#1B2A4A",
+              fontWeight: 600,
+            }}
+          >
+            Domande Frequenti
+          </p>
+          <h2
+            className="mb-10"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
+              fontWeight: 700,
+              color: "#1A1A1A",
+              lineHeight: 1.15,
+            }}
+          >
+            Le risposte che cercavi.
+          </h2>
+        </FadeIn>
+
+        <div className="max-w-3xl space-y-0">
+          {[
+            {
+              q: "L'IA è troppo costosa per una PMI?",
+              a: "No. Con il programma Transizione 5.0, lo Stato italiano può coprire fino al 50% dell'investimento in innovazione digitale. Inoltre, l'IA non è un costo: è un investimento che si ripaga attraverso l'efficienza operativa e la riduzione dei compiti manuali ripetitivi.",
+            },
+            {
+              q: "L'Intelligenza Artificiale sostituirà i miei dipendenti?",
+              a: "L'IA non sostituisce le persone — le potenzia. Automatizza i compiti ripetitivi (inserimento dati, reportistica, risposte FAQ) liberando il tuo team per attività a maggior valore aggiunto. Le aziende che adottano l'IA registrano un aumento medio del 40% nell'efficienza del personale.",
+            },
+            {
+              q: "Non ho tempo per un progetto tecnologico complesso.",
+              a: "Proprio per questo esiste un metodo strutturato in 90 giorni. Non si tratta di una rivoluzione caotica, ma di un percorso graduale: il primo mese si dedica all'organizzazione, il secondo all'automazione, il terzo al controllo. Risultati misurabili, senza stravolgere la tua operatività quotidiana.",
+            },
+            {
+              q: "Come posso fidarmi se non conosco bene la tecnologia?",
+              a: "La nostra newsletter è pensata esattamente per questo: tradurre la complessità tecnologica in linguaggio imprenditoriale. Parliamo di marginalità, controllo, flusso di cassa — non di algoritmi e codice. Iscriviti e giudica tu stesso dalla qualità dei contenuti.",
+            },
+          ].map((item, i) => (
+            <FadeIn key={i} delay={i * 0.08}>
+              <div
+                className="py-6"
+                style={{
+                  borderTop: "1px solid oklch(0.80 0.005 60)",
+                }}
+              >
+                <h3
+                  className="mb-3"
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "1.15rem",
+                    fontWeight: 700,
+                    color: "#1A1A1A",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {item.q}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.95rem",
+                    color: "#555",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {item.a}
+                </p>
+              </div>
+            </FadeIn>
+          ))}
+          <div style={{ borderTop: "1px solid oklch(0.80 0.005 60)" }} />
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* SOCIAL PROOF — Credibility badges */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section className="container mt-16 lg:mt-20" id="fonti" aria-label="Fonti e credibilità">
+        <FadeIn>
+          <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-10 py-6">
+            {[
+              "Dati: Politecnico di Milano",
+              "Dati: Banca d'Italia",
+              "Dati: ISTAT 2025",
+              "Incentivi: Transizione 5.0",
+            ].map((badge) => (
+              <span
+                key={badge}
+                className="px-4 py-2"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.65rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "#999",
+                  border: "1px solid oklch(0.85 0.005 60)",
+                }}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
       {/* QUOTE — Pull quote section — DYNAMIC */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container mt-16 lg:mt-24" id="citazione" aria-label="Citazione editoriale">
