@@ -213,6 +213,9 @@ export const appRouter = router({
           source: input.source,
         });
 
+        // Track sync failures for structured logging
+        const syncErrors: { service: string; error: string; timestamp: string }[] = [];
+
         // Sync to Mailchimp with tag "lead" + sector tag
         try {
           await syncSimpleLead({
@@ -221,8 +224,11 @@ export const appRouter = router({
             phone: input.phone,
             sector: input.sector,
           });
+          console.log(`[Mailchimp] ✓ Synced simple lead: ${input.email} (tag: lead, sector: ${input.sector})`);
         } catch (err) {
-          console.warn("[Mailchimp] Failed to sync simple lead:", err);
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          syncErrors.push({ service: "Mailchimp", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[Mailchimp] ✗ Failed to sync simple lead ${input.email}:`, errorMsg);
         }
 
         // Sync to Notion CRM with Status = "Lead"
@@ -233,21 +239,31 @@ export const appRouter = router({
             phone: input.phone,
             sector: input.sector,
           });
+          console.log(`[Notion] ✓ Synced simple lead: ${input.email} (status: Lead)`);
         } catch (err) {
-          console.warn("[Notion] Failed to sync simple lead:", err);
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          syncErrors.push({ service: "Notion", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[Notion] ✗ Failed to sync simple lead ${input.email}:`, errorMsg);
         }
 
-        // Notify the owner about the new lead
+        // Notify the owner about the new lead (include sync errors if any)
         try {
+          const syncStatus = syncErrors.length > 0
+            ? `\n\n⚠️ SYNC ERRORS:\n${syncErrors.map(e => `- ${e.service}: ${e.error}`).join("\n")}`
+            : "";
+
           await notifyOwner({
             title: `Nuovo Lead: ${lead.name}`,
-            content: `Nome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${lead.sector}\nFonte: ${lead.source}\nData: ${lead.createdAt.toISOString()}`,
+            content: `Nome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${lead.sector}\nFonte: ${lead.source}\nData: ${lead.createdAt.toISOString()}${syncStatus}`,
           });
         } catch (err) {
-          console.warn(
-            "[Notification] Failed to notify owner about new lead:",
-            err
-          );
+          console.error("[Notification] ✗ Failed to notify owner about new lead:", err instanceof Error ? err.message : err);
+        }
+
+        // Log structured summary
+        console.log(`[SimpleLead] Summary: email=${input.email}, sector=${input.sector}, source=${input.source}, syncErrors=${syncErrors.length}`);
+        if (syncErrors.length > 0) {
+          console.error(`[SimpleLead] Sync failures for ${input.email}:`, JSON.stringify(syncErrors));
         }
 
         return {
@@ -331,6 +347,9 @@ export const appRouter = router({
           isDecisionMaker: "si",
         });
 
+        // Track sync failures for structured logging
+        const syncErrors: { service: string; error: string; timestamp: string }[] = [];
+
         // Sync to Mailchimp with tag "Qualificato" + sector tag
         try {
           await syncQualifiedLead({
@@ -347,8 +366,11 @@ export const appRouter = router({
             priority: "Audit richiesto via Landing Page",
             isDecisionMaker: "si",
           });
+          console.log(`[Mailchimp] ✓ Synced LP lead: ${input.email} (tag: Qualificato, sector: ${input.sector})`);
         } catch (err) {
-          console.warn("[Mailchimp] Failed to sync landing page lead:", err);
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          syncErrors.push({ service: "Mailchimp", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[Mailchimp] ✗ Failed to sync LP lead ${input.email}:`, errorMsg);
         }
 
         // Sync to Notion CRM with Status = "Qualificado"
@@ -366,18 +388,31 @@ export const appRouter = router({
             priority: "Audit richiesto via Landing Page",
             isDecisionMaker: "si",
           });
+          console.log(`[Notion] ✓ Synced LP lead: ${input.email} (status: Qualificado)`);
         } catch (err) {
-          console.warn("[Notion] Failed to sync landing page lead:", err);
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          syncErrors.push({ service: "Notion", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[Notion] ✗ Failed to sync LP lead ${input.email}:`, errorMsg);
         }
 
-        // Notify owner about new landing page lead
+        // Notify owner about new landing page lead (include sync errors if any)
         try {
+          const syncStatus = syncErrors.length > 0
+            ? `\n\n⚠️ SYNC ERRORS:\n${syncErrors.map(e => `- ${e.service}: ${e.error}`).join("\n")}`
+            : "\n\n✓ Tutti i sync completati (Mailchimp + Notion)";
+
           await notifyOwner({
             title: `Nuovo Lead LP: ${lead.name}`,
-            content: `LEAD DA LANDING PAGE\n\nNome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${lead.sector}\nFatturato: ${lead.revenue}\nDipendenti: ${lead.employees}\n\nFonte: Landing Page (Formulário Simplificado)`,
+            content: `LEAD DA LANDING PAGE\n\nNome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${lead.sector}\nFatturato: ${lead.revenue}\nDipendenti: ${lead.employees}\n\nFonte: Landing Page (Formulário Simplificado)${syncStatus}`,
           });
         } catch (err) {
-          console.warn("[Notification] Failed to notify owner about LP lead:", err);
+          console.error("[Notification] ✗ Failed to notify owner about LP lead:", err instanceof Error ? err.message : err);
+        }
+
+        // Log structured summary
+        console.log(`[LandingLead] Summary: email=${input.email}, sector=${input.sector}, revenue=${input.revenue}, employees=${input.employees}, syncErrors=${syncErrors.length}`);
+        if (syncErrors.length > 0) {
+          console.error(`[LandingLead] Sync failures for ${input.email}:`, JSON.stringify(syncErrors));
         }
 
         return { success: true, message: "Audit inviato", duplicate: false } as const;

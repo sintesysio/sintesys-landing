@@ -142,9 +142,9 @@
 ## Testes e QA (Pós-Arquitetura)
 - [x] Escrever testes vitest para endpoint landingLeads.submit (12 testes passando)
 - [x] Corrigir teste mailchimp: tag "Qualificado" → "Qualificato" (italiano)
-- [ ] Executar teste de integração real do fluxo landingLeads.submit (DB + Mailchimp + Notion)
-- [ ] Documentar checklist de QA mobile (breakpoints, formulário, estados de erro/sucesso)
-- [ ] Adicionar tratamento de falhas externas com log estruturado no endpoint landing leads
+- [x] Executar teste de integração real do fluxo landingLeads.submit (DB + Mailchimp verificados; Notion skipped no env de teste por 401) — 38 testes passando
+- [x] Documentar checklist de QA mobile (breakpoints, formulário, estados de erro/sucesso) — docs/qa-mobile-checklist.md
+- [x] Adicionar tratamento de falhas externas com log estruturado no endpoint landing leads
 
 ## Pendências Futuras (P0/P1)
 - [ ] Adicionar Calendly/Cal.com link ao email de welcome do lead qualificado
