@@ -120,3 +120,10 @@
 - [x] Criar automação no Mailchimp para Welcome Email de lead qualificado (tag "Qualificato")
 - [x] Ativar automações no Mailchimp para disparo automático
 - [x] Corrigir tag backend de "Qualificado" para "Qualificato" (corresponder à automação Mailchimp)
+- [x] Popup: manter timer de 2s para abertura inicial (já está correto)
+- [x] Popup: reabrir automaticamente 2s após ser fechado (sem desistir permanentemente)
+- [x] Email Lead Simples: atualizar template para foco em guia completa da nova lei de incentivo (entregar valor)
+- [x] Email Lead Qualificado: atualizar template para foco em agendar reunião de 30 min com Lamberto
+- [x] Revisar copys de todas as páginas em formato de funil (topo/meio/fundo)
+- [x] Atualizar tela de sucesso do Contattaci para focar em reunião 30min com Lamberto Grinover
+- [x] Adicionar CTA duplo na Home (Guida Gratuita + Audit Gratuito) para capturar leads em diferentes estágios do funil

@@ -1140,7 +1140,7 @@ export default function Home() {
                 {content.ctaText}
               </p>
             </div>
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 flex flex-col gap-3">
               <a
                 href="#"
                 onClick={(e) => {
@@ -1161,7 +1161,26 @@ export default function Home() {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
               >
-                Iscriviti Ora — È Gratuito
+                Scarica la Guida Gratuita
+              </a>
+              <a
+                href="/contattaci"
+                className="inline-block w-full text-center py-4 transition-all duration-300"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  backgroundColor: "transparent",
+                  color: "#1B2A4A",
+                  textDecoration: "none",
+                  border: "2px solid #1B2A4A",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#1B2A4A"; e.currentTarget.style.color = "#FAFAF7"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2A4A"; }}
+              >
+                Prenota il tuo Audit Gratuito &rarr;
               </a>
             </div>
           </div>

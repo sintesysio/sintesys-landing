@@ -370,7 +370,7 @@ export default function Contattaci() {
               className="uppercase tracking-[0.2em] mb-3"
               style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}
             >
-              Audit Operativo Rapido
+              Prossimo Passo
             </p>
             <h2
               style={{
@@ -382,7 +382,7 @@ export default function Contattaci() {
                 marginBottom: "1.5rem",
               }}
             >
-              Grazie, {form.name.split(" ")[0]}.
+              Grazie, {form.name.split(" ")[0]}. Il tuo audit è confermato.
             </h2>
             <p
               style={{
@@ -390,33 +390,77 @@ export default function Contattaci() {
                 fontSize: "1.05rem",
                 color: "#333",
                 lineHeight: 1.75,
-                marginBottom: "2rem",
+                marginBottom: "1.5rem",
               }}
             >
-              Abbiamo ricevuto la tua richiesta di audit operativo. Il nostro team analizzerà
-              il profilo della tua azienda e ti contatterà entro <strong>48 ore lavorative</strong> con
-              un report personalizzato sulle opportunità di ottimizzazione tramite IA.
+              <strong>Lamberto Grinover</strong>, fondatore di Sintesys.io, analizzerà personalmente
+              il profilo della tua azienda e ti contatterà per una <strong>sessione strategica
+              di 30 minuti</strong> dedicata alla tua realtà.
             </p>
             <div
-              className="p-6 mb-8"
+              className="p-6 mb-6"
               style={{
                 backgroundColor: "oklch(0.25 0.05 260 / 0.04)",
                 border: "1px solid oklch(0.25 0.05 260 / 0.12)",
               }}
             >
               <p
+                className="uppercase tracking-[0.1em] mb-3"
                 style={{
-                  fontFamily: "'Source Serif 4', serif",
-                  fontSize: "0.95rem",
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.65rem",
                   color: "#1B2A4A",
-                  fontStyle: "italic",
-                  lineHeight: 1.7,
+                  fontWeight: 600,
                 }}
               >
-                &ldquo;Ogni azienda che analizziamo scopre almeno 3 processi che possono essere
-                automatizzati immediatamente, con un risparmio medio del 30% sul tempo operativo.&rdquo;
+                Cosa succede ora
               </p>
+              <div className="space-y-3">
+                {[
+                  { step: "1", text: "Lamberto analizza il tuo profilo aziendale nelle prossime 24 ore" },
+                  { step: "2", text: "Riceverai un'email per confermare la tua disponibilità per i 30 minuti" },
+                  { step: "3", text: "Nella sessione, riceverai un report personalizzato con 3+ opportunità concrete" },
+                ].map((item) => (
+                  <div key={item.step} className="flex items-start gap-3">
+                    <span
+                      className="flex-shrink-0 w-6 h-6 flex items-center justify-center"
+                      style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: "0.85rem",
+                        fontWeight: 700,
+                        color: "#FAFAF7",
+                        backgroundColor: "#1B2A4A",
+                      }}
+                    >
+                      {item.step}
+                    </span>
+                    <p
+                      style={{
+                        fontFamily: "'Source Serif 4', serif",
+                        fontSize: "0.95rem",
+                        color: "#333",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.9rem",
+                color: "#666",
+                fontStyle: "italic",
+                lineHeight: 1.6,
+              }}
+            >
+              Controlla la tua casella di posta (anche lo spam) — riceverai un'email di conferma
+              da <strong>commerciale@sintesys.info</strong> nei prossimi minuti.
+            </p>
             <a
               href="/"
               className="inline-block px-8 py-3 text-xs tracking-[0.15em] uppercase transition-all"

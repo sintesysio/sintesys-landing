@@ -1,16 +1,18 @@
 /**
  * NewsletterPopup — Pop-up form that appears after 2 seconds on page.
- * Invites visitors to receive weekly sector-specific AI updates.
+ * Invites visitors to download the free Transizione 5.0 guide.
  * Uses the same leads endpoint with source: "popup".
- * Respects localStorage to not show again after dismiss or submit.
+ * RULES: Opens 2s after page load. If closed, reopens 2s later.
+ * Only stops showing permanently after successful form submission.
  */
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 
-const STORAGE_KEY = "sintesys_popup_dismissed";
-const DELAY_MS = 2_000; // 2 seconds
+const STORAGE_KEY = "sintesys_popup_submitted";
+const DELAY_MS = 2_000; // 2 seconds initial delay
+const REOPEN_DELAY_MS = 2_000; // 2 seconds after close to reopen
 
 const SECTORS = [
   "Manifattura",
@@ -49,8 +51,9 @@ export default function NewsletterPopup() {
   });
 
   useEffect(() => {
-    const dismissed = localStorage.getItem(STORAGE_KEY);
-    if (dismissed) return;
+    // Only stop showing if user already submitted the form
+    const alreadySubmitted = localStorage.getItem(STORAGE_KEY);
+    if (alreadySubmitted) return;
 
     const timer = setTimeout(() => {
       setVisible(true);
@@ -61,7 +64,13 @@ export default function NewsletterPopup() {
 
   const handleClose = useCallback(() => {
     setVisible(false);
-    localStorage.setItem(STORAGE_KEY, "dismissed");
+    // Don't set localStorage on close — reopen after REOPEN_DELAY_MS
+    const alreadySubmitted = localStorage.getItem(STORAGE_KEY);
+    if (!alreadySubmitted) {
+      setTimeout(() => {
+        setVisible(true);
+      }, REOPEN_DELAY_MS);
+    }
   }, []);
 
   const handleSubmit = useCallback(
