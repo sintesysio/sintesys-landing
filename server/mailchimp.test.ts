@@ -124,7 +124,7 @@ describe("Mailchimp sync functions", () => {
     const data = await response.json();
     expect(data.email_address).toBe(TEST_EMAIL_QUALIFIED);
     expect(data.status).toBe("subscribed");
-    expect(data.merge_fields.LEADTYPE).toBe("Qualificado");
+    expect(data.merge_fields.LEADTYPE).toBe("Qualificato");
     expect(data.merge_fields.COMPANY).toBe("Test Azienda Srl");
     console.log(`Qualified lead verified: ${data.email_address}`);
 

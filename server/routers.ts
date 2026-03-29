@@ -281,6 +281,109 @@ export const appRouter = router({
     }),
   }),
 
+  landingLeads: router({
+    /**
+     * Public endpoint: submit a lead from the Landing Page simplified form (6 fields).
+     * Saves as qualified lead with default values for missing fields.
+     * Syncs to Mailchimp with tag "Qualificato" to trigger meeting automation.
+     * Syncs to Notion CRM with Status = "Qualificado".
+     */
+    submit: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(2, "Nome richiesto"),
+          email: z.string().email("Email non valida"),
+          phone: z.string().optional(),
+          sector: z.string().min(1, "Settore richiesto"),
+          revenue: z.string().min(1, "Fatturato richiesto"),
+          employees: z.string().min(1, "Dipendenti richiesto"),
+        })
+      )
+      .mutation(async ({ input }) => {
+        // Check for duplicate email in qualified leads
+        const existing = await getQualifiedLeadByEmail(input.email);
+        if (existing) {
+          return { success: true, message: "Già registrato", duplicate: true } as const;
+        }
+
+        // Also check simple leads to avoid confusion
+        const existingSimple = await getLeadByEmail(input.email);
+
+        // Create qualified lead with default values for fields not collected on LP
+        const lead = await createQualifiedLead({
+          name: input.name,
+          email: input.email,
+          phone: input.phone ?? null,
+          companyName: null,
+          revenue: input.revenue,
+          employees: input.employees,
+          sector: input.sector,
+          mainObstacle: "Da valutare in audit",
+          dataLocation: "Da valutare in audit",
+          cashFlowChallenge: null,
+          delegationChallenge: null,
+          currentTools: null,
+          usesAI: "non_so",
+          aiDetails: null,
+          shadowAIConcern: null,
+          priority: "Audit richiesto via Landing Page",
+          successionConcern: null,
+          isDecisionMaker: "si",
+        });
+
+        // Sync to Mailchimp with tag "Qualificato" + sector tag
+        try {
+          await syncQualifiedLead({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            companyName: undefined,
+            revenue: input.revenue,
+            employees: input.employees,
+            sector: input.sector,
+            mainObstacle: "Da valutare in audit",
+            dataLocation: "Da valutare in audit",
+            usesAI: "non_so",
+            priority: "Audit richiesto via Landing Page",
+            isDecisionMaker: "si",
+          });
+        } catch (err) {
+          console.warn("[Mailchimp] Failed to sync landing page lead:", err);
+        }
+
+        // Sync to Notion CRM with Status = "Qualificado"
+        try {
+          await syncQualifiedLeadToNotion({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            revenue: input.revenue,
+            employees: input.employees,
+            sector: input.sector,
+            mainObstacle: "Da valutare in audit",
+            dataLocation: "Da valutare in audit",
+            usesAI: "non_so",
+            priority: "Audit richiesto via Landing Page",
+            isDecisionMaker: "si",
+          });
+        } catch (err) {
+          console.warn("[Notion] Failed to sync landing page lead:", err);
+        }
+
+        // Notify owner about new landing page lead
+        try {
+          await notifyOwner({
+            title: `Nuovo Lead LP: ${lead.name}`,
+            content: `LEAD DA LANDING PAGE\n\nNome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${lead.sector}\nFatturato: ${lead.revenue}\nDipendenti: ${lead.employees}\n\nFonte: Landing Page (Formulário Simplificado)`,
+          });
+        } catch (err) {
+          console.warn("[Notification] Failed to notify owner about LP lead:", err);
+        }
+
+        return { success: true, message: "Audit inviato", duplicate: false } as const;
+      }),
+  }),
+
   qualifiedLeads: router({
     /**
      * Public endpoint: submit a qualified lead from the Contattaci multi-step form.

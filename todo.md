@@ -127,3 +127,26 @@
 - [x] Revisar copys de todas as páginas em formato de funil (topo/meio/fundo)
 - [x] Atualizar tela de sucesso do Contattaci para focar em reunião 30min com Lamberto Grinover
 - [x] Adicionar CTA duplo na Home (Guida Gratuita + Audit Gratuito) para capturar leads em diferentes estágios do funil
+
+## Arquitetura 2 Caminhos
+- [x] Criar Landing Page de produto como nova home (/)
+- [x] Formulário simplificado 6 campos (nome, email, telefone, setor, faturamento, funcionários)
+- [x] Design mobile-first, persuasivo, formato funil (atenção → interesse → desejo → ação)
+- [x] Mover Il Giornale dell'IA para rota /giornale
+- [x] Criar Thank You Page dedicada (/grazie)
+- [x] Atualizar NavBar para nova estrutura de rotas
+- [x] Desativar popup na Landing Page (/) — manter ativo no Jornal e outras páginas
+- [x] Criar endpoint backend para formulário simplificado (tag Qualificato no Mailchimp)
+- [x] Atualizar App.tsx com novas rotas
+
+## Testes e QA (Pós-Arquitetura)
+- [x] Escrever testes vitest para endpoint landingLeads.submit (12 testes passando)
+- [x] Corrigir teste mailchimp: tag "Qualificado" → "Qualificato" (italiano)
+- [ ] Executar teste de integração real do fluxo landingLeads.submit (DB + Mailchimp + Notion)
+- [ ] Documentar checklist de QA mobile (breakpoints, formulário, estados de erro/sucesso)
+- [ ] Adicionar tratamento de falhas externas com log estruturado no endpoint landing leads
+
+## Pendências Futuras (P0/P1)
+- [ ] Adicionar Calendly/Cal.com link ao email de welcome do lead qualificado
+- [ ] Implementar Google Analytics 4 e Meta Pixel tracking
+- [ ] Criar drip email campaigns (28 dias para leads, 14 dias para qualificados)

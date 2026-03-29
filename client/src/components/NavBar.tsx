@@ -5,6 +5,7 @@ const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAq
 export default function NavBar() {
   const [location] = useLocation();
 
+  const isGiornaleActive = location === "/giornale";
   const isChiSiamoActive = location === "/chi-siamo";
   const isContattaciActive = location === "/contattaci";
 
@@ -20,7 +21,7 @@ export default function NavBar() {
 
       {/* Nav bar — always visible, no hamburger */}
       <div className="flex items-center justify-between py-3">
-        {/* Logo */}
+        {/* Logo — links to Landing Page */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <img
             src={BRAIN_ICON}
@@ -32,10 +33,24 @@ export default function NavBar() {
 
         {/* Always-visible nav links */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Il Giornale — link to editorial portal */}
+          <Link
+            href="/giornale"
+            className="no-underline px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: isGiornaleActive ? 600 : 500,
+              color: isGiornaleActive ? "#1B2A4A" : "#444",
+              borderBottom: isGiornaleActive ? "2px solid #1B2A4A" : "2px solid transparent",
+            }}
+          >
+            Il Giornale
+          </Link>
+
           {/* Chi Siamo — visible link style */}
           <Link
             href="/chi-siamo"
-            className="no-underline px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
+            className="no-underline hidden sm:inline-block px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
             style={{
               fontFamily: "'Inter', sans-serif",
               fontWeight: isChiSiamoActive ? 600 : 500,
