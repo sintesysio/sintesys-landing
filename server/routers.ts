@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads } from "./db";
+import { syncSimpleLead, syncQualifiedLead } from "./mailchimp";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
 import { z } from "zod";
@@ -211,6 +212,18 @@ export const appRouter = router({
           source: input.source,
         });
 
+        // Sync to Mailchimp with tag "lead" + sector tag
+        try {
+          await syncSimpleLead({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            sector: input.sector,
+          });
+        } catch (err) {
+          console.warn("[Mailchimp] Failed to sync simple lead:", err);
+        }
+
         // Notify the owner about the new lead
         try {
           await notifyOwner({
@@ -309,6 +322,32 @@ export const appRouter = router({
           successionConcern: input.successionConcern ?? null,
           isDecisionMaker: input.isDecisionMaker,
         });
+
+        // Sync to Mailchimp with tag "Qualificado" + sector tag + all merge fields
+        try {
+          await syncQualifiedLead({
+            name: input.name,
+            email: input.email,
+            phone: input.phone,
+            companyName: input.companyName,
+            revenue: input.revenue,
+            employees: input.employees,
+            sector: input.sector,
+            mainObstacle: input.mainObstacle,
+            dataLocation: input.dataLocation,
+            cashFlowChallenge: input.cashFlowChallenge,
+            delegationChallenge: input.delegationChallenge,
+            currentTools: input.currentTools,
+            usesAI: input.usesAI,
+            aiDetails: input.aiDetails,
+            shadowAIConcern: input.shadowAIConcern,
+            priority: input.priority,
+            successionConcern: input.successionConcern,
+            isDecisionMaker: input.isDecisionMaker,
+          });
+        } catch (err) {
+          console.warn("[Mailchimp] Failed to sync qualified lead:", err);
+        }
 
         // Notify owner about qualified lead
         try {

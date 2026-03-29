@@ -87,3 +87,9 @@
 - [x] Reduzir opções de resposta de todas as perguntas do Step 4 (Urgenza e Visione Futura)
 - [x] Deixar botões Chi Siamo e Contattaci sempre visíveis na navbar (sem menu hambúrguer)
 - [x] Destacar visualmente o botão Contattaci como CTA principal na navbar ("Audit Gratuito" em navy)
+- [x] Integrar Mailchimp API ao backend (server-side)
+- [x] Conectar formulário popup (lead simples) ao Mailchimp com tag "lead" + setor
+- [x] Conectar formulário Contattaci (lead qualificado) ao Mailchimp com tag "Qualificado" + merge fields
+- [x] Adicionar tags automáticas por setor e tipo de lead (simples vs qualificado)
+- [x] Escrever testes da integração Mailchimp (22 testes passando)
+- [x] Documentar fluxos de automação para configurar no painel Mailchimp (boas-vindas, materiais por setor, régua de nutrição)

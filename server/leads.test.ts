@@ -14,6 +14,12 @@ vi.mock("./_core/notification", () => ({
   notifyOwner: vi.fn().mockResolvedValue(true),
 }));
 
+// Mock the mailchimp module
+vi.mock("./mailchimp", () => ({
+  syncSimpleLead: vi.fn().mockResolvedValue({ success: true }),
+  syncQualifiedLead: vi.fn().mockResolvedValue({ success: true }),
+}));
+
 // Mock the storage module
 vi.mock("./storage", () => ({
   storagePut: vi.fn().mockResolvedValue({
