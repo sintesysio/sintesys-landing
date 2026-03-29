@@ -6,7 +6,7 @@
  *
  * Tags used:
  * - "lead" → from popup form (simple lead magnet)
- * - "Qualificado" → from Contattaci form (qualified lead)
+ * - "Qualificato" → from Contattaci form (qualified lead)
  * - Sector tag (e.g., "manifattura", "commercio") → for sector-specific automations
  */
 
@@ -185,7 +185,7 @@ export async function syncQualifiedLead(data: QualifiedLeadData): Promise<{ succ
     SECTOR: data.sector,
     REVENUE: data.revenue,
     EMPLOYEE: data.employees,
-    LEADTYPE: "Qualificado",
+    LEADTYPE: "Qualificato",
     OBSTACLE: data.mainObstacle,
     DATALOC: data.dataLocation,
     CASHFLOW: data.cashFlowChallenge || "",
@@ -199,7 +199,7 @@ export async function syncQualifiedLead(data: QualifiedLeadData): Promise<{ succ
     DECISION: data.isDecisionMaker,
   };
 
-  const tags = ["Qualificado", sectorToTag(data.sector)];
+  const tags = ["Qualificato", sectorToTag(data.sector)];
 
   return upsertSubscriber(data.email, mergeFields, tags);
 }

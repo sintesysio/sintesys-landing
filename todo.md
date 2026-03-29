@@ -93,8 +93,8 @@
 - [x] Adicionar tags automáticas por setor e tipo de lead (simples vs qualificado)
 - [x] Escrever testes da integração Mailchimp (22 testes passando)
 - [x] Documentar fluxos de automação para configurar no painel Mailchimp (boas-vindas, materiais por setor, régua de nutrição)
-- [ ] Criar template Welcome Email para lead simples (popup)
-- [ ] Criar template Welcome Email para lead qualificado (Contattaci)
+- [x] Criar template Welcome Email para lead simples (popup)
+- [x] Criar template Welcome Email para lead qualificado (Contattaci)
 - [ ] Criar templates de materiais por setor (7 setores)
 - [ ] Criar régua de nutrição 28 dias para leads simples (6 emails)
 - [ ] Criar régua de nutrição 14 dias para leads qualificados (4 emails)
@@ -116,3 +116,7 @@
 - [x] Autenticar domínio sintesys.info no Mailchimp (DKIM/SPF)
 - [x] Confirmar verificação via email no Gmail
 - [x] Atualizar configurações de campanha para usar novo remetente
+- [x] Criar automação no Mailchimp para Welcome Email de lead simples (tag "lead")
+- [x] Criar automação no Mailchimp para Welcome Email de lead qualificado (tag "Qualificato")
+- [x] Ativar automações no Mailchimp para disparo automático
+- [x] Corrigir tag backend de "Qualificado" para "Qualificato" (corresponder à automação Mailchimp)
