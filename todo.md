@@ -93,3 +93,16 @@
 - [x] Adicionar tags automáticas por setor e tipo de lead (simples vs qualificado)
 - [x] Escrever testes da integração Mailchimp (22 testes passando)
 - [x] Documentar fluxos de automação para configurar no painel Mailchimp (boas-vindas, materiais por setor, régua de nutrição)
+- [ ] Criar template Welcome Email para lead simples (popup)
+- [ ] Criar template Welcome Email para lead qualificado (Contattaci)
+- [ ] Criar templates de materiais por setor (7 setores)
+- [ ] Criar régua de nutrição 28 dias para leads simples (6 emails)
+- [ ] Criar régua de nutrição 14 dias para leads qualificados (4 emails)
+- [ ] Compilar documento final com todos os templates prontos para Mailchimp
+- [x] Integrar Notion API ao backend para criar registros de leads
+- [x] Criar/configurar database de Pipeline no Notion com propriedades adequadas (CRM de vendas existente)
+- [x] Conectar formulário popup ao Notion (status: Lead)
+- [x] Conectar formulário Contattaci ao Notion (status: Qualificado)
+- [x] Escrever testes da integração Notion (3 testes de API + acesso ao CRM)
+- [x] Adicionar testes de integração com mock do Notion nos endpoints leads.submit e qualifiedLeads.submit
+- [x] Corrigir carregamento da NOTION_API_KEY no ambiente de teste (env inline para vitest)

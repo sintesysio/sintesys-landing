@@ -20,6 +20,12 @@ vi.mock("./mailchimp", () => ({
   syncQualifiedLead: vi.fn().mockResolvedValue({ success: true }),
 }));
 
+// Mock the notion module
+vi.mock("./notion", () => ({
+  syncSimpleLeadToNotion: vi.fn().mockResolvedValue(undefined),
+  syncQualifiedLeadToNotion: vi.fn().mockResolvedValue(undefined),
+}));
+
 // Mock the storage module
 vi.mock("./storage", () => ({
   storagePut: vi.fn().mockResolvedValue({
@@ -29,6 +35,9 @@ vi.mock("./storage", () => ({
 }));
 
 import { createLead, getLeadByEmail, getAllLeads } from "./db";
+import { syncSimpleLeadToNotion } from "./notion";
+
+const mockedSyncToNotion = vi.mocked(syncSimpleLeadToNotion);
 
 const mockedCreateLead = vi.mocked(createLead);
 const mockedGetLeadByEmail = vi.mocked(getLeadByEmail);
@@ -127,6 +136,14 @@ describe("leads.submit", () => {
       phone: "+39 333 1234567",
       sector: "Manifattura",
       source: "landing_page",
+    });
+
+    // Verify Notion sync was called with correct data
+    expect(mockedSyncToNotion).toHaveBeenCalledWith({
+      name: "Marco Rossi",
+      email: "marco@azienda.it",
+      phone: "+39 333 1234567",
+      sector: "Manifattura",
     });
   });
 
