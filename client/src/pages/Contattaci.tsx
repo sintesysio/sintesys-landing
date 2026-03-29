@@ -656,33 +656,29 @@ export default function Contattaci() {
                   <QuestionLabel text="Qual è la tua priorità nei prossimi 90 giorni? *" />
                   <div className="space-y-2 mb-6">
                     {[
-                      "Ridurre i costi operativi e aumentare i margini",
-                      "Avere controllo in tempo reale su numeri e processi",
-                      "Liberare tempo mio e del team da attività ripetitive",
-                      "Prepararmi per la Transizione 5.0 e gli incentivi fiscali",
-                      "Sto solo esplorando le opzioni",
+                      "Ridurre costi e aumentare i margini",
+                      "Automatizzare processi e liberare tempo",
+                      "Sto esplorando le opzioni",
                     ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.priority === opt} onClick={() => update("priority", opt)} />
                     ))}
                   </div>
 
-                  <QuestionLabel text="Pensi alla continuità aziendale e alla successione?" />
+                  <QuestionLabel text="Il know-how aziendale è documentato o dipende da poche persone?" />
                   <div className="space-y-2 mb-6">
                     {[
-                      "Sì, tutto il know-how è nella mia testa — è un rischio",
-                      "Ci sto pensando, ma non ho ancora un piano",
-                      "No, è presto o ho già un piano di successione",
+                      "Dipende da me o da poche persone chiave",
+                      "È già documentato o in fase di strutturazione",
                     ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.successionConcern === opt} onClick={() => update("successionConcern", opt)} />
                     ))}
                   </div>
 
-                  <QuestionLabel text="Sei il responsabile finale delle decisioni di investimento? *" />
+                  <QuestionLabel text="Sei tu a decidere sugli investimenti? *" />
                   <div className="space-y-2">
                     {[
                       "Sì, decido io",
-                      "Decido insieme a soci o familiari",
-                      "No, devo presentare la proposta ad altri",
+                      "Decido con altri (soci, familiari)",
                     ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.isDecisionMaker === opt} onClick={() => update("isDecisionMaker", opt)} />
                     ))}

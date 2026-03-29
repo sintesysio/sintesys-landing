@@ -84,3 +84,4 @@
 - [x] Atualizar backend (router, schema, DB) para novos campos
 - [x] Atualizar testes para refletir novos campos (18 testes passando)
 - [x] Manter popup simples inalterado (lead magnet)
+- [x] Reduzir opções de resposta de todas as perguntas do Step 4 (Urgenza e Visione Futura)
