@@ -85,3 +85,5 @@
 - [x] Atualizar testes para refletir novos campos (18 testes passando)
 - [x] Manter popup simples inalterado (lead magnet)
 - [x] Reduzir opções de resposta de todas as perguntas do Step 4 (Urgenza e Visione Futura)
+- [x] Deixar botões Chi Siamo e Contattaci sempre visíveis na navbar (sem menu hambúrguer)
+- [x] Destacar visualmente o botão Contattaci como CTA principal na navbar ("Audit Gratuito" em navy)
