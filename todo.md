@@ -78,3 +78,9 @@
 - [x] Adicionar social proof na home (badges de credibilidade: Politecnico di Milano, Banca d'Italia, ISTAT, Transizione 5.0)
 - [x] Reduzir timer do pop-up de 10s para 5s
 - [x] Reduzir timer do pop-up de 5s para 2s (foco em conversões)
+- [x] Remover campo "Ore settimanali" do formulário Contattaci
+- [x] Redesenhar Step 2 (Diagnosi) com perguntas mais pertinentes às dores italianas
+- [x] Adicionar novas perguntas: gestão de liquidez, delegação, sucessão, Shadow AI
+- [x] Atualizar backend (router, schema, DB) para novos campos
+- [x] Atualizar testes para refletir novos campos (18 testes passando)
+- [x] Manter popup simples inalterado (lead magnet)

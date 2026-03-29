@@ -45,19 +45,19 @@ describe("qualifiedLeads.submit", () => {
       caller.qualifiedLeads.submit({
         name: "Test User",
         email: "not-an-email",
-        revenue: "€1,8M - €3M",
-        employees: "10-20",
-        sector: "Manifattura",
-        mainObstacle: "Processi manuali lenti",
-        dataLocation: "Fogli Excel / Google Sheets",
-        usesAI: "No",
-        priority: "Ridurre costi operativi",
-        isDecisionMaker: "Sì",
+        revenue: "€2M - €5M",
+        employees: "10 - 25",
+        sector: "Manifattura e produzione",
+        mainObstacle: "Processi manuali che rallentano tutto",
+        dataLocation: "Fogli Excel sparsi e chat WhatsApp",
+        usesAI: "No, non ancora",
+        priority: "Ridurre i costi operativi e aumentare i margini",
+        isDecisionMaker: "Sì, decido io",
       })
     ).rejects.toThrow();
   });
 
-  it("accepts valid input with all required fields", async () => {
+  it("accepts valid input with all required and optional fields", async () => {
     const ctx = createPublicContext();
     const caller = appRouter.createCaller(ctx);
 
@@ -68,20 +68,48 @@ describe("qualifiedLeads.submit", () => {
         email: `test-${Date.now()}@azienda.it`,
         phone: "+39 333 1234567",
         companyName: "Rossi S.r.l.",
-        revenue: "€1,8M - €3M",
-        employees: "10-20",
-        sector: "Manifattura",
-        mainObstacle: "Processi manuali lenti",
-        manualHoursPerWeek: "20-40 ore",
-        dataLocation: "Fogli Excel / Google Sheets",
-        currentTools: "Office 365",
-        usesAI: "No",
-        priority: "Ridurre costi operativi",
-        isDecisionMaker: "Sì",
+        revenue: "€2M - €5M",
+        employees: "10 - 25",
+        sector: "Manifattura e produzione",
+        mainObstacle: "Processi manuali che rallentano tutto",
+        dataLocation: "Fogli Excel sparsi e chat WhatsApp",
+        cashFlowChallenge: "Sì, spesso non ho visibilità sul flusso di cassa",
+        delegationChallenge: "No, tutto passa da me — sono il collo di bottiglia",
+        currentTools: "SAP per contabilità, Google Workspace",
+        usesAI: "Sì, ma in modo informale (ChatGPT, Copilot...)",
+        aiDetails: "ChatGPT per email, Copilot per codice",
+        shadowAIConcern: "Sì, probabilmente — non abbiamo regole chiare",
+        priority: "Ridurre i costi operativi e aumentare i margini",
+        successionConcern: "Sì, tutto il know-how è nella mia testa — è un rischio",
+        isDecisionMaker: "Sì, decido io",
       });
       expect(result.success).toBe(true);
     } catch (err: unknown) {
       // DB error is acceptable in test env, but validation should pass
+      const error = err as { code?: string; message?: string };
+      expect(error.code).not.toBe("BAD_REQUEST");
+    }
+  });
+
+  it("accepts valid input with only required fields (optional fields omitted)", async () => {
+    const ctx = createPublicContext();
+    const caller = appRouter.createCaller(ctx);
+
+    try {
+      const result = await caller.qualifiedLeads.submit({
+        name: "Giulia Bianchi",
+        email: `test-min-${Date.now()}@azienda.it`,
+        revenue: "Sotto €500k",
+        employees: "Meno di 10",
+        sector: "Servizi professionali",
+        mainObstacle: "Dati sparsi tra Excel, WhatsApp e carta",
+        dataLocation: "ERP o gestionale datato, senza integrazione",
+        usesAI: "No, non ancora",
+        priority: "Sto solo esplorando le opzioni",
+        isDecisionMaker: "Decido insieme a soci o familiari",
+      });
+      expect(result.success).toBe(true);
+    } catch (err: unknown) {
       const error = err as { code?: string; message?: string };
       expect(error.code).not.toBe("BAD_REQUEST");
     }

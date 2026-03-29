@@ -97,14 +97,17 @@ export const qualifiedLeads = mysqlTable("qualified_leads", {
   sector: varchar("sector", { length: 100 }).notNull(),
   // Section 2: Pain Diagnosis
   mainObstacle: varchar("mainObstacle", { length: 500 }).notNull(),
-  manualHoursPerWeek: varchar("manualHoursPerWeek", { length: 50 }),
   dataLocation: varchar("dataLocation", { length: 300 }).notNull(),
-  // Section 3: Tech Maturity
+  cashFlowChallenge: varchar("cashFlowChallenge", { length: 500 }),
+  delegationChallenge: varchar("delegationChallenge", { length: 500 }),
+  // Section 3: Tech Maturity & Governance
   currentTools: text("currentTools"),
   usesAI: varchar("usesAI", { length: 10 }).notNull(),
   aiDetails: text("aiDetails"),
-  // Section 4: Urgency & Authority
+  shadowAIConcern: varchar("shadowAIConcern", { length: 500 }),
+  // Section 4: Urgency, Succession & Authority
   priority: varchar("priority", { length: 200 }).notNull(),
+  successionConcern: varchar("successionConcern", { length: 500 }),
   isDecisionMaker: varchar("isDecisionMaker", { length: 10 }).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

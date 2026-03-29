@@ -29,6 +29,13 @@
       "when": 1774716541383,
       "tag": "0003_brown_tomas",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1774782774934,
+      "tag": "0004_secret_colossus",
+      "breakpoints": true
     }
   ]
 }

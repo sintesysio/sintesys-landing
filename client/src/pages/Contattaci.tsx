@@ -1,7 +1,7 @@
 /**
  * Contattaci — Contact page with multi-step Typeform-style qualification form
- * Collects qualified leads with 4 sections: Profile, Pain Points, Tech Maturity, Urgency
- * Stores in separate qualifiedLeads table
+ * Collects qualified leads with 5 sections: Contact, Profile, Pain Points, Tech/Governance, Urgency
+ * Questions designed around Italian SME (PMI) pain points and decision-making patterns
  */
 
 import { useState } from "react";
@@ -23,16 +23,19 @@ interface FormState {
   revenue: string;
   employees: string;
   sector: string;
-  // Step 2: Pain Diagnosis
+  // Step 2: Pain Diagnosis (Italian PMI specific)
   mainObstacle: string;
-  manualHoursPerWeek: string;
   dataLocation: string;
-  // Step 3: Tech Maturity
+  cashFlowChallenge: string;
+  delegationChallenge: string;
+  // Step 3: Tech Maturity & Governance
   currentTools: string;
   usesAI: string;
   aiDetails: string;
-  // Step 4: Urgency & Authority
+  shadowAIConcern: string;
+  // Step 4: Urgency, Succession & Authority
   priority: string;
+  successionConcern: string;
   isDecisionMaker: string;
 }
 
@@ -45,12 +48,15 @@ const INITIAL_FORM: FormState = {
   employees: "",
   sector: "",
   mainObstacle: "",
-  manualHoursPerWeek: "",
   dataLocation: "",
+  cashFlowChallenge: "",
+  delegationChallenge: "",
   currentTools: "",
   usesAI: "",
   aiDetails: "",
+  shadowAIConcern: "",
   priority: "",
+  successionConcern: "",
   isDecisionMaker: "",
 };
 
@@ -261,6 +267,23 @@ function TextAreaField({
   );
 }
 
+function QuestionLabel({ text }: { text: string }) {
+  return (
+    <p
+      className="mb-3 mt-4"
+      style={{
+        fontFamily: "'Inter', sans-serif",
+        fontSize: "0.7rem",
+        color: "#999",
+        textTransform: "uppercase",
+        letterSpacing: "0.1em",
+      }}
+    >
+      {text}
+    </p>
+  );
+}
+
 export default function Contattaci() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
@@ -308,12 +331,15 @@ export default function Contattaci() {
         employees: form.employees,
         sector: form.sector,
         mainObstacle: form.mainObstacle,
-        manualHoursPerWeek: form.manualHoursPerWeek || undefined,
         dataLocation: form.dataLocation,
+        cashFlowChallenge: form.cashFlowChallenge || undefined,
+        delegationChallenge: form.delegationChallenge || undefined,
         currentTools: form.currentTools || undefined,
         usesAI: form.usesAI,
         aiDetails: form.aiDetails || undefined,
+        shadowAIConcern: form.shadowAIConcern || undefined,
         priority: form.priority,
+        successionConcern: form.successionConcern || undefined,
         isDecisionMaker: form.isDecisionMaker,
       });
     }
@@ -364,22 +390,45 @@ export default function Contattaci() {
                 fontSize: "1.05rem",
                 color: "#333",
                 lineHeight: 1.75,
-                marginBottom: "1rem",
+                marginBottom: "2rem",
               }}
             >
-              Con base nelle tue risposte, la Sintesys.io preparerà un <strong>diagnóstico preliminare</strong> su dove la tua azienda sta perdendo efficienza e dove l'Intelligenza Artificiale può generare il massimo impatto.
+              Abbiamo ricevuto la tua richiesta di audit operativo. Il nostro team analizzerà
+              il profilo della tua azienda e ti contatterà entro <strong>48 ore lavorative</strong> con
+              un report personalizzato sulle opportunità di ottimizzazione tramite IA.
             </p>
-            <p
+            <div
+              className="p-6 mb-8"
               style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "1.05rem",
-                color: "#333",
-                lineHeight: 1.75,
+                backgroundColor: "oklch(0.25 0.05 260 / 0.04)",
+                border: "1px solid oklch(0.25 0.05 260 / 0.12)",
               }}
             >
-              Ti contatteremo entro <strong>48 ore lavorative</strong> per discutere il tuo piano personalizzato.
-            </p>
-            <div className="rule-thick mt-8" />
+              <p
+                style={{
+                  fontFamily: "'Source Serif 4', serif",
+                  fontSize: "0.95rem",
+                  color: "#1B2A4A",
+                  fontStyle: "italic",
+                  lineHeight: 1.7,
+                }}
+              >
+                &ldquo;Ogni azienda che analizziamo scopre almeno 3 processi che possono essere
+                automatizzati immediatamente, con un risparmio medio del 30% sul tempo operativo.&rdquo;
+              </p>
+            </div>
+            <a
+              href="/"
+              className="inline-block px-8 py-3 text-xs tracking-[0.15em] uppercase transition-all"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                color: "#FAFAF7",
+                backgroundColor: "#1B2A4A",
+                fontWeight: 600,
+              }}
+            >
+              Torna alla Prima Pagina
+            </a>
           </motion.div>
         </div>
       </div>
@@ -390,64 +439,47 @@ export default function Contattaci() {
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
       <NavBar />
 
-      {/* Page header */}
-      <header className="container pt-10 pb-2">
-        <div className="text-center">
-          <p
-            className="uppercase tracking-[0.2em] mb-2"
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}
-          >
-            Audit Operativo Rapido
-          </p>
-          <h1
-            className="leading-tight"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)",
-              fontWeight: 900,
-              color: "#1B2A4A",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Scopri Dove la Tua Azienda Sta Perdendo Efficienza
-          </h1>
-          <p
-            className="mt-3 max-w-xl mx-auto"
-            style={{
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: "1rem",
-              color: "#666",
-              lineHeight: 1.6,
-            }}
-          >
-            Rispondi a poche domande strategiche e ricevi un'analisi preliminare personalizzata — <strong style={{ color: '#1A1A1A' }}>gratuita e senza impegno</strong>.
-          </p>
-          <p
-            className="mt-2 max-w-xl mx-auto"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.75rem",
-              color: "#1B2A4A",
-              fontWeight: 500,
-              letterSpacing: "0.05em",
-            }}
-          >
-            Riceverai il tuo report personalizzato entro 48 ore lavorative.
-          </p>
-        </div>
-      </header>
-
-      {/* Form container */}
-      <section className="container py-8 max-w-2xl mx-auto">
-        <div
-          className="p-6 md:p-10"
+      {/* Header */}
+      <section className="container pt-10 pb-4 max-w-2xl mx-auto">
+        <div className="rule-thick mb-6" />
+        <p
+          className="uppercase tracking-[0.2em] mb-2 text-center"
+          style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", color: "#999" }}
+        >
+          Audit Operativo Gratuito
+        </p>
+        <h1
+          className="text-center mb-2"
           style={{
-            backgroundColor: "#fff",
-            border: "1px solid oklch(0.85 0.005 60)",
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
+            fontWeight: 700,
+            color: "#1B2A4A",
+            lineHeight: 1.15,
           }}
         >
-          <ProgressBar current={step} total={TOTAL_STEPS} />
+          Scopri quanto stai perdendo ogni mese senza saperlo.
+        </h1>
+        <p
+          className="text-center mb-8"
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            fontSize: "1rem",
+            color: "#666",
+            lineHeight: 1.6,
+          }}
+        >
+          Rispondi a poche domande strategiche. Riceverai un report personalizzato
+          con le inefficienze della tua azienda e le soluzioni concrete entro 48 ore.{" "}
+          <strong style={{ color: "#1B2A4A" }}>Gratuita e senza impegno.</strong>
+        </p>
+      </section>
 
+      {/* Form */}
+      <section className="container max-w-xl mx-auto pb-16">
+        <ProgressBar current={step} total={TOTAL_STEPS} />
+
+        <div className="min-h-[380px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -472,136 +504,186 @@ export default function Contattaci() {
               {/* ─── Step 1: Profile & Segmentation ─── */}
               {step === 1 && (
                 <div>
-                  <StepLabel text="Profilo e Segmentazione" />
+                  <StepLabel text="Profilo Aziendale" />
                   <StepTitle text="Qual è la dimensione della tua azienda?" />
 
-                  <p className="mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Fatturato mensile medio *
-                  </p>
+                  <QuestionLabel text="Fatturato annuo *" />
                   <div className="space-y-2 mb-6">
-                    {["Sotto €150k", "€150k - €500k", "€500k - €1M", "Sopra €1M"].map((opt) => (
+                    {[
+                      "Sotto €500k",
+                      "€500k - €2M",
+                      "€2M - €5M",
+                      "€5M - €12M",
+                      "Sopra €12M",
+                    ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.revenue === opt} onClick={() => update("revenue", opt)} />
                     ))}
                   </div>
 
-                  <p className="mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Numero di collaboratori *
-                  </p>
+                  <QuestionLabel text="Numero di collaboratori *" />
                   <div className="space-y-2 mb-6">
-                    {["5 - 10", "10 - 30", "Oltre 30"].map((opt) => (
+                    {["Meno di 10", "10 - 25", "25 - 50", "Oltre 50"].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.employees === opt} onClick={() => update("employees", opt)} />
                     ))}
                   </div>
 
-                  <p className="mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Settore *
-                  </p>
+                  <QuestionLabel text="Settore principale *" />
                   <div className="space-y-2">
-                    {["Industria", "Commercio", "Servizi", "Istruzione", "Altro"].map((opt) => (
+                    {[
+                      "Manifattura e produzione",
+                      "Commercio all'ingrosso o al dettaglio",
+                      "Servizi professionali",
+                      "Costruzioni e impiantistica",
+                      "Logistica e trasporti",
+                      "Ristorazione e hospitality",
+                      "Altro",
+                    ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.sector === opt} onClick={() => update("sector", opt)} />
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* ─── Step 2: Pain Diagnosis ─── */}
+              {/* ─── Step 2: Pain Diagnosis (Italian PMI Specific) ─── */}
               {step === 2 && (
                 <div>
                   <StepLabel text="Diagnosi delle Criticità" />
-                  <StepTitle text="Qual è il maggiore ostacolo alla crescita?" />
+                  <StepTitle text="Dove perde tempo e denaro la tua azienda?" />
 
+                  <QuestionLabel text="Qual è il maggiore ostacolo alla crescita oggi? *" />
                   <div className="space-y-2 mb-6">
                     {[
-                      "Processi manuali e lenti",
-                      "Disorganizzazione dei dati e perdita di informazioni",
+                      "Processi manuali che rallentano tutto",
+                      "Dati sparsi tra Excel, WhatsApp e carta",
                       "Team sovraccaricato con attività ripetitive",
-                      "Mancanza di visibilità su ricavi e costi in tempo reale",
+                      "Nessuna visibilità in tempo reale su ricavi e costi",
+                      "Difficoltà a trovare e trattenere talenti",
                     ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.mainObstacle === opt} onClick={() => update("mainObstacle", opt)} />
                     ))}
                   </div>
 
-                  <InputField
-                    label="Ore settimanali in attività manuali automatizzabili"
-                    value={form.manualHoursPerWeek}
-                    onChange={(v) => update("manualHoursPerWeek", v)}
-                    placeholder="es. 15 ore"
-                  />
-
-                  <p className="mb-3 mt-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Dove si trovano i dati della tua azienda oggi? *
-                  </p>
-                  <div className="space-y-2">
+                  <QuestionLabel text="Dove si trovano i dati della tua azienda oggi? *" />
+                  <div className="space-y-2 mb-6">
                     {[
-                      "Fogli di calcolo sparsi e WhatsApp",
-                      "Software obsoleto senza integrazione",
-                      "Carta o memoria del team",
+                      "Fogli Excel sparsi e chat WhatsApp",
+                      "ERP o gestionale datato, senza integrazione",
+                      "Carta, quaderni o memoria del team",
+                      "Software moderno ma non collegato tra loro",
                     ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.dataLocation === opt} onClick={() => update("dataLocation", opt)} />
+                    ))}
+                  </div>
+
+                  <QuestionLabel text="La gestione della liquidità è una preoccupazione?" />
+                  <div className="space-y-2 mb-6">
+                    {[
+                      "Sì, spesso non ho visibilità sul flusso di cassa",
+                      "A volte, soprattutto con ritardi nei pagamenti",
+                      "No, la liquidità è sotto controllo",
+                    ].map((opt) => (
+                      <RadioOption key={opt} label={opt} selected={form.cashFlowChallenge === opt} onClick={() => update("cashFlowChallenge", opt)} />
+                    ))}
+                  </div>
+
+                  <QuestionLabel text="Riesci a delegare le decisioni operative?" />
+                  <div className="space-y-2">
+                    {[
+                      "No, tutto passa da me — sono il collo di bottiglia",
+                      "Delego poco, ma vorrei un sistema che mi dia controllo",
+                      "Sì, ho un team autonomo con processi chiari",
+                    ].map((opt) => (
+                      <RadioOption key={opt} label={opt} selected={form.delegationChallenge === opt} onClick={() => update("delegationChallenge", opt)} />
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* ─── Step 3: Tech Maturity ─── */}
+              {/* ─── Step 3: Tech Maturity & Governance ─── */}
               {step === 3 && (
                 <div>
-                  <StepLabel text="Maturità Tecnologica" />
-                  <StepTitle text="Quali strumenti utilizzate oggi?" />
+                  <StepLabel text="Maturità Tecnologica e Governance" />
+                  <StepTitle text="Come la tua azienda usa la tecnologia oggi?" />
 
                   <TextAreaField
-                    label="Strumenti attuali (CRM, ERP, Google Workspace, ecc.)"
+                    label="Strumenti attuali (CRM, ERP, gestionali, ecc.)"
                     value={form.currentTools}
                     onChange={(v) => update("currentTools", v)}
-                    placeholder="es. Utilizziamo SAP per la contabilità, Google Workspace per le email..."
+                    placeholder="es. SAP per la contabilità, Google Workspace per le email, nessun CRM..."
                   />
 
-                  <p className="mb-3 mt-4" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    La tua azienda utilizza già soluzioni di IA o automazione? *
-                  </p>
+                  <QuestionLabel text="La tua azienda utilizza già soluzioni di IA o automazione? *" />
                   <div className="space-y-2 mb-4">
-                    {["Sì", "No"].map((opt) => (
+                    {[
+                      "No, non ancora",
+                      "Sì, ma in modo informale (ChatGPT, Copilot...)",
+                      "Sì, con strumenti strutturati e approvati",
+                    ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.usesAI === opt} onClick={() => update("usesAI", opt)} />
                     ))}
                   </div>
 
-                  {form.usesAI === "Sì" && (
+                  {(form.usesAI === "Sì, ma in modo informale (ChatGPT, Copilot...)" || form.usesAI === "Sì, con strumenti strutturati e approvati") && (
                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}>
                       <InputField
                         label="Quali soluzioni di IA utilizzate?"
                         value={form.aiDetails}
                         onChange={(v) => update("aiDetails", v)}
-                        placeholder="es. ChatGPT per il supporto clienti, automazioni con Zapier..."
+                        placeholder="es. ChatGPT per email, Copilot per codice, automazioni Zapier..."
                       />
                     </motion.div>
                   )}
+
+                  <QuestionLabel text="I tuoi dipendenti usano strumenti di IA senza approvazione aziendale? (Shadow AI)" />
+                  <div className="space-y-2">
+                    {[
+                      "Sì, probabilmente — non abbiamo regole chiare",
+                      "Non lo so, non ho visibilità su questo",
+                      "No, abbiamo policy chiare sull'uso dell'IA",
+                    ].map((opt) => (
+                      <RadioOption key={opt} label={opt} selected={form.shadowAIConcern === opt} onClick={() => update("shadowAIConcern", opt)} />
+                    ))}
+                  </div>
                 </div>
               )}
 
-              {/* ─── Step 4: Urgency & Authority ─── */}
+              {/* ─── Step 4: Urgency, Succession & Authority ─── */}
               {step === 4 && (
                 <div>
-                  <StepLabel text="Urgenza e Autorità Decisionale" />
-                  <StepTitle text="Quanto è urgente per te innovare?" />
+                  <StepLabel text="Urgenza e Visione Futura" />
+                  <StepTitle text="Quanto è urgente innovare per te?" />
 
-                  <p className="mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Priorità di implementazione *
-                  </p>
+                  <QuestionLabel text="Qual è la tua priorità nei prossimi 90 giorni? *" />
                   <div className="space-y-2 mb-6">
                     {[
-                      "Immediata (prossimi 30 giorni)",
-                      "A breve termine (90 giorni)",
+                      "Ridurre i costi operativi e aumentare i margini",
+                      "Avere controllo in tempo reale su numeri e processi",
+                      "Liberare tempo mio e del team da attività ripetitive",
+                      "Prepararmi per la Transizione 5.0 e gli incentivi fiscali",
                       "Sto solo esplorando le opzioni",
                     ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.priority === opt} onClick={() => update("priority", opt)} />
                     ))}
                   </div>
 
-                  <p className="mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    Sei il responsabile finale delle decisioni di investimento in tecnologia? *
-                  </p>
+                  <QuestionLabel text="Pensi alla continuità aziendale e alla successione?" />
+                  <div className="space-y-2 mb-6">
+                    {[
+                      "Sì, tutto il know-how è nella mia testa — è un rischio",
+                      "Ci sto pensando, ma non ho ancora un piano",
+                      "No, è presto o ho già un piano di successione",
+                    ].map((opt) => (
+                      <RadioOption key={opt} label={opt} selected={form.successionConcern === opt} onClick={() => update("successionConcern", opt)} />
+                    ))}
+                  </div>
+
+                  <QuestionLabel text="Sei il responsabile finale delle decisioni di investimento? *" />
                   <div className="space-y-2">
-                    {["Sì", "No"].map((opt) => (
+                    {[
+                      "Sì, decido io",
+                      "Decido insieme a soci o familiari",
+                      "No, devo presentare la proposta ad altri",
+                    ].map((opt) => (
                       <RadioOption key={opt} label={opt} selected={form.isDecisionMaker === opt} onClick={() => update("isDecisionMaker", opt)} />
                     ))}
                   </div>

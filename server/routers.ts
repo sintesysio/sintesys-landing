@@ -270,12 +270,15 @@ export const appRouter = router({
           employees: z.string().min(1),
           sector: z.string().min(1),
           mainObstacle: z.string().min(1),
-          manualHoursPerWeek: z.string().optional(),
           dataLocation: z.string().min(1),
+          cashFlowChallenge: z.string().optional(),
+          delegationChallenge: z.string().optional(),
           currentTools: z.string().optional(),
           usesAI: z.string().min(1),
           aiDetails: z.string().optional(),
+          shadowAIConcern: z.string().optional(),
           priority: z.string().min(1),
+          successionConcern: z.string().optional(),
           isDecisionMaker: z.string().min(1),
         })
       )
@@ -295,12 +298,15 @@ export const appRouter = router({
           employees: input.employees,
           sector: input.sector,
           mainObstacle: input.mainObstacle,
-          manualHoursPerWeek: input.manualHoursPerWeek ?? null,
           dataLocation: input.dataLocation,
+          cashFlowChallenge: input.cashFlowChallenge ?? null,
+          delegationChallenge: input.delegationChallenge ?? null,
           currentTools: input.currentTools ?? null,
           usesAI: input.usesAI,
           aiDetails: input.aiDetails ?? null,
+          shadowAIConcern: input.shadowAIConcern ?? null,
           priority: input.priority,
+          successionConcern: input.successionConcern ?? null,
           isDecisionMaker: input.isDecisionMaker,
         });
 
@@ -308,7 +314,7 @@ export const appRouter = router({
         try {
           await notifyOwner({
             title: `Lead Qualificato: ${lead.name} (${lead.companyName || "N/A"})`,
-            content: `LEAD QUALIFICATO\n\nNome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nAzienda: ${lead.companyName || "N/A"}\n\nPROFILO\nFatturato: ${lead.revenue}\nDipendenti: ${lead.employees}\nSettore: ${lead.sector}\n\nCRITICIT\u00c0\nOstacolo: ${lead.mainObstacle}\nOre manuali/sett: ${lead.manualHoursPerWeek || "N/A"}\nDati: ${lead.dataLocation}\n\nTECNOLOGIA\nStrumenti: ${lead.currentTools || "N/A"}\nUsa IA: ${lead.usesAI}\nDettagli IA: ${lead.aiDetails || "N/A"}\n\nURGENZA\nPriorit\u00e0: ${lead.priority}\nDecision maker: ${lead.isDecisionMaker}`,
+            content: `LEAD QUALIFICATO\n\nNome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nAzienda: ${lead.companyName || "N/A"}\n\nPROFILO\nFatturato: ${lead.revenue}\nDipendenti: ${lead.employees}\nSettore: ${lead.sector}\n\nCRITICIT\u00c0\nOstacolo: ${lead.mainObstacle}\nDati: ${lead.dataLocation}\nLiquidit\u00e0: ${lead.cashFlowChallenge || "N/A"}\nDelega: ${lead.delegationChallenge || "N/A"}\n\nTECNOLOGIA\nStrumenti: ${lead.currentTools || "N/A"}\nUsa IA: ${lead.usesAI}\nDettagli IA: ${lead.aiDetails || "N/A"}\nShadow AI: ${lead.shadowAIConcern || "N/A"}\n\nURGENZA\nPriorit\u00e0: ${lead.priority}\nSuccessione: ${lead.successionConcern || "N/A"}\nDecision maker: ${lead.isDecisionMaker}`,
           });
         } catch (err) {
           console.warn("[Notification] Failed to notify owner about qualified lead:", err);
@@ -345,12 +351,15 @@ export const appRouter = router({
         { header: "Dipendenti", key: "employees", width: 14 },
         { header: "Settore", key: "sector", width: 16 },
         { header: "Ostacolo Principale", key: "mainObstacle", width: 35 },
-        { header: "Ore Manuali/Sett", key: "manualHoursPerWeek", width: 18 },
         { header: "Dove Dati", key: "dataLocation", width: 30 },
+        { header: "Liquidit\u00e0", key: "cashFlowChallenge", width: 30 },
+        { header: "Delega", key: "delegationChallenge", width: 30 },
         { header: "Strumenti Attuali", key: "currentTools", width: 30 },
         { header: "Usa IA", key: "usesAI", width: 10 },
         { header: "Dettagli IA", key: "aiDetails", width: 30 },
+        { header: "Shadow AI", key: "shadowAIConcern", width: 30 },
         { header: "Priorit\u00e0", key: "priority", width: 25 },
+        { header: "Successione", key: "successionConcern", width: 30 },
         { header: "Decision Maker", key: "isDecisionMaker", width: 16 },
         { header: "Data", key: "createdAt", width: 22 },
       ];
@@ -372,12 +381,15 @@ export const appRouter = router({
           employees: ql.employees,
           sector: ql.sector,
           mainObstacle: ql.mainObstacle,
-          manualHoursPerWeek: ql.manualHoursPerWeek || "",
           dataLocation: ql.dataLocation,
+          cashFlowChallenge: ql.cashFlowChallenge || "",
+          delegationChallenge: ql.delegationChallenge || "",
           currentTools: ql.currentTools || "",
           usesAI: ql.usesAI,
           aiDetails: ql.aiDetails || "",
+          shadowAIConcern: ql.shadowAIConcern || "",
           priority: ql.priority,
+          successionConcern: ql.successionConcern || "",
           isDecisionMaker: ql.isDecisionMaker,
           createdAt: ql.createdAt.toISOString().replace("T", " ").slice(0, 19),
         });
@@ -391,7 +403,7 @@ export const appRouter = router({
         }
       }
 
-      sheet.autoFilter = { from: { row: 1, column: 1 }, to: { row: 1, column: 17 } };
+      sheet.autoFilter = { from: { row: 1, column: 1 }, to: { row: 1, column: 20 } };
 
       const buffer = await workbook.xlsx.writeBuffer();
       const timestamp = new Date().toISOString().slice(0, 10);
