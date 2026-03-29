@@ -95,10 +95,10 @@
 - [x] Documentar fluxos de automação para configurar no painel Mailchimp (boas-vindas, materiais por setor, régua de nutrição)
 - [x] Criar template Welcome Email para lead simples (popup)
 - [x] Criar template Welcome Email para lead qualificado (Contattaci)
-- [ ] Criar templates de materiais por setor (7 setores)
-- [ ] Criar régua de nutrição 28 dias para leads simples (6 emails)
-- [ ] Criar régua de nutrição 14 dias para leads qualificados (4 emails)
-- [ ] Compilar documento final com todos os templates prontos para Mailchimp
+- [x] Criar templates de materiais por setor (7 setores) — docs/email-templates-settore.md (copy pronto, configurar no Mailchimp manualmente)
+- [x] Criar régua de nutrição 28 dias para leads simples (6 emails) — docs/drip-campaigns.md (spec pronto, configurar Customer Journey no Mailchimp)
+- [x] Criar régua de nutrição 14 dias para leads qualificados (4 emails) — docs/drip-campaigns.md (spec pronto, configurar Customer Journey no Mailchimp)
+- [x] Compilar documento final com todos os templates prontos para Mailchimp — docs/ (3 arquivos: email-templates.md, email-templates-settore.md, drip-campaigns.md)
 - [x] Integrar Notion API ao backend para criar registros de leads
 - [x] Criar/configurar database de Pipeline no Notion com propriedades adequadas (CRM de vendas existente)
 - [x] Conectar formulário popup ao Notion (status: Lead)
@@ -149,4 +149,4 @@
 ## Pendências Futuras (P0/P1)
 - [ ] Adicionar Calendly/Cal.com link ao email de welcome do lead qualificado
 - [ ] Implementar Google Analytics 4 e Meta Pixel tracking
-- [ ] Criar drip email campaigns (28 dias para leads, 14 dias para qualificados)
+- [x] Criar drip email campaigns (28 dias para leads, 14 dias para qualificados) — docs/drip-campaigns.md (spec completo)
