@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ChiSiamo from "./pages/ChiSiamo";
 import Contattaci from "./pages/Contattaci";
+import NewsletterPopup from "./components/NewsletterPopup";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <NewsletterPopup />
           <Router />
         </TooltipProvider>
       </ThemeProvider>

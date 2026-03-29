@@ -106,3 +106,8 @@
 - [x] Escrever testes da integração Notion (3 testes de API + acesso ao CRM)
 - [x] Adicionar testes de integração com mock do Notion nos endpoints leads.submit e qualifiedLeads.submit
 - [x] Corrigir carregamento da NOTION_API_KEY no ambiente de teste (env inline para vitest)
+- [x] Bug: popup não abre em 2s — corrigido: movido para App.tsx global + atualizado comentário
+- [x] Validar que popup dispara Mailchimp sync (tag "lead" + setor)
+- [x] Validar que popup dispara Notion sync (status "Lead")
+- [x] Validar que Contattaci dispara Mailchimp sync (tag "Qualificado" + merge fields)
+- [x] Validar que Contattaci dispara Notion sync (status "Qualificado")

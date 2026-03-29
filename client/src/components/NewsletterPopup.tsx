@@ -1,5 +1,5 @@
 /**
- * NewsletterPopup — Pop-up form that appears after 60 seconds on page.
+ * NewsletterPopup — Pop-up form that appears after 2 seconds on page.
  * Invites visitors to receive weekly sector-specific AI updates.
  * Uses the same leads endpoint with source: "popup".
  * Respects localStorage to not show again after dismiss or submit.
