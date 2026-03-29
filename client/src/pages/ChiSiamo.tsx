@@ -70,24 +70,22 @@ export default function ChiSiamo() {
                   backgroundColor: "#fff",
                 }}
               >
-                {/* Stylized initials instead of photo */}
+                {/* Photo of Lamberto Grinover */}
                 <div
-                  className="w-28 h-28 mx-auto mb-4 flex items-center justify-center"
+                  className="w-32 h-32 mx-auto mb-4 overflow-hidden"
                   style={{
-                    border: "2px solid #1B2A4A",
+                    border: "3px solid #1B2A4A",
                     borderRadius: "50%",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "2.5rem",
-                      fontWeight: 700,
-                      color: "#1B2A4A",
-                    }}
-                  >
-                    LG
-                  </span>
+                  <img
+                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png"
+                    alt="Lamberto Grinover — Fondatore di Sintesys.io"
+                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    width="128"
+                    height="128"
+                  />
                 </div>
 
                 <h2

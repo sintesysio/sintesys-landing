@@ -111,3 +111,4 @@
 - [x] Validar que popup dispara Notion sync (status "Lead")
 - [x] Validar que Contattaci dispara Mailchimp sync (tag "Qualificado" + merge fields)
 - [x] Validar que Contattaci dispara Notion sync (status "Qualificado")
+- [x] Incluir foto real do Lamberto Grinover na página Chi Siamo (substituir placeholder "LG")
