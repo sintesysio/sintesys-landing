@@ -77,3 +77,4 @@
 - [x] Melhorar copy do Contattaci (promessa de resultado + gratuidade)
 - [x] Adicionar social proof na home (badges de credibilidade: Politecnico di Milano, Banca d'Italia, ISTAT, Transizione 5.0)
 - [x] Reduzir timer do pop-up de 10s para 5s
+- [x] Reduzir timer do pop-up de 5s para 2s (foco em conversões)
