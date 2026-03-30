@@ -1,7 +1,7 @@
-import { eq } from "drizzle-orm";
+import { eq, and, gte, lte, between } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition, qualifiedLeads, InsertQualifiedLead, QualifiedLead } from "../drizzle/schema";
-import { desc, sql } from "drizzle-orm";
+import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition, qualifiedLeads, InsertQualifiedLead, QualifiedLead, clients, InsertClient, Client, transactions, InsertTransaction, Transaction } from "../drizzle/schema";
+import { desc, sql, asc } from "drizzle-orm";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -204,4 +204,188 @@ export async function insertDailyEdition(edition: InsertDailyEdition): Promise<v
       ctaText: edition.ctaText,
     },
   });
+}
+
+// ─── Client Queries ──────────────────────────────────────────
+
+export async function createClient(client: InsertClient): Promise<Client> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const [result] = await db.insert(clients).values(client).$returningId();
+  const [created] = await db.select().from(clients).where(eq(clients.id, result.id)).limit(1);
+  return created;
+}
+
+export async function updateClient(id: number, data: Partial<InsertClient>): Promise<Client> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(clients).set(data).where(eq(clients.id, id));
+  const [updated] = await db.select().from(clients).where(eq(clients.id, id)).limit(1);
+  return updated;
+}
+
+export async function deleteClient(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  // Also delete related transactions
+  await db.delete(transactions).where(eq(transactions.clientId, id));
+  await db.delete(clients).where(eq(clients.id, id));
+}
+
+export async function getClientById(id: number): Promise<Client | undefined> {
+  const db = await getDb();
+  if (!db) return undefined;
+
+  const result = await db.select().from(clients).where(eq(clients.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getAllClients(): Promise<Client[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db.select().from(clients).orderBy(desc(clients.createdAt));
+}
+
+// ─── Transaction Queries ──────────────────────────────────────────
+
+export async function createTransaction(tx: InsertTransaction): Promise<Transaction> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const [result] = await db.insert(transactions).values(tx).$returningId();
+  const [created] = await db.select().from(transactions).where(eq(transactions.id, result.id)).limit(1);
+  return created;
+}
+
+export async function updateTransaction(id: number, data: Partial<InsertTransaction>): Promise<Transaction> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.update(transactions).set(data).where(eq(transactions.id, id));
+  const [updated] = await db.select().from(transactions).where(eq(transactions.id, id)).limit(1);
+  return updated;
+}
+
+export async function deleteTransaction(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.delete(transactions).where(eq(transactions.id, id));
+}
+
+export async function getTransactionsByClient(clientId: number): Promise<Transaction[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db.select().from(transactions).where(eq(transactions.clientId, clientId)).orderBy(desc(transactions.date));
+}
+
+export async function getAllTransactions(): Promise<Transaction[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db.select().from(transactions).orderBy(desc(transactions.date));
+}
+
+export async function getTransactionsByDateRange(startDate: string, endDate: string): Promise<Transaction[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  return db.select().from(transactions)
+    .where(and(gte(transactions.date, startDate), lte(transactions.date, endDate)))
+    .orderBy(desc(transactions.date));
+}
+
+// ─── Admin Dashboard Queries ──────────────────────────────────────────
+
+export async function getLeadsStats() {
+  const db = await getDb();
+  if (!db) return { totalLeads: 0, totalQualified: 0, todayLeads: 0, todayQualified: 0, leadsBySector: [], leadsByDay: [] };
+
+  const totalLeads = await db.select({ count: sql<number>`count(*)` }).from(leads);
+  const totalQualified = await db.select({ count: sql<number>`count(*)` }).from(qualifiedLeads);
+
+  // Today's leads (Rome timezone)
+  const todayStr = new Date().toISOString().split("T")[0];
+  const todayLeads = await db.select({ count: sql<number>`count(*)` }).from(leads)
+    .where(sql`DATE(${leads.createdAt}) = ${todayStr}`);
+  const todayQualified = await db.select({ count: sql<number>`count(*)` }).from(qualifiedLeads)
+    .where(sql`DATE(${qualifiedLeads.createdAt}) = ${todayStr}`);
+
+  // Leads by sector
+  const leadsBySector = await db.select({
+    sector: leads.sector,
+    count: sql<number>`count(*)`,
+  }).from(leads).groupBy(leads.sector).orderBy(sql`count(*) DESC`);
+
+  // Leads by day (last 30 days)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const thirtyDaysAgoStr = thirtyDaysAgo.toISOString().split("T")[0];
+
+  const leadsByDay = await db.select({
+    date: sql<string>`DATE(${leads.createdAt})`,
+    count: sql<number>`count(*)`,
+  }).from(leads)
+    .where(sql`DATE(${leads.createdAt}) >= ${thirtyDaysAgoStr}`)
+    .groupBy(sql`DATE(${leads.createdAt})`)
+    .orderBy(sql`DATE(${leads.createdAt}) ASC`);
+
+  return {
+    totalLeads: totalLeads[0]?.count ?? 0,
+    totalQualified: totalQualified[0]?.count ?? 0,
+    todayLeads: todayLeads[0]?.count ?? 0,
+    todayQualified: todayQualified[0]?.count ?? 0,
+    leadsBySector,
+    leadsByDay,
+  };
+}
+
+export async function getFinancialSummary() {
+  const db = await getDb();
+  if (!db) return { totalEntradas: 0, totalSaidas: 0, saldo: 0, monthlyFlow: [] };
+
+  const totalEntradas = await db.select({ sum: sql<number>`COALESCE(SUM(amount), 0)` })
+    .from(transactions).where(eq(transactions.type, "entrada"));
+  const totalSaidas = await db.select({ sum: sql<number>`COALESCE(SUM(amount), 0)` })
+    .from(transactions).where(eq(transactions.type, "saida"));
+
+  // Monthly flow (last 12 months)
+  const monthlyFlow = await db.select({
+    month: sql<string>`DATE_FORMAT(STR_TO_DATE(date, '%Y-%m-%d'), '%Y-%m')`,
+    entradas: sql<number>`COALESCE(SUM(CASE WHEN type = 'entrada' THEN amount ELSE 0 END), 0)`,
+    saidas: sql<number>`COALESCE(SUM(CASE WHEN type = 'saida' THEN amount ELSE 0 END), 0)`,
+  }).from(transactions)
+    .groupBy(sql`DATE_FORMAT(STR_TO_DATE(date, '%Y-%m-%d'), '%Y-%m')`)
+    .orderBy(sql`DATE_FORMAT(STR_TO_DATE(date, '%Y-%m-%d'), '%Y-%m') ASC`)
+    .limit(12);
+
+  const entradas = totalEntradas[0]?.sum ?? 0;
+  const saidas = totalSaidas[0]?.sum ?? 0;
+
+  return {
+    totalEntradas: entradas,
+    totalSaidas: saidas,
+    saldo: entradas - saidas,
+    monthlyFlow,
+  };
+}
+
+export async function getBalanceByClient() {
+  const db = await getDb();
+  if (!db) return [];
+
+  const result = await db.select({
+    clientId: transactions.clientId,
+    entradas: sql<number>`COALESCE(SUM(CASE WHEN type = 'entrada' THEN amount ELSE 0 END), 0)`,
+    saidas: sql<number>`COALESCE(SUM(CASE WHEN type = 'saida' THEN amount ELSE 0 END), 0)`,
+    saldo: sql<number>`COALESCE(SUM(CASE WHEN type = 'entrada' THEN amount ELSE 0 END), 0) - COALESCE(SUM(CASE WHEN type = 'saida' THEN amount ELSE 0 END), 0)`,
+  }).from(transactions)
+    .groupBy(transactions.clientId);
+
+  return result;
 }

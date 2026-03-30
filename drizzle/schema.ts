@@ -114,3 +114,41 @@ export const qualifiedLeads = mysqlTable("qualified_leads", {
 
 export type QualifiedLead = typeof qualifiedLeads.$inferSelect;
 export type InsertQualifiedLead = typeof qualifiedLeads.$inferInsert;
+
+/**
+ * Clients table for the financial module.
+ * Each client can have multiple transactions (entradas/saídas).
+ */
+export const clients = mysqlTable("clients", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  company: varchar("company", { length: 255 }),
+  email: varchar("email", { length: 320 }),
+  phone: varchar("phone", { length: 50 }),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Client = typeof clients.$inferSelect;
+export type InsertClient = typeof clients.$inferInsert;
+
+/**
+ * Financial transactions (entradas e saídas).
+ * Each transaction is linked to a client via clientId.
+ * type: "entrada" (receita) or "saida" (despesa)
+ */
+export const transactions = mysqlTable("transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  clientId: int("clientId").notNull(),
+  type: mysqlEnum("type", ["entrada", "saida"]).notNull(),
+  amount: int("amount").notNull(), // valor em centavos (ex: 15000 = €150,00)
+  description: varchar("description", { length: 500 }).notNull(),
+  category: varchar("category", { length: 100 }),
+  date: varchar("date", { length: 10 }).notNull(), // YYYY-MM-DD
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Transaction = typeof transactions.$inferSelect;
+export type InsertTransaction = typeof transactions.$inferInsert;

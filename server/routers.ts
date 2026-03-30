@@ -1,8 +1,8 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads } from "./db";
+import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
+import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads, createClient, updateClient, deleteClient, getClientById, getAllClients, createTransaction, updateTransaction, deleteTransaction, getTransactionsByClient, getAllTransactions, getTransactionsByDateRange, getLeadsStats, getFinancialSummary, getBalanceByClient } from "./db";
 import { syncSimpleLead, syncQualifiedLead } from "./mailchimp";
 import { syncSimpleLeadToNotion, syncQualifiedLeadToNotion } from "./notion";
 import { notifyOwner } from "./_core/notification";
@@ -632,7 +632,103 @@ export const appRouter = router({
 
       return { success: true, url } as const;
     }),
+   }),
+
+  // ─── Admin Dashboard ──────────────────────────────────────────
+  admin: router({
+    stats: adminProcedure.query(async () => {
+      const leadsStats = await getLeadsStats();
+      const financialSummary = await getFinancialSummary();
+      return { leads: leadsStats, financial: financialSummary };
+    }),
+
+    leads: router({
+      list: adminProcedure.query(async () => {
+        const [simple, qualified] = await Promise.all([getAllLeads(), getAllQualifiedLeads()]);
+        return { simple, qualified };
+      }),
+    }),
+
+    clients: router({
+      list: adminProcedure.query(async () => {
+        return getAllClients();
+      }),
+      create: adminProcedure.input(z.object({
+        name: z.string().min(1),
+        company: z.string().optional(),
+        email: z.string().email().optional(),
+        phone: z.string().optional(),
+        notes: z.string().optional(),
+      })).mutation(async ({ input }) => {
+        return createClient(input);
+      }),
+      update: adminProcedure.input(z.object({
+        id: z.number(),
+        name: z.string().min(1).optional(),
+        company: z.string().optional(),
+        email: z.string().email().optional(),
+        phone: z.string().optional(),
+        notes: z.string().optional(),
+      })).mutation(async ({ input }) => {
+        const { id, ...data } = input;
+        return updateClient(id, data);
+      }),
+      delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+        await deleteClient(input.id);
+        return { success: true } as const;
+      }),
+    }),
+
+    transactions: router({
+      list: adminProcedure.input(z.object({
+        clientId: z.number().optional(),
+        startDate: z.string().optional(),
+        endDate: z.string().optional(),
+      }).optional()).query(async ({ input }) => {
+        if (input?.clientId) return getTransactionsByClient(input.clientId);
+        if (input?.startDate && input?.endDate) return getTransactionsByDateRange(input.startDate, input.endDate);
+        return getAllTransactions();
+      }),
+      create: adminProcedure.input(z.object({
+        clientId: z.number(),
+        type: z.enum(["entrada", "saida"]),
+        amount: z.number().positive(),
+        description: z.string().min(1),
+        category: z.string().optional(),
+        date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+      })).mutation(async ({ input }) => {
+        return createTransaction(input);
+      }),
+      update: adminProcedure.input(z.object({
+        id: z.number(),
+        clientId: z.number().optional(),
+        type: z.enum(["entrada", "saida"]).optional(),
+        amount: z.number().positive().optional(),
+        description: z.string().min(1).optional(),
+        category: z.string().optional(),
+        date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+      })).mutation(async ({ input }) => {
+        const { id, ...data } = input;
+        return updateTransaction(id, data);
+      }),
+      delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
+        await deleteTransaction(input.id);
+        return { success: true } as const;
+      }),
+      summary: adminProcedure.query(async () => {
+        return getFinancialSummary();
+      }),
+      balanceByClient: adminProcedure.query(async () => {
+        const balances = await getBalanceByClient();
+        const allClients = await getAllClients();
+        const clientMap = new Map(allClients.map(c => [c.id, c]));
+        return balances.map(b => ({
+          ...b,
+          clientName: clientMap.get(b.clientId)?.name ?? `#${b.clientId}`,
+          clientCompany: clientMap.get(b.clientId)?.company ?? "",
+        }));
+      }),
+    }),
   }),
 });
-
 export type AppRouter = typeof appRouter;

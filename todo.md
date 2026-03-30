@@ -162,3 +162,48 @@
 - [x] Remover palavra "Gratuito" de todos os CTAs, títulos e textos da LP
 - [x] Substituir copy por linguagem que gere desejo de call estratégica com Lamberto
 - [x] Remover foto do Lamberto do hero (2a dobra) — manter apenas na bio no final da página
+
+## Intranet Sintesys.io (/admin) — Fase 1
+
+### Estrutura Base
+- [x] Criar schema de clientes no banco (clients table)
+- [x] Criar schema de transações financeiras (transactions table: entrada/saída vinculadas a client_id)
+- [x] Executar pnpm db:push para sincronizar banco
+- [x] Criar rotas /admin/* protegidas por login admin
+- [x] Implementar DashboardLayout com sidebar para /admin (AdminLayout.tsx)
+- [x] Sidebar: Dashboard, Leads, Pipeline CRM, Campanhas, Financeiro
+
+### Dashboard Principal (/admin)
+- [x] Card de métricas: total leads, leads qualificados, taxa de conversão, saldo
+- [x] Gráfico de leads por dia (últimos 30 dias)
+- [x] Gráfico de leads por setor (pie chart)
+- [x] Tabela de leads recentes com busca (nome, email, setor)
+
+### Pipeline CRM (/admin/pipeline)
+- [x] Pipeline CRM placeholder (integração Notion na Fase 2)
+- [x] Kanban visual com 4 colunas (Lead, Qualificato, In Negoziazione, Chiuso)
+- [ ] Mostrar detalhes do deal ao clicar (Fase 2)
+
+### Campanhas (/admin/campanhas)
+- [x] Campanhas placeholder (integração Mailchimp na Fase 2)
+- [ ] Exibir: open rate, click rate, bounces, subscribers (Fase 2)
+- [ ] Mostrar lista de campanhas com performance (Fase 2)
+
+### Financeiro (/admin/financeiro)
+- [x] CRUD de clientes (nome, empresa, email, telefone)
+- [x] CRUD de transações (entrada/saída, valor, data, descrição, client_id)
+- [x] Visão de fluxo de recebimentos (entradas vs saídas por mês)
+- [x] Filtro por cliente e por período
+- [x] Saldo total e por cliente
+
+### Testes e QA
+- [x] Testes vitest para endpoints admin (20 testes passando)
+- [x] Teste de proteção admin (adminProcedure com role check)
+
+### Gaps Identificados (Fase 1.1)
+- [x] Implementar filtro por período no UI de /admin/financeiro (data inicial/final)
+- [x] Implementar saldo por cliente (endpoint balanceByClient + tabela na Panoramica)
+- [x] Adicionar teste vitest de proteção admin (FORBIDDEN para não-admin) — 61 testes passando
+
+## Documentação para Claude Code
+- [x] Criar CLAUDE.md com contexto completo do projeto (negócio, estratégia, arquitetura, integrações, decisões)
