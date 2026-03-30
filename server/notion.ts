@@ -188,6 +188,162 @@ export async function syncSimpleLeadToNotion(data: SimpleLeadData): Promise<void
 /**
  * Sync a qualified lead (Contattaci) to Notion CRM with Status = "Qualificado"
  */
+// ─── Read-only API functions (for Admin Dashboard) ──────────────────
+
+export interface NotionDeal {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  status: string;
+  priority: string | null;
+  createdTime: string;
+  lastEditedTime: string;
+  contentSnippet: string | null;
+}
+
+/**
+ * Map Notion status names to pipeline stage IDs.
+ */
+function mapStatusToStage(status: string): string {
+  const map: Record<string, string> = {
+    "Lead": "lead",
+    "Qualificado": "qualificato",
+    "In Negoziazione": "negoziazione",
+    "Negoziazione": "negoziazione",
+    "Chiuso": "chiuso",
+    "Chiuso Vinto": "chiuso",
+    "Chiuso Perso": "chiuso",
+  };
+  return map[status] || "lead";
+}
+
+/**
+ * Read all deals from the Notion CRM pipeline database.
+ * Returns deals grouped by status for Kanban display.
+ */
+export async function getNotionPipelineDeals(): Promise<NotionDeal[]> {
+  const body = {
+    page_size: 100,
+    sorts: [
+      { timestamp: "last_edited_time", direction: "descending" },
+    ],
+  };
+
+  const response = await fetch(`${NOTION_BASE_URL}/databases/${DATA_SOURCE_ID}/query`, {
+    method: "POST",
+    headers: getNotionHeaders(),
+    body: JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`[Notion] Failed to query pipeline: ${response.status} ${errorBody}`);
+  }
+
+  const data = await response.json();
+  const results = data.results || [];
+
+  return results.map((page: any) => {
+    const props = page.properties || {};
+
+    // Extract title (Nome)
+    const nameTitle = props["Nome"]?.title || [];
+    const name = nameTitle.map((t: any) => t.plain_text).join("") || "Sem nome";
+
+    // Extract email
+    const email = props["E-mail"]?.email || "";
+
+    // Extract phone
+    const phone = props["Telefone"]?.phone_number || null;
+
+    // Extract company (rich_text)
+    const companyRt = props["Empresa"]?.rich_text || [];
+    const company = companyRt.map((t: any) => t.plain_text).join("") || null;
+
+    // Extract status
+    const status = props["Status"]?.status?.name || "Lead";
+
+    // Extract priority
+    const priority = props["Prioridade"]?.select?.name || null;
+
+    return {
+      id: page.id,
+      name,
+      email,
+      phone,
+      company,
+      status,
+      priority,
+      createdTime: page.created_time,
+      lastEditedTime: page.last_edited_time,
+      contentSnippet: null, // populated on detail request
+    };
+  });
+}
+
+/**
+ * Get detailed content blocks of a Notion page (for deal detail drawer).
+ */
+export async function getNotionDealDetail(pageId: string): Promise<{ deal: NotionDeal; content: string }> {
+  // Get page properties
+  const pageResponse = await fetch(`${NOTION_BASE_URL}/pages/${pageId}`, {
+    headers: getNotionHeaders(),
+  });
+
+  if (!pageResponse.ok) {
+    throw new Error(`[Notion] Failed to get page: ${pageResponse.status}`);
+  }
+
+  const page = await pageResponse.json();
+  const props = page.properties || {};
+
+  const nameTitle = props["Nome"]?.title || [];
+  const name = nameTitle.map((t: any) => t.plain_text).join("") || "Sem nome";
+  const email = props["E-mail"]?.email || "";
+  const phone = props["Telefone"]?.phone_number || null;
+  const companyRt = props["Empresa"]?.rich_text || [];
+  const company = companyRt.map((t: any) => t.plain_text).join("") || null;
+  const status = props["Status"]?.status?.name || "Lead";
+  const priority = props["Prioridade"]?.select?.name || null;
+
+  // Get page content blocks
+  const blocksResponse = await fetch(`${NOTION_BASE_URL}/blocks/${pageId}/children?page_size=100`, {
+    headers: getNotionHeaders(),
+  });
+
+  let content = "";
+  if (blocksResponse.ok) {
+    const blocksData = await blocksResponse.json();
+    const blocks = blocksData.results || [];
+    content = blocks
+      .filter((b: any) => b.type === "paragraph")
+      .map((b: any) => {
+        const richText = b.paragraph?.rich_text || [];
+        return richText.map((t: any) => t.plain_text).join("");
+      })
+      .filter(Boolean)
+      .join("\n");
+  }
+
+  return {
+    deal: {
+      id: pageId,
+      name,
+      email,
+      phone,
+      company,
+      status,
+      priority,
+      createdTime: page.created_time,
+      lastEditedTime: page.last_edited_time,
+      contentSnippet: content.slice(0, 200),
+    },
+    content,
+  };
+}
+
 export async function syncQualifiedLeadToNotion(data: QualifiedLeadData): Promise<void> {
   // Check if lead already exists
   const existing = await findLeadByEmail(data.email);

@@ -182,12 +182,12 @@
 ### Pipeline CRM (/admin/pipeline)
 - [x] Pipeline CRM placeholder (integração Notion na Fase 2)
 - [x] Kanban visual com 4 colunas (Lead, Qualificato, In Negoziazione, Chiuso)
-- [ ] Mostrar detalhes do deal ao clicar (Fase 2)
+- [x] Mostrar detalhes do deal ao clicar (drawer com conteúdo real do Notion)
 
 ### Campanhas (/admin/campanhas)
 - [x] Campanhas placeholder (integração Mailchimp na Fase 2)
-- [ ] Exibir: open rate, click rate, bounces, subscribers (Fase 2)
-- [ ] Mostrar lista de campanhas com performance (Fase 2)
+- [x] Exibir: open rate, click rate, bounces, subscribers (Mailchimp API real)
+- [x] Mostrar lista de campanhas com performance (tabela com métricas reais do Mailchimp)
 
 ### Financeiro (/admin/financeiro)
 - [x] CRUD de clientes (nome, empresa, email, telefone)

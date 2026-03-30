@@ -174,6 +174,112 @@ export async function syncSimpleLead(data: SimpleLeadData): Promise<{ success: b
  * Tags: "Qualificado" + sector tag
  * Includes all qualification merge fields.
  */
+// ─── Read-only API functions (for Admin Dashboard) ──────────────────
+
+export interface MailchimpCampaign {
+  id: string;
+  webId: number;
+  title: string;
+  subject: string;
+  status: string;
+  sendTime: string | null;
+  recipients: number;
+  opens: { total: number; rate: number; unique: number };
+  clicks: { total: number; rate: number; unique: number };
+  bounces: { hardBounces: number; softBounces: number };
+  unsubscribes: number;
+}
+
+export interface MailchimpListStats {
+  memberCount: number;
+  unsubscribeCount: number;
+  avgOpenRate: number;
+  avgClickRate: number;
+  campaignCount: number;
+}
+
+/**
+ * Get list/audience stats from Mailchimp.
+ */
+export async function getMailchimpListStats(): Promise<MailchimpListStats> {
+  if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID) {
+    throw new Error("Missing Mailchimp credentials");
+  }
+
+  const response = await fetch(`${BASE_URL}/lists/${MAILCHIMP_LIST_ID}?fields=stats`, {
+    headers: { Authorization: AUTH_HEADER },
+    signal: AbortSignal.timeout(10000),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Mailchimp list stats failed: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const stats = data.stats || {};
+
+  return {
+    memberCount: stats.member_count || 0,
+    unsubscribeCount: stats.unsubscribe_count || 0,
+    avgOpenRate: stats.avg_open_rate || 0,
+    avgClickRate: stats.click_rate || 0,
+    campaignCount: stats.campaign_count || 0,
+  };
+}
+
+/**
+ * Get recent campaigns with their performance metrics.
+ * Returns up to `count` campaigns sorted by send_time descending.
+ */
+export async function getMailchimpCampaigns(count: number = 20): Promise<MailchimpCampaign[]> {
+  if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID) {
+    throw new Error("Missing Mailchimp credentials");
+  }
+
+  // Fetch campaigns for this list
+  const url = `${BASE_URL}/campaigns?list_id=${MAILCHIMP_LIST_ID}&count=${count}&sort_field=send_time&sort_dir=DESC&fields=campaigns.id,campaigns.web_id,campaigns.settings.title,campaigns.settings.subject_line,campaigns.status,campaigns.send_time,campaigns.emails_sent,campaigns.report_summary`;
+
+  const response = await fetch(url, {
+    headers: { Authorization: AUTH_HEADER },
+    signal: AbortSignal.timeout(15000),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Mailchimp campaigns failed: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const campaigns = data.campaigns || [];
+
+  return campaigns.map((c: any) => {
+    const report = c.report_summary || {};
+    return {
+      id: c.id,
+      webId: c.web_id,
+      title: c.settings?.title || "Untitled",
+      subject: c.settings?.subject_line || "",
+      status: c.status,
+      sendTime: c.send_time || null,
+      recipients: c.emails_sent || 0,
+      opens: {
+        total: report.opens || 0,
+        rate: report.open_rate || 0,
+        unique: report.unique_opens || 0,
+      },
+      clicks: {
+        total: report.clicks || 0,
+        rate: report.click_rate || 0,
+        unique: report.subscriber_clicks || 0,
+      },
+      bounces: {
+        hardBounces: report.hard_bounces || 0,
+        softBounces: report.soft_bounces || 0,
+      },
+      unsubscribes: report.unsubscribes || 0,
+    };
+  });
+}
+
 export async function syncQualifiedLead(data: QualifiedLeadData): Promise<{ success: boolean; error?: string }> {
   const { firstName, lastName } = splitName(data.name);
 

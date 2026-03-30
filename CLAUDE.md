@@ -2,7 +2,7 @@
 
 > Este arquivo contém toda a inteligência acumulada sobre o projeto Sintesys.io.
 > Leia-o integralmente antes de fazer qualquer alteração no código, na estratégia ou no conteúdo.
-> Última atualização: 29 de março de 2026.
+> Última atualização: 30 de março de 2026.
 
 ---
 
@@ -219,6 +219,10 @@ Transações financeiras (entradas/saídas). Campos: clientId, type (entrada/sai
 | `admin.transactions.delete` | mutation | Excluir transação |
 | `admin.transactions.summary` | query | Resumo financeiro (total entradas, saídas, saldo) |
 | `admin.transactions.balanceByClient` | query | Saldo por cliente |
+| `admin.campaigns.listStats` | query | Métricas da lista Mailchimp (subscribers, open rate, click rate) |
+| `admin.campaigns.list` | query | Listar campanhas Mailchimp com performance individual |
+| `admin.pipeline.deals` | query | Listar deals do Notion CRM Pipeline |
+| `admin.pipeline.dealDetail` | query | Detalhes de um deal específico (metadados + conteúdo) |
 
 ---
 
@@ -339,24 +343,23 @@ O painel admin é protegido por `adminProcedure` (verifica `ctx.user.role === 'a
 
 2. **Leads** (`/admin/leads`): Tabela de leads simples e qualificados com busca por nome/email/setor. Tabs separadas por tipo.
 
-3. **Pipeline CRM** (`/admin/pipeline`): Kanban visual com 4 colunas (Lead, Qualificato, In Negoziazione, Chiuso). Placeholder — integração real com Notion na Fase 2.
+3. **Pipeline CRM** (`/admin/pipeline`): Kanban visual com 4 colunas (Lead, Qualificato, In Negoziazione, Chiuso). Integrado com Notion API real — lê deals do CRM Pipeline. Drawer lateral com detalhes completos do deal (metadados + conteúdo do Notion).
 
-4. **Campanhas** (`/admin/campanhas`): Placeholder — integração real com Mailchimp API na Fase 2.
+4. **Campanhas** (`/admin/campanhas`): Integrado com Mailchimp API real. Cards de métricas (subscribers, open rate, click rate, total campanhas). Tabela de campanhas com performance individual (recipients, opens, clicks, bounces, unsubscribes).
 
 5. **Financeiro** (`/admin/financeiro`): CRUD de clientes, CRUD de transações (entrada/saída por cliente), panorâmica com saldo total e por cliente, filtro por período e por cliente.
 
-### Pendências Fase 2
+### Pendências Fase 3
 
-- Integrar Notion API no Pipeline CRM (ler pipeline real, drag-and-drop)
-- Integrar Mailchimp API nas Campanhas (open rate, click rate, bounces, subscribers)
 - Chat IA integrado com contexto dos dados da empresa
-- Detalhes do deal ao clicar no Kanban
+- Drag-and-drop no Kanban (mover deals entre colunas → atualizar status no Notion)
+- Relatórios automatizados (semanal/mensal)
 
 ---
 
 ## 10. Testes
 
-61 testes passando (9 arquivos de teste):
+93 testes passando (11 arquivos de teste):
 
 | Arquivo | Cobertura |
 |---|---|
@@ -369,6 +372,8 @@ O painel admin é protegido por `adminProcedure` (verifica `ctx.user.role === 'a
 | `notion.test.ts` | Integração Notion CRM |
 | `dailyContent.test.ts` | Conteúdo dinâmico do dia |
 | `admin.test.ts` | CRUD clientes/transações + proteção admin |
+| `admin-router-level.test.ts` | Testes router-level com createCaller: access control (admin/user/unauth), campaigns, pipeline, stats — 18 testes |
+| `admin-integrations.test.ts` | Testes de integração Mailchimp (campanhas) e Notion (pipeline) — 14 testes |
 
 Rodar testes: `pnpm test`
 
@@ -444,10 +449,10 @@ Secrets configurados no projeto (não editar diretamente, usar `webdev_request_s
 - [ ] Configurar Calendly/Cal.com quando disponível
 - [ ] Configurar Customer Journeys no Mailchimp (réguas de nutrição 28d e 14d)
 
-### Fase 2 — Integrações Reais no Admin
-- [ ] Pipeline CRM: integrar Notion API real (ler/escrever pipeline de vendas)
-- [ ] Campanhas: integrar Mailchimp API (métricas de campanhas em tempo real)
-- [ ] Detalhes do deal ao clicar no Kanban
+### Fase 2 — Integrações Reais no Admin (CONCLUÍDA)
+- [x] Pipeline CRM: integrado com Notion API real (leitura do pipeline de vendas + detalhes do deal)
+- [x] Campanhas: integrado com Mailchimp API (métricas de campanhas em tempo real)
+- [x] Detalhes do deal ao clicar no Kanban (drawer lateral com conteúdo do Notion)
 - [ ] Chat IA integrado com contexto dos dados da empresa
 
 ### Fase 3 — Expansão
@@ -486,3 +491,118 @@ pnpm build        # Build de produção
 - Tom: Il Sole 24 Ore (jornalístico, sério, institucional)
 - Conteúdo orgânico NÃO vende — educa, informa e posiciona
 - Nos primeiros 3 meses: ZERO CTAs de venda no conteúdo
+
+
+---
+
+## 17. Como Conectar o Claude Code a Este Projeto
+
+### Passo a Passo
+
+**1. Exportar o código para GitHub**
+
+No painel do Manus, vá em **Settings → GitHub** e exporte o repositório. Escolha um nome (ex: `sintesys-landing`) e o owner da sua conta GitHub.
+
+**2. Clonar o repositório localmente**
+
+```bash
+git clone https://github.com/SEU_USUARIO/sintesys-landing.git
+cd sintesys-landing
+```
+
+**3. Instalar dependências**
+
+```bash
+pnpm install
+```
+
+**4. Instalar o Claude Code (se ainda não tiver)**
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+Ou via Homebrew no macOS:
+
+```bash
+brew install claude-code
+```
+
+**5. Iniciar o Claude Code na raiz do projeto**
+
+```bash
+claude
+```
+
+O Claude Code vai automaticamente detectar o arquivo `CLAUDE.md` na raiz e carregar todo o contexto do projeto. Ele terá acesso a:
+
+- Todo o código-fonte (frontend + backend)
+- Schema do banco de dados
+- Testes existentes
+- Documentação de negócio, estratégia e workflows
+- Integrações (Mailchimp, Notion, Instagram)
+- Decisões de produto e roadmap
+
+**6. Configurar variáveis de ambiente (para rodar localmente)**
+
+Crie um arquivo `.env` na raiz do projeto com as variáveis necessárias. As variáveis estão listadas na seção 13 deste documento. No ambiente Manus, elas são injetadas automaticamente.
+
+```bash
+# .env (exemplo — preencher com valores reais)
+DATABASE_URL=mysql://user:pass@host:3306/db
+JWT_SECRET=seu-jwt-secret
+NOTION_API_KEY=ntn_xxx
+MAILCHIMP_API_KEY=xxx-us14
+MAILCHIMP_LIST_ID=b0d9ab0ecc
+MAILCHIMP_SERVER_PREFIX=us14
+```
+
+**7. Comandos úteis no Claude Code**
+
+Uma vez dentro do Claude Code, você pode pedir:
+
+```
+# Entender o projeto
+"Leia o CLAUDE.md e me dê um resumo do estado atual do projeto"
+
+# Implementar features
+"Implemente o chat IA integrado no painel admin"
+"Adicione drag-and-drop no Kanban do Pipeline CRM"
+
+# Corrigir bugs
+"O formulário da LP não está enviando. Investigue e corrija."
+
+# Criar conteúdo
+"Crie uma nova edição do Giornale dell'IA sobre regulamentação EU AI Act"
+
+# Testes
+"Rode pnpm test e corrija qualquer teste falhando"
+```
+
+### Configuração Avançada: MCP Servers
+
+Para dar ao Claude Code acesso em tempo real ao Notion e Mailchimp (além do código), configure MCP servers no arquivo `.claude/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_API_KEY": "ntn_xxx"
+      }
+    }
+  }
+}
+```
+
+Isso permite que o Claude Code leia e escreva diretamente no Notion CRM, pipeline de conteúdo e tarefas.
+
+### Dicas de Uso
+
+1. **Sempre comece pedindo para ler o CLAUDE.md** — isso garante que o Claude tem contexto completo
+2. **Use o todo.md como referência** — ele contém o histórico de todas as features implementadas
+3. **Peça para rodar testes antes de commitar** — `pnpm test` deve passar com 93+ testes
+4. **O conteúdo público é em italiano** — sempre instruir o Claude a escrever em italiano para o público-alvo
+5. **Nunca usar "gratuito"** — decisão de produto documentada na seção 14

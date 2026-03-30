@@ -3,8 +3,8 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
 import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads, createClient, updateClient, deleteClient, getClientById, getAllClients, createTransaction, updateTransaction, deleteTransaction, getTransactionsByClient, getAllTransactions, getTransactionsByDateRange, getLeadsStats, getFinancialSummary, getBalanceByClient } from "./db";
-import { syncSimpleLead, syncQualifiedLead } from "./mailchimp";
-import { syncSimpleLeadToNotion, syncQualifiedLeadToNotion } from "./notion";
+import { syncSimpleLead, syncQualifiedLead, getMailchimpListStats, getMailchimpCampaigns } from "./mailchimp";
+import { syncSimpleLeadToNotion, syncQualifiedLeadToNotion, getNotionPipelineDeals, getNotionDealDetail } from "./notion";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
 import { z } from "zod";
@@ -676,6 +676,48 @@ export const appRouter = router({
       delete: adminProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
         await deleteClient(input.id);
         return { success: true } as const;
+      }),
+    }),
+
+    // ─── Mailchimp Campaigns ────────────────────────────────────
+    campaigns: router({
+      listStats: adminProcedure.query(async () => {
+        try {
+          return await getMailchimpListStats();
+        } catch (err) {
+          console.error("[Admin] Mailchimp list stats error:", err);
+          return { memberCount: 0, unsubscribeCount: 0, avgOpenRate: 0, avgClickRate: 0, campaignCount: 0 };
+        }
+      }),
+      list: adminProcedure.query(async () => {
+        try {
+          return await getMailchimpCampaigns(20);
+        } catch (err) {
+          console.error("[Admin] Mailchimp campaigns error:", err);
+          return [];
+        }
+      }),
+    }),
+
+    // ─── Notion Pipeline CRM ─────────────────────────────────────
+    pipeline: router({
+      deals: adminProcedure.query(async () => {
+        try {
+          return await getNotionPipelineDeals();
+        } catch (err) {
+          console.error("[Admin] Notion pipeline error:", err);
+          return [];
+        }
+      }),
+      dealDetail: adminProcedure.input(z.object({
+        pageId: z.string().min(1),
+      })).query(async ({ input }) => {
+        try {
+          return await getNotionDealDetail(input.pageId);
+        } catch (err) {
+          console.error("[Admin] Notion deal detail error:", err);
+          return null;
+        }
       }),
     }),
 
