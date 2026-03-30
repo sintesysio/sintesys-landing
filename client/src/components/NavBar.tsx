@@ -69,11 +69,11 @@ export default function NavBar() {
               fontFamily: "'Inter', sans-serif",
               fontWeight: 600,
               color: isContattaciActive ? "#1B2A4A" : "#FAFAF7",
-              backgroundColor: isContattaciActive ? "transparent" : "#1B2A4A",
-              border: isContattaciActive ? "2px solid #1B2A4A" : "2px solid #1B2A4A",
+              backgroundColor: isContattaciActive ? "transparent" : "#C4704B",
+              border: isContattaciActive ? "2px solid #1B2A4A" : "2px solid #C4704B",
             }}
           >
-            Audit Gratuito
+            Analisi Gratuita
           </Link>
         </div>
       </div>

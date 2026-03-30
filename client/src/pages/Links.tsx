@@ -24,33 +24,33 @@ interface LinkItem {
 
 const LINKS: LinkItem[] = [
   {
-    label: "Prenota la Sessione Strategica",
-    description: "30 min con Lamberto Grinover — Analisi IA per la tua PMI",
-    href: "/",
-    utmContent: "sessione-strategica",
-    icon: "📋",
+    label: "Guida Gratuita Transizione 5.0",
+    description: "Scopri come lo Stato paga fino al 50% della tua innovazione",
+    href: "/giornale",
+    utmContent: "guida-transizione",
+    icon: "",
     primary: true,
   },
   {
+    label: "Analisi Gratuita della Tua Azienda",
+    description: "30 min con Lamberto Grinover per identificare dove l'IA può tagliare i costi",
+    href: "/",
+    utmContent: "analisi-gratuita",
+    icon: "",
+  },
+  {
     label: "Il Giornale dell'IA",
-    description: "Edizione quotidiana — Strategie IA per imprenditori italiani",
+    description: "Strategie operative settimanali per titolari di PMI",
     href: "/giornale",
     utmContent: "giornale-ia",
-    icon: "📰",
+    icon: "",
   },
   {
     label: "Chi è Sintesys.io",
-    description: "La nostra missione e il metodo dei 90 giorni",
+    description: "28 anni di esperienza in multinazionali, al servizio della tua PMI",
     href: "/chi-siamo",
     utmContent: "chi-siamo",
-    icon: "🏛️",
-  },
-  {
-    label: "Contattaci",
-    description: "Richiedi un audit personalizzato per la tua azienda",
-    href: "/contattaci",
-    utmContent: "contattaci",
-    icon: "✉️",
+    icon: "",
   },
 ];
 
@@ -125,9 +125,9 @@ export default function Links() {
           className="text-sm text-[#1B2A4A]/70 mt-3 leading-relaxed"
           style={{ fontFamily: "'Source Serif 4', serif" }}
         >
-          Strategie operative di Intelligenza Artificiale
+          L'IA che le multinazionali usano.
           <br />
-          per titolari di PMI italiane
+          Adattata per la tua PMI.
         </p>
       </header>
 
@@ -142,17 +142,12 @@ export default function Links() {
               group block w-full rounded-lg border transition-all duration-200
               ${
                 link.primary
-                  ? "bg-[#1B2A4A] border-[#1B2A4A] text-white hover:bg-[#243660] shadow-md"
+                  ? "bg-[#C4704B] border-[#C4704B] text-white hover:bg-[#A85A3A] shadow-md"
                   : "bg-white border-[#1B2A4A]/15 text-[#1B2A4A] hover:border-[#1B2A4A]/40 hover:shadow-sm"
               }
             `}
           >
             <div className="flex items-center gap-3 px-4 py-4">
-              {/* Icon */}
-              <span className="text-xl flex-shrink-0" role="img" aria-hidden="true">
-                {link.icon}
-              </span>
-
               {/* Text */}
               <div className="flex-1 min-w-0">
                 <span

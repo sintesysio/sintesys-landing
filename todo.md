@@ -267,3 +267,22 @@
 - [x] Popup aparece 1a vez após 2s de navegação
 - [x] Se fechar, reabre automaticamente após 2s (2a tentativa)
 - [x] Se fechar pela 2a vez, não abre mais (máximo 2 exibições por sessão)
+
+## Copy Squad + Design Squad: Implementação no Site
+
+- [x] CSS global: cor terracotta (#C4704B) para CTAs
+- [x] CSS global: line-height body aumentado para 1.85
+- [x] Landing Page: Hero headline, trust badges, subtext ajustados
+- [x] Landing Page: Seção Problemi com copies novas
+- [x] Landing Page: Seção Metodo alinhada à Settimana Zero
+- [x] Landing Page: FAQ com fontes e copies ajustadas
+- [x] Landing Page: CTA final ajustado
+- [x] Landing Page: Seção Lamberto ajustada
+- [x] Home/Giornale: Headline e editorial P1-P3 reescritos
+- [x] Home/Giornale: Sidebar CTAs ajustados
+- [x] NavBar: CTA "Audit Gratuito" → "Analisi Gratuita"
+- [x] Popup: Headline, body, botão e success state ajustados
+- [x] Link da Bio: Tagline, links, descrições e remover emojis
+- [x] Chi Siamo: H1, founder headline, bio P1-P2, quote ajustados
+- [x] Contattaci: Step titles e subtitles humanizados
+- [x] Grazie: Headline, body, next steps com timeline

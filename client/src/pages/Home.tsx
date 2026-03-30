@@ -27,10 +27,10 @@ const FALLBACK = {
     return `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
   })(),
   editionNumber: "001",
-  headline: "Riprendi il controllo della tua azienda.",
-  editorialP1: "L'88% degli imprenditori italiani sa di dover innovare, ma solo il 26% agisce. Il motivo? Troppo rumore di fondo, troppa confusione e soluzioni pensate per le multinazionali, non per la realtà di una PMI con 10-50 dipendenti.",
-  editorialP2: "Mentre gli altri ti parlano di \"rivoluzione\" e tool miracolosi, noi parliamo la tua lingua: Marginalità, Controllo, Efficienza e Flusso di Cassa.",
-  editorialP3: "Iscrivendoti alla nostra lista esclusiva, riceverai materiali strategici periodici che tradurranno l'Intelligenza Artificiale in impatto reale sui tuoi margini. Nessun gergo tecnico. Solo strategia pura, da imprenditore a imprenditore.",
+  headline: "Il 74% delle PMI italiane sta ignorando l'IA. Il restante 26% sta vincendo.",
+  editorialP1: "I dati dell'Osservatorio Politecnico di Milano parlano chiaro: le PMI che adottano l'Intelligenza Artificiale riducono i costi operativi del 20-30% e aumentano la produttività del 40%. Non è una promessa — è una fotografia del mercato italiano nel 2025.",
+  editorialP2: "Eppure, 3 imprenditori su 4 restano fermi. Non per mancanza di volontà, ma per mancanza di una guida chiara. Troppo rumore, troppe soluzioni pensate per le multinazionali, zero strumenti adatti a chi ha 10-50 dipendenti e margini da proteggere.",
+  editorialP3: "Questo giornale esiste per colmare quel vuoto. Ogni edizione traduce la complessità dell'IA in decisioni operative concrete: marginalità, controllo, efficienza e flusso di cassa. Da imprenditore a imprenditore, senza gergo tecnico.",
   imageCaption: "L'Intelligenza Artificiale non è più un'opzione. È l'infrastruttura del futuro.",
   statsTitle: "Il paradosso delle PMI italiane.",
   stats: [
@@ -148,7 +148,7 @@ export default function Home() {
               fontWeight: 400,
             }}
           >
-            Strategie Operative per PMI Italiane &mdash; by Sintesys.io
+            L'Intelligenza Artificiale tradotta in marginalità concreta &mdash; by Sintesys.io
           </p>
         </div>
 
@@ -283,7 +283,7 @@ export default function Home() {
                       lineHeight: 1.2,
                     }}
                   >
-                    Passa dall'intenzione all'azione.
+                    Smetti di leggere. Inizia ad agire.
                   </h3>
                   <p
                     className="mb-6"
@@ -294,7 +294,7 @@ export default function Home() {
                       lineHeight: 1.6,
                     }}
                   >
-                    Scopri come l'Intelligenza Artificiale può trasformare la tua PMI con strategie concrete e misurabili.
+                    Ogni settimana persa è margine regalato ai concorrenti. Scegli il tuo prossimo passo.
                   </p>
 
                   {/* CTA Cards */}
@@ -304,11 +304,11 @@ export default function Home() {
                       href="/"
                       className="block p-5 transition-all duration-300"
                       style={{
-                        backgroundColor: "#1B2A4A",
+                        backgroundColor: "#C4704B",
                         textDecoration: "none",
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#A85A3A")}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
                     >
                       <p
                         className="uppercase tracking-[0.15em] mb-2"
@@ -319,7 +319,7 @@ export default function Home() {
                           fontWeight: 500,
                         }}
                       >
-                        Sessione Strategica Gratuita
+                        Analisi Gratuita
                       </p>
                       <p
                         style={{
@@ -331,7 +331,7 @@ export default function Home() {
                           marginBottom: "0.5rem",
                         }}
                       >
-                        30 minuti con Lamberto Grinover per analizzare la tua PMI.
+                        30 minuti per scoprire dove la tua azienda brucia €47.000 l'anno.
                       </p>
                       <span
                         style={{
@@ -367,7 +367,7 @@ export default function Home() {
                           fontWeight: 500,
                         }}
                       >
-                        Audit Gratuito
+                        Analisi Approfondita
                       </p>
                       <p
                         className="cta-text"
@@ -380,7 +380,7 @@ export default function Home() {
                           marginBottom: "0.5rem",
                         }}
                       >
-                        Scopri dove la tua azienda perde tempo e margini.
+                        Raccontaci la tua azienda. Ti mostriamo dove intervenire.
                       </p>
                       <span
                         className="cta-arrow"

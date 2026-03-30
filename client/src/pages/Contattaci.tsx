@@ -397,7 +397,7 @@ export default function Contattaci() {
                 marginBottom: "1.5rem",
               }}
             >
-              Grazie, {form.name.split(" ")[0]}. Il tuo audit è confermato.
+              Perfetto, {form.name.split(" ")[0]}. Ci siamo.
             </h2>
             <p
               style={{
@@ -408,9 +408,9 @@ export default function Contattaci() {
                 marginBottom: "1.5rem",
               }}
             >
-              <strong>Lamberto Grinover</strong>, fondatore di Sintesys.io, analizzerà personalmente
-              il profilo della tua azienda e ti contatterà per una <strong>sessione strategica
-              di 30 minuti</strong> dedicata alla tua realtà.
+              <strong>Lamberto Grinover</strong> analizzerà personalmente il profilo della tua azienda
+              e ti contatterà per una <strong>sessione strategica di 30 minuti</strong> dedicata
+              alla tua realtà. Nessun venditore, nessun pitch — solo analisi.
             </p>
             <div
               className="p-6 mb-6"
@@ -432,9 +432,9 @@ export default function Contattaci() {
               </p>
               <div className="space-y-3">
                 {[
-                  { step: "1", text: "Lamberto analizza il tuo profilo aziendale nelle prossime 24 ore" },
-                  { step: "2", text: "Riceverai un'email per confermare la tua disponibilità per i 30 minuti" },
-                  { step: "3", text: "Nella sessione, riceverai un report personalizzato con 3+ opportunità concrete" },
+                  { step: "1", text: "Entro 24 ore: Lamberto analizza il tuo profilo aziendale" },
+                  { step: "2", text: "Entro 48 ore: ricevi un'email per fissare i 30 minuti" },
+                  { step: "3", text: "Nella sessione: report personalizzato con 3+ opportunità concrete di risparmio" },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
                     <span
@@ -505,7 +505,7 @@ export default function Contattaci() {
           className="uppercase tracking-[0.2em] mb-2 text-center"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", color: "#999" }}
         >
-          Audit Operativo Gratuito
+          Analisi Gratuita
         </p>
         <h1
           className="text-center mb-2"
@@ -517,7 +517,7 @@ export default function Contattaci() {
             lineHeight: 1.15,
           }}
         >
-          Scopri quanto stai perdendo ogni mese senza saperlo.
+          Raccontaci la tua azienda. Ti mostriamo dove intervenire.
         </h1>
         <p
           className="text-center mb-8"
@@ -528,9 +528,9 @@ export default function Contattaci() {
             lineHeight: 1.6,
           }}
         >
-          Rispondi a poche domande strategiche. Riceverai un report personalizzato
-          con le inefficienze della tua azienda e le soluzioni concrete entro 48 ore.{" "}
-          <strong style={{ color: "#1B2A4A" }}>Gratuita e senza impegno.</strong>
+          5 minuti del tuo tempo. In cambio, un report personalizzato con le inefficienze
+          della tua azienda e le soluzioni concrete entro 48 ore.{" "}
+          <strong style={{ color: "#1B2A4A" }}>Gratuito e senza impegno.</strong>
         </p>
       </section>
 
@@ -551,8 +551,8 @@ export default function Contattaci() {
               {/* ─── Step 0: Contact Info ─── */}
               {step === 0 && (
                 <div>
-                  <StepLabel text="Informazioni di Contatto" />
-                  <StepTitle text="Iniziamo con i tuoi dati." />
+                  <StepLabel text="Chi sei?" />
+                  <StepTitle text="Presentati. Nessuna formalità." />
                   <InputField label="Nome e Cognome" value={form.name} onChange={(v) => update("name", v)} placeholder="es. Marco Rossi" required />
                   <InputField label="Email Aziendale" value={form.email} onChange={(v) => update("email", v)} type="email" placeholder="es. marco@azienda.it" required />
                   <InputField label="Telefono" value={form.phone} onChange={(v) => update("phone", v)} type="tel" placeholder="es. +39 333 1234567" />
@@ -563,8 +563,8 @@ export default function Contattaci() {
               {/* ─── Step 1: Profile & Segmentation ─── */}
               {step === 1 && (
                 <div>
-                  <StepLabel text="Profilo Aziendale" />
-                  <StepTitle text="Qual è la dimensione della tua azienda?" />
+                  <StepLabel text="La tua azienda" />
+                  <StepTitle text="Aiutaci a capire la tua realtà." />
 
                   <QuestionLabel text="Fatturato annuo *" />
                   <div className="space-y-2 mb-6">
@@ -606,8 +606,8 @@ export default function Contattaci() {
               {/* ─── Step 2: Pain Diagnosis (Italian PMI Specific) ─── */}
               {step === 2 && (
                 <div>
-                  <StepLabel text="Diagnosi delle Criticità" />
-                  <StepTitle text="Dove perde tempo e denaro la tua azienda?" />
+                  <StepLabel text="Dove fa più male?" />
+                  <StepTitle text="Ogni azienda ha un punto debole. Qual è il tuo?" />
 
                   <QuestionLabel text="Qual è il maggiore ostacolo alla crescita oggi? *" />
                   <div className="space-y-2 mb-6">
@@ -661,8 +661,8 @@ export default function Contattaci() {
               {/* ─── Step 3: Tech Maturity & Governance ─── */}
               {step === 3 && (
                 <div>
-                  <StepLabel text="Maturità Tecnologica e Governance" />
-                  <StepTitle text="Come la tua azienda usa la tecnologia oggi?" />
+                  <StepLabel text="Tecnologia e strumenti" />
+                  <StepTitle text="Cosa usi oggi per mandare avanti l'azienda?" />
 
                   <TextAreaField
                     label="Strumenti attuali (CRM, ERP, gestionali, ecc.)"
@@ -709,8 +709,8 @@ export default function Contattaci() {
               {/* ─── Step 4: Urgency, Succession & Authority ─── */}
               {step === 4 && (
                 <div>
-                  <StepLabel text="Urgenza e Visione Futura" />
-                  <StepTitle text="Quanto è urgente innovare per te?" />
+                  <StepLabel text="Il prossimo passo" />
+                  <StepTitle text="Cosa vuoi ottenere nei prossimi 90 giorni?" />
 
                   <QuestionLabel text="Qual è la tua priorità nei prossimi 90 giorni? *" />
                   <div className="space-y-2 mb-6">
@@ -783,7 +783,7 @@ export default function Contattaci() {
               style={{
                 fontFamily: "'Inter', sans-serif",
                 color: canProceed() ? "#FAFAF7" : "#999",
-                backgroundColor: canProceed() ? "#1B2A4A" : "oklch(0.90 0.003 60)",
+                backgroundColor: canProceed() ? "#C4704B" : "oklch(0.90 0.003 60)",
                 fontWeight: 600,
                 opacity: submitLead.isPending ? 0.6 : 1,
               }}

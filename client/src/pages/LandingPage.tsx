@@ -325,7 +325,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         marginBottom: "0.5rem",
                       }}
                     >
-                      Prenota la tua Sessione Strategica
+                      Prenota la Tua Analisi Gratuita
                     </h2>
                     <p
                       style={{
@@ -335,7 +335,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         lineHeight: 1.5,
                       }}
                     >
-                      30 minuti con Lamberto Grinover per scoprire dove l'IA può generare impatto concreto nella tua azienda.
+                      30 minuti con Lamberto Grinover per analizzare i tuoi processi e mostrarti dove l'IA può generare impatto concreto.
                     </p>
                   </div>
 
@@ -445,16 +445,16 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         fontWeight: 700,
                         letterSpacing: "0.15em",
                         textTransform: "uppercase",
-                        backgroundColor: "#1B2A4A",
+                        backgroundColor: "#C4704B",
                         color: "#FAFAF7",
                         border: "none",
                         cursor: mutation.isPending ? "wait" : "pointer",
                         opacity: mutation.isPending ? 0.7 : 1,
                       }}
-                      onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#0f1d36"; }}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
+                      onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#A85A3A"; }}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
                     >
-                      {mutation.isPending ? "Invio in corso..." : "Prenota la Sessione Strategica"}
+                      {mutation.isPending ? "Invio in corso..." : "Prenota la Tua Analisi Gratuita →"}
                     </button>
 
                     {mutation.isError && (
@@ -499,15 +499,15 @@ function CTAButton({ onClick, large = false }: { onClick: () => void; large?: bo
         fontWeight: 700,
         letterSpacing: "0.15em",
         textTransform: "uppercase",
-        backgroundColor: "#1B2A4A",
+        backgroundColor: "#C4704B",
         color: "#FAFAF7",
         border: "none",
         cursor: "pointer",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
+      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#A85A3A")}
+      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
     >
-      Prenota la Sessione Strategica
+      Prenota la Tua Analisi Gratuita →
     </button>
   );
 }
@@ -578,7 +578,7 @@ export default function LandingPage() {
                   lineHeight: 1.1,
                 }}
               >
-                La tua azienda perde <span style={{ color: "#1B2A4A" }}>3 ore al giorno</span> in processi che l'IA può automatizzare.
+                La tua azienda brucia <span style={{ color: "#C4704B" }}>€47.000 l'anno</span> in processi che l'IA risolve in ore.
               </h1>
               <p
                 className="mb-6"
@@ -589,15 +589,15 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Il 72% delle PMI italiane sa che deve innovare, ma non sa da dove iniziare. Noi lo sappiamo. In 30 minuti, Lamberto Grinover analizza la tua azienda e ti mostra <strong>esattamente</strong> dove l'Intelligenza Artificiale può tagliare costi, eliminare errori e liberare il tuo team dalle attività ripetitive.
+                Non è una promessa — è il dato medio delle PMI italiane con 10-50 dipendenti (Osservatorio Politecnico di Milano, 2025). In una sessione strategica di 30 minuti, Lamberto Grinover analizza i tuoi processi e ti mostra <strong>esattamente</strong> dove tagliare costi, eliminare errori e liberare il tuo team.
               </p>
 
               {/* Trust badges */}
               <div className="flex flex-wrap gap-4 mb-8">
                 {[
-                  { icon: "✓", text: "Sessione Strategica Personalizzata" },
-                  { icon: "✓", text: "Nessun Impegno" },
-                  { icon: "✓", text: "Risultati in 30 min" },
+                  { icon: "✓", text: "Analisi Gratuita e Personalizzata" },
+                  { icon: "✓", text: "Zero Impegno, Zero Rischio" },
+                  { icon: "✓", text: "Piano d'Azione Concreto in 48h" },
                 ].map((badge) => (
                   <div
                     key={badge.text}
@@ -697,7 +697,7 @@ export default function LandingPage() {
                 lineHeight: 1.15,
               }}
             >
-              La tua azienda soffre di almeno uno di questi?
+              Riconosci almeno uno di questi nella tua azienda?
             </h2>
           </FadeIn>
 
@@ -706,20 +706,20 @@ export default function LandingPage() {
               {
                 number: "01",
                 title: "Caos Operazionale",
-                problem: "Dati sparsi tra Excel, email e WhatsApp. Nessuno ha il quadro completo.",
-                solution: "Un sistema IA centralizzato che organizza, analizza e ti dà il controllo totale.",
+                problem: "Dati sparsi tra 7 Excel, 3 caselle email e WhatsApp. Nessuno ha il quadro completo — nemmeno tu.",
+                solution: "Un sistema IA che centralizza tutto in un'unica dashboard. Le aziende che lo implementano riducono gli errori del 60%.",
               },
               {
                 number: "02",
                 title: "Tempo Bruciato",
-                problem: "Il tuo team passa ore su fatturazione, reportistica e inserimento dati manuali.",
-                solution: "Automazione intelligente che libera 3+ ore al giorno per attività strategiche.",
+                problem: "Il tuo team passa 3+ ore al giorno su fatturazione, reportistica e inserimento dati. Ore che non torneranno.",
+                solution: "Automazione intelligente che libera 15+ ore a settimana. Costo medio: meno di uno stipendio part-time.",
               },
               {
                 number: "03",
                 title: "Margini Compressi",
-                problem: "I costi operativi crescono ma i margini no. La concorrenza è più veloce.",
-                solution: "IA che riduce errori, ottimizza processi e ti fa risparmiare fino al 30%.",
+                problem: "Il fatturato cresce del 5%, ma i costi operativi del 12%. Il margine si assottiglia ogni trimestre.",
+                solution: "IA che ottimizza pricing, riduce sprechi e taglia i costi operativi del 20-30%. ROI medio documentato: 300% nel primo anno.",
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
@@ -814,7 +814,7 @@ export default function LandingPage() {
               lineHeight: 1.15,
             }}
           >
-            Da caos operazionale a efficienza in 90 giorni.
+            Da confusione a chiarezza in 5 passi.
           </h2>
           <p
             className="text-center max-w-2xl mx-auto mb-12"
@@ -825,29 +825,29 @@ export default function LandingPage() {
               lineHeight: 1.7,
             }}
           >
-            Un percorso strutturato, senza stravolgere la tua operatività quotidiana.
+            Un percorso strutturato che non stravolge la tua operatività.
           </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {[
             {
-              step: "Mese 1",
-              title: "Audit & Strategia",
-              desc: "Analizziamo i tuoi processi, identifichiamo le inefficienze e creiamo un piano d'azione personalizzato con ROI stimato.",
-              detail: "Sessione di 30 min + Report dettagliato",
+              step: "Passo 1",
+              title: "Sessione Strategica",
+              desc: "Analizziamo insieme i tuoi processi e identifichiamo le 3 aree dove l'IA può generare il massimo impatto immediato.",
+              detail: "Gratuita · Online o in presenza · 30 min",
             },
             {
-              step: "Mese 2",
+              step: "Passo 2",
+              title: "Audit Operativo",
+              desc: "Mappiamo ogni processo, misuriamo le inefficienze e calcoliamo il ROI potenziale di ogni automazione.",
+              detail: "Report dettagliato con priorità d'intervento",
+            },
+            {
+              step: "Passo 3",
               title: "Implementazione",
-              desc: "Installiamo e configuriamo le soluzioni IA selezionate, formiamo il tuo team e integriamo con i tuoi strumenti esistenti.",
-              detail: "Setup completo + Formazione team",
-            },
-            {
-              step: "Mese 3",
-              title: "Ottimizzazione",
-              desc: "Monitoriamo i risultati, ottimizziamo le performance e ti consegniamo un sistema autonomo che lavora per te.",
-              detail: "Dashboard KPI + Supporto continuo",
+              desc: "Installiamo le prime automazioni, formiamo il tuo team e integriamo con i tuoi strumenti esistenti.",
+              detail: "Prima automazione funzionante garantita",
             },
           ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
@@ -1075,7 +1075,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Consulente strategico specializzato nell'implementazione dell'Intelligenza Artificiale per PMI italiane. Con esperienza diretta nel tessuto imprenditoriale italiano, Lamberto traduce la complessità tecnologica in risultati concreti: più efficienza, meno costi, margini migliori.
+                28 anni in ruoli direttivi presso Nissan Italia, Cushman & Wakefield, Tishman Speyer e Brookfield. Ha gestito operazioni da €200M+ e team di 150+ persone. Oggi traduce quella esperienza in una cosa sola: far funzionare meglio la tua azienda con l'Intelligenza Artificiale.
               </p>
               <p
                 style={{
@@ -1086,7 +1086,7 @@ export default function LandingPage() {
                   fontStyle: "italic",
                 }}
               >
-                "Non parlo di algoritmi. Parlo di marginalità, controllo e flusso di cassa. L'IA è lo strumento, il risultato è il tuo business che funziona meglio."
+                "Non vendiamo tecnologia. Traduciamo l'Intelligenza Artificiale in marginalità concreta — con il rigore di chi ha gestito operazioni da €200M in quattro multinazionali."
               </p>
             </div>
           </div>
@@ -1131,19 +1131,19 @@ export default function LandingPage() {
             {[
               {
                 q: "L'IA è troppo costosa per una PMI?",
-                a: "No. Con Transizione 5.0, lo Stato copre fino al 50% dell'investimento. Inoltre, l'IA non è un costo: è un investimento che si ripaga attraverso l'efficienza operativa. Le aziende che implementano l'IA vedono un ROI medio del 300% nel primo anno.",
+                a: "Con Transizione 5.0, lo Stato copre fino al 50% dell'investimento. Ma il punto vero è un altro: l'IA non è un costo. È un investimento che si ripaga in 3-6 mesi attraverso l'efficienza operativa. Le PMI che implementano l'IA vedono un ROI medio del 300% nel primo anno (fonte: McKinsey, 2024).",
               },
               {
                 q: "L'IA sostituirà i miei dipendenti?",
-                a: "L'IA non sostituisce le persone — le potenzia. Automatizza i compiti ripetitivi (inserimento dati, reportistica, risposte FAQ) liberando il tuo team per attività a maggior valore. Le aziende che adottano l'IA registrano +40% di efficienza del personale.",
+                a: "No. L'IA automatizza i compiti ripetitivi — inserimento dati, fatturazione, reportistica, risposte FAQ — e libera il tuo team per le attività che generano valore. Le aziende che adottano l'IA registrano +40% di produttività del personale, non licenziamenti.",
               },
               {
                 q: "Non ho tempo per un progetto tecnologico complesso.",
-                a: "Proprio per questo il nostro metodo è strutturato in 90 giorni, senza stravolgere la tua operatività. Il primo mese è solo analisi e strategia — zero impatto sulle tue attività quotidiane.",
+                a: "Proprio per questo il primo passo è una sessione di 30 minuti. Zero impegno, zero complessità. Se decidi di procedere, il nostro metodo è strutturato per non stravolgere la tua operatività quotidiana.",
               },
               {
                 q: "Come faccio a fidarmi se non conosco la tecnologia?",
-                a: "La sessione strategica serve esattamente a questo: in 30 minuti, Lamberto ti mostra concretamente cosa l'IA può fare per la tua azienda specifica. Nessun gergo tecnico, solo numeri e risultati tangibili.",
+                a: "Non devi conoscerla — devi solo conoscere i tuoi numeri. Nella sessione strategica, Lamberto ti mostra concretamente cosa l'IA può fare per la tua azienda specifica. Nessun gergo tecnico. Solo numeri, processi e risultati tangibili.",
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.05}>
@@ -1198,7 +1198,7 @@ export default function LandingPage() {
                 lineHeight: 1.15,
               }}
             >
-              Pronto a scoprire cosa l'IA può fare per te?
+              Il prossimo passo è tuo.
             </h2>
             <p
               className="mb-8"
@@ -1209,7 +1209,7 @@ export default function LandingPage() {
                 lineHeight: 1.7,
               }}
             >
-              Compila il modulo e Lamberto Grinover ti contatterà entro 24 ore per una sessione strategica di 30 minuti.
+              Compila il modulo. Lamberto analizzerà personalmente il tuo profilo e ti contatterà entro 24 ore per fissare la sessione strategica.
             </p>
             <CTAButton onClick={openPopup} large />
           </div>

@@ -49,7 +49,7 @@ export default function ChiSiamo() {
               letterSpacing: "-0.02em",
             }}
           >
-            Innovazione Tecnologica al Servizio delle PMI
+            L'IA che le multinazionali usano. Adattata per la tua PMI.
           </h1>
           <div className="rule-thin mt-6 max-w-2xl mx-auto" />
         </div>
@@ -192,7 +192,7 @@ export default function ChiSiamo() {
                   lineHeight: 1.2,
                 }}
               >
-                Da Direttore in Multinazionali a Consulente per l'Innovazione Tecnologica delle PMI
+                28 anni in multinazionali. Oggi, al servizio della tua PMI.
               </h2>
 
               <div
@@ -205,16 +205,16 @@ export default function ChiSiamo() {
                 }}
               >
                 <p>
-                  Con oltre 28 anni di esperienza in ruoli direttivi presso multinazionali come <strong>Nissan Italia</strong>, <strong>Cushman &amp; Wakefield</strong>, <strong>Tishman Speyer</strong> e <strong>Brookfield</strong>, Lamberto Grinover ha maturato una visione unica su come le grandi organizzazioni utilizzano la tecnologia per creare efficienza operativa e vantaggio competitivo.
+                  Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer, Brookfield. In 28 anni di ruoli direttivi, Lamberto Grinover ha gestito <strong>operazioni da €200M+</strong> e team di 150+ persone. Ha visto da vicino come le grandi organizzazioni usano la tecnologia per creare efficienza operativa e vantaggio competitivo.
                 </p>
                 <p>
-                  Trasferitosi in Italia nel 2023, ha fondato <strong>Sintesys.io</strong> con una missione chiara: portare alle Piccole e Medie Imprese italiane lo stesso livello di innovazione tecnologica e Intelligenza Artificiale che fino a oggi era riservato solo alle grandi aziende.
+                  Poi ha fatto una scelta: portare quelle stesse armi alle PMI italiane. Ha fondato <strong>Sintesys.io</strong> con una missione semplice — tradurre l'Intelligenza Artificiale in marginalità concreta per chi ha 10-50 dipendenti e margini da proteggere.
                 </p>
                 <p>
-                  La sua forza non è solo la competenza tecnica, ma la capacità di <strong>ascoltare e comprendere le reali necessità aziendali</strong>, di dialogare con CEO e imprenditori parlando la loro lingua: marginalità, controllo dei costi, efficienza e flusso di cassa. Non vende tecnologia. Vende risultati misurabili.
+                  La differenza? Lamberto non parla di algoritmi. Parla la lingua dell'imprenditore: <strong>marginalità, controllo dei costi, efficienza e flusso di cassa</strong>. Non vende tecnologia — vende risultati misurabili, con il rigore analitico di chi ha gestito P&amp;L da centinaia di milioni.
                 </p>
                 <p>
-                  In un mercato dove il 62% delle PMI italiane non ha ancora un piano strutturato per l'adozione dell'IA, Lamberto si posiziona come il <strong>consulente esecutivo</strong> che trasforma la complessità tecnologica in decisioni operative concrete — in 90 giorni, non in anni.
+                  In un mercato dove il 74% delle PMI italiane non ha ancora un piano strutturato per l'IA, Lamberto è il <strong>consulente esecutivo</strong> che trasforma la complessità tecnologica in decisioni operative concrete — non in anni, ma in settimane.
                 </p>
               </div>
             </FadeIn>
@@ -329,7 +329,7 @@ export default function ChiSiamo() {
                   lineHeight: 1.5,
                 }}
               >
-                "Non vendiamo tecnologia. Traduciamo l'Intelligenza Artificiale in impatto reale sui tuoi margini — con il rigore di chi ha gestito operazioni in quattro multinazionali."
+                "Nessun imprenditore dovrebbe affrontare questa trasformazione da solo. L'IA è lo strumento. Il risultato è la tua azienda che funziona meglio — con meno costi, meno errori e più tempo per ciò che conta."
               </blockquote>
               <p
                 className="mt-4 uppercase tracking-[0.15em]"

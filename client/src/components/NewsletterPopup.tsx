@@ -174,7 +174,7 @@ export default function NewsletterPopup() {
                     fontWeight: 600,
                   }}
                 >
-                  Guida Gratuita
+                  Edizione Speciale
                 </p>
 
                 <h2
@@ -187,7 +187,7 @@ export default function NewsletterPopup() {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  Transizione 5.0: come far pagare allo Stato fino al 50% della tua innovazione.
+                  Il governo paga fino al 50% della tua trasformazione digitale. Il 60% degli imprenditori non lo sa.
                 </h2>
 
                 <p
@@ -198,7 +198,7 @@ export default function NewsletterPopup() {
                     lineHeight: 1.5,
                   }}
                 >
-                  Oltre il 60% degli imprenditori italiani non conosce questi incentivi. Iscriviti e ricevi aggiornamenti settimanali su incentivi fiscali, strategie IA e casi studio per il tuo settore.
+                  Scarica la Guida Transizione 5.0 e scopri come accedere ai €6,3 miliardi di fondi MIMIT. Più aggiornamenti settimanali su incentivi, strategie IA e casi studio per il tuo settore.
                 </p>
               </div>
 
@@ -230,7 +230,7 @@ export default function NewsletterPopup() {
                         marginBottom: "0.25rem",
                       }}
                     >
-                      Iscrizione confermata.
+                      Perfetto. La guida è in arrivo.
                     </h3>
                     <p
                       style={{
@@ -239,7 +239,7 @@ export default function NewsletterPopup() {
                         color: "#666",
                       }}
                     >
-                      Riceverai la guida e gli aggiornamenti settimanali direttamente nella tua casella.
+                      Controlla la tua casella email. Riceverai la Guida Transizione 5.0 entro pochi minuti, insieme al primo aggiornamento settimanale.
                     </p>
                   </motion.div>
                 ) : (
@@ -403,14 +403,14 @@ export default function NewsletterPopup() {
                       style={{
                         fontFamily: "'Inter', sans-serif",
                         fontWeight: 600,
-                        backgroundColor: "#1B2A4A",
+                        backgroundColor: "#C4704B",
                         color: "#FAFAF7",
                         border: "none",
                         cursor: submitLead.isPending ? "wait" : "pointer",
                         opacity: submitLead.isPending ? 0.7 : 1,
                       }}
                     >
-                      {submitLead.isPending ? "Invio in corso..." : "Scarica la Guida Gratuita"}
+                      {submitLead.isPending ? "Invio in corso..." : "Sì, Voglio la Guida →"}
                     </button>
 
                     {/* Privacy note */}
