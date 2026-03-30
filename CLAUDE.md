@@ -390,6 +390,15 @@ Rodar testes: `pnpm test`
 | `ideas.md` | Brainstorm de design — 3 conceitos, decisão por "La Prima Pagina" |
 | `image-urls.md` | URLs CDN dos assets visuais do site |
 | `todo.md` | Histórico completo de todas as features implementadas |
+| `docs/skills/content/SKILL.md` | Workflow completo de produção de conteúdo Instagram (6 estágios, aprovação, publicação) |
+| `docs/skills/content/pubblico-target.md` | Público-alvo detalhado: dores, crenças, medos dos donos de PMI |
+| `docs/skills/content/sintesys-knowledge-base.md` | Knowledge base da empresa (produto, serviços, diferenciais) |
+| `docs/skills/content/strategia-editoriale.md` | Estratégia editorial completa (pilares, tom, frequência, regras visuais) |
+| `docs/skills/content/templates-contenuto.md` | Templates de conteúdo (carrossel, reel, post único) |
+| `docs/skills/ads/SKILL.md` | Workflow de campanhas pagas (Meta + Google Ads) |
+| `docs/skills/ads/creativi-copy.md` | Criativos e copy para ads |
+| `docs/skills/ads/kpis-metriche.md` | KPIs e métricas de performance de ads |
+| `docs/skills/ads/struttura-campagne.md` | Estrutura de campanhas (TOFU/MOFU/BOFU, budget, targeting) |
 
 ---
 

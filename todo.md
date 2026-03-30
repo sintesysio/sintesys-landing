@@ -207,3 +207,6 @@
 
 ## Documentação para Claude Code
 - [x] Criar CLAUDE.md com contexto completo do projeto (negócio, estratégia, arquitetura, integrações, decisões)
+
+## Documentação Skills no GitHub
+- [x] Copiar 8 arquivos de skills (content + ads) para docs/skills/ no projeto
