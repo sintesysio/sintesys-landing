@@ -2,7 +2,7 @@
  * Design: "La Prima Pagina" — Estilo Jornal Impresso Italiano Clássico
  * Paleta: Off-white (#FAFAF7), Preto (#1A1A1A), Navy (#1B2A4A)
  * Tipografia: Playfair Display (headlines), Source Serif 4 (body), Inter (labels/UI)
- * Layout: Grid assimétrico de jornal com masthead, manchetes e formulário
+ * Layout: Grid assimétrico de jornal com masthead, manchetes e CTAs
  * 
  * DYNAMIC CONTENT: The page fetches today's editorial edition from the API.
  * If no edition is available, it falls back to static default content.
@@ -17,17 +17,7 @@ const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAq
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const DATA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/data-section-9fYjcLRyFVkjjbgNw5fX7E.webp";
 
-const SECTORS = [
-  "Manifattura",
-  "Commercio all'ingrosso",
-  "Commercio al dettaglio",
-  "Servizi professionali",
-  "Costruzioni",
-  "Logistica e trasporti",
-  "Ristorazione e hospitality",
-  "Tecnologia",
-  "Altro",
-];
+
 
 // ─── Static fallback content (used when API has no edition) ─────────
 const FALLBACK = {
@@ -90,15 +80,7 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 export default function Home() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    sector: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+
 
   // ─── Fetch today's dynamic content ─────────────────────────
   const { data: dailyContent } = trpc.dailyContent.today.useQuery(undefined, {
@@ -112,29 +94,7 @@ export default function Home() {
     return FALLBACK;
   }, [dailyContent]);
 
-  const submitLead = trpc.leads.submit.useMutation({
-    onSuccess: () => {
-      setSubmitted(true);
-      setSubmitting(false);
-    },
-    onError: (error) => {
-      setSubmitting(false);
-      setErrorMsg(error.message || "Errore durante l'iscrizione. Riprova.");
-    },
-  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setErrorMsg("");
-    submitLead.mutate({
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone || undefined,
-      sector: formData.sector,
-      source: "landing_page",
-    });
-  };
 
   // Highlight bold text in editorial paragraphs
   const renderBoldText = (text: string) => {
@@ -292,7 +252,7 @@ export default function Home() {
             </FadeIn>
           </div>
 
-          {/* Right column: Subscription form */}
+          {/* Right column: CTA Sidebar */}
           <div className="lg:col-span-5">
             <FadeIn delay={0.15}>
               <div className="lg:sticky lg:top-8">
@@ -300,7 +260,7 @@ export default function Home() {
                 <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-px" style={{ backgroundColor: "oklch(0.80 0.005 60)" }} />
 
                 <div className="lg:pl-8">
-                  {/* Form header */}
+                  {/* Sidebar header */}
                   <div className="rule-thick mb-4" />
                   <p
                     className="uppercase tracking-[0.15em] mb-2"
@@ -311,7 +271,7 @@ export default function Home() {
                       fontWeight: 600,
                     }}
                   >
-                    Accesso Riservato
+                    Per il Titolare di PMI
                   </p>
                   <h3
                     className="mb-1"
@@ -323,7 +283,7 @@ export default function Home() {
                       lineHeight: 1.2,
                     }}
                   >
-                    Ricevi materiali strategici.
+                    Passa dall'intenzione all'azione.
                   </h3>
                   <p
                     className="mb-6"
@@ -334,269 +294,136 @@ export default function Home() {
                       lineHeight: 1.6,
                     }}
                   >
-                    Analisi esclusive sull'IA per PMI italiane, direttamente nella tua casella di posta.
+                    Scopri come l'Intelligenza Artificiale può trasformare la tua PMI con strategie concrete e misurabili.
                   </p>
 
-                  {!submitted ? (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      {/* Name */}
-                      <div>
-                        <label
-                          htmlFor="name"
-                          className="block mb-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.65rem",
-                            fontWeight: 600,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: "#666",
-                          }}
-                        >
-                          Nome e Cognome *
-                        </label>
-                        <input
-                          id="name"
-                          type="text"
-                          required
-                          autoComplete="name"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full px-3 py-2.5 transition-colors"
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            fontSize: "0.95rem",
-                            border: "1px solid oklch(0.80 0.005 60)",
-                            backgroundColor: "transparent",
-                            color: "#1A1A1A",
-                            outline: "none",
-                          }}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
-                          placeholder="Mario Rossi"
-                        />
-                      </div>
-
-                      {/* Email */}
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block mb-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.65rem",
-                            fontWeight: 600,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: "#666",
-                          }}
-                        >
-                          Email Aziendale *
-                        </label>
-                        <input
-                          id="email"
-                          type="email"
-                          required
-                          autoComplete="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full px-3 py-2.5 transition-colors"
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            fontSize: "0.95rem",
-                            border: "1px solid oklch(0.80 0.005 60)",
-                            backgroundColor: "transparent",
-                            color: "#1A1A1A",
-                            outline: "none",
-                          }}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
-                          placeholder="mario@azienda.it"
-                        />
-                      </div>
-
-                      {/* Phone */}
-                      <div>
-                        <label
-                          htmlFor="phone"
-                          className="block mb-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.65rem",
-                            fontWeight: 600,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: "#666",
-                          }}
-                        >
-                          Telefono
-                        </label>
-                        <input
-                          id="phone"
-                          type="tel"
-                          autoComplete="tel"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full px-3 py-2.5 transition-colors"
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            fontSize: "0.95rem",
-                            border: "1px solid oklch(0.80 0.005 60)",
-                            backgroundColor: "transparent",
-                            color: "#1A1A1A",
-                            outline: "none",
-                          }}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
-                          placeholder="+39 333 1234567"
-                        />
-                      </div>
-
-                      {/* Sector */}
-                      <div>
-                        <label
-                          htmlFor="sector"
-                          className="block mb-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.65rem",
-                            fontWeight: 600,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: "#666",
-                          }}
-                        >
-                          Settore *
-                        </label>
-                        <select
-                          id="sector"
-                          required
-                          value={formData.sector}
-                          onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                          className="w-full px-3 py-2.5 transition-colors"
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            fontSize: "0.95rem",
-                            border: "1px solid oklch(0.80 0.005 60)",
-                            backgroundColor: "transparent",
-                            color: formData.sector ? "#1A1A1A" : "#999",
-                            outline: "none",
-                            appearance: "none",
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%23666' stroke-width='1.5'/%3E%3C/svg%3E")`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "right 12px center",
-                          }}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "oklch(0.80 0.005 60)")}
-                        >
-                          <option value="" disabled>
-                            Seleziona il tuo settore
-                          </option>
-                          {SECTORS.map((s) => (
-                            <option key={s} value={s}>
-                              {s}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Submit */}
-                      <button
-                        type="submit"
-                        disabled={submitting}
-                        className="w-full py-3 transition-all duration-300"
+                  {/* CTA Cards */}
+                  <div className="space-y-4">
+                    {/* CTA 1: Sessione Strategica */}
+                    <a
+                      href="/"
+                      className="block p-5 transition-all duration-300"
+                      style={{
+                        backgroundColor: "#1B2A4A",
+                        textDecoration: "none",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
+                    >
+                      <p
+                        className="uppercase tracking-[0.15em] mb-2"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.6rem",
+                          color: "rgba(250,250,247,0.5)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        Sessione Strategica Gratuita
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "'Playfair Display', serif",
+                          fontSize: "1.2rem",
+                          fontWeight: 700,
+                          color: "#FAFAF7",
+                          lineHeight: 1.3,
+                          marginBottom: "0.5rem",
+                        }}
+                      >
+                        30 minuti con Lamberto Grinover per analizzare la tua PMI.
+                      </p>
+                      <span
                         style={{
                           fontFamily: "'Inter', sans-serif",
                           fontSize: "0.7rem",
                           fontWeight: 600,
-                          letterSpacing: "0.15em",
+                          letterSpacing: "0.1em",
                           textTransform: "uppercase",
-                          backgroundColor: submitting ? "#555" : "#1B2A4A",
-                          color: "#FAFAF7",
-                          border: "none",
-                          cursor: submitting ? "wait" : "pointer",
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!submitting) e.currentTarget.style.backgroundColor = "#0f1d36";
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!submitting) e.currentTarget.style.backgroundColor = "#1B2A4A";
+                          color: "rgba(250,250,247,0.7)",
                         }}
                       >
-                        {submitting ? "Invio in corso..." : "Iscriviti — È Gratuito"}
-                      </button>
+                        Prenota ora &rarr;
+                      </span>
+                    </a>
 
-                      {/* Privacy note */}
+                    {/* CTA 2: Contattaci */}
+                    <a
+                      href="/contattaci"
+                      className="block p-5 transition-all duration-300"
+                      style={{
+                        border: "2px solid #1B2A4A",
+                        textDecoration: "none",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#1B2A4A"; (e.currentTarget.querySelector('.cta-text') as HTMLElement).style.color = "#FAFAF7"; (e.currentTarget.querySelector('.cta-arrow') as HTMLElement).style.color = "rgba(250,250,247,0.7)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; (e.currentTarget.querySelector('.cta-text') as HTMLElement).style.color = "#1A1A1A"; (e.currentTarget.querySelector('.cta-arrow') as HTMLElement).style.color = "#1B2A4A"; }}
+                    >
                       <p
+                        className="uppercase tracking-[0.15em] mb-2"
                         style={{
                           fontFamily: "'Inter', sans-serif",
                           fontSize: "0.6rem",
-                          color: "#999",
-                          lineHeight: 1.5,
-                          textAlign: "center",
+                          color: "#1B2A4A",
+                          fontWeight: 500,
                         }}
                       >
-                        I tuoi dati sono al sicuro. Nessuno spam, solo contenuti di valore.
-                        <br />
-                        Puoi cancellarti in qualsiasi momento.
+                        Audit Gratuito
                       </p>
-
-                      {/* Error message */}
-                      {errorMsg && (
-                        <p
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.75rem",
-                            color: "#c0392b",
-                            textAlign: "center",
-                            marginTop: "0.5rem",
-                          }}
-                        >
-                          {errorMsg}
-                        </p>
-                      )}
-                    </form>
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5 }}
-                      className="text-center py-8"
-                    >
-                      <div
-                        className="inline-flex items-center justify-center w-16 h-16 mb-4"
-                        style={{
-                          border: "2px solid #1B2A4A",
-                        }}
-                      >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                      </div>
-                      <h3
-                        className="mb-2"
+                      <p
+                        className="cta-text"
                         style={{
                           fontFamily: "'Playfair Display', serif",
-                          fontSize: "1.5rem",
+                          fontSize: "1.2rem",
                           fontWeight: 700,
                           color: "#1A1A1A",
+                          lineHeight: 1.3,
+                          marginBottom: "0.5rem",
                         }}
                       >
-                        Benvenuto, {formData.name.split(" ")[0]}.
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: "'Source Serif 4', serif",
-                          fontSize: "1rem",
-                          color: "#555",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        Riceverai il primo materiale strategico direttamente nella tua casella di posta.
-                        Controlla anche la cartella spam.
+                        Scopri dove la tua azienda perde tempo e margini.
                       </p>
-                    </motion.div>
-                  )}
+                      <span
+                        className="cta-arrow"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.7rem",
+                          fontWeight: 600,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "#1B2A4A",
+                        }}
+                      >
+                        Compila il questionario &rarr;
+                      </span>
+                    </a>
+
+                    {/* Instagram follow */}
+                    <a
+                      href="https://www.instagram.com/sintesys.io/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-4 text-center transition-all duration-300"
+                      style={{
+                        border: "1px solid oklch(0.80 0.005 60)",
+                        textDecoration: "none",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#1B2A4A")}
+                      onMouseLeave={(e) => (e.currentTarget.style.borderColor = "oklch(0.80 0.005 60)")}
+                    >
+                      <span
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.7rem",
+                          fontWeight: 600,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "#1B2A4A",
+                        }}
+                      >
+                        Segui @sintesys.io su Instagram
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </FadeIn>

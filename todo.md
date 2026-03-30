@@ -251,7 +251,14 @@
 ## Configuração Meta Business Manager
 - [x] Acessar Meta Business Manager e verificar setup atual
 - [x] Criar Meta Pixel para Sintesys.io (ID: 1492021632520081 — fornecido pelo usuário)
-- [ ] Conectar página Facebook ao Instagram @sintesys.io (pendente — requer login no Facebook)
-- [ ] Configurar conta de anúncios 976585205031533 (pendente — requer login no Facebook)
+- [x] Conectar página Facebook ao Instagram @sintesys.io (ID: 17841461523648062, BM: Sintesys.io 1)
+- [x] Configurar conta de anúncios 976585205031533 — conectada ao Instagram @sintesys.io como ativo
 - [x] Instalar Meta Pixel ID no site Sintesys.io (VITE_META_PIXEL_ID = 1492021632520081)
 - [x] Verificar que pixel está disparando eventos corretamente (fbq loaded, PageView firing)
+
+## Redução de Formulários (4 → 3)
+- [x] Identificar os 4 formulários ativos: Pop-up, Landing Page, Contattaci, Giornale/Home inline
+- [x] Manter apenas 3: Pop-up, Lead Qualificado (Contattaci), Landing Page
+- [x] Remover formulário inline do Giornale.tsx e Home.tsx (substituído por sidebar CTAs editoriais)
+- [x] Workflows Mailchimp já corretos: lead→Welcome Simples, Qualificato→Welcome Qualificado, LP→Qualificado
+- [x] Todos os 113 testes passando (13 arquivos, 3 skipped)
