@@ -100,19 +100,13 @@ export default function Links() {
           <div className="h-px flex-1 bg-[#1B2A4A]/20" />
         </div>
 
-        {/* Newspaper title */}
+        {/* Brand title */}
         <h1
           className="text-2xl font-bold text-[#1B2A4A] tracking-tight leading-tight"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Il Giornale dell'IA
-        </h1>
-        <p
-          className="text-xs text-[#1B2A4A]/50 mt-1 uppercase tracking-[0.2em]"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
           Sintesys.io
-        </p>
+        </h1>
 
         {/* Date line — newspaper style */}
         <div className="flex items-center justify-center gap-3 mt-3">

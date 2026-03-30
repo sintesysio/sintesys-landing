@@ -237,3 +237,4 @@
 - [x] Tracking GA4: trackPageView e trackCTAClick em cada link
 - [x] Adicionar rota /links no App.tsx
 - [x] Escrever teste vitest para a rota /links (7 testes passando)
+- [x] Remover "Il Giornale dell'IA" do header da página /links, deixar apenas "Sintesys.io" como título
