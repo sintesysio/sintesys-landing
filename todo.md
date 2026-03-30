@@ -219,4 +219,7 @@
 - [x] Evento ViewContent ao abrir popup modal (GA4 view_item + Meta Pixel ViewContent)
 - [x] Evento Conversion na Thank You Page /grazie (GA4 conversion + Meta Pixel Schedule)
 - [x] Adicionar GTM container condicional ao index.html (VITE_GTM_ID)
-- [ ] Configurar secrets: VITE_GA4_ID, VITE_META_PIXEL_ID, VITE_GTM_ID (aguardando IDs do usuário)
+- [x] Configurar secret VITE_GA4_ID = G-WWCFW68S8V (ativo e verificado no site)
+- [ ] Configurar secret VITE_META_PIXEL_ID (aguardando ID do Meta Pixel do usuário)
+- [ ] Configurar secret VITE_GTM_ID (aguardando Container ID do GTM do usuário)
+- [x] Corrigir bug na guarda condicional do index.html: %VITE_*% não-substituídos passavam pela verificação indexOf('VITE_')===0 porque % estava na posição 0. Corrigido para indexOf('VITE_')>=0 || indexOf('%')>=0
