@@ -220,7 +220,7 @@
 - [x] Evento Conversion na Thank You Page /grazie (GA4 conversion + Meta Pixel Schedule)
 - [x] Adicionar GTM container condicional ao index.html (VITE_GTM_ID)
 - [x] Configurar secret VITE_GA4_ID = G-WWCFW68S8V (ativo e verificado no site)
-- [ ] Configurar secret VITE_META_PIXEL_ID (aguardando ID do Meta Pixel do usuário)
+- [x] Configurar secret VITE_META_PIXEL_ID = 1492021632520081 (ativo e verificado no site)
 - [ ] Configurar secret VITE_GTM_ID (aguardando Container ID do GTM do usuário)
 - [x] Corrigir bug na guarda condicional do index.html: %VITE_*% não-substituídos passavam pela verificação indexOf('VITE_')===0 porque % estava na posição 0. Corrigido para indexOf('VITE_')>=0 || indexOf('%')>=0
 
@@ -238,3 +238,20 @@
 - [x] Adicionar rota /links no App.tsx
 - [x] Escrever teste vitest para a rota /links (7 testes passando)
 - [x] Remover "Il Giornale dell'IA" do header da página /links, deixar apenas "Sintesys.io" como título
+
+## Campanhas Google Ads (v2 — Dual Focus)
+- [x] Pesquisa de keywords mercado italiano: IA para PMI, automazione, consulenza IA
+- [x] Campanha 1: Il Giornale dell'IA — Tráfego/Awareness (atrair leitores e visitantes)
+- [x] Campanha 2: Landing Page Sessione Strategica — Lead Gen/Conversão (cadastro)
+- [x] Ad copies em italiano para ambas campanhas (6 RSAs total)
+- [x] Extensões de anúncio (sitelinks, callouts, snippets) para ambas campanhas
+- [x] Configuração de targeting (Itália, PMI, setores, regiões prioritárias)
+- [x] Documento completo: google-ads-campaigns-v2.md
+
+## Configuração Meta Business Manager
+- [x] Acessar Meta Business Manager e verificar setup atual
+- [x] Criar Meta Pixel para Sintesys.io (ID: 1492021632520081 — fornecido pelo usuário)
+- [ ] Conectar página Facebook ao Instagram @sintesys.io (pendente — requer login no Facebook)
+- [ ] Configurar conta de anúncios 976585205031533 (pendente — requer login no Facebook)
+- [x] Instalar Meta Pixel ID no site Sintesys.io (VITE_META_PIXEL_ID = 1492021632520081)
+- [x] Verificar que pixel está disparando eventos corretamente (fbq loaded, PageView firing)
