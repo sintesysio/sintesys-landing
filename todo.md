@@ -262,3 +262,8 @@
 - [x] Remover formulário inline do Giornale.tsx e Home.tsx (substituído por sidebar CTAs editoriais)
 - [x] Workflows Mailchimp já corretos: lead→Welcome Simples, Qualificato→Welcome Qualificado, LP→Qualificado
 - [x] Todos os 113 testes passando (13 arquivos, 3 skipped)
+
+## Popup: Limite de 2 Exibições
+- [x] Popup aparece 1a vez após 2s de navegação
+- [x] Se fechar, reabre automaticamente após 2s (2a tentativa)
+- [x] Se fechar pela 2a vez, não abre mais (máximo 2 exibições por sessão)

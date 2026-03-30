@@ -2,8 +2,11 @@
  * NewsletterPopup — Pop-up form that appears after 2 seconds on page.
  * Invites visitors to download the free Transizione 5.0 guide.
  * Uses the same leads endpoint with source: "popup".
- * RULES: Opens 2s after page load. If closed, reopens 2s later.
- * Only stops showing permanently after successful form submission.
+ * RULES:
+ * - Opens 2s after page load (1st attempt).
+ * - If closed, reopens 2s later (2nd attempt).
+ * - If closed again, does NOT reopen (max 2 appearances per session).
+ * - Stops permanently after successful form submission (localStorage).
  */
 
 import { useState, useEffect, useCallback } from "react";
@@ -12,6 +15,8 @@ import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView } from "@/lib/tracking";
 
 const STORAGE_KEY = "sintesys_popup_submitted";
+const SESSION_CLOSE_KEY = "sintesys_popup_close_count";
+const MAX_SHOWS = 2; // Maximum number of times popup can appear per session
 const DELAY_MS = 2_000; // 2 seconds initial delay
 const REOPEN_DELAY_MS = 2_000; // 2 seconds after close to reopen
 
@@ -54,9 +59,13 @@ export default function NewsletterPopup() {
   });
 
   useEffect(() => {
-    // Only stop showing if user already submitted the form
+    // Don't show if user already submitted the form
     const alreadySubmitted = localStorage.getItem(STORAGE_KEY);
     if (alreadySubmitted) return;
+
+    // Don't show if already closed MAX_SHOWS times in this session
+    const closeCount = parseInt(sessionStorage.getItem(SESSION_CLOSE_KEY) || "0", 10);
+    if (closeCount >= MAX_SHOWS) return;
 
     const timer = setTimeout(() => {
       setVisible(true);
@@ -68,14 +77,21 @@ export default function NewsletterPopup() {
 
   const handleClose = useCallback(() => {
     setVisible(false);
-    // Don't set localStorage on close — reopen after REOPEN_DELAY_MS
+
+    // Increment close count in sessionStorage
+    const currentCount = parseInt(sessionStorage.getItem(SESSION_CLOSE_KEY) || "0", 10);
+    const newCount = currentCount + 1;
+    sessionStorage.setItem(SESSION_CLOSE_KEY, String(newCount));
+
+    // Only reopen if we haven't reached the max shows and user hasn't submitted
     const alreadySubmitted = localStorage.getItem(STORAGE_KEY);
-    if (!alreadySubmitted) {
+    if (!alreadySubmitted && newCount < MAX_SHOWS) {
       setTimeout(() => {
         setVisible(true);
         trackFormView("newsletter_popup_giornale_reopen");
       }, REOPEN_DELAY_MS);
     }
+    // If newCount >= MAX_SHOWS, popup will NOT reopen
   }, []);
 
   const handleSubmit = useCallback(
