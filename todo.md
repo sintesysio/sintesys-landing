@@ -150,3 +150,10 @@
 - [ ] Adicionar Calendly/Cal.com link ao email de welcome do lead qualificado
 - [ ] Implementar Google Analytics 4 e Meta Pixel tracking
 - [x] Criar drip email campaigns (28 dias para leads, 14 dias para qualificados) — docs/drip-campaigns.md (spec completo)
+
+## Ajustes Landing Page (v2)
+- [x] Remover todos os botões/links do menu da NavBar na Landing Page (/) para focar no CTA
+- [x] Substituir formulário fixo no hero por botão CTA que abre popup modal
+- [x] Popup modal com formulário 6 campos (sem redirect para /grazie, sucesso inline)
+- [ ] Manter Calendly como pendência futura (sem link ainda)
+- [x] Incluir foto real do Lamberto Grinover na Landing Page (hero + seção Chi è Lamberto)

@@ -2,15 +2,16 @@
  * Landing Page — Produto Final (Destino dos Ads)
  * Foco: Geração de lead qualificado com formulário simplificado de 6 campos
  * Estrutura AIDA: Atenção → Interesse → Desejo → Ação
- * Mobile-first, sem popup (formulário já está na página)
+ * Mobile-first, formulário em popup modal (sem redirect)
  */
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
 const SECTORS = [
   "Manifattura",
@@ -78,7 +79,10 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
-function LeadForm({ id = "lead-form", compact = false }: { id?: string; compact?: boolean }) {
+/* ═══════════════════════════════════════════════════════ */
+/* POPUP MODAL — Formulário 6 campos com sucesso inline  */
+/* ═══════════════════════════════════════════════════════ */
+function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -92,8 +96,7 @@ function LeadForm({ id = "lead-form", compact = false }: { id?: string; compact?
   const mutation = trpc.landingLeads.submit.useMutation({
     onSuccess: (data) => {
       if (data.success) {
-        // Redirect to Thank You page
-        window.location.href = "/grazie";
+        setSubmitted(true);
       }
     },
   });
@@ -111,41 +114,33 @@ function LeadForm({ id = "lead-form", compact = false }: { id?: string; compact?
     });
   };
 
-  if (submitted) {
-    return (
-      <div className="text-center py-8">
-        <div
-          className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
-          style={{ backgroundColor: "rgba(27,42,74,0.1)" }}
-        >
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-        <h3
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1.5rem",
-            fontWeight: 700,
-            color: "#1A1A1A",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Richiesta Ricevuta!
-        </h3>
-        <p
-          style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "1rem",
-            color: "#555",
-            lineHeight: 1.6,
-          }}
-        >
-          Lamberto Grinover analizzerà personalmente il suo profilo aziendale e la contatterà entro 24 ore per fissare la sessione strategica di 30 minuti.
-        </p>
-      </div>
-    );
-  }
+  // Reset form when popup opens
+  useEffect(() => {
+    if (isOpen) {
+      setSubmitted(false);
+      setForm({ name: "", email: "", phone: "", sector: "", revenue: "", employees: "" });
+      mutation.reset();
+    }
+  }, [isOpen]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
+
+  // Block body scroll when open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
 
   const inputStyle = {
     fontFamily: "'Inter', sans-serif",
@@ -153,7 +148,7 @@ function LeadForm({ id = "lead-form", compact = false }: { id?: string; compact?
     color: "#1A1A1A",
     backgroundColor: "#fff",
     border: "1px solid #ddd",
-    padding: compact ? "0.625rem 0.75rem" : "0.75rem 1rem",
+    padding: "0.75rem 1rem",
     width: "100%",
     outline: "none",
     transition: "border-color 0.2s",
@@ -180,150 +175,346 @@ function LeadForm({ id = "lead-form", compact = false }: { id?: string; compact?
   };
 
   return (
-    <form id={id} onSubmit={handleSubmit} className="space-y-3">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label style={labelStyle}>Nome e Cognome *</label>
-          <input
-            type="text"
-            placeholder="Mario Rossi"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-            style={inputStyle}
-            onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-            onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-          />
-        </div>
-        <div>
-          <label style={labelStyle}>Email Aziendale *</label>
-          <input
-            type="email"
-            placeholder="mario@azienda.it"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-            style={inputStyle}
-            onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-            onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label style={labelStyle}>Telefono</label>
-          <input
-            type="tel"
-            placeholder="+39 333 123 4567"
-            value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            style={inputStyle}
-            onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-            onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-          />
-        </div>
-        <div>
-          <label style={labelStyle}>Settore *</label>
-          <select
-            value={form.sector}
-            onChange={(e) => setForm({ ...form, sector: e.target.value })}
-            required
-            style={selectStyle}
-            onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-            onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
+          onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto"
+            style={{
+              backgroundColor: "#FAFAF7",
+              boxShadow: "0 24px 64px rgba(0,0,0,0.2)",
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <option value="">Seleziona settore...</option>
-            {SECTORS.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-        </div>
-      </div>
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center transition-colors z-10"
+              style={{
+                backgroundColor: "rgba(0,0,0,0.05)",
+                border: "none",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              aria-label="Chiudi"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5" strokeLinecap="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div>
-          <label style={labelStyle}>Fatturato Annuo *</label>
-          <select
-            value={form.revenue}
-            onChange={(e) => setForm({ ...form, revenue: e.target.value })}
-            required
-            style={selectStyle}
-            onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-            onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-          >
-            <option value="">Seleziona fatturato...</option>
-            {REVENUE_OPTIONS.map((r) => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label style={labelStyle}>Numero Dipendenti *</label>
-          <select
-            value={form.employees}
-            onChange={(e) => setForm({ ...form, employees: e.target.value })}
-            required
-            style={selectStyle}
-            onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-            onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-          >
-            <option value="">Seleziona...</option>
-            {EMPLOYEE_OPTIONS.map((emp) => (
-              <option key={emp} value={emp}>{emp}</option>
-            ))}
-          </select>
-        </div>
-      </div>
+            <div className="p-6 sm:p-8">
+              {submitted ? (
+                /* ═══ SUCCESS STATE ═══ */
+                <div className="text-center py-6">
+                  <div
+                    className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-5"
+                    style={{ backgroundColor: "rgba(27,42,74,0.1)" }}
+                  >
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "1.5rem",
+                      fontWeight: 700,
+                      color: "#1A1A1A",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    Richiesta Ricevuta!
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "1rem",
+                      color: "#555",
+                      lineHeight: 1.6,
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    Lamberto Grinover analizzerà personalmente il suo profilo aziendale e la contatterà entro 24 ore per fissare la sessione strategica di 30 minuti.
+                  </p>
 
-      <button
-        type="submit"
-        disabled={mutation.isPending}
-        className="w-full py-3.5 transition-all duration-300"
-        style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: "0.8rem",
-          fontWeight: 700,
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          backgroundColor: "#1B2A4A",
-          color: "#FAFAF7",
-          border: "none",
-          cursor: mutation.isPending ? "wait" : "pointer",
-          opacity: mutation.isPending ? 0.7 : 1,
-        }}
-        onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#0f1d36"; }}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
-      >
-        {mutation.isPending ? "Invio in corso..." : "Richiedi il tuo Audit Gratuito"}
-      </button>
+                  {/* 3 next steps */}
+                  <div className="space-y-3 text-left mb-6">
+                    {[
+                      { num: "1", text: "Analisi del suo profilo aziendale" },
+                      { num: "2", text: "Contatto entro 24 ore" },
+                      { num: "3", text: "Sessione strategica di 30 minuti" },
+                    ].map((step) => (
+                      <div key={step.num} className="flex items-center gap-3">
+                        <span
+                          className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full"
+                          style={{
+                            backgroundColor: "#1B2A4A",
+                            color: "#FAFAF7",
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: "0.7rem",
+                            fontWeight: 700,
+                          }}
+                        >
+                          {step.num}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "'Source Serif 4', serif",
+                            fontSize: "0.95rem",
+                            color: "#444",
+                          }}
+                        >
+                          {step.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
 
-      {mutation.isError && (
-        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#c53030", textAlign: "center" }}>
-          Si è verificato un errore. Riprova.
-        </p>
+                  <button
+                    onClick={onClose}
+                    className="w-full py-3 transition-all duration-300"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      backgroundColor: "transparent",
+                      color: "#1B2A4A",
+                      border: "2px solid #1B2A4A",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Chiudi
+                  </button>
+                </div>
+              ) : (
+                /* ═══ FORM STATE ═══ */
+                <>
+                  <div className="mb-6 pr-8">
+                    <h2
+                      style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: "1.4rem",
+                        fontWeight: 700,
+                        color: "#1A1A1A",
+                        lineHeight: 1.2,
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      Richiedi il tuo Audit Gratuito
+                    </h2>
+                    <p
+                      style={{
+                        fontFamily: "'Source Serif 4', serif",
+                        fontSize: "0.9rem",
+                        color: "#666",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      30 minuti con Lamberto Grinover per scoprire come l'IA può trasformare la tua azienda.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label style={labelStyle}>Nome e Cognome *</label>
+                        <input
+                          type="text"
+                          placeholder="Mario Rossi"
+                          value={form.name}
+                          onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          required
+                          style={inputStyle}
+                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
+                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                        />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Email Aziendale *</label>
+                        <input
+                          type="email"
+                          placeholder="mario@azienda.it"
+                          value={form.email}
+                          onChange={(e) => setForm({ ...form, email: e.target.value })}
+                          required
+                          style={inputStyle}
+                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
+                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label style={labelStyle}>Telefono</label>
+                        <input
+                          type="tel"
+                          placeholder="+39 333 123 4567"
+                          value={form.phone}
+                          onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                          style={inputStyle}
+                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
+                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                        />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Settore *</label>
+                        <select
+                          value={form.sector}
+                          onChange={(e) => setForm({ ...form, sector: e.target.value })}
+                          required
+                          style={selectStyle}
+                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
+                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                        >
+                          <option value="">Seleziona settore...</option>
+                          {SECTORS.map((s) => (
+                            <option key={s} value={s}>{s}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label style={labelStyle}>Fatturato Annuo *</label>
+                        <select
+                          value={form.revenue}
+                          onChange={(e) => setForm({ ...form, revenue: e.target.value })}
+                          required
+                          style={selectStyle}
+                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
+                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                        >
+                          <option value="">Seleziona fatturato...</option>
+                          {REVENUE_OPTIONS.map((r) => (
+                            <option key={r} value={r}>{r}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Numero Dipendenti *</label>
+                        <select
+                          value={form.employees}
+                          onChange={(e) => setForm({ ...form, employees: e.target.value })}
+                          required
+                          style={selectStyle}
+                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
+                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                        >
+                          <option value="">Seleziona...</option>
+                          {EMPLOYEE_OPTIONS.map((emp) => (
+                            <option key={emp} value={emp}>{emp}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={mutation.isPending}
+                      className="w-full py-3.5 transition-all duration-300"
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: "0.8rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.15em",
+                        textTransform: "uppercase",
+                        backgroundColor: "#1B2A4A",
+                        color: "#FAFAF7",
+                        border: "none",
+                        cursor: mutation.isPending ? "wait" : "pointer",
+                        opacity: mutation.isPending ? 0.7 : 1,
+                      }}
+                      onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#0f1d36"; }}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
+                    >
+                      {mutation.isPending ? "Invio in corso..." : "Richiedi il tuo Audit Gratuito"}
+                    </button>
+
+                    {mutation.isError && (
+                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#c53030", textAlign: "center" }}>
+                        Si è verificato un errore. Riprova.
+                      </p>
+                    )}
+
+                    <p
+                      className="text-center"
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: "0.65rem",
+                        color: "#999",
+                        marginTop: "0.5rem",
+                      }}
+                    >
+                      Nessun impegno. Nessun costo. Solo 30 minuti di strategia concreta.
+                    </p>
+                  </form>
+                </>
+              )}
+            </div>
+          </motion.div>
+        </motion.div>
       )}
-
-      <p
-        className="text-center"
-        style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: "0.65rem",
-          color: "#999",
-          marginTop: "0.5rem",
-        }}
-      >
-        Nessun impegno. Nessun costo. Solo 30 minuti di strategia concreta.
-      </p>
-    </form>
+    </AnimatePresence>
   );
 }
 
+/* ═══════════════════════════════════════════════════════ */
+/* CTA BUTTON — Reusable across sections                 */
+/* ═══════════════════════════════════════════════════════ */
+function CTAButton({ onClick, large = false }: { onClick: () => void; large?: boolean }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`transition-all duration-300 ${large ? "py-4 px-10" : "py-3.5 px-8"}`}
+      style={{
+        fontFamily: "'Inter', sans-serif",
+        fontSize: large ? "0.85rem" : "0.8rem",
+        fontWeight: 700,
+        letterSpacing: "0.15em",
+        textTransform: "uppercase",
+        backgroundColor: "#1B2A4A",
+        color: "#FAFAF7",
+        border: "none",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
+      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
+    >
+      Richiedi il tuo Audit Gratuito
+    </button>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* MAIN LANDING PAGE                                     */
+/* ═══════════════════════════════════════════════════════ */
 export default function LandingPage() {
+  const [popupOpen, setPopupOpen] = useState(false);
+  const openPopup = useCallback(() => setPopupOpen(true), []);
+  const closePopup = useCallback(() => setPopupOpen(false), []);
+
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* NAVBAR — Minimal, focused on conversion */}
+      {/* NAVBAR — Minimal, only logo (no buttons to distract)  */}
       {/* ═══════════════════════════════════════════════════════ */}
       <nav className="container" style={{ backgroundColor: "#FAFAF7" }}>
         <div className="rule-thick mt-0" />
@@ -341,42 +532,15 @@ export default function LandingPage() {
               Sintesys.io
             </span>
           </Link>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/giornale"
-              className="no-underline px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 500,
-                color: "#444",
-                borderBottom: "2px solid transparent",
-              }}
-            >
-              Il Giornale
-            </Link>
-            <a
-              href="#lead-form"
-              className="no-underline px-4 sm:px-6 py-2 sm:py-2.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-all"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 600,
-                color: "#FAFAF7",
-                backgroundColor: "#1B2A4A",
-                border: "2px solid #1B2A4A",
-              }}
-            >
-              Audit Gratuito
-            </a>
-          </div>
         </div>
         <div className="rule-thin" />
       </nav>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* HERO — Atenção: Pain point + Formulário */}
+      {/* HERO — Atenção: Pain point + Foto Lamberto + CTA      */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container pt-8 lg:pt-16 pb-12 lg:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left: Copy */}
           <div className="lg:col-span-7">
             <FadeIn>
@@ -443,79 +607,92 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              {/* Stats row */}
-              <div className="grid grid-cols-3 gap-4">
-                {[
-                  { number: 40, suffix: "%", label: "Efficienza media in più" },
-                  { number: 50, suffix: "%", label: "Credito d'imposta disponibile" },
-                  { number: 90, suffix: "gg", label: "Per i primi risultati" },
-                ].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div
-                      style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
-                        fontWeight: 800,
-                        color: "#1B2A4A",
-                        lineHeight: 1,
-                      }}
-                    >
-                      <AnimatedCounter target={stat.number} suffix={stat.suffix} />
-                    </div>
-                    <p
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "0.6rem",
-                        fontWeight: 500,
-                        color: "#888",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        marginTop: "0.25rem",
-                      }}
-                    >
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              {/* CTA Button */}
+              <CTAButton onClick={openPopup} large />
             </FadeIn>
           </div>
 
-          {/* Right: Form */}
+          {/* Right: Lamberto Photo + Stats */}
           <div className="lg:col-span-5">
             <FadeIn delay={0.2}>
-              <div
-                className="p-6 lg:p-8"
-                style={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #e5e5e5",
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-                }}
-              >
-                <h2
-                  className="mb-1"
+              <div className="flex flex-col items-center">
+                {/* Lamberto photo */}
+                <div
+                  className="w-52 h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden mb-6"
+                  style={{
+                    border: "4px solid #1B2A4A",
+                    boxShadow: "0 12px 40px rgba(27,42,74,0.2)",
+                  }}
+                >
+                  <img
+                    src={LAMBERTO_PHOTO}
+                    alt="Lamberto Grinover — Fondatore Sintesys.io"
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+                <p
                   style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.3rem",
+                    fontSize: "1.1rem",
                     fontWeight: 700,
                     color: "#1A1A1A",
-                    lineHeight: 1.2,
+                    textAlign: "center",
+                    marginBottom: "0.25rem",
                   }}
                 >
-                  Richiedi il tuo Audit Gratuito
-                </h2>
-                <p
-                  className="mb-5"
-                  style={{
-                    fontFamily: "'Source Serif 4', serif",
-                    fontSize: "0.9rem",
-                    color: "#666",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  30 minuti con Lamberto Grinover per scoprire come l'IA può trasformare la tua azienda.
+                  Lamberto Grinover
                 </p>
-                <LeadForm compact />
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.7rem",
+                    fontWeight: 500,
+                    color: "#888",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    textAlign: "center",
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  Fondatore & Consulente IA
+                </p>
+
+                {/* Stats row */}
+                <div className="grid grid-cols-3 gap-4 w-full">
+                  {[
+                    { number: 40, suffix: "%", label: "Efficienza media in più" },
+                    { number: 50, suffix: "%", label: "Credito d'imposta disponibile" },
+                    { number: 90, suffix: "gg", label: "Per i primi risultati" },
+                  ].map((stat, i) => (
+                    <div key={i} className="text-center">
+                      <div
+                        style={{
+                          fontFamily: "'Playfair Display', serif",
+                          fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)",
+                          fontWeight: 800,
+                          color: "#1B2A4A",
+                          lineHeight: 1,
+                        }}
+                      >
+                        <AnimatedCounter target={stat.number} suffix={stat.suffix} />
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.55rem",
+                          fontWeight: 500,
+                          color: "#888",
+                          textTransform: "uppercase",
+                          letterSpacing: "0.05em",
+                          marginTop: "0.25rem",
+                        }}
+                      >
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </FadeIn>
           </div>
@@ -523,7 +700,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* PROBLEMA — Interesse: I 3 problemi che risolviamo */}
+      {/* PROBLEMA — Interesse: I 3 problemi che risolviamo     */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section style={{ backgroundColor: "#1B2A4A" }} className="py-16 lg:py-24">
         <div className="container">
@@ -641,7 +818,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* PROCESSO — Desejo: Come funziona */}
+      {/* PROCESSO — Desejo: Come funziona                      */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container py-16 lg:py-24">
         <FadeIn>
@@ -764,7 +941,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* INCENTIVI — Desejo: Transizione 5.0 */}
+      {/* INCENTIVI — Desejo: Transizione 5.0                   */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section
         className="py-16 lg:py-20"
@@ -873,7 +1050,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* CHI È LAMBERTO — Desejo: Autorità */}
+      {/* CHI È LAMBERTO — Desejo: Autorità                    */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container py-16 lg:py-24">
         <FadeIn>
@@ -887,7 +1064,7 @@ export default function LandingPage() {
                 }}
               >
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover-photo-Uj9cKJiVSCNHyWFNXYcwqh.webp"
+                  src={LAMBERTO_PHOTO}
                   alt="Lamberto Grinover — Fondatore Sintesys.io"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -946,7 +1123,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* FAQ — Objeções */}
+      {/* FAQ — Objeções                                        */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section
         className="py-16 lg:py-20"
@@ -1034,14 +1211,14 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* CTA FINAL — Ação: Formulário repetido */}
+      {/* CTA FINAL — Ação: Botão que abre popup                */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container py-16 lg:py-24">
         <FadeIn>
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto text-center">
             <div className="rule-thick mb-8" />
             <h2
-              className="text-center mb-2"
+              className="mb-2"
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
@@ -1053,7 +1230,7 @@ export default function LandingPage() {
               Pronto a scoprire cosa l'IA può fare per te?
             </h2>
             <p
-              className="text-center mb-8"
+              className="mb-8"
               style={{
                 fontFamily: "'Source Serif 4', serif",
                 fontSize: "1.05rem",
@@ -1063,22 +1240,13 @@ export default function LandingPage() {
             >
               Compila il modulo e riceverai una sessione strategica gratuita di 30 minuti con Lamberto Grinover.
             </p>
-            <div
-              className="p-6 lg:p-8"
-              style={{
-                backgroundColor: "#fff",
-                border: "1px solid #e5e5e5",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-              }}
-            >
-              <LeadForm id="lead-form-bottom" />
-            </div>
+            <CTAButton onClick={openPopup} large />
           </div>
         </FadeIn>
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* FOOTER */}
+      {/* FOOTER                                                */}
       {/* ═══════════════════════════════════════════════════════ */}
       <footer className="container pb-8" role="contentinfo">
         <div className="rule-thin mb-6" />
@@ -1138,6 +1306,11 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* POPUP MODAL                                           */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <AuditPopup isOpen={popupOpen} onClose={closePopup} />
     </div>
   );
 }
