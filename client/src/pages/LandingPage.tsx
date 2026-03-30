@@ -316,7 +316,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         marginBottom: "0.5rem",
                       }}
                     >
-                      Richiedi il tuo Audit Gratuito
+                      Prenota la tua Sessione Strategica
                     </h2>
                     <p
                       style={{
@@ -326,7 +326,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         lineHeight: 1.5,
                       }}
                     >
-                      30 minuti con Lamberto Grinover per scoprire come l'IA può trasformare la tua azienda.
+                      30 minuti con Lamberto Grinover per scoprire dove l'IA può generare impatto concreto nella tua azienda.
                     </p>
                   </div>
 
@@ -445,7 +445,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                       onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#0f1d36"; }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
                     >
-                      {mutation.isPending ? "Invio in corso..." : "Richiedi il tuo Audit Gratuito"}
+                      {mutation.isPending ? "Invio in corso..." : "Prenota la Sessione Strategica"}
                     </button>
 
                     {mutation.isError && (
@@ -463,7 +463,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         marginTop: "0.5rem",
                       }}
                     >
-                      Nessun impegno. Nessun costo. Solo 30 minuti di strategia concreta.
+                      Solo 30 minuti. Nessun impegno. Strategia concreta per la tua azienda.
                     </p>
                   </form>
                 </>
@@ -498,7 +498,7 @@ function CTAButton({ onClick, large = false }: { onClick: () => void; large?: bo
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
     >
-      Richiedi il tuo Audit Gratuito
+      Prenota la Sessione Strategica
     </button>
   );
 }
@@ -582,7 +582,7 @@ export default function LandingPage() {
               {/* Trust badges */}
               <div className="flex flex-wrap gap-4 mb-8">
                 {[
-                  { icon: "✓", text: "Audit 100% Gratuito" },
+                  { icon: "✓", text: "Sessione Strategica Personalizzata" },
                   { icon: "✓", text: "Nessun Impegno" },
                   { icon: "✓", text: "Risultati in 30 min" },
                 ].map((badge) => (
@@ -612,53 +612,11 @@ export default function LandingPage() {
             </FadeIn>
           </div>
 
-          {/* Right: Lamberto Photo + Stats */}
+          {/* Right: Stats + Social Proof */}
           <div className="lg:col-span-5">
             <FadeIn delay={0.2}>
               <div className="flex flex-col items-center">
-                {/* Lamberto photo */}
-                <div
-                  className="w-52 h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden mb-6"
-                  style={{
-                    border: "4px solid #1B2A4A",
-                    boxShadow: "0 12px 40px rgba(27,42,74,0.2)",
-                  }}
-                >
-                  <img
-                    src={LAMBERTO_PHOTO}
-                    alt="Lamberto Grinover — Fondatore Sintesys.io"
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                  />
-                </div>
-                <p
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.1rem",
-                    fontWeight: 700,
-                    color: "#1A1A1A",
-                    textAlign: "center",
-                    marginBottom: "0.25rem",
-                  }}
-                >
-                  Lamberto Grinover
-                </p>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.7rem",
-                    fontWeight: 500,
-                    color: "#888",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    textAlign: "center",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  Fondatore & Consulente IA
-                </p>
-
-                {/* Stats row */}
+                {/* Key stats */}
                 <div className="grid grid-cols-3 gap-4 w-full">
                   {[
                     { number: 40, suffix: "%", label: "Efficienza media in più" },
@@ -1172,7 +1130,7 @@ export default function LandingPage() {
               },
               {
                 q: "Come faccio a fidarmi se non conosco la tecnologia?",
-                a: "L'audit gratuito serve esattamente a questo: in 30 minuti, Lamberto ti mostra concretamente cosa l'IA può fare per la tua azienda specifica. Nessun gergo tecnico, solo numeri e risultati tangibili.",
+                a: "La sessione strategica serve esattamente a questo: in 30 minuti, Lamberto ti mostra concretamente cosa l'IA può fare per la tua azienda specifica. Nessun gergo tecnico, solo numeri e risultati tangibili.",
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.05}>
@@ -1238,7 +1196,7 @@ export default function LandingPage() {
                 lineHeight: 1.7,
               }}
             >
-              Compila il modulo e riceverai una sessione strategica gratuita di 30 minuti con Lamberto Grinover.
+              Compila il modulo e Lamberto Grinover ti contatterà entro 24 ore per una sessione strategica di 30 minuti.
             </p>
             <CTAButton onClick={openPopup} large />
           </div>

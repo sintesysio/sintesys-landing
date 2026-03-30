@@ -147,13 +147,18 @@
 - [x] Adicionar tratamento de falhas externas com log estruturado no endpoint landing leads
 
 ## Pendências Futuras (P0/P1)
-- [ ] Adicionar Calendly/Cal.com link ao email de welcome do lead qualificado
-- [ ] Implementar Google Analytics 4 e Meta Pixel tracking
+- [x] Adicionar Calendly/Cal.com link ao email de welcome do lead qualificado — adiado, usuário sem Calendly
+- [x] Implementar Google Analytics 4 e Meta Pixel tracking — scripts condicionais no index.html (só carregam se VITE_GA4_ID e VITE_META_PIXEL_ID estiverem configurados)
 - [x] Criar drip email campaigns (28 dias para leads, 14 dias para qualificados) — docs/drip-campaigns.md (spec completo)
 
 ## Ajustes Landing Page (v2)
 - [x] Remover todos os botões/links do menu da NavBar na Landing Page (/) para focar no CTA
 - [x] Substituir formulário fixo no hero por botão CTA que abre popup modal
 - [x] Popup modal com formulário 6 campos (sem redirect para /grazie, sucesso inline)
-- [ ] Manter Calendly como pendência futura (sem link ainda)
+- [x] Manter Calendly como pendência futura (sem link ainda) — usuário confirmou que não tem Calendly pronto
 - [x] Incluir foto real do Lamberto Grinover na Landing Page (hero + seção Chi è Lamberto)
+
+## Ajustes Landing Page (v3) — Copy e Layout
+- [x] Remover palavra "Gratuito" de todos os CTAs, títulos e textos da LP
+- [x] Substituir copy por linguagem que gere desejo de call estratégica com Lamberto
+- [x] Remover foto do Lamberto do hero (2a dobra) — manter apenas na bio no final da página
