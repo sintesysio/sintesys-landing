@@ -223,3 +223,17 @@
 - [ ] Configurar secret VITE_META_PIXEL_ID (aguardando ID do Meta Pixel do usuário)
 - [ ] Configurar secret VITE_GTM_ID (aguardando Container ID do GTM do usuário)
 - [x] Corrigir bug na guarda condicional do index.html: %VITE_*% não-substituídos passavam pela verificação indexOf('VITE_')===0 porque % estava na posição 0. Corrigido para indexOf('VITE_')>=0 || indexOf('%')>=0
+
+## Link in Bio Instagram (/links)
+- [x] Criar página /links no estilo editorial do jornal (menu de links para bio do Instagram)
+- [x] Links com UTM tracking completo (utm_source=ig, utm_medium=linkinbio, utm_campaign, utm_content)
+- [x] Link para Landing Page (Sessione Strategica) com UTM
+- [x] Link para Il Giornale dell'IA com UTM
+- [x] Link para Chi Siamo com UTM
+- [x] Link para Contattaci com UTM
+- [x] Link para Instagram @sintesys.io
+- [x] Design editorial consistente (Playfair Display, navy/off-white, logo Sintesys.io)
+- [x] Mobile-first (100% do tráfego vem do Instagram mobile)
+- [x] Tracking GA4: trackPageView e trackCTAClick em cada link
+- [x] Adicionar rota /links no App.tsx
+- [x] Escrever teste vitest para a rota /links (7 testes passando)

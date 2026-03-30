@@ -9,6 +9,7 @@ import Giornale from "./pages/Giornale";
 import ChiSiamo from "./pages/ChiSiamo";
 import Contattaci from "./pages/Contattaci";
 import Grazie from "./pages/Grazie";
+import Links from "./pages/Links";
 import NewsletterPopup from "./components/NewsletterPopup";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -25,7 +26,7 @@ import AdminFinanceiro from "./pages/admin/AdminFinanceiro";
  */
 function ConditionalPopup() {
   const [location] = useLocation();
-  const noPopupRoutes = ["/", "/grazie"];
+  const noPopupRoutes = ["/", "/grazie", "/links"];
   if (noPopupRoutes.includes(location) || location.startsWith("/admin")) return null;
   return <NewsletterPopup />;
 }
@@ -60,6 +61,7 @@ function Router() {
       <Route path={"/chi-siamo"} component={ChiSiamo} />
       <Route path={"/contattaci"} component={Contattaci} />
       <Route path={"/grazie"} component={Grazie} />
+      <Route path={"/links"} component={Links} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
