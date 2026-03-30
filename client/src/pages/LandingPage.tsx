@@ -15,24 +15,24 @@ const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAq
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
 const SECTORS = [
-  "Indústria e Manufatura",
-  "Comércio Atacadista",
-  "Comércio Varejista",
-  "Serviços Profissionais",
-  "Construção Civil",
-  "Logística e Transportes",
-  "Restauração e Hospitalidade",
+  "Manifattura",
+  "Commercio all'ingrosso",
+  "Commercio al dettaglio",
+  "Servizi professionali",
+  "Costruzioni",
+  "Logistica e trasporti",
+  "Ristorazione e hospitality",
   "Tecnologia",
-  "Outro",
+  "Altro",
 ];
 
 const REVENUE_OPTIONS = [
-  "Menos de €500K",
+  "Meno di €500K",
   "€500K – €1M",
   "€1M – €3M",
   "€3M – €5M",
   "€5M – €12M",
-  "Acima de €12M",
+  "Oltre €12M",
 ];
 
 const EMPLOYEE_OPTIONS = [
@@ -41,7 +41,7 @@ const EMPLOYEE_OPTIONS = [
   "11 – 25",
   "26 – 50",
   "51 – 100",
-  "Acima de 100",
+  "Oltre 100",
 ];
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -217,7 +217,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                 cursor: "pointer",
                 borderRadius: "50%",
               }}
-              aria-label="Fechar"
+              aria-label="Chiudi"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5" strokeLinecap="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -246,7 +246,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                       marginBottom: "0.75rem",
                     }}
                   >
-                    Solicitação Recebida!
+                    Richiesta Ricevuta!
                   </h3>
                   <p
                     style={{
@@ -257,15 +257,15 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                       marginBottom: "1.5rem",
                     }}
                   >
-                    Lamberto Grinover analisará pessoalmente o perfil da sua empresa e entrará em contato em até 24 horas para agendar a sessão estratégica de 30 minutos.
+                    Lamberto Grinover analizzerà personalmente il suo profilo aziendale e la contatterà entro 24 ore per fissare la sessione strategica di 30 minuti.
                   </p>
 
                   {/* 3 next steps */}
                   <div className="space-y-3 text-left mb-6">
                     {[
-                      { num: "1", text: "Análise do perfil da sua empresa" },
-                      { num: "2", text: "Contato em até 24 horas" },
-                      { num: "3", text: "Sessão estratégica de 30 minutos" },
+                      { num: "1", text: "Analisi del suo profilo aziendale" },
+                      { num: "2", text: "Contatto entro 24 ore" },
+                      { num: "3", text: "Sessione strategica di 30 minuti" },
                     ].map((step) => (
                       <div key={step.num} className="flex items-center gap-3">
                         <span
@@ -308,7 +308,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                       cursor: "pointer",
                     }}
                   >
-                    Fechar
+                    Chiudi
                   </button>
                 </div>
               ) : (
@@ -325,7 +325,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         marginBottom: "0.5rem",
                       }}
                     >
-                      Agende Sua Análise Gratuita
+                      Prenota la Tua Analisi Gratuita
                     </h2>
                     <p
                       style={{
@@ -335,17 +335,17 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         lineHeight: 1.5,
                       }}
                     >
-                      30 minutos com Lamberto Grinover para analisar seus processos e mostrar onde a IA pode gerar impacto concreto.
+                      30 minuti con Lamberto Grinover per analizzare i tuoi processi e mostrarti dove l'IA può generare impatto concreto.
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label style={labelStyle}>Nome Completo *</label>
+                        <label style={labelStyle}>Nome e Cognome *</label>
                         <input
                           type="text"
-                          placeholder="João Silva"
+                          placeholder="Mario Rossi"
                           value={form.name}
                           onChange={(e) => setForm({ ...form, name: e.target.value })}
                           required
@@ -355,10 +355,10 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         />
                       </div>
                       <div>
-                        <label style={labelStyle}>Email Corporativo *</label>
+                        <label style={labelStyle}>Email Aziendale *</label>
                         <input
                           type="email"
-                          placeholder="joao@empresa.com"
+                          placeholder="mario@azienda.it"
                           value={form.email}
                           onChange={(e) => setForm({ ...form, email: e.target.value })}
                           required
@@ -371,10 +371,10 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label style={labelStyle}>Telefone</label>
+                        <label style={labelStyle}>Telefono</label>
                         <input
                           type="tel"
-                          placeholder="+55 11 99999-9999"
+                          placeholder="+39 333 123 4567"
                           value={form.phone}
                           onChange={(e) => setForm({ ...form, phone: e.target.value })}
                           style={inputStyle}
@@ -383,7 +383,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         />
                       </div>
                       <div>
-                        <label style={labelStyle}>Setor *</label>
+                        <label style={labelStyle}>Settore *</label>
                         <select
                           value={form.sector}
                           onChange={(e) => setForm({ ...form, sector: e.target.value })}
@@ -392,7 +392,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
                           onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                         >
-                          <option value="">Selecione o setor...</option>
+                          <option value="">Seleziona settore...</option>
                           {SECTORS.map((s) => (
                             <option key={s} value={s}>{s}</option>
                           ))}
@@ -402,7 +402,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label style={labelStyle}>Faturamento Anual *</label>
+                        <label style={labelStyle}>Fatturato Annuo *</label>
                         <select
                           value={form.revenue}
                           onChange={(e) => setForm({ ...form, revenue: e.target.value })}
@@ -411,14 +411,14 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
                           onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                         >
-                          <option value="">Selecione o faturamento...</option>
+                          <option value="">Seleziona fatturato...</option>
                           {REVENUE_OPTIONS.map((r) => (
                             <option key={r} value={r}>{r}</option>
                           ))}
                         </select>
                       </div>
                       <div>
-                        <label style={labelStyle}>Número de Funcionários *</label>
+                        <label style={labelStyle}>Numero Dipendenti *</label>
                         <select
                           value={form.employees}
                           onChange={(e) => setForm({ ...form, employees: e.target.value })}
@@ -427,7 +427,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                           onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
                           onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                         >
-                          <option value="">Selecione...</option>
+                          <option value="">Seleziona...</option>
                           {EMPLOYEE_OPTIONS.map((emp) => (
                             <option key={emp} value={emp}>{emp}</option>
                           ))}
@@ -454,12 +454,12 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                       onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#A85A3A"; }}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
                     >
-                      {mutation.isPending ? "Enviando..." : "Agende Sua Análise Gratuita →"}
+                      {mutation.isPending ? "Invio in corso..." : "Prenota la Tua Analisi Gratuita →"}
                     </button>
 
                     {mutation.isError && (
                       <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#c53030", textAlign: "center" }}>
-                        Ocorreu um erro. Tente novamente.
+                        Si è verificato un errore. Riprova.
                       </p>
                     )}
 
@@ -472,7 +472,7 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         marginTop: "0.5rem",
                       }}
                     >
-                      Apenas 30 minutos. Sem compromisso. Estratégia concreta para sua empresa.
+                      Solo 30 minuti. Nessun impegno. Strategia concreta per la tua azienda.
                     </p>
                   </form>
                 </>
@@ -507,7 +507,7 @@ function CTAButton({ onClick, large = false }: { onClick: () => void; large?: bo
       onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#A85A3A")}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
     >
-      Agende Sua Análise Gratuita →
+      Prenota la Tua Analisi Gratuita →
     </button>
   );
 }
@@ -566,7 +566,7 @@ export default function LandingPage() {
                   fontWeight: 600,
                 }}
               >
-                Consultoria Estratégica de IA para PMEs Italianas
+                Consulenza Strategica IA per PMI Italiane
               </p>
               <h1
                 className="mb-6"
@@ -578,7 +578,7 @@ export default function LandingPage() {
                   lineHeight: 1.1,
                 }}
               >
-                Sua empresa queima <span style={{ color: "#C4704B" }}>€47.000 por ano</span> em processos que a IA resolve em horas.
+                La tua azienda brucia <span style={{ color: "#C4704B" }}>€47.000 l'anno</span> in processi che l'IA risolve in ore.
               </h1>
               <p
                 className="mb-6"
@@ -589,15 +589,15 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Não é uma promessa — é o dado médio das PMEs italianas com 10-50 funcionários (Osservatorio Politecnico di Milano, 2025). Em uma sessão estratégica de 30 minutos, Lamberto Grinover analisa seus processos e mostra <strong>exatamente</strong> onde cortar custos, eliminar erros e liberar sua equipe.
+                Non è una promessa — è il dato medio delle PMI italiane con 10-50 dipendenti (Osservatorio Politecnico di Milano, 2025). In una sessione strategica di 30 minuti, Lamberto Grinover analizza i tuoi processi e ti mostra <strong>esattamente</strong> dove tagliare costi, eliminare errori e liberare il tuo team.
               </p>
 
               {/* Trust badges */}
               <div className="flex flex-wrap gap-4 mb-8">
                 {[
-                  { icon: "✓", text: "Análise Gratuita e Personalizada" },
-                  { icon: "✓", text: "Zero Compromisso, Zero Risco" },
-                  { icon: "✓", text: "Plano de Ação Concreto em 48h" },
+                  { icon: "✓", text: "Analisi Gratuita e Personalizzata" },
+                  { icon: "✓", text: "Zero Impegno, Zero Rischio" },
+                  { icon: "✓", text: "Piano d'Azione Concreto in 48h" },
                 ].map((badge) => (
                   <div
                     key={badge.text}
@@ -632,9 +632,9 @@ export default function LandingPage() {
                 {/* Key stats */}
                 <div className="grid grid-cols-3 gap-4 w-full">
                   {[
-                    { number: 40, suffix: "%", label: "Eficiência média a mais" },
-                    { number: 50, suffix: "%", label: "Crédito fiscal disponível" },
-                    { number: 90, suffix: "dias", label: "Para os primeiros resultados" },
+                    { number: 40, suffix: "%", label: "Efficienza media in più" },
+                    { number: 50, suffix: "%", label: "Credito d'imposta disponibile" },
+                    { number: 90, suffix: "gg", label: "Per i primi risultati" },
                   ].map((stat, i) => (
                     <div key={i} className="text-center">
                       <div
@@ -685,7 +685,7 @@ export default function LandingPage() {
                 fontWeight: 500,
               }}
             >
-              Os Problemas que Resolvemos
+              I Problemi che Risolviamo
             </p>
             <h2
               className="text-center mb-12"
@@ -697,7 +697,7 @@ export default function LandingPage() {
                 lineHeight: 1.15,
               }}
             >
-              Reconhece pelo menos um destes na sua empresa?
+              Riconosci almeno uno di questi nella tua azienda?
             </h2>
           </FadeIn>
 
@@ -705,21 +705,21 @@ export default function LandingPage() {
             {[
               {
                 number: "01",
-                title: "Caos Operacional",
-                problem: "Dados espalhados entre 7 planilhas Excel, 3 caixas de email e WhatsApp. Ninguém tem o quadro completo — nem você.",
-                solution: "Um sistema de IA que centraliza tudo em um único painel. As empresas que implementam reduzem os erros em 60%.",
+                title: "Caos Operazionale",
+                problem: "Dati sparsi tra 7 Excel, 3 caselle email e WhatsApp. Nessuno ha il quadro completo — nemmeno tu.",
+                solution: "Un sistema IA che centralizza tutto in un'unica dashboard. Le aziende che lo implementano riducono gli errori del 60%.",
               },
               {
                 number: "02",
-                title: "Tempo Desperdiçado",
-                problem: "Sua equipe gasta 3+ horas por dia com faturamento, relatórios e inserção de dados. Horas que não voltam.",
-                solution: "Automação inteligente que libera 15+ horas por semana. Custo médio: menos que um salário de meio período.",
+                title: "Tempo Bruciato",
+                problem: "Il tuo team passa 3+ ore al giorno su fatturazione, reportistica e inserimento dati. Ore che non torneranno.",
+                solution: "Automazione intelligente che libera 15+ ore a settimana. Costo medio: meno di uno stipendio part-time.",
               },
               {
                 number: "03",
-                title: "Margens Comprimidas",
-                problem: "O faturamento cresce 5%, mas os custos operacionais crescem 12%. A margem diminui a cada trimestre.",
-                solution: "IA que otimiza preços, reduz desperdícios e corta custos operacionais em 20-30%. ROI médio documentado: 300% no primeiro ano.",
+                title: "Margini Compressi",
+                problem: "Il fatturato cresce del 5%, ma i costi operativi del 12%. Il margine si assottiglia ogni trimestre.",
+                solution: "IA che ottimizza pricing, riduce sprechi e taglia i costi operativi del 20-30%. ROI medio documentato: 300% nel primo anno.",
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.1}>
@@ -778,7 +778,7 @@ export default function LandingPage() {
                         fontWeight: 500,
                       }}
                     >
-                      <strong style={{ color: "#FAFAF7" }}>A solução:</strong> {item.solution}
+                      <strong style={{ color: "#FAFAF7" }}>La soluzione:</strong> {item.solution}
                     </p>
                   </div>
                 </div>
@@ -802,7 +802,7 @@ export default function LandingPage() {
               fontWeight: 600,
             }}
           >
-            O Método
+            Il Metodo
           </p>
           <h2
             className="text-center mb-4"
@@ -814,7 +814,7 @@ export default function LandingPage() {
               lineHeight: 1.15,
             }}
           >
-            Da confusão à clareza em 5 passos.
+            Da confusione a chiarezza in 5 passi.
           </h2>
           <p
             className="text-center max-w-2xl mx-auto mb-12"
@@ -825,7 +825,7 @@ export default function LandingPage() {
               lineHeight: 1.7,
             }}
           >
-            Um percurso estruturado que não desorganiza sua operação.
+            Un percorso strutturato che non stravolge la tua operatività.
           </p>
         </FadeIn>
 
@@ -833,21 +833,21 @@ export default function LandingPage() {
           {[
             {
               step: "Passo 1",
-              title: "Sessão Estratégica",
-              desc: "Analisamos juntos seus processos e identificamos as 3 áreas onde a IA pode gerar o máximo impacto imediato.",
-              detail: "Gratuita · Online ou presencial · 30 min",
+              title: "Sessione Strategica",
+              desc: "Analizziamo insieme i tuoi processi e identifichiamo le 3 aree dove l'IA può generare il massimo impatto immediato.",
+              detail: "Gratuita · Online o in presenza · 30 min",
             },
             {
               step: "Passo 2",
-              title: "Auditoria Operacional",
-              desc: "Mapeamos cada processo, medimos as ineficiências e calculamos o ROI potencial de cada automação.",
-              detail: "Relatório detalhado com prioridades de intervenção",
+              title: "Audit Operativo",
+              desc: "Mappiamo ogni processo, misuriamo le inefficienze e calcoliamo il ROI potenziale di ogni automazione.",
+              detail: "Report dettagliato con priorità d'intervento",
             },
             {
               step: "Passo 3",
-              title: "Implementação",
-              desc: "Instalamos as primeiras automações, treinamos sua equipe e integramos com suas ferramentas existentes.",
-              detail: "Primeira automação funcionando garantida",
+              title: "Implementazione",
+              desc: "Installiamo le prime automazioni, formiamo il tuo team e integriamo con i tuoi strumenti esistenti.",
+              detail: "Prima automazione funzionante garantita",
             },
           ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
@@ -931,7 +931,7 @@ export default function LandingPage() {
                     fontWeight: 600,
                   }}
                 >
-                  Incentivos Fiscais 2025
+                  Incentivi Fiscali 2025
                 </p>
                 <h2
                   className="mb-4"
@@ -943,7 +943,7 @@ export default function LandingPage() {
                     lineHeight: 1.15,
                   }}
                 >
-                  O Estado paga até 50% da sua inovação.
+                  Lo Stato paga fino al 50% della tua innovazione.
                 </h2>
                 <p
                   className="mb-4"
@@ -954,7 +954,7 @@ export default function LandingPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  O programa <strong>Transição 5.0</strong> oferece créditos fiscais para a digitalização das PMEs. Com €6,3 bilhões em fundos disponíveis e prazo em 2025, este é o melhor momento para investir na inovação da sua empresa.
+                  Il programma <strong>Transizione 5.0</strong> offre crediti d'imposta per la digitalizzazione delle PMI. Con €6,3 miliardi di fondi disponibili e scadenza nel 2025, questo è il momento migliore per investire nell'innovazione della tua azienda.
                 </p>
                 <p
                   style={{
@@ -964,7 +964,7 @@ export default function LandingPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  <strong>Ajudamos você a estruturar o projeto para maximizar o crédito fiscal</strong> — da documentação à prestação de contas, tudo incluído no nosso serviço.
+                  <strong>Ti aiutiamo a strutturare il progetto per massimizzare il credito d'imposta</strong> — dalla documentazione alla rendicontazione, tutto incluso nel nostro servizio.
                 </p>
               </div>
               <div className="lg:col-span-5">
@@ -981,13 +981,13 @@ export default function LandingPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Fundos Disponíveis
+                    Fondi Disponibili
                   </p>
                   <div className="space-y-4">
                     {[
-                      { value: "50%", label: "Crédito fiscal máximo" },
-                      { value: "€6,3 Bi", label: "Fundos alocados pelo MIMIT" },
-                      { value: "2025", label: "Prazo para acessar os fundos" },
+                      { value: "50%", label: "Credito d'imposta massimo" },
+                      { value: "€6,3 Mld", label: "Fondi stanziati dal MIMIT" },
+                      { value: "2025", label: "Scadenza per accedere ai fondi" },
                     ].map((item, i) => (
                       <div key={i} className="flex items-baseline gap-3">
                         <span
@@ -1036,7 +1036,7 @@ export default function LandingPage() {
               >
                 <img
                   src={LAMBERTO_PHOTO}
-                  alt="Lamberto Grinover — Fundador Sintesys.io"
+                  alt="Lamberto Grinover — Fondatore Sintesys.io"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -1052,7 +1052,7 @@ export default function LandingPage() {
                   fontWeight: 600,
                 }}
               >
-                Seu Consultor
+                Il Tuo Consulente
               </p>
               <h2
                 className="mb-4"
@@ -1075,7 +1075,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                28 anos em cargos de direção na Nissan Itália, Cushman & Wakefield, Tishman Speyer e Brookfield. Geriu operações de €200M+ e equipes de 150+ pessoas. Hoje traduz essa experiência em uma única coisa: fazer sua empresa funcionar melhor com Inteligência Artificial.
+                28 anni in ruoli direttivi presso Nissan Italia, Cushman & Wakefield, Tishman Speyer e Brookfield. Ha gestito operazioni da €200M+ e team di 150+ persone. Oggi traduce quella esperienza in una cosa sola: far funzionare meglio la tua azienda con l'Intelligenza Artificiale.
               </p>
               <p
                 style={{
@@ -1086,7 +1086,7 @@ export default function LandingPage() {
                   fontStyle: "italic",
                 }}
               >
-                "Não vendemos tecnologia. Traduzimos a Inteligência Artificial em margem concreta — com o rigor de quem geriu operações de €200M em quatro multinacionais."
+                "Non vendiamo tecnologia. Traduciamo l'Intelligenza Artificiale in marginalità concreta — con il rigore di chi ha gestito operazioni da €200M in quattro multinazionali."
               </p>
             </div>
           </div>
@@ -1111,7 +1111,7 @@ export default function LandingPage() {
                 fontWeight: 600,
               }}
             >
-              Perguntas Frequentes
+              Domande Frequenti
             </p>
             <h2
               className="text-center mb-10"
@@ -1123,27 +1123,27 @@ export default function LandingPage() {
                 lineHeight: 1.15,
               }}
             >
-              As objeções mais comuns (e nossas respostas).
+              Le obiezioni più comuni (e le nostre risposte).
             </h2>
           </FadeIn>
 
           <div className="max-w-3xl mx-auto space-y-0">
             {[
               {
-                q: "A IA é muito cara para uma PME?",
-                a: "Com a Transição 5.0, o Estado cobre até 50% do investimento. Mas o ponto real é outro: a IA não é um custo. É um investimento que se paga em 3-6 meses através da eficiência operacional. As PMEs que implementam IA veem um ROI médio de 300% no primeiro ano (fonte: McKinsey, 2024).",
+                q: "L'IA è troppo costosa per una PMI?",
+                a: "Con Transizione 5.0, lo Stato copre fino al 50% dell'investimento. Ma il punto vero è un altro: l'IA non è un costo. È un investimento che si ripaga in 3-6 mesi attraverso l'efficienza operativa. Le PMI che implementano l'IA vedono un ROI medio del 300% nel primo anno (fonte: McKinsey, 2024).",
               },
               {
-                q: "A IA vai substituir meus funcionários?",
-                a: "Não. A IA automatiza tarefas repetitivas — inserção de dados, faturamento, relatórios, respostas FAQ — e libera sua equipe para atividades que geram valor. As empresas que adotam IA registram +40% de produtividade, não demissões.",
+                q: "L'IA sostituirà i miei dipendenti?",
+                a: "No. L'IA automatizza i compiti ripetitivi — inserimento dati, fatturazione, reportistica, risposte FAQ — e libera il tuo team per le attività che generano valore. Le aziende che adottano l'IA registrano +40% di produttività del personale, non licenziamenti.",
               },
               {
-                q: "Não tenho tempo para um projeto tecnológico complexo.",
-                a: "Exatamente por isso o primeiro passo é uma sessão de 30 minutos. Zero compromisso, zero complexidade. Se decidir prosseguir, nosso método é estruturado para não desorganizar sua operação diária.",
+                q: "Non ho tempo per un progetto tecnologico complesso.",
+                a: "Proprio per questo il primo passo è una sessione di 30 minuti. Zero impegno, zero complessità. Se decidi di procedere, il nostro metodo è strutturato per non stravolgere la tua operatività quotidiana.",
               },
               {
-                q: "Como posso confiar se não entendo de tecnologia?",
-                a: "Você não precisa entender — só precisa conhecer seus números. Na sessão estratégica, Lamberto mostra concretamente o que a IA pode fazer pela sua empresa específica. Sem jargão técnico. Só números, processos e resultados tangíveis.",
+                q: "Come faccio a fidarmi se non conosco la tecnologia?",
+                a: "Non devi conoscerla — devi solo conoscere i tuoi numeri. Nella sessione strategica, Lamberto ti mostra concretamente cosa l'IA può fare per la tua azienda specifica. Nessun gergo tecnico. Solo numeri, processi e risultati tangibili.",
               },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 0.05}>
@@ -1198,7 +1198,7 @@ export default function LandingPage() {
                 lineHeight: 1.15,
               }}
             >
-              O próximo passo é seu.
+              Il prossimo passo è tuo.
             </h2>
             <p
               className="mb-8"
@@ -1209,7 +1209,7 @@ export default function LandingPage() {
                 lineHeight: 1.7,
               }}
             >
-              Preencha o formulário. Lamberto analisará pessoalmente seu perfil e entrará em contato em até 24 horas para agendar a sessão estratégica.
+              Compila il modulo. Lamberto analizzerà personalmente il tuo profilo e ti contatterà entro 24 ore per fissare la sessione strategica.
             </p>
             <CTAButton onClick={openPopup} large />
           </div>
@@ -1236,7 +1236,7 @@ export default function LandingPage() {
               color: "#999",
             }}
           >
-            © {new Date().getFullYear()} Sintesys.io — Todos os direitos reservados.
+            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati.
           </p>
           <div className="flex gap-6">
             <Link
@@ -1248,7 +1248,7 @@ export default function LandingPage() {
                 color: "#999",
               }}
             >
-              O Jornal da IA
+              Il Giornale dell'IA
             </Link>
             <Link
               href="/chi-siamo"
@@ -1259,7 +1259,7 @@ export default function LandingPage() {
                 color: "#999",
               }}
             >
-              Quem Somos
+              Chi Siamo
             </Link>
             <a
               href="https://www.instagram.com/sintesys.io/"
