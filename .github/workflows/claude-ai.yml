@@ -1,1 +1,148 @@
+name: Claude AI Assistant
 
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      task:
+        description: 'Tarefa para o Claude executar'
+        required: false
+        default: 'Analise o repositório e sugira melhorias gerais'
+  schedule:
+    - cron: '0 9 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  review-pull-request:
+    name: 🔍 Revisar Pull Request
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Verificar secret
+        run: |
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "❌ ANTHROPIC_API_KEY não configurado!"
+            exit 1
+          fi
+          echo "✅ Secret OK"
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Obter diff
+        run: git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+      - name: Revisar com Claude
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          DIFF=$(cat pr_diff.txt | head -c 8000)
+          RESPONSE=$(curl -sf https://api.anthropic.com/v1/messages \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            --data-binary "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"Revise este diff em português. Aponte problemas, melhorias e pontos positivos. Diff: $DIFF\"}]}")
+          echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > review.txt
+          echo "comment<<EOF" >> $GITHUB_OUTPUT
+          cat review.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Comentar no PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🤖 Revisão — Claude AI\n\n${{ steps.review.outputs.comment }}`
+            });
+
+  generate-docs:
+    name: 📚 Gerar Documentação
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Verificar secret
+        run: |
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "❌ ANTHROPIC_API_KEY não configurado!"
+            exit 1
+          fi
+          echo "✅ Secret OK"
+      - uses: actions/checkout@v4
+      - name: Coletar código
+        run: |
+          find . -type f \( -name "*.js" -o -name "*.ts" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.html" -o -name "*.css" \) \
+            ! -path "*/node_modules/*" ! -path "*/.git/*" ! -path "*/dist/*" \
+            -exec head -50 {} \; 2>/dev/null | head -c 8000 > project_sample.txt
+      - name: Gerar README com Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          PROJECT=$(cat project_sample.txt | head -c 6000)
+          curl -sf https://api.anthropic.com/v1/messages \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            --data-binary "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"Gere um README.md completo em português para este projeto: $PROJECT\"}]}" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > README.md
+      - name: Commitar README
+        run: |
+          git config user.email "claude-bot@github.com"
+          git config user.name "Claude AI Bot"
+          git add README.md
+          git diff --staged --quiet || git commit -m "docs: README atualizado pelo Claude AI 🤖"
+          git push
+
+  analyze-and-improve:
+    name: 🧠 Analisar e Sugerir Melhorias
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Verificar secret
+        run: |
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "❌ ANTHROPIC_API_KEY não configurado!"
+            exit 1
+          fi
+          echo "✅ Secret OK"
+      - uses: actions/checkout@v4
+      - name: Coletar código
+        run: |
+          find . -type f \( -name "*.js" -o -name "*.ts" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.html" -o -name "*.css" \) \
+            ! -path "*/node_modules/*" ! -path "*/.git/*" ! -path "*/dist/*" \
+            -exec cat {} \; 2>/dev/null | head -c 10000 > full_project.txt
+      - name: Analisar com Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TASK: ${{ github.event.inputs.task || 'Analise o repositório e sugira melhorias de arquitetura, performance e boas práticas.' }}
+        run: |
+          PROJECT=$(cat full_project.txt | head -c 8000)
+          curl -sf https://api.anthropic.com/v1/messages \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            --data-binary "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"$TASK. Responda em português com markdown. Código: $PROJECT\"}]}" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > analysis_report.md
+      - name: Criar Issue com relatório
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('analysis_report.md', 'utf8');
+            const today = new Date().toLocaleDateString('pt-BR');
+            const trigger = context.eventName === 'workflow_dispatch' ? 'Manual' : 'Semanal';
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🤖 Relatório ${trigger} — Claude AI (${today})`,
+              body: `## Análise — Claude AI\n\n${report}\n\n---\n*Gerado em ${today}*`,
+              labels: []
+            });
