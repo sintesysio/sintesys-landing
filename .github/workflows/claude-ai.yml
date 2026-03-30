@@ -37,31 +37,50 @@ jobs:
         with:
           fetch-depth: 0
       - name: Obter diff
-        run: git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+        run: git diff origin/${{ github.base_ref }}...HEAD | head -c 8000 > pr_diff.txt
       - name: Revisar com Claude
         id: review
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          DIFF=$(cat pr_diff.txt | head -c 8000)
+          python3 - <<'EOF'
+          import json, subprocess, sys
+
+          diff = open("pr_diff.txt").read()
+          payload = {
+            "model": "claude-sonnet-4-20250514",
+            "max_tokens": 2000,
+            "messages": [{
+              "role": "user",
+              "content": f"Revise este diff em português. Aponte problemas, melhorias e pontos positivos.\n\nDiff:\n{diff}"
+            }]
+          }
+          with open("payload.json", "w") as f:
+            json.dump(payload, f)
+          EOF
+
           RESPONSE=$(curl -sf https://api.anthropic.com/v1/messages \
             -H "Content-Type: application/json" \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
-            --data-binary "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"Revise este diff em português. Aponte problemas, melhorias e pontos positivos. Diff: $DIFF\"}]}")
+            -d @payload.json)
+
           echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > review.txt
           echo "comment<<EOF" >> $GITHUB_OUTPUT
           cat review.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Comentar no PR
         uses: actions/github-script@v7
         with:
           script: |
+            const fs = require('fs');
+            const comment = fs.readFileSync('review.txt', 'utf8');
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 🤖 Revisão — Claude AI\n\n${{ steps.review.outputs.comment }}`
+              body: `## 🤖 Revisão — Claude AI\n\n${comment}`
             });
 
   generate-docs:
@@ -82,17 +101,37 @@ jobs:
           find . -type f \( -name "*.js" -o -name "*.ts" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.html" -o -name "*.css" \) \
             ! -path "*/node_modules/*" ! -path "*/.git/*" ! -path "*/dist/*" \
             -exec head -50 {} \; 2>/dev/null | head -c 8000 > project_sample.txt
+          echo "Coletado: $(wc -c < project_sample.txt) bytes"
+
       - name: Gerar README com Claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          PROJECT=$(cat project_sample.txt | head -c 6000)
-          curl -sf https://api.anthropic.com/v1/messages \
+          python3 - <<'EOF'
+          import json
+
+          project = open("project_sample.txt").read()
+          payload = {
+            "model": "claude-sonnet-4-20250514",
+            "max_tokens": 2000,
+            "messages": [{
+              "role": "user",
+              "content": f"Gere um README.md completo e profissional em português para este projeto. Inclua: descrição, tecnologias, como instalar, estrutura de pastas e como contribuir.\n\nCódigo do projeto:\n{project}"
+            }]
+          }
+          with open("payload.json", "w") as f:
+            json.dump(payload, f)
+          EOF
+
+          RESPONSE=$(curl -sf https://api.anthropic.com/v1/messages \
             -H "Content-Type: application/json" \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
-            --data-binary "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"Gere um README.md completo em português para este projeto: $PROJECT\"}]}" \
-            | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > README.md
+            -d @payload.json)
+
+          echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > README.md
+          echo "✅ README gerado com $(wc -l < README.md) linhas"
+
       - name: Commitar README
         run: |
           git config user.email "claude-bot@github.com"
@@ -119,18 +158,39 @@ jobs:
           find . -type f \( -name "*.js" -o -name "*.ts" -o -name "*.tsx" -o -name "*.jsx" -o -name "*.html" -o -name "*.css" \) \
             ! -path "*/node_modules/*" ! -path "*/.git/*" ! -path "*/dist/*" \
             -exec cat {} \; 2>/dev/null | head -c 10000 > full_project.txt
+          echo "Coletado: $(wc -c < full_project.txt) bytes"
+
       - name: Analisar com Claude
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TASK: ${{ github.event.inputs.task || 'Analise o repositório e sugira melhorias de arquitetura, performance e boas práticas.' }}
         run: |
-          PROJECT=$(cat full_project.txt | head -c 8000)
-          curl -sf https://api.anthropic.com/v1/messages \
+          python3 - <<'EOF'
+          import json, os
+
+          project = open("full_project.txt").read()
+          task = os.environ.get("TASK", "Analise o repositório e sugira melhorias.")
+          payload = {
+            "model": "claude-sonnet-4-20250514",
+            "max_tokens": 2000,
+            "messages": [{
+              "role": "user",
+              "content": f"{task}\n\nResponda em português com markdown bem formatado.\n\nCódigo do projeto:\n{project}"
+            }]
+          }
+          with open("payload.json", "w") as f:
+            json.dump(payload, f)
+          EOF
+
+          RESPONSE=$(curl -sf https://api.anthropic.com/v1/messages \
             -H "Content-Type: application/json" \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
-            --data-binary "{\"model\":\"claude-sonnet-4-20250514\",\"max_tokens\":2000,\"messages\":[{\"role\":\"user\",\"content\":\"$TASK. Responda em português com markdown. Código: $PROJECT\"}]}" \
-            | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > analysis_report.md
+            -d @payload.json)
+
+          echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['content'][0]['text'])" > analysis_report.md
+          echo "✅ Relatório: $(wc -l < analysis_report.md) linhas"
+
       - name: Criar Issue com relatório
         uses: actions/github-script@v7
         with:
@@ -146,3 +206,4 @@ jobs:
               body: `## Análise — Claude AI\n\n${report}\n\n---\n*Gerado em ${today}*`,
               labels: []
             });
+            console.log('✅ Issue criada!');
