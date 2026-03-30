@@ -286,3 +286,6 @@
 - [x] Chi Siamo: H1, founder headline, bio P1-P2, quote ajustados
 - [x] Contattaci: Step titles e subtitles humanizados
 - [x] Grazie: Headline, body, next steps com timeline
+
+## Tradução Landing Page para Português
+- [x] Traduzir toda a copy da LandingPage.tsx de italiano para português brasileiro
