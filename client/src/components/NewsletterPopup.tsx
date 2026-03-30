@@ -9,6 +9,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
+import { trackLeadSimple, trackFormView } from "@/lib/tracking";
 
 const STORAGE_KEY = "sintesys_popup_submitted";
 const DELAY_MS = 2_000; // 2 seconds initial delay
@@ -39,11 +40,13 @@ export default function NewsletterPopup() {
     onSuccess: () => {
       setSubmitted(true);
       localStorage.setItem(STORAGE_KEY, "submitted");
+      trackLeadSimple({ name, email, sector, source: "popup" });
     },
     onError: (err) => {
       if (err.message.includes("già registrato") || err.message.includes("duplicate")) {
         setSubmitted(true);
         localStorage.setItem(STORAGE_KEY, "submitted");
+        trackLeadSimple({ name, email, sector, source: "popup" });
       } else {
         setError("Si è verificato un errore. Riprova.");
       }
@@ -57,6 +60,7 @@ export default function NewsletterPopup() {
 
     const timer = setTimeout(() => {
       setVisible(true);
+      trackFormView("newsletter_popup_giornale");
     }, DELAY_MS);
 
     return () => clearTimeout(timer);
@@ -69,6 +73,7 @@ export default function NewsletterPopup() {
     if (!alreadySubmitted) {
       setTimeout(() => {
         setVisible(true);
+        trackFormView("newsletter_popup_giornale_reopen");
       }, REOPEN_DELAY_MS);
     }
   }, []);

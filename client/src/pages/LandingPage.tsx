@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
+import { trackFormView, trackLeadQualified, trackCTAClick } from "@/lib/tracking";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
@@ -97,6 +98,14 @@ function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     onSuccess: (data) => {
       if (data.success) {
         setSubmitted(true);
+        trackLeadQualified({
+          name: form.name,
+          email: form.email,
+          sector: form.sector,
+          source: "landing_page",
+          revenue: form.revenue,
+          employees: form.employees,
+        });
       }
     },
   });
@@ -508,7 +517,11 @@ function CTAButton({ onClick, large = false }: { onClick: () => void; large?: bo
 /* ═══════════════════════════════════════════════════════ */
 export default function LandingPage() {
   const [popupOpen, setPopupOpen] = useState(false);
-  const openPopup = useCallback(() => setPopupOpen(true), []);
+  const openPopup = useCallback(() => {
+    setPopupOpen(true);
+    trackFormView("landing_page_audit_popup");
+    trackCTAClick("Prenota Sessione Strategica", "landing_page");
+  }, []);
   const closePopup = useCallback(() => setPopupOpen(false), []);
 
   return (

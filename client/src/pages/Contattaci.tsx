@@ -4,10 +4,11 @@
  * Questions designed around Italian SME (PMI) pain points and decision-making patterns
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavBar from "@/components/NavBar";
 import { trpc } from "@/lib/trpc";
+import { trackLeadQualified, trackFormView } from "@/lib/tracking";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
@@ -290,8 +291,22 @@ export default function Contattaci() {
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
+  useEffect(() => {
+    trackFormView("contattaci_qualification_form");
+  }, []);
+
   const submitLead = trpc.qualifiedLeads.submit.useMutation({
-    onSuccess: () => setSubmitted(true),
+    onSuccess: () => {
+      setSubmitted(true);
+      trackLeadQualified({
+        name: form.name,
+        email: form.email,
+        sector: form.sector,
+        source: "contattaci",
+        revenue: form.revenue,
+        employees: form.employees,
+      });
+    },
     onError: (err: { message?: string }) => setErrorMsg(err.message || "Errore. Riprova."),
   });
 

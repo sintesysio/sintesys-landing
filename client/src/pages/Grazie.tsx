@@ -6,10 +6,16 @@
 
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { trackConversion } from "@/lib/tracking";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
 export default function Grazie() {
+  useEffect(() => {
+    trackConversion({ source: "thank_you_page" });
+  }, []);
+
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       {/* Navbar minimal */}

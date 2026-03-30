@@ -210,3 +210,13 @@
 
 ## Documentação Skills no GitHub
 - [x] Copiar 8 arquivos de skills (content + ads) para docs/skills/ no projeto
+
+## Tracking Completo (GA4 + Meta Pixel + GTM)
+- [x] Criar helper de tracking centralizado (client/src/lib/tracking.ts)
+- [x] Evento Lead no popup (GA4 generate_lead + Meta Pixel Lead)
+- [x] Evento Lead Qualificado na Landing Page popup (GA4 generate_lead + Meta Pixel CompleteRegistration)
+- [x] Evento Lead Qualificado no Contattaci (GA4 generate_lead + Meta Pixel CompleteRegistration)
+- [x] Evento ViewContent ao abrir popup modal (GA4 view_item + Meta Pixel ViewContent)
+- [x] Evento Conversion na Thank You Page /grazie (GA4 conversion + Meta Pixel Schedule)
+- [x] Adicionar GTM container condicional ao index.html (VITE_GTM_ID)
+- [ ] Configurar secrets: VITE_GA4_ID, VITE_META_PIXEL_ID, VITE_GTM_ID (aguardando IDs do usuário)
