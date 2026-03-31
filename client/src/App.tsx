@@ -23,14 +23,12 @@ import AdminFinanceiro from "./pages/admin/AdminFinanceiro";
 
 /**
  * Popup logic:
- * - DESATIVADO na Landing Page (/) e Grazie (/grazie) — já tem formulário próprio
- * - DESATIVADO em todas as rotas /admin/* — área administrativa
- * - ATIVO no Giornale (/giornale), Chi Siamo (/chi-siamo), e outras páginas
+ * - ATIVO somente no Giornale (/giornale)
+ * - DESATIVADO em todas as outras páginas
  */
 function ConditionalPopup() {
   const [location] = useLocation();
-  const noPopupRoutes = ["/", "/grazie", "/links"];
-  if (noPopupRoutes.includes(location) || location.startsWith("/admin")) return null;
+  if (location !== "/giornale") return null;
   return <NewsletterPopup />;
 }
 

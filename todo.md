@@ -293,3 +293,6 @@
 - [x] Criar página /data-deletion com instruções de exclusão de dados em italiano
 - [x] Registrar rotas no App.tsx (já feito via GitHub)
 - [x] Manter identidade visual editorial (jornal italiano) nas páginas legais
+
+## Popup: Restringir ao /giornale
+- [x] Popup deve aparecer somente na página /giornale (Home), não nas páginas legais
