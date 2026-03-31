@@ -286,3 +286,10 @@
 - [x] Chi Siamo: H1, founder headline, bio P1-P2, quote ajustados
 - [x] Contattaci: Step titles e subtitles humanizados
 - [x] Grazie: Headline, body, next steps com timeline
+
+## Páginas Legais (Privacy Policy, Terms of Service, Data Deletion)
+- [x] Criar página /privacy-policy com conteúdo GDPR-compliant em italiano
+- [x] Criar página /terms-of-service com termos de uso em italiano
+- [x] Criar página /data-deletion com instruções de exclusão de dados em italiano
+- [x] Registrar rotas no App.tsx (já feito via GitHub)
+- [x] Manter identidade visual editorial (jornal italiano) nas páginas legais
