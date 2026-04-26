@@ -280,6 +280,67 @@ export async function getMailchimpCampaigns(count: number = 20): Promise<Mailchi
   });
 }
 
+/**
+ * Apply a single tag to an existing subscriber by email.
+ * Used by Stripe webhook to tag purchasers (e.g., PROD_mappa_ia_47).
+ */
+export async function applyMailchimpTag(
+  email: string,
+  tagName: string
+): Promise<{ success: boolean; error?: string }> {
+  if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID) {
+    console.warn("[Mailchimp] Missing API key or List ID, skipping tag");
+    return { success: false, error: "Missing Mailchimp credentials" };
+  }
+
+  const subscriberHash = md5(email);
+
+  try {
+    // First ensure the subscriber exists (upsert)
+    const putRes = await fetch(
+      `${BASE_URL}/lists/${MAILCHIMP_LIST_ID}/members/${subscriberHash}`,
+      {
+        method: "PUT",
+        headers: { Authorization: AUTH_HEADER, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email_address: email.toLowerCase().trim(),
+          status_if_new: "subscribed",
+        }),
+        signal: AbortSignal.timeout(10000),
+      }
+    );
+
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      console.error("[Mailchimp] PUT member for tag failed:", putRes.status, err);
+      return { success: false, error: `PUT failed: ${putRes.status}` };
+    }
+
+    // Apply the tag
+    const tagsUrl = `${BASE_URL}/lists/${MAILCHIMP_LIST_ID}/members/${subscriberHash}/tags`;
+    const tagsRes = await fetch(tagsUrl, {
+      method: "POST",
+      headers: { Authorization: AUTH_HEADER, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tags: [{ name: tagName, status: "active" }],
+      }),
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!tagsRes.ok) {
+      const err = await tagsRes.json().catch(() => ({}));
+      console.warn("[Mailchimp] Tag application failed:", tagsRes.status, err);
+      return { success: false, error: `Tags failed: ${tagsRes.status}` };
+    }
+
+    console.log(`[Mailchimp] Tag "${tagName}" applied to ${email}`);
+    return { success: true };
+  } catch (err) {
+    console.error("[Mailchimp] Error applying tag:", err);
+    return { success: false, error: String(err) };
+  }
+}
+
 export async function syncQualifiedLead(data: QualifiedLeadData): Promise<{ success: boolean; error?: string }> {
   const { firstName, lastName } = splitName(data.name);
 

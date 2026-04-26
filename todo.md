@@ -356,4 +356,16 @@
 
 ## Ajuste Página /links
 - [x] Reorganizar seções: 1) Mappa IA → Checkout Stripe, 2) Il Giornale → Newsletter, 3) Site Institucional → Newsletter, 4) Chi è Sintesys.io
-- [ ] Salvar checkpoint
+- [x] Salvar checkpoint (version: 3b35e490)
+
+## Mailchimp — Email Templates, Tags e Automação Pós-Compra Mappa IA
+- [x] Verificar lista/audience existente no Mailchimp (Sintesys.io Contacts — ID: b0d9ab0ecc, 6 membros)
+- [x] Criar tag PROD_mappa_ia_47 no Mailchimp
+- [x] Criar tag STATUS_pronto_settimana_zero no Mailchimp
+- [x] Criar template Email 1: Consegna Immediata (D+0) — ID: 10055005
+- [x] Criar template Email 2: Follow-up & Valore (D+2) — ID: 10055006
+- [x] Criar template Email 3: Qualificazione & Pitch (D+5) — ID: 10055007
+- [x] Configurar webhook Stripe → Mailchimp (aplicar tag PROD_mappa_ia_47 após compra)
+- [ ] Criar Customer Journey no Mailchimp UI (não suportado via API — guia manual criado)
+- [ ] Aplicar tag STATUS_pronto_settimana_zero no Email 3 (tag final)
+- [ ] Testar fluxo e salvar checkpoint

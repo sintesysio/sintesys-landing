@@ -9,6 +9,7 @@ import type { Express, Request, Response } from "express";
 import Stripe from "stripe";
 import { notifyOwner } from "./_core/notification";
 import { PRODUCTS } from "./stripe-products";
+import { applyMailchimpTag } from "./mailchimp";
 
 function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -85,6 +86,18 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   }
   if (includesOrderBump || productKey === "mappa_with_sessione") {
     items.push(`Sessione Diagnosi IA (€${(PRODUCTS.sessioneDiagnosi.priceEurCents / 100).toFixed(2)})`);
+  }
+
+  // Apply Mailchimp tag PROD_mappa_ia_47 for post-purchase automation
+  try {
+    const tagResult = await applyMailchimpTag(customerEmail, "PROD_mappa_ia_47");
+    if (tagResult.success) {
+      console.log(`[Stripe Webhook] ✓ Mailchimp tag PROD_mappa_ia_47 applied to ${customerEmail}`);
+    } else {
+      console.warn(`[Stripe Webhook] ✗ Mailchimp tag failed for ${customerEmail}: ${tagResult.error}`);
+    }
+  } catch (err) {
+    console.error("[Stripe Webhook] ✗ Mailchimp tag error:", err);
   }
 
   // Notify owner about the purchase
