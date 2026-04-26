@@ -296,3 +296,28 @@
 
 ## Popup: Restringir ao /giornale
 - [x] Popup deve aparecer somente na página /giornale (Home), não nas páginas legais
+
+## Landing Page Low-Ticket: Mappa delle Opportunità IA (€47)
+- [x] Criar componente MappaLandingPage.tsx com long-form editorial (12 seções)
+- [x] Header: barra navy com brand Sintesys.io
+- [x] Hero above-the-fold: headline + subheadline + CTA terracotta + trust badges
+- [x] Seção "I dati" — problema em números com fontes (ISTAT, Banca d'Italia, Politecnico)
+- [x] Seção "La Storia" — storytelling narrativo do dia típico do imprenditore
+- [x] Seção "Cosa riceverà" — promessa específica (Excel 80 processi, 8 reparti, dashboard)
+- [x] Seção "Per chi è / Per chi non è" — qualificação editorial
+- [x] Seção "Chi l'ha costruita" — bio Lamberto + positioning Sintesys.io
+- [x] Seção "Tutto incluso" — recap dos 6 deliverables a €47
+- [x] Seção "Garanzia" — 14 giorni, email, bonifico
+- [x] Seção "FAQ" — 6 domande stile editoriale
+- [x] Blocco finale — decisione + CTA grande terracotta
+- [x] Footer dedicado (email, Instagram, P.IVA, links legais)
+- [x] Sticky bar CTA após 600px de scroll
+- [x] 3 posições mínimas de CTA (hero, dopo incluso, blocco finale)
+- [x] Gerar mockup imagem do produto (Excel + Word docs)
+- [x] Registrar rota /mappa no App.tsx
+- [x] Desativar popup na /mappa (popup já restrito ao /giornale)
+- [ ] Integrar Stripe checkout para pagamento €47
+- [ ] Order bump no checkout: Sessione Diagnosi IA €97
+- [ ] Tracking GA4 + Meta Pixel para purchase events
+- [x] Escrever testes vitest para a nova página (19 testes passando)
+- [ ] Salvar checkpoint

@@ -100,7 +100,7 @@ describe("Links Page — Link Structure Contract", () => {
   });
 
   it("links point to valid routes in the app", () => {
-    const validRoutes = ["/", "/giornale", "/chi-siamo", "/contattaci", "/grazie", "/links", "/404"];
+    const validRoutes = ["/", "/giornale", "/chi-siamo", "/contattaci", "/grazie", "/links", "/mappa", "/404"];
     LINKS.forEach((link) => {
       expect(validRoutes).toContain(link.href);
     });
