@@ -14,6 +14,7 @@ import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/track
 import { toast } from "sonner";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const SINTESYS_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/uMGoFQehbWRsupxh.png";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 const PRODUCT_MOCKUP = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/mappa-product-mockup-YeV4GMZTfumsJocuzn54Da.webp";
 
@@ -175,17 +176,7 @@ export default function MappaLandingPage() {
       <header style={{ backgroundColor: "#1B2A4A" }}>
         <div className="container flex items-center justify-between py-3">
           <Link href="/" className="flex items-center gap-2 no-underline">
-            <img src={BRAIN_ICON} alt="Sintesys.io" className="h-7 w-7 rounded-full" loading="eager" style={{ filter: "brightness(10)" }} />
-            <span
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "0.95rem",
-                fontWeight: 700,
-                color: "#FAFAF7",
-              }}
-            >
-              Sintesys.io
-            </span>
+            <img src={SINTESYS_LOGO} alt="Sintesys.io" className="h-8 object-contain" loading="eager" style={{ filter: "brightness(0) invert(1)" }} />
           </Link>
           <span
             style={{

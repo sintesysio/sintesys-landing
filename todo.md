@@ -444,3 +444,6 @@
 - [x] Popup Fix 2: Removidos campos Phone + Settore (agora só Nome + Email)
 - [x] Popup Fix 5: Confirmação com soft upsell Mappa €47 ("Passo successivo" + CTA "Scopri la Mappa")
 - [x] Popup Fix 6: Texto GDPR mantido conversacional ("Nessuno spam. Puoi cancellarti in qualsiasi momento.")
+
+## Ajuste Logo Navbar Mappa
+- [x] Corrigir logo Sintesys na barra de menu da página de venda (Mappa) — logo completo (brain + texto) com fundo transparente
