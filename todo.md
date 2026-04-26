@@ -412,3 +412,35 @@
 - [x] Revisar Email D+8 (Settimana Zero) — italiano correto, concordância, sem brasileirismos ('riduzione costi' → 'riduzione dei costi', artigos adicionados)
 - [x] Revisar Email Welcome Newsletter — italiano correto, sem correções necessárias
 - [x] Atualizar templates no Mailchimp e reenviar testes (4 templates atualizados + 4 test campaigns enviadas)
+
+## Auditoria Completa do Site — 26/04/2026
+
+### P0 — Infraestrutura (Bloccante)
+- [x] P0.2: Meta tags únicos por página (title, description, og:title, og:description) para todas as 8 URLs — react-helmet-async + SEOHead component
+- [x] P0.1: Server-side meta injection para as 8 páginas (seoMiddleware.ts — crawlers/social veem meta únicos sem JS)
+- [x] P0.3: Meta Pixel já está no <head> com disparo imediato (PageView no noscript + JS init)
+
+### P1 — Incoerências Estratégicas
+- [x] P1.1: Reposicionar /contattaci de "Audit Gratuito" para "Conversazione Strategica" / "Parli con Lamberto"
+- [x] P1.2: Unificar bio Lamberto em todas as páginas (multinazionali, não manifatturiere) — Mappa corrigida
+- [x] P1.3: Referência Transizione 5.0 + MIMIT já presente em /giornale (seção dedicada) e /mappa (stat 60%)
+- [x] P1.5: Padronizar CTAs de newsletter + contattaci ("Parli con Lamberto", "Iscriviti Gratis →")
+
+### P2 — Copy & UX por Página
+- [x] Fix 1: Home — hierarquia clara de CTAs (newsletter primário, "Parli con Lamberto" nos CTAs secundários)
+- [x] Fix 2: Home — simplificar form newsletter (removidos phone + sector, agora só nome + email)
+- [x] Fix 4: Giornale — CTA text atualizado com positioning de exclusividade
+- [x] Fix 5: Giornale — "migliaia" → "Iscritti selezionati: titolari di PMI italiane con 10-50 dipendenti"
+- [x] Fix 8: Mappa — bio Lamberto já alinhada com versão multinazionali (feito em P1.2)
+- [x] Fix 9: Mappa/Grazie — upsell Sessione Diagnosi IA €97 (com desconto de €127) adicionado
+- [x] Fix 10: Mappa/Grazie — convite newsletter adicionado abaixo do upsell
+- [x] Fix 11: Chi Siamo — seção "Perché ora" adicionada ("5 aziende alla volta" + CTA "Parli con Lamberto")
+- [x] Fix 12: Contattaci — já reposicionado em P1.1 ("Conversazione Strategica" + "Parli con Lamberto")
+- [x] Fix 13: Grazie (newsletter) — upsell soft Mappa €47 adicionado antes do CTA Giornale
+- [x] Links — reordenado: 1) Newsletter+Guida, 2) Mappa €47, 3) Giornale, 4) Chi è Sintesys, 5) Parli con Lamberto
+
+### Popup Newsletter
+- [x] Popup Fix 1: Headline encurtada para "Guida Transizione 5.0 — Gratis."
+- [x] Popup Fix 2: Removidos campos Phone + Settore (agora só Nome + Email)
+- [x] Popup Fix 5: Confirmação com soft upsell Mappa €47 ("Passo successivo" + CTA "Scopri la Mappa")
+- [x] Popup Fix 6: Texto GDPR mantido conversacional ("Nessuno spam. Puoi cancellarti in qualsiasi momento.")

@@ -27,7 +27,7 @@ export default function AdminLeads() {
       (l) =>
         l.name.toLowerCase().includes(q) ||
         l.email.toLowerCase().includes(q) ||
-        l.sector.toLowerCase().includes(q)
+        ((l.sector || "").toLowerCase()).includes(q)
     );
   }, [data?.simple, search]);
 
@@ -39,7 +39,7 @@ export default function AdminLeads() {
       (l) =>
         l.name.toLowerCase().includes(q) ||
         l.email.toLowerCase().includes(q) ||
-        l.sector.toLowerCase().includes(q)
+        ((l.sector || "").toLowerCase()).includes(q)
     );
   }, [data?.qualified, search]);
 
@@ -116,7 +116,7 @@ export default function AdminLeads() {
                           <TableCell className="text-slate-600">{lead.phone || "—"}</TableCell>
                           <TableCell>
                             <Badge variant="secondary" className="text-xs">
-                              {lead.sector}
+                              {lead.sector || "—"}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-slate-500 text-xs">{lead.source}</TableCell>
@@ -164,7 +164,7 @@ export default function AdminLeads() {
                           <TableCell className="text-slate-600">{lead.companyName || "—"}</TableCell>
                           <TableCell>
                             <Badge variant="secondary" className="text-xs">
-                              {lead.sector}
+                              {lead.sector || "—"}
                             </Badge>
                           </TableCell>
                           <TableCell className="text-slate-600 text-sm">{lead.revenue}</TableCell>

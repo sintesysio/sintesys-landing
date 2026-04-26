@@ -189,7 +189,7 @@ export const appRouter = router({
           name: z.string().min(2, "Nome richiesto"),
           email: z.string().email("Email non valida"),
           phone: z.string().optional(),
-          sector: z.string().min(1, "Settore richiesto"),
+          sector: z.string().optional(),
           source: z.string().default("landing_page"),
         })
       )
@@ -209,9 +209,11 @@ export const appRouter = router({
           name: input.name,
           email: input.email,
           phone: input.phone ?? null,
-          sector: input.sector,
+          sector: input.sector || null,
           source: input.source,
         });
+
+        const sectorValue = input.sector || "Non specificato";
 
         // Track sync failures for structured logging
         const syncErrors: { service: string; error: string; timestamp: string }[] = [];
@@ -222,9 +224,9 @@ export const appRouter = router({
             name: input.name,
             email: input.email,
             phone: input.phone,
-            sector: input.sector,
+            sector: sectorValue,
           });
-          console.log(`[Mailchimp] ✓ Synced simple lead: ${input.email} (tag: lead, sector: ${input.sector})`);
+          console.log(`[Mailchimp] ✓ Synced simple lead: ${input.email} (tag: lead, sector: ${sectorValue})`);
         } catch (err) {
           const errorMsg = err instanceof Error ? err.message : String(err);
           syncErrors.push({ service: "Mailchimp", error: errorMsg, timestamp: new Date().toISOString() });
@@ -237,7 +239,7 @@ export const appRouter = router({
             name: input.name,
             email: input.email,
             phone: input.phone,
-            sector: input.sector,
+            sector: sectorValue,
           });
           console.log(`[Notion] ✓ Synced simple lead: ${input.email} (status: Lead)`);
         } catch (err) {
@@ -254,14 +256,14 @@ export const appRouter = router({
 
           await notifyOwner({
             title: `Nuovo Lead: ${lead.name}`,
-            content: `Nome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${lead.sector}\nFonte: ${lead.source}\nData: ${lead.createdAt.toISOString()}${syncStatus}`,
+            content: `Nome: ${lead.name}\nEmail: ${lead.email}\nTelefono: ${lead.phone || "N/A"}\nSettore: ${sectorValue}\nFonte: ${lead.source}\nData: ${lead.createdAt.toISOString()}${syncStatus}`,
           });
         } catch (err) {
           console.error("[Notification] ✗ Failed to notify owner about new lead:", err instanceof Error ? err.message : err);
         }
 
         // Log structured summary
-        console.log(`[SimpleLead] Summary: email=${input.email}, sector=${input.sector}, source=${input.source}, syncErrors=${syncErrors.length}`);
+        console.log(`[SimpleLead] Summary: email=${input.email}, sector=${sectorValue}, source=${input.source}, syncErrors=${syncErrors.length}`);
         if (syncErrors.length > 0) {
           console.error(`[SimpleLead] Sync failures for ${input.email}:`, JSON.stringify(syncErrors));
         }

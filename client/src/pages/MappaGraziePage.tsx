@@ -5,6 +5,7 @@
  */
 
 import { useEffect, useMemo } from "react";
+import SEOHead from "@/components/SEOHead";
 import { Link } from "wouter";
 import { trackPurchase } from "@/lib/tracking";
 
@@ -30,6 +31,13 @@ export default function MappaGraziePage() {
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
+      <SEOHead
+        title="Grazie — La sua Mappa è in arrivo | Sintesys.io"
+        description="Confermato. Riceverà i 6 file via email entro 2 minuti."
+        path="/mappa/grazie"
+        noindex
+      />
+      
       {/* Header */}
       <header
         style={{
@@ -159,6 +167,141 @@ export default function MappaGraziePage() {
             </ol>
           </div>
 
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* UPSELL — Sessione Diagnosi IA                           */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <div
+            className="text-left p-8 mb-8"
+            style={{
+              backgroundColor: "#fff",
+              border: "2px solid #C4704B",
+            }}
+          >
+            <div
+              className="w-full mb-4"
+              style={{ borderTop: "3px solid #C4704B" }}
+            />
+            <p
+              className="uppercase tracking-[0.15em] mb-2"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.6rem",
+                color: "#C4704B",
+                fontWeight: 600,
+              }}
+            >
+              Passo successivo consigliato
+            </p>
+            <h3
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.3rem",
+                fontWeight: 700,
+                color: "#1A1A1A",
+                lineHeight: 1.25,
+                marginBottom: "0.75rem",
+              }}
+            >
+              Sessione Diagnosi IA — 90 minuti con Lamberto
+            </h3>
+            <p
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "1rem",
+                color: "#444",
+                lineHeight: 1.7,
+                marginBottom: "1rem",
+              }}
+            >
+              Ha la Mappa. Ora serve qualcuno che la legga insieme a Lei. In 90 minuti analizziamo i risultati, identifichiamo le 3 priorit\u00e0 operative e costruiamo un piano d'azione concreto per la sua PMI.
+            </p>
+            <div className="flex items-center gap-4 mb-4">
+              <span
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "1.6rem",
+                  fontWeight: 700,
+                  color: "#1A1A1A",
+                }}
+              >
+                \u20ac97
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.75rem",
+                  color: "#999",
+                  textDecoration: "line-through",
+                }}
+              >
+                \u20ac127
+              </span>
+              <span
+                className="px-2 py-0.5"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.65rem",
+                  fontWeight: 600,
+                  color: "#C4704B",
+                  backgroundColor: "rgba(196,112,75,0.1)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Sconto riservato acquirenti Mappa
+              </span>
+            </div>
+            <Link href="/contattaci">
+              <span
+                className="inline-block cursor-pointer px-6 py-3 text-xs uppercase tracking-[0.15em]"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  backgroundColor: "#C4704B",
+                  color: "#FAFAF7",
+                }}
+              >
+                Prenoti la Sessione Diagnosi IA \u2192
+              </span>
+            </Link>
+          </div>
+
+          {/* ═══════════════════════════════════════════════════════ */}
+          {/* NEWSLETTER INVITE                                       */}
+          {/* ═══════════════════════════════════════════════════════ */}
+          <div
+            className="text-center p-6 mb-8"
+            style={{
+              backgroundColor: "rgba(27,42,74,0.04)",
+              border: "1px solid rgba(27,42,74,0.12)",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "1rem",
+                color: "#3A3A3A",
+                lineHeight: 1.7,
+                marginBottom: "0.75rem",
+              }}
+            >
+              Non ancora iscritto alla newsletter? Ogni settimana, strategie IA concrete per la sua PMI + la Guida Transizione 5.0 in omaggio.
+            </p>
+            <Link href="/">
+              <span
+                className="inline-block cursor-pointer px-5 py-2.5 text-xs uppercase tracking-[0.15em]"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  backgroundColor: "#1B2A4A",
+                  color: "#FAFAF7",
+                }}
+              >
+                Iscriviti alla Newsletter Gratuita \u2192
+              </span>
+            </Link>
+          </div>
+
           {/* Support note */}
           <p
             style={{
@@ -194,7 +337,7 @@ export default function MappaGraziePage() {
                   paddingBottom: "2px",
                 }}
               >
-                ← Torna alla homepage
+                \u2190 Torna alla homepage
               </span>
             </Link>
           </div>

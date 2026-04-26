@@ -12,6 +12,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
+import SEOHead from "@/components/SEOHead";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
@@ -40,7 +41,7 @@ const FALLBACK = {
   ],
   quote: "Nessuna formula magica. Nessuna vendita aggressiva. Solo strategia pura, da imprenditore a imprenditore, con il rigore analitico che meriti.",
   ctaTitle: "Non restare indietro.",
-  ctaText: "Ogni settimana, migliaia di PMI italiane perdono terreno perché non hanno accesso alle informazioni giuste. Iscriviti per ricevere analisi esclusive che trasformano la complessità dell'IA in decisioni operative concrete.",
+  ctaText: "Newsletter editoriale settimanale. Iscritti selezionati: titolari di PMI italiane con 10-50 dipendenti. Ogni edizione traduce l'IA in decisioni operative concrete — niente gergo, solo strategia.",
 };
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -98,6 +99,11 @@ export default function Giornale() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
+      <SEOHead
+        title="Il Giornale dell'IA — Newsletter settimanale per imprenditori italiani"
+        description="Ogni settimana, analisi e strategie IA concrete per PMI con 10-50 dipendenti. Gratuita. Niente gergo."
+        path="/giornale"
+      />
       <NavBar />
       {/* ═══════════════════════════════════════════════════════ */}
       {/* MASTHEAD — Newspaper Header */}
@@ -1001,7 +1007,7 @@ export default function Giornale() {
                 onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#1B2A4A"; e.currentTarget.style.color = "#FAFAF7"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2A4A"; }}
               >
-                Prenota il tuo Audit Gratuito &rarr;
+                Parli con Lamberto &rarr;
               </a>
             </div>
           </div>

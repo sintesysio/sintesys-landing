@@ -7,6 +7,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
+import SEOHead from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
@@ -162,6 +163,12 @@ export default function MappaLandingPage() {
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
+      <SEOHead
+        title="Mappa delle Opportunità IA — Diagnostico per la tua PMI · €47"
+        description="In 30 minuti, scopri dove l'IA può liberare ore della tua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni."
+        path="/mappa"
+      />
+      
       {/* ═══════════════════════════════════════════════════════ */}
       {/* 1. HEADER — barra navy, brand                         */}
       {/* ═══════════════════════════════════════════════════════ */}
@@ -610,7 +617,7 @@ export default function MappaLandingPage() {
             <FadeIn delay={0.15} className="lg:col-span-9">
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "1rem", color: "#444", lineHeight: 1.85 }}>
                 <p className="mb-5">
-                  <strong style={{ color: "#1A1A1A" }}>Lamberto Grinover.</strong> Ex-dirigente, italiano, residente in Italia. Ha trascorso vent'anni dentro aziende manifatturiere italiane prima di fondare Sintesys.io. Conosce la differenza tra un caos ordinato e un'azienda fragile, perché l'ha vista da dentro.
+                  <strong style={{ color: "#1A1A1A" }}>Lamberto Grinover.</strong> 28 anni in ruoli direttivi presso Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer e Brookfield — gestendo operazioni da oltre €200M. Oggi porta quella stessa disciplina operativa alle PMI italiane, traducendo l'IA in decisioni concrete.
                 </p>
                 <p className="mb-5">
                   Sintesys.io non vende software. Vende il metodo per portare ordine prima, e intelligenza dopo. La Mappa che riceverà è il primo strumento del metodo — quello che usiamo come punto di partenza con ogni nostro cliente di consulenza.

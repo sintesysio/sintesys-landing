@@ -7,6 +7,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavBar from "@/components/NavBar";
+import SEOHead from "@/components/SEOHead";
 import { trpc } from "@/lib/trpc";
 import { trackLeadQualified, trackFormView } from "@/lib/tracking";
 
@@ -373,7 +374,12 @@ export default function Contattaci() {
   if (submitted) {
     return (
       <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
-        <NavBar />
+        <SEOHead
+        title="Contatti \& Conversazione Strategica — Sintesys.io"
+        description="Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h."
+        path="/contattaci"
+      />
+      <NavBar />
         <div className="container py-20 text-center max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -409,8 +415,8 @@ export default function Contattaci() {
               }}
             >
               <strong>Lamberto Grinover</strong> analizzerà personalmente il profilo della tua azienda
-              e ti contatterà per una <strong>sessione strategica di 30 minuti</strong> dedicata
-              alla tua realtà. Nessun venditore, nessun pitch — solo analisi.
+              e la contatterà per una <strong>conversazione strategica di 30 minuti</strong> dedicata
+              alla sua realtà. Nessun venditore, nessun pitch — solo analisi concreta.
             </p>
             <div
               className="p-6 mb-6"
@@ -496,6 +502,11 @@ export default function Contattaci() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
+      <SEOHead
+        title="Contatti \& Conversazione Strategica — Sintesys.io"
+        description="Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h."
+        path="/contattaci"
+      />
       <NavBar />
 
       {/* Header */}
@@ -505,7 +516,7 @@ export default function Contattaci() {
           className="uppercase tracking-[0.2em] mb-2 text-center"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", color: "#999" }}
         >
-          Analisi Gratuita
+          Conversazione Strategica
         </p>
         <h1
           className="text-center mb-2"
@@ -517,7 +528,7 @@ export default function Contattaci() {
             lineHeight: 1.15,
           }}
         >
-          Raccontaci la tua azienda. Ti mostriamo dove intervenire.
+          Parli con Lamberto. Scopriamo insieme dove intervenire.
         </h1>
         <p
           className="text-center mb-8"
@@ -528,9 +539,8 @@ export default function Contattaci() {
             lineHeight: 1.6,
           }}
         >
-          5 minuti del tuo tempo. In cambio, un report personalizzato con le inefficienze
-          della tua azienda e le soluzioni concrete entro 48 ore.{" "}
-          <strong style={{ color: "#1B2A4A" }}>Gratuito e senza impegno.</strong>
+          30 minuti per capire se Sintesys può davvero fare la differenza nella sua azienda.{" "}
+          <strong style={{ color: "#1B2A4A" }}>Posti limitati ogni mese — accettiamo solo PMI con almeno 10 dipendenti.</strong>
         </p>
       </section>
 
@@ -791,7 +801,7 @@ export default function Contattaci() {
               {submitLead.isPending
                 ? "Invio in corso..."
                 : step === TOTAL_STEPS - 1
-                ? "Invia Audit"
+                ? "Richiedi Conversazione"
                 : "Avanti \u2192"}
             </button>
           </div>

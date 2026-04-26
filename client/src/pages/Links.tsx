@@ -13,6 +13,7 @@
  */
 
 import { useEffect, useState, useCallback } from "react";
+import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
 const BRAIN_ICON =
@@ -31,36 +32,44 @@ interface LinkItem {
 
 const LINKS: LinkItem[] = [
   {
-    label: "Mappa delle Opportunità IA — €47",
+    label: "Newsletter Gratuita + Guida Transizione 5.0",
     description:
-      "80 processi analizzati, 8 reparti mappati, dashboard automatica. Scopri dove l'IA può tagliare i costi nella tua PMI.",
+      "Iscriviti e ricevi subito la guida. Ogni settimana, strategie IA concrete per la tua PMI.",
+    href: "/",
+    utmContent: "newsletter-guida",
+    primary: true,
+    action: "link",
+  },
+  {
+    label: "Mappa delle Opportunit\u00e0 IA \u2014 \u20ac47",
+    description:
+      "80 processi analizzati, 8 reparti mappati, dashboard automatica. Scopri dove l'IA pu\u00f2 intervenire.",
     href: "/mappa",
     utmContent: "mappa-ia",
-    primary: true,
     action: "stripe",
   },
   {
     label: "Il Giornale dell'IA",
     description:
-      "Ogni settimana strategie operative per titolari di PMI. Iscriviti alla newsletter gratuita.",
+      "Archivio editoriale: analisi settimanali, casi studio e strategie operative per PMI italiane.",
     href: "/giornale",
     utmContent: "giornale-ia",
     action: "link",
   },
   {
-    label: "Sintesys.io — Sito Istituzionale",
-    description:
-      "IA per PMI italiane: newsletter settimanale, incentivi fiscali, strategie concrete. Iscriviti gratis.",
-    href: "/",
-    utmContent: "sito-istituzionale",
-    action: "link",
-  },
-  {
-    label: "Chi è Sintesys.io",
+    label: "Chi \u00e8 Sintesys.io",
     description:
       "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della tua PMI.",
     href: "/chi-siamo",
     utmContent: "chi-siamo",
+    action: "link",
+  },
+  {
+    label: "Parli con Lamberto",
+    description:
+      "Conversazione strategica gratuita. Scopriamo insieme dove l'IA pu\u00f2 migliorare la sua azienda.",
+    href: "/contattaci",
+    utmContent: "parli-con-lamberto",
     action: "link",
   },
 ];
@@ -124,6 +133,12 @@ export default function Links() {
 
   return (
     <div className="min-h-screen bg-[#FAFAF7] flex flex-col items-center">
+      <SEOHead
+        title="Sintesys.io — Link | Tutti i nostri canali"
+        description="Tutti i contenuti, prodotti e modi per entrare in contatto con Sintesys.io."
+        path="/links"
+      />
+      
       {/* Masthead */}
       <header className="w-full max-w-md mx-auto pt-8 pb-4 px-5 text-center">
         {/* Decorative top line */}

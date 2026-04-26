@@ -7,6 +7,11 @@
  * - If closed, reopens 2s later (2nd attempt).
  * - If closed again, does NOT reopen (max 2 appearances per session).
  * - Stops permanently after successful form submission (localStorage).
+ *
+ * AUDIT FIXES APPLIED:
+ * - Headline shortened to max 3 lines
+ * - Phone + Sector fields removed (only Name + Email)
+ * - Confirmation includes soft upsell to Mappa €47
  */
 
 import { useState, useEffect, useCallback } from "react";
@@ -20,24 +25,10 @@ const MAX_SHOWS = 2; // Maximum number of times popup can appear per session
 const DELAY_MS = 5_000; // 5 seconds reading delay
 const REOPEN_DELAY_MS = 2_000; // 2 seconds after close to reopen
 
-const SECTORS = [
-  "Manifattura",
-  "Commercio all'ingrosso",
-  "Commercio al dettaglio",
-  "Servizi professionali",
-  "Costruzioni",
-  "Logistica e trasporti",
-  "Ristorazione e hospitality",
-  "Tecnologia",
-  "Altro",
-];
-
 export default function NewsletterPopup() {
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [sector, setSector] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
@@ -45,13 +36,13 @@ export default function NewsletterPopup() {
     onSuccess: () => {
       setSubmitted(true);
       localStorage.setItem(STORAGE_KEY, "submitted");
-      trackLeadSimple({ name, email, sector, source: "popup" });
+      trackLeadSimple({ name, email, source: "popup" });
     },
     onError: (err) => {
       if (err.message.includes("già registrato") || err.message.includes("duplicate")) {
         setSubmitted(true);
         localStorage.setItem(STORAGE_KEY, "submitted");
-        trackLeadSimple({ name, email, sector, source: "popup" });
+        trackLeadSimple({ name, email, source: "popup" });
       } else {
         setError("Si è verificato un errore. Riprova.");
       }
@@ -99,7 +90,7 @@ export default function NewsletterPopup() {
       e.preventDefault();
       setError("");
 
-      if (!name.trim() || !email.trim() || !sector) {
+      if (!name.trim() || !email.trim()) {
         setError("Compila tutti i campi obbligatori.");
         return;
       }
@@ -107,12 +98,10 @@ export default function NewsletterPopup() {
       submitLead.mutate({
         name: name.trim(),
         email: email.trim(),
-        phone: phone.trim() || undefined,
-        sector,
         source: "popup",
       });
     },
-    [name, email, phone, sector, submitLead]
+    [name, email, submitLead]
   );
 
   return (
@@ -177,6 +166,7 @@ export default function NewsletterPopup() {
                   Edizione Speciale
                 </p>
 
+                {/* AUDIT FIX: Shortened headline (max 3 lines) */}
                 <h2
                   style={{
                     fontFamily: "'Playfair Display', serif",
@@ -187,7 +177,7 @@ export default function NewsletterPopup() {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  Il governo paga fino al 50% della tua trasformazione digitale. Il 60% degli imprenditori non lo sa.
+                  Guida Transizione 5.0 — Gratis.
                 </h2>
 
                 <p
@@ -198,7 +188,7 @@ export default function NewsletterPopup() {
                     lineHeight: 1.5,
                   }}
                 >
-                  Scarica la Guida Transizione 5.0 e scopri come accedere ai €6,3 miliardi di fondi MIMIT. Più aggiornamenti settimanali su incentivi, strategie IA e casi studio per il tuo settore.
+                  €6,3 miliardi di fondi MIMIT per la digitalizzazione delle PMI. Scarica la guida + newsletter settimanale con strategie IA per il tuo settore.
                 </p>
               </div>
 
@@ -237,10 +227,55 @@ export default function NewsletterPopup() {
                         fontFamily: "'Source Serif 4', serif",
                         fontSize: "0.85rem",
                         color: "#666",
+                        marginBottom: "1rem",
                       }}
                     >
-                      Controlla la tua casella email. Riceverai la Guida Transizione 5.0 entro pochi minuti, insieme al primo aggiornamento settimanale.
+                      Controlla la tua casella email entro pochi minuti.
                     </p>
+
+                    {/* AUDIT FIX: Soft upsell to Mappa €47 in confirmation */}
+                    <div
+                      className="mt-3 p-4 text-left"
+                      style={{
+                        backgroundColor: "rgba(196,112,75,0.06)",
+                        border: "1px solid rgba(196,112,75,0.2)",
+                      }}
+                    >
+                      <p
+                        className="uppercase tracking-[0.12em] mb-1"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.55rem",
+                          color: "#C4704B",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Passo successivo
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "'Source Serif 4', serif",
+                          fontSize: "0.85rem",
+                          color: "#444",
+                          lineHeight: 1.5,
+                          marginBottom: "0.75rem",
+                        }}
+                      >
+                        Scopra dove l'IA può intervenire nella sua azienda con la <strong>Mappa delle Opportunità IA</strong> — 80 processi, 8 reparti, €47.
+                      </p>
+                      <a
+                        href="/mappa"
+                        className="inline-block px-4 py-2 text-xs uppercase tracking-[0.12em] no-underline"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontWeight: 600,
+                          backgroundColor: "#C4704B",
+                          color: "#FAFAF7",
+                        }}
+                      >
+                        Scopri la Mappa →
+                      </a>
+                    </div>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-3">
@@ -306,80 +341,6 @@ export default function NewsletterPopup() {
                           color: "#1A1A1A",
                         }}
                       />
-                    </div>
-
-                    {/* Telefono + Settore row */}
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label
-                          htmlFor="popup-phone"
-                          className="block uppercase tracking-[0.12em] mb-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.6rem",
-                            color: "#999",
-                            fontWeight: 500,
-                          }}
-                        >
-                          Telefono
-                        </label>
-                        <input
-                          id="popup-phone"
-                          type="tel"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          placeholder="+39 333..."
-                          autoComplete="tel"
-                          className="w-full px-3 py-2 text-sm outline-none transition-colors"
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            border: "1px solid oklch(0.80 0.005 60)",
-                            backgroundColor: "#fff",
-                            color: "#1A1A1A",
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="popup-sector"
-                          className="block uppercase tracking-[0.12em] mb-1"
-                          style={{
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.6rem",
-                            color: "#999",
-                            fontWeight: 500,
-                          }}
-                        >
-                          Settore *
-                        </label>
-                        <select
-                          id="popup-sector"
-                          value={sector}
-                          onChange={(e) => setSector(e.target.value)}
-                          required
-                          className="w-full px-3 py-2 text-sm outline-none transition-colors"
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            border: "1px solid oklch(0.80 0.005 60)",
-                            backgroundColor: "#fff",
-                            color: sector ? "#1A1A1A" : "#999",
-                            appearance: "none",
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "right 8px center",
-                          }}
-                        >
-                          <option value="" disabled>
-                            Seleziona...
-                          </option>
-                          {SECTORS.map((s) => (
-                            <option key={s} value={s}>
-                              {s}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
                     </div>
 
                     {/* Error */}

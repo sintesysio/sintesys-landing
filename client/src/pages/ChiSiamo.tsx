@@ -6,6 +6,7 @@
 
 import { motion } from "framer-motion";
 import NavBar from "@/components/NavBar";
+import SEOHead from "@/components/SEOHead";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
@@ -26,6 +27,11 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 export default function ChiSiamo() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
+      <SEOHead
+        title="Chi è Sintesys.io — 28 anni di operations in multinazionali"
+        description="Fondata da Lamberto Grinover. Da Nissan, Cushman & Wakefield, Tishman Speyer e Brookfield alle PMI italiane."
+        path="/chi-siamo"
+      />
       <NavBar />
 
       {/* ═══════════════════════════════════════════════════════ */}
@@ -186,7 +192,7 @@ export default function ChiSiamo() {
                 }}
               >
                 <p>
-                  Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer, Brookfield. In 28 anni di ruoli direttivi, Lamberto Grinover ha gestito <strong>operazioni da €200M+</strong> e team di 150+ persone. Ha visto da vicino come le grandi organizzazioni usano la tecnologia per creare efficienza operativa e vantaggio competitivo.
+                  Nissan Italia, Cushman & Wakefield, Tishman Speyer, Brookfield. In 28 anni di ruoli direttivi, Lamberto Grinover ha gestito <strong>operazioni da €200M+</strong> e team di 150+ persone. Ha visto da vicino come le grandi organizzazioni usano la tecnologia per creare efficienza operativa e vantaggio competitivo.
                 </p>
                 <p>
                   Poi ha fatto una scelta: portare quelle stesse armi alle PMI italiane. Ha fondato <strong>Sintesys.io</strong> con una missione semplice — tradurre l'Intelligenza Artificiale in marginalità concreta per chi ha 10-50 dipendenti e margini da proteggere.
@@ -326,6 +332,70 @@ export default function ChiSiamo() {
             </div>
           </FadeIn>
         </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* PERCHÉ ORA — Scarsità onesta                              */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section className="container pb-16">
+        <FadeIn>
+          <div
+            className="p-8 lg:p-12"
+            style={{
+              backgroundColor: "rgba(27,42,74,0.04)",
+              border: "1px solid rgba(27,42,74,0.12)",
+            }}
+          >
+            <p
+              className="uppercase tracking-[0.15em] mb-3"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.65rem",
+                color: "#C4704B",
+                fontWeight: 600,
+              }}
+            >
+              Perché ora
+            </p>
+            <h2
+              className="mb-4"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)",
+                fontWeight: 700,
+                color: "#1A1A1A",
+                lineHeight: 1.25,
+              }}
+            >
+              Lamberto segue al massimo 5 aziende alla volta.
+            </h2>
+            <p
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "1.05rem",
+                color: "#444",
+                lineHeight: 1.7,
+                maxWidth: "640px",
+              }}
+            >
+              Ogni imprenditore riceve attenzione diretta, non un pacchetto standardizzato. Questo significa che i posti disponibili per nuove collaborazioni sono limitati. Se la sua PMI ha bisogno di chiarezza operativa sull'IA, il momento migliore per parlarne è adesso.
+            </p>
+            <div className="mt-6">
+              <a
+                href="/contattaci"
+                className="inline-block px-6 py-3 text-xs uppercase tracking-[0.15em]"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  backgroundColor: "#1B2A4A",
+                  color: "#FAFAF7",
+                }}
+              >
+                Parli con Lamberto →
+              </a>
+            </div>
+          </div>
+        </FadeIn>
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}

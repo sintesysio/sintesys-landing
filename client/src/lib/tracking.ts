@@ -63,7 +63,7 @@ export function trackFormView(formName: string) {
 export function trackLeadSimple(params: {
   name: string;
   email: string;
-  sector: string;
+  sector?: string;
   source: string;
 }) {
   ga4Event("generate_lead", {
@@ -71,11 +71,11 @@ export function trackLeadSimple(params: {
     value: 1,
     lead_type: "simple",
     lead_source: params.source,
-    lead_sector: params.sector,
+    lead_sector: params.sector || "Non specificato",
   });
   metaPixelEvent("Lead", {
     content_name: "Lead Simples",
-    content_category: params.sector,
+    content_category: params.sector || "Non specificato",
     lead_source: params.source,
   });
 }
@@ -85,7 +85,7 @@ export function trackLeadSimple(params: {
 export function trackLeadQualified(params: {
   name: string;
   email: string;
-  sector: string;
+  sector?: string;
   source: "landing_page" | "contattaci";
   revenue?: string;
   employees?: string;
@@ -95,13 +95,13 @@ export function trackLeadQualified(params: {
     value: 10,
     lead_type: "qualified",
     lead_source: params.source,
-    lead_sector: params.sector,
+    lead_sector: params.sector || "Non specificato",
     lead_revenue: params.revenue,
     lead_employees: params.employees,
   });
   metaPixelEvent("CompleteRegistration", {
     content_name: "Lead Qualificato",
-    content_category: params.sector,
+    content_category: params.sector || "Non specificato",
     status: "qualified",
     value: 10,
     currency: "EUR",

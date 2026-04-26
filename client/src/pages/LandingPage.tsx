@@ -11,6 +11,7 @@
  */
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import SEOHead from "@/components/SEOHead";
 import { motion, useInView } from "framer-motion";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
@@ -21,17 +22,6 @@ const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAq
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
-const SECTORS = [
-  "Manifattura",
-  "Commercio all'ingrosso",
-  "Commercio al dettaglio",
-  "Servizi professionali",
-  "Costruzioni",
-  "Logistica e trasporti",
-  "Ristorazione e hospitality",
-  "Tecnologia",
-  "Altro",
-];
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
@@ -75,20 +65,18 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 function NewsletterForm({ variant = "light", id = "home" }: { variant?: "light" | "dark"; id?: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [sector, setSector] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
   const submitLead = trpc.leads.submit.useMutation({
     onSuccess: () => {
       setSubmitted(true);
-      trackLeadSimple({ name, email, sector, source: "homepage" });
+      trackLeadSimple({ name, email, source: "homepage" });
     },
     onError: (err) => {
       if (err.message.includes("già registrato") || err.message.includes("duplicate")) {
         setSubmitted(true);
-        trackLeadSimple({ name, email, sector, source: "homepage" });
+        trackLeadSimple({ name, email, source: "homepage" });
       } else {
         setError("Si è verificato un errore. Riprova.");
       }
@@ -99,7 +87,7 @@ function NewsletterForm({ variant = "light", id = "home" }: { variant?: "light" 
     (e: React.FormEvent) => {
       e.preventDefault();
       setError("");
-      if (!name.trim() || !email.trim() || !sector) {
+      if (!name.trim() || !email.trim()) {
         setError("Compila tutti i campi obbligatori.");
         return;
       }
@@ -107,12 +95,10 @@ function NewsletterForm({ variant = "light", id = "home" }: { variant?: "light" 
       submitLead.mutate({
         name: name.trim(),
         email: email.trim(),
-        phone: phone.trim() || undefined,
-        sector,
         source: "homepage",
       });
     },
-    [name, email, phone, sector, submitLead, id]
+    [name, email, submitLead, id]
   );
 
   const isDark = variant === "dark";
@@ -228,78 +214,6 @@ function NewsletterForm({ variant = "light", id = "home" }: { variant?: "light" 
         />
       </div>
 
-      {/* Telefono + Settore row */}
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label
-            htmlFor={`${id}-phone`}
-            className="block uppercase tracking-[0.12em] mb-1"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.6rem",
-              color: labelColor,
-              fontWeight: 500,
-            }}
-          >
-            Telefono
-          </label>
-          <input
-            id={`${id}-phone`}
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+39 333..."
-            autoComplete="tel"
-            className={`w-full px-3 py-2.5 text-sm outline-none transition-colors ${placeholderClass}`}
-            style={{
-              fontFamily: "'Source Serif 4', serif",
-              border: `1px solid ${inputBorder}`,
-              backgroundColor: inputBg,
-              color: inputColor,
-            }}
-          />
-        </div>
-        <div>
-          <label
-            htmlFor={`${id}-sector`}
-            className="block uppercase tracking-[0.12em] mb-1"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.6rem",
-              color: labelColor,
-              fontWeight: 500,
-            }}
-          >
-            Settore *
-          </label>
-          <select
-            id={`${id}-sector`}
-            value={sector}
-            onChange={(e) => setSector(e.target.value)}
-            required
-            className={`w-full px-3 py-2.5 text-sm outline-none transition-colors ${placeholderClass}`}
-            style={{
-              fontFamily: "'Source Serif 4', serif",
-              border: `1px solid ${inputBorder}`,
-              backgroundColor: inputBg,
-              color: sector ? inputColor : labelColor,
-              appearance: "none",
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "right 8px center",
-            }}
-          >
-            <option value="" disabled>
-              Seleziona...
-            </option>
-            {SECTORS.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
 
       {/* Error */}
       {error && (
@@ -359,6 +273,13 @@ export default function LandingPage() {
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
+      <SEOHead
+        title="Sintesys.io — Intelligenza Artificiale operativa per PMI italiane"
+        description="Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio."
+        path="/"
+        ogTitle="Sintesys.io — Intelligenza Artificiale operativa per PMI italiane"
+        ogDescription="Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio."
+      />
       <NavBar />
 
       {/* ═══════════════════════════════════════════════════════ */}
@@ -413,7 +334,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Ogni settimana, migliaia di imprenditori italiani ricevono la nostra newsletter con analisi esclusive, casi studio reali e strategie operative per integrare l'IA nella propria azienda. <strong>Iscriviti gratuitamente.</strong>
+                Ogni settimana, titolari di PMI italiane con 10-50 dipendenti ricevono la nostra newsletter con analisi esclusive, casi studio reali e strategie operative per integrare l'IA nella propria azienda. <strong>Iscriviti gratuitamente.</strong>
               </p>
 
               {/* Trust badges */}
@@ -659,7 +580,7 @@ export default function LandingPage() {
               title: "Agisci",
               subtitle: "Audit Operativo Personalizzato",
               desc: "Lamberto Grinover analizza i tuoi processi in una sessione strategica e costruisce un piano d'azione su misura per la tua azienda. Il primo passo verso l'implementazione.",
-              cta: "Richiedi l'Audit",
+              cta: "Parli con Lamberto",
               href: "/contattaci",
               isScroll: false,
             },

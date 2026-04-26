@@ -5,6 +5,7 @@
  */
 
 import { Link } from "wouter";
+import SEOHead from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { trackConversion } from "@/lib/tracking";
@@ -18,6 +19,13 @@ export default function Grazie() {
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
+      <SEOHead
+        title="Grazie — Iscrizione confermata | Sintesys.io"
+        description="Riceverà la Guida Transizione 5.0 entro pochi minuti. Controlli anche lo spam."
+        path="/grazie"
+        noindex
+      />
+      
       {/* Navbar minimal */}
       <nav className="container" style={{ backgroundColor: "#FAFAF7" }}>
         <div className="rule-thick mt-0" />
@@ -158,6 +166,86 @@ export default function Grazie() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Soft upsell — Mappa delle Opportunità IA */}
+          <div
+            className="p-6 lg:p-8 mb-6"
+            style={{
+              backgroundColor: "#fff",
+              border: "2px solid #C4704B",
+            }}
+          >
+            <p
+              className="uppercase tracking-[0.15em] mb-2"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.6rem",
+                color: "#C4704B",
+                fontWeight: 600,
+              }}
+            >
+              Mentre aspetta
+            </p>
+            <h3
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.15rem",
+                fontWeight: 700,
+                color: "#1A1A1A",
+                lineHeight: 1.25,
+                marginBottom: "0.5rem",
+              }}
+            >
+              Scopra dove l'IA può intervenire nella sua azienda
+            </h3>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.95rem",
+                color: "#444",
+                lineHeight: 1.7,
+              }}
+            >
+              La <strong>Mappa delle Opportunità IA</strong> è un foglio Excel con 80 processi mappati su 8 reparti + 5 guide operative. Compili la mappa prima della sessione con Lamberto: arriverà preparato e la conversazione sarà più concreta.
+            </p>
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "1.4rem",
+                  fontWeight: 700,
+                  color: "#1A1A1A",
+                }}
+              >
+                €47
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.7rem",
+                  color: "#999",
+                }}
+              >
+                IVA inclusa · Accesso immediato
+              </span>
+            </div>
+            <Link
+              href="/mappa"
+              className="inline-block no-underline px-6 py-2.5"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#FAFAF7",
+                backgroundColor: "#C4704B",
+              }}
+            >
+              Scopri la Mappa →
+            </Link>
           </div>
 
           {/* CTA to Giornale */}

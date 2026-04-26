@@ -34,7 +34,7 @@ export const leads = mysqlTable("leads", {
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 320 }).notNull(),
   phone: varchar("phone", { length: 50 }),
-  sector: varchar("sector", { length: 100 }).notNull(),
+  sector: varchar("sector", { length: 100 }),
   source: varchar("source", { length: 100 }).default("landing_page").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
