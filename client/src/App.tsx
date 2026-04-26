@@ -14,6 +14,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import DataDeletion from "./pages/DataDeletion";
 import MappaLandingPage from "./pages/MappaLandingPage";
+import MappaGraziePage from "./pages/MappaGraziePage";
 import NewsletterPopup from "./components/NewsletterPopup";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -65,6 +66,7 @@ function Router() {
       <Route path={"/grazie"} component={Grazie} />
       <Route path={"/links"} component={Links} />
       <Route path={"/mappa"} component={MappaLandingPage} />
+      <Route path={"/mappa/grazie"} component={MappaGraziePage} />
       <Route path={"/privacy-policy"} component={PrivacyPolicy} />
       <Route path={"/terms-of-service"} component={TermsOfService} />
       <Route path={"/data-deletion"} component={DataDeletion} />

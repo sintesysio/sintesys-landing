@@ -9,7 +9,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { trackCTAClick, trackPageView } from "@/lib/tracking";
+import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
+import { toast } from "sonner";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
@@ -120,12 +121,44 @@ export default function MappaLandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleCTA = useCallback((location: string) => {
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
+
+  const handleCTA = useCallback(async (location: string) => {
     trackCTAClick("Voglio la Mappa €47", location);
-    // For now, scroll to a checkout section or open Stripe
-    // TODO: Integrate Stripe Checkout
-    window.open("https://buy.stripe.com/placeholder", "_blank");
-  }, []);
+    trackInitiateCheckout({
+      productName: "Mappa delle Opportunità IA",
+      value: 47,
+      currency: "EUR",
+      includesOrderBump: false,
+    });
+
+    if (isCheckoutLoading) return;
+    setIsCheckoutLoading(true);
+
+    try {
+      const res = await fetch("/api/stripe/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ includeOrderBump: false }),
+      });
+
+      if (!res.ok) throw new Error("Errore nella creazione del checkout");
+
+      const data = await res.json();
+
+      if (data.url) {
+        toast.info("Reindirizzamento al pagamento sicuro...");
+        window.open(data.url, "_blank");
+      } else {
+        throw new Error("URL di checkout non disponibile");
+      }
+    } catch (err) {
+      console.error("[Checkout] Error:", err);
+      toast.error("Si è verificato un errore. Riprova tra qualche istante.");
+    } finally {
+      setIsCheckoutLoading(false);
+    }
+  }, [isCheckoutLoading]);
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>

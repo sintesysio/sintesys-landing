@@ -316,8 +316,12 @@
 - [x] Gerar mockup imagem do produto (Excel + Word docs)
 - [x] Registrar rota /mappa no App.tsx
 - [x] Desativar popup na /mappa (popup já restrito ao /giornale)
-- [ ] Integrar Stripe checkout para pagamento €47
-- [ ] Order bump no checkout: Sessione Diagnosi IA €97
-- [ ] Tracking GA4 + Meta Pixel para purchase events
+- [x] Integrar Stripe checkout para pagamento €47 (endpoint /api/stripe/create-checkout funcionando)
+- [x] Order bump no checkout: Sessione Diagnosi IA €97 (suportado via includeOrderBump)
+- [x] Tracking GA4 + Meta Pixel para purchase events (begin_checkout, InitiateCheckout, purchase, Purchase)
 - [x] Escrever testes vitest para a nova página (19 testes passando)
+- [x] Stripe webhook handler (/api/stripe/webhook com verificação de assinatura)
+- [x] Página /mappa/grazie (thank you page com tracking de purchase)
+- [x] Notificação ao owner via notifyOwner() após compra
+- [x] Testes vitest para Stripe products e checkout (8 testes passando)
 - [ ] Salvar checkpoint

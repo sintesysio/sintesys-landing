@@ -147,6 +147,53 @@ export function trackCTAClick(ctaName: string, location: string) {
   });
 }
 
+// ─── Initiate Checkout (quando clica no CTA de compra) ───
+
+export function trackInitiateCheckout(params: {
+  productName: string;
+  value: number;
+  currency?: string;
+  includesOrderBump?: boolean;
+}) {
+  ga4Event("begin_checkout", {
+    currency: params.currency || "EUR",
+    value: params.value,
+    items: [{ item_name: params.productName }],
+    includes_order_bump: params.includesOrderBump || false,
+  });
+  metaPixelEvent("InitiateCheckout", {
+    content_name: params.productName,
+    value: params.value,
+    currency: params.currency || "EUR",
+    num_items: params.includesOrderBump ? 2 : 1,
+  });
+}
+
+// ─── Purchase Completed (após checkout Stripe bem-sucedido) ───
+
+export function trackPurchase(params: {
+  transactionId: string;
+  value: number;
+  currency?: string;
+  productName: string;
+  includesOrderBump?: boolean;
+}) {
+  ga4Event("purchase", {
+    transaction_id: params.transactionId,
+    currency: params.currency || "EUR",
+    value: params.value,
+    items: [{ item_name: params.productName }],
+    includes_order_bump: params.includesOrderBump || false,
+  });
+  metaPixelEvent("Purchase", {
+    content_name: params.productName,
+    content_type: "product",
+    value: params.value,
+    currency: params.currency || "EUR",
+    num_items: params.includesOrderBump ? 2 : 1,
+  });
+}
+
 // ─── Scroll Depth (para medir engajamento) ───
 
 export function trackScrollDepth(percentage: number) {
