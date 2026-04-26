@@ -1,88 +1,118 @@
 /**
- * NewsletterPopup — Pop-up form that appears after 5 seconds on /giornale page.
- * Invites visitors to download the free Transizione 5.0 guide.
- * Uses the same leads endpoint with source: "popup".
- * RULES:
- * - Opens 5s after page load (1st attempt).
- * - If closed, reopens 2s later (2nd attempt).
- * - If closed again, does NOT reopen (max 2 appearances per session).
- * - Stops permanently after successful form submission (localStorage).
- *
- * AUDIT FIXES APPLIED:
- * - Headline shortened to max 3 lines
- * - Phone + Sector fields removed (only Name + Email)
- * - Confirmation includes soft upsell to Mappa €47
+ * NewsletterPopup — Pop-up form for newsletter subscription.
+ * Trigger: scroll 50% OR exit-intent (whichever fires first).
+ * Frequency: max 1x per visitor every 14 days (localStorage timestamp).
+ * Excluded pages: /mappa, /mappa/grazie, /grazie, /chi-siamo.
+ * Form: email only.
+ * Headline: A/B variants (random).
+ * Confirmation: soft upsell to Mappa €95,50 (lancio) / €179,90 (regolare).
+ * Updated per 08-Aggiornamento-Sito-LP.docx.
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView } from "@/lib/tracking";
 
 const STORAGE_KEY = "sintesys_popup_submitted";
-const SESSION_CLOSE_KEY = "sintesys_popup_close_count";
-const MAX_SHOWS = 2; // Maximum number of times popup can appear per session
-const DELAY_MS = 5_000; // 5 seconds reading delay
-const REOPEN_DELAY_MS = 2_000; // 2 seconds after close to reopen
+const SEEN_KEY = "sintesys_popup_seen";
+const COOLDOWN_DAYS = 14;
+const EXCLUDED_PATHS = ["/mappa", "/mappa/grazie", "/grazie", "/chi-siamo"];
+
+// A/B headline variants
+const VARIANT_A = {
+  headline: "Lo Stato paga il 50% della digitalizzazione della sua PMI.",
+  subheadline: "Il 60% non lo sa. Scarica la Guida Transizione 5.0 — gratis.",
+  cta: "Sì, voglio la Guida →",
+};
+const VARIANT_B = {
+  headline: "Il caos operativo non è la crisi.",
+  subheadline: "È il problema che nessuno le ha ancora mappato. La newsletter le mostra come uscirne — ogni settimana. Iscriviti gratis.",
+  cta: "Iscriviti alla Newsletter →",
+};
+
+function getVariant(): typeof VARIANT_A {
+  return Math.random() < 0.5 ? VARIANT_A : VARIANT_B;
+}
+
+function isExcludedPage(): boolean {
+  const path = window.location.pathname;
+  return EXCLUDED_PATHS.some((p) => path === p || path.startsWith(p + "/"));
+}
+
+function isWithinCooldown(): boolean {
+  const seenTs = localStorage.getItem(SEEN_KEY);
+  if (!seenTs) return false;
+  const elapsed = Date.now() - parseInt(seenTs, 10);
+  return elapsed < COOLDOWN_DAYS * 24 * 60 * 60 * 1000;
+}
 
 export default function NewsletterPopup() {
   const [visible, setVisible] = useState(false);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [variant] = useState(() => getVariant());
+  const triggeredRef = useRef(false);
 
   const submitLead = trpc.leads.submit.useMutation({
     onSuccess: () => {
       setSubmitted(true);
       localStorage.setItem(STORAGE_KEY, "submitted");
-      trackLeadSimple({ name, email, source: "popup" });
+      trackLeadSimple({ name: "", email, source: "popup" });
     },
     onError: (err) => {
       if (err.message.includes("già registrato") || err.message.includes("duplicate")) {
         setSubmitted(true);
         localStorage.setItem(STORAGE_KEY, "submitted");
-        trackLeadSimple({ name, email, source: "popup" });
+        trackLeadSimple({ name: "", email, source: "popup" });
       } else {
         setError("Si è verificato un errore. Riprova.");
       }
     },
   });
 
-  useEffect(() => {
-    // Don't show if user already submitted the form
-    const alreadySubmitted = localStorage.getItem(STORAGE_KEY);
-    if (alreadySubmitted) return;
-
-    // Don't show if already closed MAX_SHOWS times in this session
-    const closeCount = parseInt(sessionStorage.getItem(SESSION_CLOSE_KEY) || "0", 10);
-    if (closeCount >= MAX_SHOWS) return;
-
-    const timer = setTimeout(() => {
-      setVisible(true);
-      trackFormView("newsletter_popup_giornale");
-    }, DELAY_MS);
-
-    return () => clearTimeout(timer);
+  const showPopup = useCallback(() => {
+    if (triggeredRef.current) return;
+    triggeredRef.current = true;
+    localStorage.setItem(SEEN_KEY, String(Date.now()));
+    setVisible(true);
+    trackFormView("newsletter_popup");
   }, []);
+
+  useEffect(() => {
+    // Guard: excluded page, already submitted, or within cooldown
+    if (isExcludedPage()) return;
+    if (localStorage.getItem(STORAGE_KEY)) return;
+    if (isWithinCooldown()) return;
+
+    // Trigger 1: Scroll 50%
+    const handleScroll = () => {
+      const scrollPercent =
+        window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      if (scrollPercent >= 0.5) {
+        showPopup();
+      }
+    };
+
+    // Trigger 2: Exit-intent (mouse leaves viewport top)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0) {
+        showPopup();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [showPopup]);
 
   const handleClose = useCallback(() => {
     setVisible(false);
-
-    // Increment close count in sessionStorage
-    const currentCount = parseInt(sessionStorage.getItem(SESSION_CLOSE_KEY) || "0", 10);
-    const newCount = currentCount + 1;
-    sessionStorage.setItem(SESSION_CLOSE_KEY, String(newCount));
-
-    // Only reopen if we haven't reached the max shows and user hasn't submitted
-    const alreadySubmitted = localStorage.getItem(STORAGE_KEY);
-    if (!alreadySubmitted && newCount < MAX_SHOWS) {
-      setTimeout(() => {
-        setVisible(true);
-        trackFormView("newsletter_popup_giornale_reopen");
-      }, REOPEN_DELAY_MS);
-    }
-    // If newCount >= MAX_SHOWS, popup will NOT reopen
   }, []);
 
   const handleSubmit = useCallback(
@@ -90,18 +120,18 @@ export default function NewsletterPopup() {
       e.preventDefault();
       setError("");
 
-      if (!name.trim() || !email.trim()) {
-        setError("Compila tutti i campi obbligatori.");
+      if (!email.trim()) {
+        setError("Inserisca il suo indirizzo email aziendale.");
         return;
       }
 
       submitLead.mutate({
-        name: name.trim(),
+        name: "",
         email: email.trim(),
         source: "popup",
       });
     },
-    [name, email, submitLead]
+    [email, submitLead]
   );
 
   return (
@@ -166,7 +196,6 @@ export default function NewsletterPopup() {
                   Edizione Speciale
                 </p>
 
-                {/* AUDIT FIX: Shortened headline (max 3 lines) */}
                 <h2
                   style={{
                     fontFamily: "'Playfair Display', serif",
@@ -177,7 +206,7 @@ export default function NewsletterPopup() {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  Guida Transizione 5.0 — Gratis.
+                  {variant.headline}
                 </h2>
 
                 <p
@@ -188,7 +217,7 @@ export default function NewsletterPopup() {
                     lineHeight: 1.5,
                   }}
                 >
-                  €6,3 miliardi di fondi MIMIT per la digitalizzazione delle PMI. Scarica la guida + newsletter settimanale con strategie IA per il tuo settore.
+                  {variant.subheadline}
                 </p>
               </div>
 
@@ -220,7 +249,7 @@ export default function NewsletterPopup() {
                         marginBottom: "0.25rem",
                       }}
                     >
-                      Perfetto. La guida è in arrivo.
+                      Perfetto. La guida arriverà nella sua email entro 2 minuti.
                     </h3>
                     <p
                       style={{
@@ -230,10 +259,10 @@ export default function NewsletterPopup() {
                         marginBottom: "1rem",
                       }}
                     >
-                      Controlla la tua casella email entro pochi minuti.
+                      Controlli anche lo spam.
                     </p>
 
-                    {/* AUDIT FIX: Soft upsell to Mappa €47 in confirmation */}
+                    {/* Soft upsell to Mappa in confirmation */}
                     <div
                       className="mt-3 p-4 text-left"
                       style={{
@@ -250,7 +279,7 @@ export default function NewsletterPopup() {
                           fontWeight: 600,
                         }}
                       >
-                        Passo successivo
+                        Mentre aspetta
                       </p>
                       <p
                         style={{
@@ -258,11 +287,43 @@ export default function NewsletterPopup() {
                           fontSize: "0.85rem",
                           color: "#444",
                           lineHeight: 1.5,
-                          marginBottom: "0.75rem",
+                          marginBottom: "0.5rem",
                         }}
                       >
-                        Scopra dove l'IA può intervenire nella sua azienda con la <strong>Mappa delle Opportunità IA</strong> — 80 processi, 8 reparti, €47.
+                        Abbiamo costruito uno strumento self-service che le mostra in 30 minuti dove l'IA può intervenire specificamente nella <strong>SUA</strong> azienda. Si chiama <strong>Mappa delle Opportunità IA</strong>.
                       </p>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span
+                          style={{
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: "0.85rem",
+                            fontWeight: 600,
+                            color: "#999",
+                            textDecoration: "line-through",
+                          }}
+                        >
+                          €179,90
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: "1.1rem",
+                            fontWeight: 700,
+                            color: "#C4704B",
+                          }}
+                        >
+                          €95,50
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: "0.6rem",
+                            color: "#999",
+                          }}
+                        >
+                          fino ai primi 100 clienti · Garanzia 14 giorni
+                        </span>
+                      </div>
                       <a
                         href="/mappa"
                         className="inline-block px-4 py-2 text-xs uppercase tracking-[0.12em] no-underline"
@@ -273,44 +334,28 @@ export default function NewsletterPopup() {
                           color: "#FAFAF7",
                         }}
                       >
-                        Scopri la Mappa →
+                        Scopri la Mappa — €95,50 →
                       </a>
+                      <div className="mt-2">
+                        <button
+                          onClick={handleClose}
+                          className="text-xs"
+                          style={{
+                            fontFamily: "'Inter', sans-serif",
+                            color: "#999",
+                            background: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Chiudi
+                        </button>
+                      </div>
                     </div>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-3">
-                    {/* Nome */}
-                    <div>
-                      <label
-                        htmlFor="popup-name"
-                        className="block uppercase tracking-[0.12em] mb-1"
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: "0.6rem",
-                          color: "#999",
-                          fontWeight: 500,
-                        }}
-                      >
-                        Nome e Cognome *
-                      </label>
-                      <input
-                        id="popup-name"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Mario Rossi"
-                        required
-                        autoComplete="name"
-                        className="w-full px-3 py-2 text-sm outline-none transition-colors"
-                        style={{
-                          fontFamily: "'Source Serif 4', serif",
-                          border: "1px solid oklch(0.80 0.005 60)",
-                          backgroundColor: "#fff",
-                          color: "#1A1A1A",
-                        }}
-                      />
-                    </div>
-
                     {/* Email */}
                     <div>
                       <label
@@ -341,6 +386,16 @@ export default function NewsletterPopup() {
                           color: "#1A1A1A",
                         }}
                       />
+                      <p
+                        className="mt-1"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.55rem",
+                          color: "#bbb",
+                        }}
+                      >
+                        Inviamo solo a indirizzi aziendali — no Gmail/Yahoo personali.
+                      </p>
                     </div>
 
                     {/* Error */}
@@ -371,7 +426,7 @@ export default function NewsletterPopup() {
                         opacity: submitLead.isPending ? 0.7 : 1,
                       }}
                     >
-                      {submitLead.isPending ? "Invio in corso..." : "Sì, Voglio la Guida →"}
+                      {submitLead.isPending ? "Invio in corso..." : variant.cta}
                     </button>
 
                     {/* Privacy note */}
@@ -384,8 +439,7 @@ export default function NewsletterPopup() {
                         lineHeight: 1.4,
                       }}
                     >
-                      Nessuno spam. Puoi cancellarti in qualsiasi momento.
-                      <br />I tuoi dati sono trattati secondo la normativa GDPR.
+                      Niente spam. Niente vendita di dati. Cancellazione in 1 click. GDPR rispettato.
                     </p>
                   </form>
                 )}

@@ -447,3 +447,21 @@
 
 ## Ajuste Logo Navbar Mappa
 - [x] Corrigir logo Sintesys na barra de menu da página de venda (Mappa) — logo completo (brain + texto) com fundo transparente
+
+## Atualização de Preços e Copy (08-Aggiornamento-Sito-LP.docx)
+- [x] Substituição global: €47 → €95,50 em todo o codebase (stripe-products, seo, testes)
+- [x] Substituição global: €127 → €197 (standalone) / €147 (com bump) (stripe-products, checkout)
+- [x] Substituição global: quarantasette euro → novantacinque euro e cinquanta
+- [x] /mappa: Full re-write da LP com novo pricing (€95,50 lançamento, €179,90 regular)
+- [x] /mappa: Pricing Block com narrativa "primi 100 clienti"
+- [x] /mappa: Seções completas (Storia, Cosa È, Per chi è, Chi l'ha costruita, Cosa Include, Garanzia, FAQ, Blocco Finale)
+- [x] /mappa: Order Bump checkout — Sessione Diagnosi IA €147
+- [x] /chi-siamo: Atualizar bio Lamberto (versão unificada multinazionali + €200M)
+- [x] /chi-siamo: Atualizar seção "Perché ora" (50-80 clienti/ano, primi 12 mesi)
+- [x] /mappa/grazie: Reescrever upsell pós-compra (Sessione €247→€197→€147)
+- [x] /mappa/grazie: Soft invite newsletter abaixo do upsell
+- [x] /grazie: Atualizar upsell Mappa (€179,90 regular → €95,50 lançamento)
+- [x] Popup: Atualizar headline (Variante A/B com scroll 50% + exit-intent)
+- [x] Popup: Form só email (removido campo nome)
+- [x] Popup: Confirmation com upsell Mappa €95,50
+- [x] Popup: Trigger scroll 50% + exit-intent, cooldown 14 dias, excluir /mappa /mappa/grazie /grazie /chi-siamo

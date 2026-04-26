@@ -319,7 +319,7 @@ export default function Giornale() {
                           fontWeight: 500,
                         }}
                       >
-                        Strumento Operativo — €47
+                        Strumento Operativo — €95,50
                       </p>
                       <p
                         style={{

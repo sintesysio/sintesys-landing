@@ -5,7 +5,7 @@ import { describe, it, expect } from "vitest";
  * Validates UTM URL generation, link structure, and route configuration
  *
  * Seções:
- * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €47)
+ * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €95,50)
  * 2. Il Giornale dell'IA → Newsletter (cattura lead)
  * 3. Sito Istituzionale → Newsletter (cattura lead)
  * 4. Chi è Sintesys.io → Pagina Chi Siamo
@@ -25,7 +25,7 @@ function buildUtmUrl(path: string, utmContent: string): string {
 
 // Mirror the LINKS array from Links.tsx to validate contract
 const LINKS = [
-  { label: "Mappa delle Opportunità IA — €47", href: "/mappa", utmContent: "mappa-ia", primary: true, action: "stripe" as const },
+  { label: "Mappa delle Opportunità IA — €95,50", href: "/mappa", utmContent: "mappa-ia", primary: true, action: "stripe" as const },
   { label: "Il Giornale dell'IA", href: "/giornale", utmContent: "giornale-ia", action: "link" as const },
   { label: "Sintesys.io — Sito Istituzionale", href: "/", utmContent: "sito-istituzionale", action: "link" as const },
   { label: "Chi è Sintesys.io", href: "/chi-siamo", utmContent: "chi-siamo", action: "link" as const },

@@ -208,29 +208,52 @@ export default function Grazie() {
                 lineHeight: 1.7,
               }}
             >
-              La <strong>Mappa delle Opportunità IA</strong> è un foglio Excel con 80 processi mappati su 8 reparti + 5 guide operative. Compili la mappa prima della sessione con Lamberto: arriverà preparato e la conversazione sarà più concreta.
+              Mentre aspetta la prima edizione, abbiamo costruito uno strumento che le mostra in 30 minuti dove l'IA può intervenire nella <strong>SUA</strong> azienda specifica.
             </p>
-            <div className="flex items-center gap-3 mb-4">
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.9rem",
+                color: "#555",
+                lineHeight: 1.6,
+              }}
+            >
+              Si chiama <strong>Mappa delle Opportunità IA</strong>. Stesso strumento che usiamo come punto di partenza con i nostri clienti di consulenza.
+            </p>
+            <div className="flex items-center gap-3 mb-2">
+              <span
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "1rem",
+                  fontWeight: 600,
+                  color: "#999",
+                  textDecoration: "line-through",
+                }}
+              >
+                €179,90
+              </span>
               <span
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   fontSize: "1.4rem",
                   fontWeight: 700,
-                  color: "#1A1A1A",
+                  color: "#C4704B",
                 }}
               >
-                €47
-              </span>
-              <span
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.7rem",
-                  color: "#999",
-                }}
-              >
-                IVA inclusa · Accesso immediato
+                €95,50
               </span>
             </div>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.7rem",
+                color: "#999",
+              }}
+            >
+              Prezzo di lancio (fino ai primi 100 clienti) · Garanzia 14 giorni inclusa
+            </p>
             <Link
               href="/mappa"
               className="inline-block no-underline px-6 py-2.5"
@@ -244,7 +267,7 @@ export default function Grazie() {
                 backgroundColor: "#C4704B",
               }}
             >
-              Scopri la Mappa →
+              Scopri la Mappa — €95,50 →
             </Link>
           </div>
 

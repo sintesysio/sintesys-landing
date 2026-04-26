@@ -2,18 +2,30 @@ import { describe, it, expect } from "vitest";
 import { PRODUCTS } from "./stripe-products";
 
 describe("Stripe Products Configuration", () => {
-  it("should have mappa product with correct price", () => {
+  it("should have mappa product with correct launch price €95,50", () => {
     expect(PRODUCTS.mappa).toBeDefined();
-    expect(PRODUCTS.mappa.priceEurCents).toBe(4700);
+    expect(PRODUCTS.mappa.priceEurCents).toBe(9550);
     expect(PRODUCTS.mappa.currency).toBe("eur");
     expect(PRODUCTS.mappa.name).toBe("Mappa delle Opportunità IA");
   });
 
-  it("should have sessioneDiagnosi product with correct price", () => {
+  it("should have mappa regular price €179,90", () => {
+    expect(PRODUCTS.mappa.regularPriceEurCents).toBe(17990);
+  });
+
+  it("should have sessioneDiagnosi standalone launch price €197", () => {
     expect(PRODUCTS.sessioneDiagnosi).toBeDefined();
-    expect(PRODUCTS.sessioneDiagnosi.priceEurCents).toBe(9700);
+    expect(PRODUCTS.sessioneDiagnosi.priceEurCents).toBe(19700);
     expect(PRODUCTS.sessioneDiagnosi.currency).toBe("eur");
     expect(PRODUCTS.sessioneDiagnosi.name).toContain("Sessione Diagnosi");
+  });
+
+  it("should have sessioneDiagnosi bump price €147", () => {
+    expect(PRODUCTS.sessioneDiagnosi.bumpPriceEurCents).toBe(14700);
+  });
+
+  it("should have sessioneDiagnosi regular price €247", () => {
+    expect(PRODUCTS.sessioneDiagnosi.regularPriceEurCents).toBe(24700);
   });
 
   it("should have product metadata with correct keys", () => {
@@ -23,17 +35,17 @@ describe("Stripe Products Configuration", () => {
     expect(PRODUCTS.sessioneDiagnosi.metadata.type).toBe("order_bump");
   });
 
-  it("mappa price should be €47.00", () => {
-    expect(PRODUCTS.mappa.priceEurCents / 100).toBe(47);
+  it("mappa launch price should be €95.50", () => {
+    expect(PRODUCTS.mappa.priceEurCents / 100).toBe(95.5);
   });
 
-  it("sessioneDiagnosi price should be €97.00", () => {
-    expect(PRODUCTS.sessioneDiagnosi.priceEurCents / 100).toBe(97);
+  it("sessioneDiagnosi standalone price should be €197.00", () => {
+    expect(PRODUCTS.sessioneDiagnosi.priceEurCents / 100).toBe(197);
   });
 
-  it("combined order should total €144.00", () => {
-    const total = (PRODUCTS.mappa.priceEurCents + PRODUCTS.sessioneDiagnosi.priceEurCents) / 100;
-    expect(total).toBe(144);
+  it("combined order (mappa + bump) should total €242.50", () => {
+    const total = (PRODUCTS.mappa.priceEurCents + PRODUCTS.sessioneDiagnosi.bumpPriceEurCents) / 100;
+    expect(total).toBe(242.5);
   });
 });
 

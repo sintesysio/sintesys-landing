@@ -6,7 +6,7 @@
  * Mobile-first (100% traffico da Instagram mobile)
  *
  * Sezioni:
- * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €47)
+ * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €95,50)
  * 2. Il Giornale dell'IA → Newsletter (cattura lead)
  * 3. Sito Istituzionale → Newsletter (cattura lead)
  * 4. Chi è Sintesys.io → Pagina Chi Siamo

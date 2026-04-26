@@ -54,7 +54,7 @@ export function registerStripeCheckout(app: Express) {
               name: PRODUCTS.sessioneDiagnosi.name as string,
               description: PRODUCTS.sessioneDiagnosi.description as string,
             },
-            unit_amount: PRODUCTS.sessioneDiagnosi.priceEurCents as number,
+            unit_amount: PRODUCTS.sessioneDiagnosi.bumpPriceEurCents as number,
           },
           quantity: 1,
         });

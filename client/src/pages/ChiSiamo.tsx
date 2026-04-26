@@ -192,16 +192,16 @@ export default function ChiSiamo() {
                 }}
               >
                 <p>
-                  Nissan Italia, Cushman & Wakefield, Tishman Speyer, Brookfield. In 28 anni di ruoli direttivi, Lamberto Grinover ha gestito <strong>operazioni da €200M+</strong> e team di 150+ persone. Ha visto da vicino come le grandi organizzazioni usano la tecnologia per creare efficienza operativa e vantaggio competitivo.
+                  Lamberto Grinover. 28 anni in ruoli direttivi in quattro multinazionali — <strong>Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer, Brookfield</strong> — gestendo operazioni per oltre €200M e team di 150+ persone.
                 </p>
                 <p>
-                  Poi ha fatto una scelta: portare quelle stesse armi alle PMI italiane. Ha fondato <strong>Sintesys.io</strong> con una missione semplice — tradurre l'Intelligenza Artificiale in marginalità concreta per chi ha 10-50 dipendenti e margini da proteggere.
+                  Oggi porta quella stessa disciplina operativa alle PMI italiane: <strong>trasformare la complessità in marginalità misurabile</strong>.
                 </p>
                 <p>
-                  La differenza? Lamberto non parla di algoritmi. Parla la lingua dell'imprenditore: <strong>marginalità, controllo dei costi, efficienza e flusso di cassa</strong>. Non vende tecnologia — vende risultati misurabili, con il rigore analitico di chi ha gestito P&amp;L da centinaia di milioni.
+                  Non parla di algoritmi. Parla la lingua dell'imprenditore: <strong>marginalità, controllo dei costi, efficienza e flusso di cassa</strong>. Non vende tecnologia — vende risultati misurabili, con il rigore analitico di chi ha gestito P&amp;L da centinaia di milioni.
                 </p>
                 <p>
-                  In un mercato dove il 74% delle PMI italiane non ha ancora un piano strutturato per l'IA, Lamberto è il <strong>consulente esecutivo</strong> che trasforma la complessità tecnologica in decisioni operative concrete — non in anni, ma in settimane.
+                  Ha fondato <strong>Sintesys.io</strong> con una missione semplice — tradurre l'Intelligenza Artificiale in marginalità concreta per chi ha 10-50 dipendenti e margini da proteggere.
                 </p>
               </div>
             </FadeIn>
@@ -367,7 +367,7 @@ export default function ChiSiamo() {
                 lineHeight: 1.25,
               }}
             >
-              Lamberto segue al massimo 5 aziende alla volta.
+              Nei primi 12 mesi, seguiamo al massimo 50–80 aziende.
             </h2>
             <p
               style={{

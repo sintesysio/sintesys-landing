@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 
 /**
  * Tests for the Mappa Landing Page (/mappa) — Low-Ticket Product
- * "Mappa delle Opportunità IA" — €47
+ * "Mappa delle Opportunità IA" — €95,50 (lancio) / €179,90 (regolare)
  * Validates page structure, content contract, and route configuration
  */
 
@@ -10,7 +10,8 @@ describe("Mappa Landing Page — Content Contract", () => {
   // Product details that must be present on the page
   const PRODUCT = {
     name: "Mappa delle Opportunità IA",
-    price: 47,
+    price: 95.50,
+    regularPrice: 179.90,
     currency: "EUR",
     deliverables: 6,
     departments: 8,
@@ -18,8 +19,8 @@ describe("Mappa Landing Page — Content Contract", () => {
     guarantee_days: 14,
   };
 
-  it("product has correct pricing at €47", () => {
-    expect(PRODUCT.price).toBe(47);
+  it("product has correct launch pricing at €95,50", () => {
+    expect(PRODUCT.price).toBe(95.50);
     expect(PRODUCT.currency).toBe("EUR");
   });
 

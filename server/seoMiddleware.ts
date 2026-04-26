@@ -36,7 +36,7 @@ const PAGE_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/giornale`,
   },
   "/mappa": {
-    title: "Mappa delle Opportunità IA — Diagnostico per la tua PMI · €47",
+    title: "Mappa delle Opportunità IA — Diagnostico per la tua PMI · €95,50",
     description: "In 30 minuti, scopri dove l'IA può liberare ore della tua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni.",
     canonical: `${BASE_URL}/mappa`,
   },

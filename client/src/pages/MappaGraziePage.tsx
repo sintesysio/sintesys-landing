@@ -21,7 +21,7 @@ export default function MappaGraziePage() {
     if (sessionId) {
       trackPurchase({
         transactionId: sessionId,
-        value: 47,
+        value: 95.50,
         currency: "EUR",
         productName: "Mappa delle Opportunità IA",
         includesOrderBump: false,
@@ -103,7 +103,7 @@ export default function MappaGraziePage() {
               marginBottom: "1rem",
             }}
           >
-            Grazie per il tuo acquisto!
+            Grazie per il suo acquisto.
           </h1>
 
           <p
@@ -115,8 +115,7 @@ export default function MappaGraziePage() {
               marginBottom: "2rem",
             }}
           >
-            La tua <strong>Mappa delle Opportunità IA</strong> è in arrivo.
-            Riceverai tutti i materiali via email entro pochi minuti.
+            Riceverà i 6 file via email entro 2 minuti.
           </p>
 
           {/* What to expect */}
@@ -213,43 +212,85 @@ export default function MappaGraziePage() {
                 marginBottom: "1rem",
               }}
             >
-              Ha la Mappa. Ora serve qualcuno che la legga insieme a Lei. In 90 minuti analizziamo i risultati, identifichiamo le 3 priorit\u00e0 operative e costruiamo un piano d'azione concreto per la sua PMI.
+                          La Mappa le indicherà dove agire. Se preferisce vedere <strong>COME</strong> agire, in diretta con Lamberto, è disponibile la Sessione Diagnosi IA — 90 minuti, gruppo ristretto, una volta al mese.
             </p>
-            <div className="flex items-center gap-4 mb-4">
-              <span
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: "1.6rem",
-                  fontWeight: 700,
-                  color: "#1A1A1A",
-                }}
-              >
-                \u20ac97
-              </span>
-              <span
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.75rem",
-                  color: "#999",
-                  textDecoration: "line-through",
-                }}
-              >
-                \u20ac127
-              </span>
-              <span
-                className="px-2 py-0.5"
+            <div className="flex flex-col gap-1 mb-2">
+              <div className="flex items-center gap-3">
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.75rem",
+                    color: "#999",
+                  }}
+                >
+                  Prezzo regolare:
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                    color: "#999",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  €247
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.75rem",
+                    color: "#999",
+                  }}
+                >
+                  Prezzo standalone:
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                    color: "#999",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  €197
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    color: "#1A1A1A",
+                  }}
+                >
+                  Sconto esclusivo acquirenti Mappa:
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "1.6rem",
+                    fontWeight: 700,
+                    color: "#C4704B",
+                  }}
+                >
+                  €147
+                </span>
+              </div>
+              <p
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontSize: "0.65rem",
-                  fontWeight: 600,
-                  color: "#C4704B",
-                  backgroundColor: "rgba(196,112,75,0.1)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
+                  color: "#999",
+                  marginTop: "0.25rem",
                 }}
               >
-                Sconto riservato acquirenti Mappa
-              </span>
+                Risparmio €100 sul prezzo regolare. Codice già applicato.
+              </p>
             </div>
             <Link href="/contattaci">
               <span
@@ -260,8 +301,7 @@ export default function MappaGraziePage() {
                   backgroundColor: "#C4704B",
                   color: "#FAFAF7",
                 }}
-              >
-                Prenoti la Sessione Diagnosi IA \u2192
+              >                Aggiungi la Sessione Diagnosi IA — €147 →\u2192
               </span>
             </Link>
           </div>
@@ -285,7 +325,7 @@ export default function MappaGraziePage() {
                 marginBottom: "0.75rem",
               }}
             >
-              Non ancora iscritto alla newsletter? Ogni settimana, strategie IA concrete per la sua PMI + la Guida Transizione 5.0 in omaggio.
+              Iscritto al Giornale dell'IA? Riceva ogni settimana strategie operative aggiuntive — gratis.
             </p>
             <Link href="/">
               <span
@@ -296,8 +336,7 @@ export default function MappaGraziePage() {
                   backgroundColor: "#1B2A4A",
                   color: "#FAFAF7",
                 }}
-              >
-                Iscriviti alla Newsletter Gratuita \u2192
+              >                Sì, mi iscrivo →\u2192
               </span>
             </Link>
           </div>

@@ -569,7 +569,7 @@ export default function LandingPage() {
             {
               step: "02",
               title: "Mappa",
-              subtitle: "Mappa delle Opportunità IA — €47",
+              subtitle: "Mappa delle Opportunità IA — €95,50",
               desc: "Un foglio Excel con 80 processi analizzati, 8 reparti mappati e una dashboard automatica che ti mostra esattamente dove l'IA può liberare ore e ridurre costi.",
               cta: "Scopri la Mappa",
               href: "/mappa",

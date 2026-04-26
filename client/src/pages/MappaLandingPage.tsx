@@ -1,9 +1,10 @@
 /**
- * Landing Page — Mappa delle Opportunità IA (€47)
+ * Landing Page — Mappa delle Opportunità IA (€95,50 lancio / €179,90 regolare)
  * Prodotto low-ticket: foglio Excel + 5 documenti Word
  * Long-form editoriale stile Il Sole 24 Ore
- * Struttura: 12 sezioni, ~1.450 parole, CTA in 3 posizioni
+ * Struttura: 13 sezioni (incluso Pricing Block), CTA in 3 posizioni
  * Sticky bar dopo 600px di scroll
+ * Aggiornato: 08-Aggiornamento-Sito-LP.docx
  */
 
 import { useState, useEffect, useCallback } from "react";
@@ -34,7 +35,7 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 /* ─── CTA Button component ─── */
-function CTAButton({ onClick, large = false, label = "Voglio la Mappa — €47" }: { onClick: () => void; large?: boolean; label?: string }) {
+function CTAButton({ onClick, large = false, label = "Voglio la Mappa — €95,50" }: { onClick: () => void; large?: boolean; label?: string }) {
   return (
     <button
       onClick={onClick}
@@ -80,7 +81,7 @@ function StickyBar({ visible, onClick }: { visible: boolean; onClick: () => void
             color: "#FAFAF7",
           }}
         >
-          Mappa delle Opportunità IA — <strong>€47</strong>
+          Mappa delle Opportunità IA — <strong>€95,50</strong>
         </p>
         <button
           onClick={onClick}
@@ -96,7 +97,7 @@ function StickyBar({ visible, onClick }: { visible: boolean; onClick: () => void
             cursor: "pointer",
           }}
         >
-          Voglio la Mappa — €47
+          Voglio la Mappa — €95,50
         </button>
       </div>
     </motion.div>
@@ -126,10 +127,10 @@ export default function MappaLandingPage() {
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   const handleCTA = useCallback(async (location: string) => {
-    trackCTAClick("Voglio la Mappa €47", location);
+    trackCTAClick("Voglio la Mappa €95,50", location);
     trackInitiateCheckout({
       productName: "Mappa delle Opportunità IA",
-      value: 47,
+      value: 95.50,
       currency: "EUR",
       includesOrderBump: false,
     });
@@ -165,7 +166,7 @@ export default function MappaLandingPage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Mappa delle Opportunità IA — Diagnostico per la tua PMI · €47"
+        title="Mappa delle Opportunità IA — Diagnostico per la tua PMI · €95,50"
         description="In 30 minuti, scopri dove l'IA può liberare ore della tua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni."
         path="/mappa"
       />
@@ -243,7 +244,11 @@ export default function MappaLandingPage() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <CTAButton onClick={() => handleCTA("hero")} large />
-            <div className="mt-4 flex flex-wrap gap-4">
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 500, color: "#999", textDecoration: "line-through" }}>€179,90</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: "#C4704B" }}>→ €95,50 · Prezzo di lancio</span>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-4">
               {["Pagamento sicuro", "Consegna immediata via email", "Garanzia 14 giorni"].map((t) => (
                 <span
                   key={t}
@@ -575,7 +580,112 @@ export default function MappaLandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* 7. CHI L'HA COSTRUITA — Lamberto + Sintesys.io        */}
+      {/* PRICING BLOCK — seção prominente                       */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <section className="py-14 lg:py-20" style={{ backgroundColor: "rgba(196,112,75,0.06)" }}>
+        <div className="container">
+          <FadeIn>
+            <div className="max-w-2xl mx-auto text-center">
+              <h2
+                className="mb-4"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
+                  fontWeight: 700,
+                  color: "#1A1A1A",
+                  lineHeight: 1.15,
+                }}
+              >
+                Il prezzo, e perché lo abbiamo scelto.
+              </h2>
+              <p
+                className="mb-6"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.75rem",
+                  fontWeight: 500,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#888",
+                }}
+              >
+                Prezzo regolare
+              </p>
+              <p
+                className="mb-2"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "1.5rem",
+                  fontWeight: 600,
+                  color: "#999",
+                  textDecoration: "line-through",
+                }}
+              >
+                €179,90
+              </p>
+              <p
+                className="mb-4"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                  fontWeight: 800,
+                  color: "#C4704B",
+                  lineHeight: 1,
+                }}
+              >
+                €95,50
+              </p>
+              <p
+                className="mb-6"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  color: "#1B2A4A",
+                }}
+              >
+                Prezzo di lancio fino ai primi 100 clienti. Risparmi €84,40. Garanzia 14 giorni inclusa.
+              </p>
+              <div
+                className="mx-auto max-w-xl py-6 px-8"
+                style={{
+                  borderTop: "1px solid oklch(0.85 0.005 60)",
+                  borderBottom: "1px solid oklch(0.85 0.005 60)",
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.95rem",
+                    color: "#555",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  Stiamo costruendo la base operativa di Sintesys.io adesso. I primi 100 imprenditori italiani che acquistano la Mappa ci aiutano a calibrare lo strumento — in cambio, ricevono il prezzo di lancio. Quando arriviamo a quota 100, il prezzo torna a €179,90.
+                </p>
+                <p
+                  className="mt-3"
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.9rem",
+                    color: "#777",
+                    fontStyle: "italic",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Non è scarcity costruita. È il modo in cui stiamo facendo crescere l'operazione.
+                </p>
+              </div>
+              <div className="mt-8">
+                <CTAButton onClick={() => handleCTA("pricing_block")} large />
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* CHI L'HA COSTRUITA — Lamberto + Sintesys.io             */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="py-14 lg:py-20" style={{ backgroundColor: "rgba(27,42,74,0.04)" }}>
         <div className="container">
@@ -608,13 +718,13 @@ export default function MappaLandingPage() {
             <FadeIn delay={0.15} className="lg:col-span-9">
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "1rem", color: "#444", lineHeight: 1.85 }}>
                 <p className="mb-5">
-                  <strong style={{ color: "#1A1A1A" }}>Lamberto Grinover.</strong> 28 anni in ruoli direttivi presso Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer e Brookfield — gestendo operazioni da oltre €200M. Oggi porta quella stessa disciplina operativa alle PMI italiane, traducendo l'IA in decisioni concrete.
+                  <strong style={{ color: "#1A1A1A" }}>Lamberto Grinover.</strong> 28 anni in ruoli direttivi in quattro multinazionali — Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer, Brookfield — gestendo operazioni per oltre €200M e team di 150+ persone.
                 </p>
                 <p className="mb-5">
-                  Sintesys.io non vende software. Vende il metodo per portare ordine prima, e intelligenza dopo. La Mappa che riceverà è il primo strumento del metodo — quello che usiamo come punto di partenza con ogni nostro cliente di consulenza.
+                  Oggi porta quella stessa disciplina operativa alle PMI italiane. Sintesys.io non vende software, non vende corsi, non vende illusioni. Vende il metodo per portare ordine prima, e intelligenza dopo.
                 </p>
                 <p>
-                  Adesso lo abbiamo reso disponibile in versione self-service. Costa 47 €. Per noi è un modo di farci conoscere senza dover mandare un commerciale a casa sua. Per Lei è un modo di capire se vale la pena, prima di investire un euro in più.
+                  La Mappa che riceverà è il primo strumento del metodo — quello che usiamo come punto di partenza con ogni nostro cliente di consulenza. Adesso lo abbiamo reso disponibile in versione self-service.
                 </p>
               </div>
             </FadeIn>
@@ -638,7 +748,7 @@ export default function MappaLandingPage() {
               lineHeight: 1.15,
             }}
           >
-            Tutto quello che è incluso, oggi, a 47 €.
+            Tutto quello che è incluso, a €95,50.
           </h2>
         </FadeIn>
 
@@ -763,7 +873,7 @@ export default function MappaLandingPage() {
               </h2>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "1rem", color: "#444", lineHeight: 1.85 }}>
                 <p className="mb-5">
-                  Ha quattordici giorni dal momento dell'acquisto. Apre il foglio, lo prova, lo legge. Se decide che non vale i 47 € che ha speso, le rimborsiamo l'intera cifra. Senza domande, senza moduli, senza giustificazioni.
+                  Ha quattordici giorni dal momento dell'acquisto. Apre il foglio, lo prova, lo legge. Se decide che non vale i €95,50 che ha speso, le rimborsiamo l'intera cifra. Senza domande, senza moduli, senza giustificazioni.
                 </p>
                 <p className="mb-5">
                   Una sola email a <strong style={{ color: "#1B2A4A" }}>ciao@sintesys.io</strong> con scritto "rimborso" e l'oggetto del suo ordine. Bonifico entro tre giorni lavorativi.
@@ -813,7 +923,7 @@ export default function MappaLandingPage() {
             },
             {
               q: "E dopo la Mappa?",
-              a: "Tre strade, spiegate dentro il foglio stesso. Può procedere da solo. Può prenotare una sessione di novanta minuti in diretta con Lamberto (Sessione Diagnosi IA, 127 €, sconto attivo per chi ha la Mappa). Oppure, se la sua mappa rivela un caos strutturato, può richiedere un audit operativo nella sua azienda (Settimana Zero, da 2.500 €). Nessuna pressione: decida Lei.",
+              a: "Tre strade. Può procedere da solo. Può prenotare la Sessione Diagnosi IA — 90 minuti in diretta con Lamberto, prezzo regolare €247, oggi a €197 (oppure €147 se la aggiunge al checkout della Mappa). Oppure, se la sua mappa rivela un caos strutturato, può richiedere un audit operativo nella sua azienda — la Settimana Zero, da €2.500.",
             },
             {
               q: "Devo registrarmi a una piattaforma? Devo dare il mio numero?",
@@ -897,7 +1007,7 @@ export default function MappaLandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Quarantasette euro è il costo di una cena fuori in due.
+                Novantacinque euro è il costo di una cena di lavoro per due.
               </p>
               <p
                 className="mb-10"
@@ -924,12 +1034,16 @@ export default function MappaLandingPage() {
               </p>
 
               {/* CTA #3 — grande, finale */}
-              <CTAButton onClick={() => handleCTA("blocco_finale")} large label="Scarica la Mappa adesso — €47" />
+              <CTAButton onClick={() => handleCTA("blocco_finale")} large label="Scarica la Mappa adesso — €95,50" />
 
-              <div className="mt-5 flex flex-wrap justify-center gap-4">
+              <div className="mt-4 flex flex-wrap justify-center items-center gap-4">
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 500, color: "rgba(250,250,247,0.4)", textDecoration: "line-through" }}>€179,90</span>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 700, color: "#C4704B" }}>Prezzo di lancio fino ai primi 100 clienti</span>
+              </div>
+              <div className="mt-3 flex flex-wrap justify-center gap-4">
                 {[
                   "Pagamento sicuro Stripe",
-                  "Consegna entro 2 minuti via email",
+                  "Consegna entro 2 minuti",
                   "Garanzia 14 giorni",
                   "Fattura disponibile per partita IVA",
                 ].map((t) => (

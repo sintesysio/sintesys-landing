@@ -4,6 +4,10 @@
  * Centralized product definitions for Stripe Checkout.
  * Products are created on-the-fly using Stripe's inline price_data
  * so no manual Product/Price creation in the Dashboard is needed.
+ *
+ * Pricing aggiornato (08-Aggiornamento-Sito-LP):
+ *   Mappa: €179,90 regolare → €95,50 lancio
+ *   Sessione: €247 regolare → €197 standalone → €147 bump (con Mappa)
  */
 
 export const PRODUCTS = {
@@ -11,7 +15,8 @@ export const PRODUCTS = {
     name: "Mappa delle Opportunità IA",
     description:
       "Foglio Excel professionale con 80 processi pre-mappati su 8 reparti + 5 documenti Word di accompagnamento. Consegna immediata via email.",
-    priceEurCents: 4700, // €47.00
+    priceEurCents: 9550, // €95,50 — prezzo di lancio (regolare €179,90)
+    regularPriceEurCents: 17990, // €179,90 — prezzo regolare (compare-at)
     currency: "eur",
     metadata: {
       product_key: "mappa_opportunita_ia",
@@ -21,8 +26,10 @@ export const PRODUCTS = {
   sessioneDiagnosi: {
     name: "Sessione Diagnosi IA con Lamberto Grinover",
     description:
-      "90 minuti in diretta con Lamberto. Analisi personalizzata dei tuoi processi + roadmap priorità IA. Sconto esclusivo per chi ha la Mappa.",
-    priceEurCents: 9700, // €97.00
+      "90 minuti in diretta con Lamberto. Analisi personalizzata dei tuoi processi + roadmap priorità IA. Gruppo ristretto, una volta al mese.",
+    priceEurCents: 19700, // €197,00 — prezzo standalone lancio (regolare €247)
+    bumpPriceEurCents: 14700, // €147,00 — prezzo bump con Mappa (sconto €100 vs regolare)
+    regularPriceEurCents: 24700, // €247,00 — prezzo regolare
     currency: "eur",
     metadata: {
       product_key: "sessione_diagnosi_ia",
