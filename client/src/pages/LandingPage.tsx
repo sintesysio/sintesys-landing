@@ -1,17 +1,24 @@
 /**
- * Landing Page — Produto Final (Destino dos Ads)
- * Foco: Geração de lead qualificado com formulário simplificado de 6 campos
- * Estrutura AIDA: Atenção → Interesse → Desejo → Ação
- * Mobile-first, formulário em popup modal (sem redirect)
+ * Site Institucional Sintesys.io — Home Page
+ * Foco: Captura de lead para newsletter (canal de profundidade e conversão)
+ * Estratégia de funil:
+ *   1. Instagram → Distribuição mídia paga (topo de funil)
+ *   2. Low-tickets → Vendas diretas (/mappa)
+ *   3. Newsletter → Canal de profundidade e conversão (Jornal + Site)
+ *
+ * Design: Editorial newspaper style (Playfair Display, Source Serif 4, Inter)
+ * Paleta: Off-white (#FAFAF7), Navy (#1B2A4A), Terracotta (#C4704B)
  */
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
-import { trackFormView, trackLeadQualified, trackCTAClick } from "@/lib/tracking";
+import NavBar from "@/components/NavBar";
+import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
 const SECTORS = [
@@ -24,24 +31,6 @@ const SECTORS = [
   "Ristorazione e hospitality",
   "Tecnologia",
   "Altro",
-];
-
-const REVENUE_OPTIONS = [
-  "Meno di €500K",
-  "€500K – €1M",
-  "€1M – €3M",
-  "€3M – €5M",
-  "€5M – €12M",
-  "Oltre €12M",
-];
-
-const EMPLOYEE_OPTIONS = [
-  "1 – 5",
-  "6 – 10",
-  "11 – 25",
-  "26 – 50",
-  "51 – 100",
-  "Oltre 100",
 ];
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -81,479 +70,302 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/* POPUP MODAL — Formulário 6 campos com sucesso inline  */
+/* INLINE NEWSLETTER FORM — same pattern as popup         */
 /* ═══════════════════════════════════════════════════════ */
-function AuditPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    sector: "",
-    revenue: "",
-    employees: "",
-  });
+function NewsletterForm({ variant = "light", id = "home" }: { variant?: "light" | "dark"; id?: string }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [sector, setSector] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  const mutation = trpc.landingLeads.submit.useMutation({
-    onSuccess: (data) => {
-      if (data.success) {
+  const submitLead = trpc.leads.submit.useMutation({
+    onSuccess: () => {
+      setSubmitted(true);
+      trackLeadSimple({ name, email, sector, source: "homepage" });
+    },
+    onError: (err) => {
+      if (err.message.includes("già registrato") || err.message.includes("duplicate")) {
         setSubmitted(true);
-        trackLeadQualified({
-          name: form.name,
-          email: form.email,
-          sector: form.sector,
-          source: "landing_page",
-          revenue: form.revenue,
-          employees: form.employees,
-        });
+        trackLeadSimple({ name, email, sector, source: "homepage" });
+      } else {
+        setError("Si è verificato un errore. Riprova.");
       }
     },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.sector || !form.revenue || !form.employees) return;
-    mutation.mutate({
-      name: form.name,
-      email: form.email,
-      phone: form.phone || undefined,
-      sector: form.sector,
-      revenue: form.revenue,
-      employees: form.employees,
-    });
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      setError("");
+      if (!name.trim() || !email.trim() || !sector) {
+        setError("Compila tutti i campi obbligatori.");
+        return;
+      }
+      trackCTAClick("Newsletter Iscriviti", `homepage_${id}`);
+      submitLead.mutate({
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim() || undefined,
+        sector,
+        source: "homepage",
+      });
+    },
+    [name, email, phone, sector, submitLead, id]
+  );
 
-  // Reset form when popup opens
-  useEffect(() => {
-    if (isOpen) {
-      setSubmitted(false);
-      setForm({ name: "", email: "", phone: "", sector: "", revenue: "", employees: "" });
-      mutation.reset();
-    }
-  }, [isOpen]);
+  const isDark = variant === "dark";
+  const inputBorder = isDark ? "rgba(250,250,247,0.2)" : "oklch(0.80 0.005 60)";
+  const inputBg = isDark ? "rgba(250,250,247,0.08)" : "#fff";
+  const inputColor = isDark ? "#FAFAF7" : "#1A1A1A";
+  const labelColor = isDark ? "rgba(250,250,247,0.5)" : "#999";
+  const placeholderClass = isDark ? "placeholder-white/30" : "";
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (isOpen) window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen, onClose]);
-
-  // Block body scroll when open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [isOpen]);
-
-  const inputStyle = {
-    fontFamily: "'Inter', sans-serif",
-    fontSize: "0.875rem",
-    color: "#1A1A1A",
-    backgroundColor: "#fff",
-    border: "1px solid #ddd",
-    padding: "0.75rem 1rem",
-    width: "100%",
-    outline: "none",
-    transition: "border-color 0.2s",
-  };
-
-  const selectStyle = {
-    ...inputStyle,
-    appearance: "none" as const,
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "right 0.75rem center",
-    paddingRight: "2.5rem",
-  };
-
-  const labelStyle = {
-    fontFamily: "'Inter', sans-serif",
-    fontSize: "0.7rem",
-    fontWeight: 600 as const,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase" as const,
-    color: "#666",
-    marginBottom: "0.375rem",
-    display: "block",
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ backgroundColor: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
-          onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center py-6"
+      >
+        <div
+          className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full"
+          style={{ backgroundColor: isDark ? "rgba(250,250,247,0.15)" : "#1B2A4A" }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto"
-            style={{
-              backgroundColor: "#FAFAF7",
-              boxShadow: "0 24px 64px rgba(0,0,0,0.2)",
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center transition-colors z-10"
-              style={{
-                backgroundColor: "rgba(0,0,0,0.05)",
-                border: "none",
-                cursor: "pointer",
-                borderRadius: "50%",
-              }}
-              aria-label="Chiudi"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5" strokeLinecap="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={isDark ? "#FAFAF7" : "#FAFAF7"} strokeWidth="2.5">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </div>
+        <h3
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "1.3rem",
+            fontWeight: 700,
+            color: isDark ? "#FAFAF7" : "#1A1A1A",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Perfetto. Benvenuto.
+        </h3>
+        <p
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            fontSize: "0.95rem",
+            color: isDark ? "rgba(250,250,247,0.7)" : "#666",
+            lineHeight: 1.6,
+          }}
+        >
+          Controlla la tua casella email. Riceverai la Guida Transizione 5.0 e il primo aggiornamento settimanale entro pochi minuti.
+        </p>
+      </motion.div>
+    );
+  }
 
-            <div className="p-6 sm:p-8">
-              {submitted ? (
-                /* ═══ SUCCESS STATE ═══ */
-                <div className="text-center py-6">
-                  <div
-                    className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-5"
-                    style={{ backgroundColor: "rgba(27,42,74,0.1)" }}
-                  >
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "1.5rem",
-                      fontWeight: 700,
-                      color: "#1A1A1A",
-                      marginBottom: "0.75rem",
-                    }}
-                  >
-                    Richiesta Ricevuta!
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "'Source Serif 4', serif",
-                      fontSize: "1rem",
-                      color: "#555",
-                      lineHeight: 1.6,
-                      marginBottom: "1.5rem",
-                    }}
-                  >
-                    Lamberto Grinover analizzerà personalmente il suo profilo aziendale e la contatterà entro 24 ore per fissare la sessione strategica di 30 minuti.
-                  </p>
-
-                  {/* 3 next steps */}
-                  <div className="space-y-3 text-left mb-6">
-                    {[
-                      { num: "1", text: "Analisi del suo profilo aziendale" },
-                      { num: "2", text: "Contatto entro 24 ore" },
-                      { num: "3", text: "Sessione strategica di 30 minuti" },
-                    ].map((step) => (
-                      <div key={step.num} className="flex items-center gap-3">
-                        <span
-                          className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full"
-                          style={{
-                            backgroundColor: "#1B2A4A",
-                            color: "#FAFAF7",
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: "0.7rem",
-                            fontWeight: 700,
-                          }}
-                        >
-                          {step.num}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            fontSize: "0.95rem",
-                            color: "#444",
-                          }}
-                        >
-                          {step.text}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={onClose}
-                    className="w-full py-3 transition-all duration-300"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.8rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      backgroundColor: "transparent",
-                      color: "#1B2A4A",
-                      border: "2px solid #1B2A4A",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Chiudi
-                  </button>
-                </div>
-              ) : (
-                /* ═══ FORM STATE ═══ */
-                <>
-                  <div className="mb-6 pr-8">
-                    <h2
-                      style={{
-                        fontFamily: "'Playfair Display', serif",
-                        fontSize: "1.4rem",
-                        fontWeight: 700,
-                        color: "#1A1A1A",
-                        lineHeight: 1.2,
-                        marginBottom: "0.5rem",
-                      }}
-                    >
-                      Prenota la Tua Analisi Gratuita
-                    </h2>
-                    <p
-                      style={{
-                        fontFamily: "'Source Serif 4', serif",
-                        fontSize: "0.9rem",
-                        color: "#666",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      30 minuti con Lamberto Grinover per analizzare i tuoi processi e mostrarti dove l'IA può generare impatto concreto.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label style={labelStyle}>Nome e Cognome *</label>
-                        <input
-                          type="text"
-                          placeholder="Mario Rossi"
-                          value={form.name}
-                          onChange={(e) => setForm({ ...form, name: e.target.value })}
-                          required
-                          style={inputStyle}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                        />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Email Aziendale *</label>
-                        <input
-                          type="email"
-                          placeholder="mario@azienda.it"
-                          value={form.email}
-                          onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          required
-                          style={inputStyle}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label style={labelStyle}>Telefono</label>
-                        <input
-                          type="tel"
-                          placeholder="+39 333 123 4567"
-                          value={form.phone}
-                          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                          style={inputStyle}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                        />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Settore *</label>
-                        <select
-                          value={form.sector}
-                          onChange={(e) => setForm({ ...form, sector: e.target.value })}
-                          required
-                          style={selectStyle}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                        >
-                          <option value="">Seleziona settore...</option>
-                          {SECTORS.map((s) => (
-                            <option key={s} value={s}>{s}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label style={labelStyle}>Fatturato Annuo *</label>
-                        <select
-                          value={form.revenue}
-                          onChange={(e) => setForm({ ...form, revenue: e.target.value })}
-                          required
-                          style={selectStyle}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                        >
-                          <option value="">Seleziona fatturato...</option>
-                          {REVENUE_OPTIONS.map((r) => (
-                            <option key={r} value={r}>{r}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Numero Dipendenti *</label>
-                        <select
-                          value={form.employees}
-                          onChange={(e) => setForm({ ...form, employees: e.target.value })}
-                          required
-                          style={selectStyle}
-                          onFocus={(e) => (e.target.style.borderColor = "#1B2A4A")}
-                          onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                        >
-                          <option value="">Seleziona...</option>
-                          {EMPLOYEE_OPTIONS.map((emp) => (
-                            <option key={emp} value={emp}>{emp}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={mutation.isPending}
-                      className="w-full py-3.5 transition-all duration-300"
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "0.8rem",
-                        fontWeight: 700,
-                        letterSpacing: "0.15em",
-                        textTransform: "uppercase",
-                        backgroundColor: "#C4704B",
-                        color: "#FAFAF7",
-                        border: "none",
-                        cursor: mutation.isPending ? "wait" : "pointer",
-                        opacity: mutation.isPending ? 0.7 : 1,
-                      }}
-                      onMouseEnter={(e) => { if (!mutation.isPending) e.currentTarget.style.backgroundColor = "#A85A3A"; }}
-                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
-                    >
-                      {mutation.isPending ? "Invio in corso..." : "Prenota la Tua Analisi Gratuita →"}
-                    </button>
-
-                    {mutation.isError && (
-                      <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#c53030", textAlign: "center" }}>
-                        Si è verificato un errore. Riprova.
-                      </p>
-                    )}
-
-                    <p
-                      className="text-center"
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "0.65rem",
-                        color: "#999",
-                        marginTop: "0.5rem",
-                      }}
-                    >
-                      Solo 30 minuti. Nessun impegno. Strategia concreta per la tua azienda.
-                    </p>
-                  </form>
-                </>
-              )}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════ */
-/* CTA BUTTON — Reusable across sections                 */
-/* ═══════════════════════════════════════════════════════ */
-function CTAButton({ onClick, large = false }: { onClick: () => void; large?: boolean }) {
   return (
-    <button
-      onClick={onClick}
-      className={`transition-all duration-300 ${large ? "py-4 px-10" : "py-3.5 px-8"}`}
-      style={{
-        fontFamily: "'Inter', sans-serif",
-        fontSize: large ? "0.85rem" : "0.8rem",
-        fontWeight: 700,
-        letterSpacing: "0.15em",
-        textTransform: "uppercase",
-        backgroundColor: "#C4704B",
-        color: "#FAFAF7",
-        border: "none",
-        cursor: "pointer",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#A85A3A")}
-      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#C4704B")}
-    >
-      Prenota la Tua Analisi Gratuita →
-    </button>
+    <form onSubmit={handleSubmit} className="space-y-3">
+      {/* Nome */}
+      <div>
+        <label
+          htmlFor={`${id}-name`}
+          className="block uppercase tracking-[0.12em] mb-1"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "0.6rem",
+            color: labelColor,
+            fontWeight: 500,
+          }}
+        >
+          Nome e Cognome *
+        </label>
+        <input
+          id={`${id}-name`}
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Mario Rossi"
+          required
+          autoComplete="name"
+          className={`w-full px-3 py-2.5 text-sm outline-none transition-colors ${placeholderClass}`}
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            border: `1px solid ${inputBorder}`,
+            backgroundColor: inputBg,
+            color: inputColor,
+          }}
+        />
+      </div>
+
+      {/* Email */}
+      <div>
+        <label
+          htmlFor={`${id}-email`}
+          className="block uppercase tracking-[0.12em] mb-1"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "0.6rem",
+            color: labelColor,
+            fontWeight: 500,
+          }}
+        >
+          Email Aziendale *
+        </label>
+        <input
+          id={`${id}-email`}
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="mario@azienda.it"
+          required
+          autoComplete="email"
+          className={`w-full px-3 py-2.5 text-sm outline-none transition-colors ${placeholderClass}`}
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            border: `1px solid ${inputBorder}`,
+            backgroundColor: inputBg,
+            color: inputColor,
+          }}
+        />
+      </div>
+
+      {/* Telefono + Settore row */}
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label
+            htmlFor={`${id}-phone`}
+            className="block uppercase tracking-[0.12em] mb-1"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.6rem",
+              color: labelColor,
+              fontWeight: 500,
+            }}
+          >
+            Telefono
+          </label>
+          <input
+            id={`${id}-phone`}
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+39 333..."
+            autoComplete="tel"
+            className={`w-full px-3 py-2.5 text-sm outline-none transition-colors ${placeholderClass}`}
+            style={{
+              fontFamily: "'Source Serif 4', serif",
+              border: `1px solid ${inputBorder}`,
+              backgroundColor: inputBg,
+              color: inputColor,
+            }}
+          />
+        </div>
+        <div>
+          <label
+            htmlFor={`${id}-sector`}
+            className="block uppercase tracking-[0.12em] mb-1"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.6rem",
+              color: labelColor,
+              fontWeight: 500,
+            }}
+          >
+            Settore *
+          </label>
+          <select
+            id={`${id}-sector`}
+            value={sector}
+            onChange={(e) => setSector(e.target.value)}
+            required
+            className={`w-full px-3 py-2.5 text-sm outline-none transition-colors ${placeholderClass}`}
+            style={{
+              fontFamily: "'Source Serif 4', serif",
+              border: `1px solid ${inputBorder}`,
+              backgroundColor: inputBg,
+              color: sector ? inputColor : labelColor,
+              appearance: "none",
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 8px center",
+            }}
+          >
+            <option value="" disabled>
+              Seleziona...
+            </option>
+            {SECTORS.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Error */}
+      {error && (
+        <p
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "0.75rem",
+            color: "#c53030",
+          }}
+        >
+          {error}
+        </p>
+      )}
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={submitLead.isPending}
+        className="w-full py-3 text-xs uppercase tracking-[0.15em] transition-all"
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 600,
+          backgroundColor: "#C4704B",
+          color: "#FAFAF7",
+          border: "none",
+          cursor: submitLead.isPending ? "wait" : "pointer",
+          opacity: submitLead.isPending ? 0.7 : 1,
+        }}
+      >
+        {submitLead.isPending ? "Invio in corso..." : "Iscriviti alla Newsletter Gratuita →"}
+      </button>
+
+      {/* Privacy note */}
+      <p
+        className="text-center"
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: "0.6rem",
+          color: isDark ? "rgba(250,250,247,0.35)" : "#bbb",
+          lineHeight: 1.4,
+        }}
+      >
+        Nessuno spam. Puoi cancellarti in qualsiasi momento.
+        <br />I tuoi dati sono trattati secondo la normativa GDPR.
+      </p>
+    </form>
   );
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/* MAIN LANDING PAGE                                     */
+/* MAIN HOME PAGE — INSTITUTIONAL                         */
 /* ═══════════════════════════════════════════════════════ */
 export default function LandingPage() {
-  const [popupOpen, setPopupOpen] = useState(false);
-  const openPopup = useCallback(() => {
-    setPopupOpen(true);
-    trackFormView("landing_page_audit_popup");
-    trackCTAClick("Prenota Sessione Strategica", "landing_page");
+  useEffect(() => {
+    trackFormView("homepage_institutional");
   }, []);
-  const closePopup = useCallback(() => setPopupOpen(false), []);
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
-      {/* ═══════════════════════════════════════════════════════ */}
-      {/* NAVBAR — Minimal, only logo (no buttons to distract)  */}
-      {/* ═══════════════════════════════════════════════════════ */}
-      <nav className="container" style={{ backgroundColor: "#FAFAF7" }}>
-        <div className="rule-thick mt-0" />
-        <div className="flex items-center justify-between py-3">
-          <Link href="/" className="flex items-center gap-2 no-underline">
-            <img src={BRAIN_ICON} alt="Sintesys.io" className="h-8 w-8 rounded-full" loading="eager" />
-            <span
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1rem",
-                fontWeight: 700,
-                color: "#1A1A1A",
-              }}
-            >
-              Sintesys.io
-            </span>
-          </Link>
-        </div>
-        <div className="rule-thin" />
-      </nav>
+      <NavBar />
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* HERO — Atenção: Pain point + Foto Lamberto + CTA      */}
+      {/* HERO — Posicionamento Institucional + Newsletter CTA   */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container pt-8 lg:pt-16 pb-12 lg:pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left: Copy */}
           <div className="lg:col-span-7">
             <FadeIn>
@@ -566,7 +378,7 @@ export default function LandingPage() {
                   fontWeight: 600,
                 }}
               >
-                Consulenza Strategica IA per PMI Italiane
+                L'intelligenza Operativa per la PMI Italiana
               </p>
               <h1
                 className="mb-6"
@@ -578,10 +390,11 @@ export default function LandingPage() {
                   lineHeight: 1.1,
                 }}
               >
-                La tua azienda brucia <span style={{ color: "#C4704B" }}>€47.000 l'anno</span> in processi che l'IA risolve in ore.
+                L'IA che le multinazionali usano.{" "}
+                <span style={{ color: "#C4704B" }}>Adattata per la tua PMI.</span>
               </h1>
               <p
-                className="mb-6"
+                className="mb-4"
                 style={{
                   fontFamily: "'Source Serif 4', serif",
                   fontSize: "1.15rem",
@@ -589,15 +402,26 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Non è una promessa — è il dato medio delle PMI italiane con 10-50 dipendenti (Osservatorio Politecnico di Milano, 2025). In una sessione strategica di 30 minuti, Lamberto Grinover analizza i tuoi processi e ti mostra <strong>esattamente</strong> dove tagliare costi, eliminare errori e liberare il tuo team.
+                Sintesys.io traduce l'Intelligenza Artificiale in risultati operativi concreti per le Piccole e Medie Imprese italiane. Niente teoria, niente gergo tecnico — solo strategie misurabili che riducono costi, eliminano sprechi e liberano il tuo tempo.
+              </p>
+              <p
+                className="mb-8"
+                style={{
+                  fontFamily: "'Source Serif 4', serif",
+                  fontSize: "1.05rem",
+                  color: "#555",
+                  lineHeight: 1.7,
+                }}
+              >
+                Ogni settimana, migliaia di imprenditori italiani ricevono la nostra newsletter con analisi esclusive, casi studio reali e strategie operative per integrare l'IA nella propria azienda. <strong>Iscriviti gratuitamente.</strong>
               </p>
 
               {/* Trust badges */}
-              <div className="flex flex-wrap gap-4 mb-8">
+              <div className="flex flex-wrap gap-4 mb-6">
                 {[
-                  { icon: "✓", text: "Analisi Gratuita e Personalizzata" },
-                  { icon: "✓", text: "Zero Impegno, Zero Rischio" },
-                  { icon: "✓", text: "Piano d'Azione Concreto in 48h" },
+                  { icon: "✓", text: "Newsletter Settimanale Gratuita" },
+                  { icon: "✓", text: "Guida Transizione 5.0 Inclusa" },
+                  { icon: "✓", text: "Cancellazione in Un Click" },
                 ].map((badge) => (
                   <div
                     key={badge.text}
@@ -619,51 +443,58 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-
-              {/* CTA Button */}
-              <CTAButton onClick={openPopup} large />
             </FadeIn>
           </div>
 
-          {/* Right: Stats + Social Proof */}
+          {/* Right: Newsletter Form */}
           <div className="lg:col-span-5">
             <FadeIn delay={0.2}>
-              <div className="flex flex-col items-center">
-                {/* Key stats */}
-                <div className="grid grid-cols-3 gap-4 w-full">
-                  {[
-                    { number: 40, suffix: "%", label: "Efficienza media in più" },
-                    { number: 50, suffix: "%", label: "Credito d'imposta disponibile" },
-                    { number: 90, suffix: "gg", label: "Per i primi risultati" },
-                  ].map((stat, i) => (
-                    <div key={i} className="text-center">
-                      <div
-                        style={{
-                          fontFamily: "'Playfair Display', serif",
-                          fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)",
-                          fontWeight: 800,
-                          color: "#1B2A4A",
-                          lineHeight: 1,
-                        }}
-                      >
-                        <AnimatedCounter target={stat.number} suffix={stat.suffix} />
-                      </div>
-                      <p
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: "0.55rem",
-                          fontWeight: 500,
-                          color: "#888",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.05em",
-                          marginTop: "0.25rem",
-                        }}
-                      >
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+              <div
+                className="p-6 lg:p-8"
+                style={{
+                  border: "1px solid oklch(0.80 0.005 60)",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <div
+                  className="w-full mb-4"
+                  style={{ borderTop: "3px solid #1B2A4A" }}
+                />
+                <p
+                  className="uppercase tracking-[0.2em] mb-1"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.65rem",
+                    color: "#1B2A4A",
+                    fontWeight: 600,
+                  }}
+                >
+                  Newsletter Gratuita
+                </p>
+                <h3
+                  className="mb-3"
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "1.25rem",
+                    fontWeight: 700,
+                    color: "#1A1A1A",
+                    lineHeight: 1.25,
+                  }}
+                >
+                  Ricevi ogni settimana strategie IA concrete per la tua PMI.
+                </h3>
+                <p
+                  className="mb-4"
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.9rem",
+                    color: "#555",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Più la Guida Transizione 5.0 — come accedere ai €6,3 miliardi di fondi MIMIT per la digitalizzazione.
+                </p>
+                <NewsletterForm variant="light" id="hero" />
               </div>
             </FadeIn>
           </div>
@@ -671,7 +502,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* PROBLEMA — Interesse: I 3 problemi che risolviamo     */}
+      {/* IL CONTESTO — I numeri del problema                    */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section style={{ backgroundColor: "#1B2A4A" }} className="py-16 lg:py-24">
         <div className="container">
@@ -685,10 +516,10 @@ export default function LandingPage() {
                 fontWeight: 500,
               }}
             >
-              I Problemi che Risolviamo
+              Il Contesto Italiano
             </p>
             <h2
-              className="text-center mb-12"
+              className="text-center mb-4"
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
@@ -697,90 +528,64 @@ export default function LandingPage() {
                 lineHeight: 1.15,
               }}
             >
-              Riconosci almeno uno di questi nella tua azienda?
+              Perché le PMI italiane hanno bisogno di una guida sull'IA.
             </h2>
+            <p
+              className="text-center max-w-2xl mx-auto mb-12"
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "1.05rem",
+                color: "rgba(250,250,247,0.7)",
+                lineHeight: 1.7,
+              }}
+            >
+              L'88% delle PMI italiane vuole innovare, ma solo il 26% ha iniziato. La nostra newsletter colma questo divario — ogni settimana.
+            </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
             {[
-              {
-                number: "01",
-                title: "Caos Operazionale",
-                problem: "Dati sparsi tra 7 Excel, 3 caselle email e WhatsApp. Nessuno ha il quadro completo — nemmeno tu.",
-                solution: "Un sistema IA che centralizza tutto in un'unica dashboard. Le aziende che lo implementano riducono gli errori del 60%.",
-              },
-              {
-                number: "02",
-                title: "Tempo Bruciato",
-                problem: "Il tuo team passa 3+ ore al giorno su fatturazione, reportistica e inserimento dati. Ore che non torneranno.",
-                solution: "Automazione intelligente che libera 15+ ore a settimana. Costo medio: meno di uno stipendio part-time.",
-              },
-              {
-                number: "03",
-                title: "Margini Compressi",
-                problem: "Il fatturato cresce del 5%, ma i costi operativi del 12%. Il margine si assottiglia ogni trimestre.",
-                solution: "IA che ottimizza pricing, riduce sprechi e taglia i costi operativi del 20-30%. ROI medio documentato: 300% nel primo anno.",
-              },
-            ].map((item, i) => (
+              { number: 88, suffix: "%", label: "PMI vuole innovare", source: "Politecnico Milano, 2024" },
+              { number: 26, suffix: "%", label: "Ha iniziato davvero", source: "Politecnico Milano, 2024" },
+              { number: 50, suffix: "%", label: "Credito d'imposta disponibile", source: "MIMIT Transizione 5.0" },
+              { number: 40, suffix: "%", label: "Efficienza media in più", source: "McKinsey, 2024" },
+            ].map((stat, i) => (
               <FadeIn key={i} delay={i * 0.1}>
-                <div
-                  className="p-6 lg:p-8 h-full"
-                  style={{
-                    backgroundColor: "rgba(250,250,247,0.05)",
-                    borderLeft: "3px solid rgba(250,250,247,0.2)",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "2.5rem",
-                      fontWeight: 800,
-                      color: "rgba(250,250,247,0.15)",
-                      lineHeight: 1,
-                      display: "block",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {item.number}
-                  </span>
-                  <h3
-                    className="mb-3"
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "1.25rem",
-                      fontWeight: 700,
-                      color: "#FAFAF7",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    className="mb-4"
-                    style={{
-                      fontFamily: "'Source Serif 4', serif",
-                      fontSize: "0.95rem",
-                      color: "rgba(250,250,247,0.6)",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {item.problem}
-                  </p>
+                <div className="text-center">
                   <div
-                    className="pt-4"
-                    style={{ borderTop: "1px solid rgba(250,250,247,0.1)" }}
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "clamp(1.8rem, 3vw, 2.8rem)",
+                      fontWeight: 800,
+                      color: "#FAFAF7",
+                      lineHeight: 1,
+                    }}
                   >
-                    <p
-                      style={{
-                        fontFamily: "'Source Serif 4', serif",
-                        fontSize: "0.95rem",
-                        color: "rgba(250,250,247,0.85)",
-                        lineHeight: 1.6,
-                        fontWeight: 500,
-                      }}
-                    >
-                      <strong style={{ color: "#FAFAF7" }}>La soluzione:</strong> {item.solution}
-                    </p>
+                    <AnimatedCounter target={stat.number} suffix={stat.suffix} />
                   </div>
+                  <p
+                    className="mt-2"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.7rem",
+                      fontWeight: 500,
+                      color: "rgba(250,250,247,0.7)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {stat.label}
+                  </p>
+                  <p
+                    className="mt-1"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.55rem",
+                      color: "rgba(250,250,247,0.35)",
+                    }}
+                  >
+                    {stat.source}
+                  </p>
                 </div>
               </FadeIn>
             ))}
@@ -789,7 +594,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* PROCESSO — Desejo: Come funziona                      */}
+      {/* COSA FACCIAMO — 3 pilastri                             */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container py-16 lg:py-24">
         <FadeIn>
@@ -802,7 +607,7 @@ export default function LandingPage() {
               fontWeight: 600,
             }}
           >
-            Il Metodo
+            Cosa Facciamo
           </p>
           <h2
             className="text-center mb-4"
@@ -814,7 +619,7 @@ export default function LandingPage() {
               lineHeight: 1.15,
             }}
           >
-            Da confusione a chiarezza in 5 passi.
+            Tre modi per portare l'IA nella tua azienda.
           </h2>
           <p
             className="text-center max-w-2xl mx-auto mb-12"
@@ -825,57 +630,65 @@ export default function LandingPage() {
               lineHeight: 1.7,
             }}
           >
-            Un percorso strutturato che non stravolge la tua operatività.
+            Dalla conoscenza all'azione — scegli il percorso più adatto alla tua fase.
           </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {[
             {
-              step: "Passo 1",
-              title: "Sessione Strategica",
-              desc: "Analizziamo insieme i tuoi processi e identifichiamo le 3 aree dove l'IA può generare il massimo impatto immediato.",
-              detail: "Gratuita · Online o in presenza · 30 min",
+              step: "01",
+              title: "Informati",
+              subtitle: "Newsletter + Il Giornale dell'IA",
+              desc: "Ogni settimana ricevi analisi, casi studio e strategie operative per capire come l'IA può trasformare la tua PMI. Gratuito, concreto, senza gergo tecnico.",
+              cta: "Iscriviti alla Newsletter",
+              href: "#newsletter",
+              isScroll: true,
             },
             {
-              step: "Passo 2",
-              title: "Audit Operativo",
-              desc: "Mappiamo ogni processo, misuriamo le inefficienze e calcoliamo il ROI potenziale di ogni automazione.",
-              detail: "Report dettagliato con priorità d'intervento",
+              step: "02",
+              title: "Mappa",
+              subtitle: "Mappa delle Opportunità IA — €47",
+              desc: "Un foglio Excel con 80 processi analizzati, 8 reparti mappati e una dashboard automatica che ti mostra esattamente dove l'IA può liberare ore e ridurre costi.",
+              cta: "Scopri la Mappa",
+              href: "/mappa",
+              isScroll: false,
             },
             {
-              step: "Passo 3",
-              title: "Implementazione",
-              desc: "Installiamo le prime automazioni, formiamo il tuo team e integriamo con i tuoi strumenti esistenti.",
-              detail: "Prima automazione funzionante garantita",
+              step: "03",
+              title: "Agisci",
+              subtitle: "Audit Operativo Personalizzato",
+              desc: "Lamberto Grinover analizza i tuoi processi in una sessione strategica e costruisce un piano d'azione su misura per la tua azienda. Il primo passo verso l'implementazione.",
+              cta: "Richiedi l'Audit",
+              href: "/contattaci",
+              isScroll: false,
             },
           ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.1}>
               <div
-                className="p-6 lg:p-8 relative"
+                className="p-6 lg:p-8 h-full flex flex-col"
                 style={{
                   borderLeft: i > 0 ? "1px solid oklch(0.85 0.005 60)" : "none",
                 }}
               >
                 <span
-                  className="inline-block px-3 py-1 mb-4"
                   style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.65rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "#1B2A4A",
-                    backgroundColor: "rgba(27,42,74,0.08)",
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "2.5rem",
+                    fontWeight: 800,
+                    color: "rgba(27,42,74,0.1)",
+                    lineHeight: 1,
+                    display: "block",
+                    marginBottom: "0.75rem",
                   }}
                 >
                   {item.step}
                 </span>
                 <h3
-                  className="mb-3"
+                  className="mb-1"
                   style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.25rem",
+                    fontSize: "1.3rem",
                     fontWeight: 700,
                     color: "#1A1A1A",
                   }}
@@ -883,7 +696,20 @@ export default function LandingPage() {
                   {item.title}
                 </h3>
                 <p
-                  className="mb-4"
+                  className="mb-3"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.7rem",
+                    fontWeight: 500,
+                    color: "#C4704B",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {item.subtitle}
+                </p>
+                <p
+                  className="mb-6 flex-1"
                   style={{
                     fontFamily: "'Source Serif 4', serif",
                     fontSize: "0.95rem",
@@ -893,18 +719,41 @@ export default function LandingPage() {
                 >
                   {item.desc}
                 </p>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.7rem",
-                    fontWeight: 500,
-                    color: "#1B2A4A",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  {item.detail}
-                </p>
+                {item.isScroll ? (
+                  <a
+                    href={item.href}
+                    className="inline-block text-center py-2.5 px-5 text-xs uppercase tracking-[0.12em] transition-all no-underline"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 600,
+                      border: "2px solid #1B2A4A",
+                      color: "#1B2A4A",
+                      backgroundColor: "transparent",
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
+                      trackCTAClick("Newsletter Scroll", "homepage_pillar");
+                    }}
+                  >
+                    {item.cta} &rarr;
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="inline-block text-center py-2.5 px-5 text-xs uppercase tracking-[0.12em] transition-all no-underline"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 600,
+                      border: "2px solid #1B2A4A",
+                      color: "#1B2A4A",
+                      backgroundColor: "transparent",
+                    }}
+                    onClick={() => trackCTAClick(item.cta, "homepage_pillar")}
+                  >
+                    {item.cta} &rarr;
+                  </Link>
+                )}
               </div>
             </FadeIn>
           ))}
@@ -912,7 +761,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* INCENTIVI — Desejo: Transizione 5.0                   */}
+      {/* IL GIORNALE DELL'IA — Preview + Link                   */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section
         className="py-16 lg:py-20"
@@ -931,7 +780,7 @@ export default function LandingPage() {
                     fontWeight: 600,
                   }}
                 >
-                  Incentivi Fiscali 2025
+                  Il Nostro Editoriale
                 </p>
                 <h2
                   className="mb-4"
@@ -943,7 +792,7 @@ export default function LandingPage() {
                     lineHeight: 1.15,
                   }}
                 >
-                  Lo Stato paga fino al 50% della tua innovazione.
+                  Il Giornale dell'IA
                 </h2>
                 <p
                   className="mb-4"
@@ -954,66 +803,55 @@ export default function LandingPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Il programma <strong>Transizione 5.0</strong> offre crediti d'imposta per la digitalizzazione delle PMI. Con €6,3 miliardi di fondi disponibili e scadenza nel 2025, questo è il momento migliore per investire nell'innovazione della tua azienda.
+                  Ogni settimana pubblichiamo un'edizione del nostro giornale digitale con analisi approfondite su come l'Intelligenza Artificiale sta trasformando il tessuto imprenditoriale italiano. Casi studio reali, strategie operative e aggiornamenti sugli incentivi fiscali — tutto scritto per chi gestisce un'azienda, non per chi programma software.
                 </p>
                 <p
+                  className="mb-6"
                   style={{
                     fontFamily: "'Source Serif 4', serif",
                     fontSize: "1.05rem",
                     color: "#444",
                     lineHeight: 1.7,
+                    fontStyle: "italic",
                   }}
                 >
-                  <strong>Ti aiutiamo a strutturare il progetto per massimizzare il credito d'imposta</strong> — dalla documentazione alla rendicontazione, tutto incluso nel nostro servizio.
+                  "Nessuna formula magica. Solo strategia pura, da imprenditore a imprenditore."
                 </p>
+                <Link
+                  href="/giornale"
+                  className="inline-block py-3 px-8 text-xs uppercase tracking-[0.15em] transition-all no-underline"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 600,
+                    backgroundColor: "#1B2A4A",
+                    color: "#FAFAF7",
+                    border: "none",
+                  }}
+                  onClick={() => trackCTAClick("Leggi Il Giornale", "homepage_giornale")}
+                >
+                  Leggi l'Ultima Edizione &rarr;
+                </Link>
               </div>
               <div className="lg:col-span-5">
-                <div
-                  className="p-6 lg:p-8"
-                  style={{ backgroundColor: "#1B2A4A" }}
-                >
+                <Link href="/giornale" className="block">
+                  <img
+                    src={HERO_IMG}
+                    alt="Il Giornale dell'IA — Editoriale settimanale per PMI italiane"
+                    className="w-full"
+                    loading="lazy"
+                    style={{ filter: "grayscale(10%)" }}
+                  />
                   <p
-                    className="uppercase tracking-[0.15em] mb-4"
+                    className="mt-2 italic text-center"
                     style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.65rem",
-                      color: "rgba(250,250,247,0.5)",
-                      fontWeight: 500,
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "0.8rem",
+                      color: "#888",
                     }}
                   >
-                    Fondi Disponibili
+                    L'ultima edizione del Giornale dell'IA
                   </p>
-                  <div className="space-y-4">
-                    {[
-                      { value: "50%", label: "Credito d'imposta massimo" },
-                      { value: "€6,3 Mld", label: "Fondi stanziati dal MIMIT" },
-                      { value: "2025", label: "Scadenza per accedere ai fondi" },
-                    ].map((item, i) => (
-                      <div key={i} className="flex items-baseline gap-3">
-                        <span
-                          style={{
-                            fontFamily: "'Playfair Display', serif",
-                            fontSize: "1.5rem",
-                            fontWeight: 800,
-                            color: "#FAFAF7",
-                            minWidth: "5rem",
-                          }}
-                        >
-                          {item.value}
-                        </span>
-                        <span
-                          style={{
-                            fontFamily: "'Source Serif 4', serif",
-                            fontSize: "0.9rem",
-                            color: "rgba(250,250,247,0.7)",
-                          }}
-                        >
-                          {item.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                </Link>
               </div>
             </div>
           </FadeIn>
@@ -1021,28 +859,60 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* CHI È LAMBERTO — Desejo: Autorità                    */}
+      {/* TRANSIZIONE 5.0 — Incentivi Fiscali                   */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container py-16 lg:py-24">
         <FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div className="lg:col-span-4 flex justify-center">
+            <div className="lg:col-span-5">
               <div
-                className="w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden"
-                style={{
-                  border: "4px solid #1B2A4A",
-                  boxShadow: "0 8px 32px rgba(27,42,74,0.15)",
-                }}
+                className="p-6 lg:p-8"
+                style={{ backgroundColor: "#1B2A4A" }}
               >
-                <img
-                  src={LAMBERTO_PHOTO}
-                  alt="Lamberto Grinover — Fondatore Sintesys.io"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                <p
+                  className="uppercase tracking-[0.15em] mb-4"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.65rem",
+                    color: "rgba(250,250,247,0.5)",
+                    fontWeight: 500,
+                  }}
+                >
+                  Fondi Disponibili
+                </p>
+                <div className="space-y-4">
+                  {[
+                    { value: "50%", label: "Credito d'imposta massimo" },
+                    { value: "€6,3 Mld", label: "Fondi stanziati dal MIMIT" },
+                    { value: "2025", label: "Scadenza per accedere ai fondi" },
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-baseline gap-3">
+                      <span
+                        style={{
+                          fontFamily: "'Playfair Display', serif",
+                          fontSize: "1.5rem",
+                          fontWeight: 800,
+                          color: "#FAFAF7",
+                          minWidth: "5rem",
+                        }}
+                      >
+                        {item.value}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "'Source Serif 4', serif",
+                          fontSize: "0.9rem",
+                          color: "rgba(250,250,247,0.7)",
+                        }}
+                      >
+                        {item.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-7">
               <p
                 className="uppercase tracking-[0.15em] mb-2"
                 style={{
@@ -1052,19 +922,19 @@ export default function LandingPage() {
                   fontWeight: 600,
                 }}
               >
-                Il Tuo Consulente
+                Incentivi Fiscali 2025
               </p>
               <h2
                 className="mb-4"
                 style={{
                   fontFamily: "'Playfair Display', serif",
-                  fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                  fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
                   fontWeight: 700,
                   color: "#1A1A1A",
                   lineHeight: 1.15,
                 }}
               >
-                Lamberto Grinover
+                Lo Stato paga fino al 50% della tua innovazione.
               </h2>
               <p
                 className="mb-4"
@@ -1075,7 +945,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                28 anni in ruoli direttivi presso Nissan Italia, Cushman & Wakefield, Tishman Speyer e Brookfield. Ha gestito operazioni da €200M+ e team di 150+ persone. Oggi traduce quella esperienza in una cosa sola: far funzionare meglio la tua azienda con l'Intelligenza Artificiale.
+                Il programma <strong>Transizione 5.0</strong> offre crediti d'imposta per la digitalizzazione delle PMI. Con €6,3 miliardi di fondi disponibili, questo è il momento migliore per investire nell'innovazione della tua azienda.
               </p>
               <p
                 style={{
@@ -1083,10 +953,9 @@ export default function LandingPage() {
                   fontSize: "1.05rem",
                   color: "#444",
                   lineHeight: 1.7,
-                  fontStyle: "italic",
                 }}
               >
-                "Non vendiamo tecnologia. Traduciamo l'Intelligenza Artificiale in marginalità concreta — con il rigore di chi ha gestito operazioni da €200M in quattro multinazionali."
+                Nella nostra newsletter analizziamo ogni settimana come accedere a questi fondi, quali requisiti servono e come strutturare il tuo investimento per massimizzare il ritorno. <strong>Iscriviti per non perdere gli aggiornamenti.</strong>
               </p>
             </div>
           </div>
@@ -1094,7 +963,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* FAQ — Objeções                                        */}
+      {/* CHI È LAMBERTO — Fondatore                            */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section
         className="py-16 lg:py-20"
@@ -1102,133 +971,246 @@ export default function LandingPage() {
       >
         <div className="container">
           <FadeIn>
-            <p
-              className="uppercase tracking-[0.15em] mb-2 text-center"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.65rem",
-                color: "#1B2A4A",
-                fontWeight: 600,
-              }}
-            >
-              Domande Frequenti
-            </p>
-            <h2
-              className="text-center mb-10"
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
-                fontWeight: 700,
-                color: "#1A1A1A",
-                lineHeight: 1.15,
-              }}
-            >
-              Le obiezioni più comuni (e le nostre risposte).
-            </h2>
-          </FadeIn>
-
-          <div className="max-w-3xl mx-auto space-y-0">
-            {[
-              {
-                q: "L'IA è troppo costosa per una PMI?",
-                a: "Con Transizione 5.0, lo Stato copre fino al 50% dell'investimento. Ma il punto vero è un altro: l'IA non è un costo. È un investimento che si ripaga in 3-6 mesi attraverso l'efficienza operativa. Le PMI che implementano l'IA vedono un ROI medio del 300% nel primo anno (fonte: McKinsey, 2024).",
-              },
-              {
-                q: "L'IA sostituirà i miei dipendenti?",
-                a: "No. L'IA automatizza i compiti ripetitivi — inserimento dati, fatturazione, reportistica, risposte FAQ — e libera il tuo team per le attività che generano valore. Le aziende che adottano l'IA registrano +40% di produttività del personale, non licenziamenti.",
-              },
-              {
-                q: "Non ho tempo per un progetto tecnologico complesso.",
-                a: "Proprio per questo il primo passo è una sessione di 30 minuti. Zero impegno, zero complessità. Se decidi di procedere, il nostro metodo è strutturato per non stravolgere la tua operatività quotidiana.",
-              },
-              {
-                q: "Come faccio a fidarmi se non conosco la tecnologia?",
-                a: "Non devi conoscerla — devi solo conoscere i tuoi numeri. Nella sessione strategica, Lamberto ti mostra concretamente cosa l'IA può fare per la tua azienda specifica. Nessun gergo tecnico. Solo numeri, processi e risultati tangibili.",
-              },
-            ].map((item, i) => (
-              <FadeIn key={i} delay={i * 0.05}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-4 flex justify-center">
                 <div
-                  className="py-6"
-                  style={{ borderTop: "1px solid oklch(0.85 0.005 60)" }}
+                  className="w-48 h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden"
+                  style={{
+                    border: "4px solid #1B2A4A",
+                    boxShadow: "0 8px 32px rgba(27,42,74,0.15)",
+                  }}
                 >
-                  <h3
-                    className="mb-3"
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "1.1rem",
-                      fontWeight: 700,
-                      color: "#1A1A1A",
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {item.q}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "'Source Serif 4', serif",
-                      fontSize: "0.95rem",
-                      color: "#555",
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    {item.a}
-                  </p>
+                  <img
+                    src={LAMBERTO_PHOTO}
+                    alt="Lamberto Grinover — Fondatore Sintesys.io"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-              </FadeIn>
-            ))}
-            <div style={{ borderTop: "1px solid oklch(0.85 0.005 60)" }} />
-          </div>
+              </div>
+              <div className="lg:col-span-8">
+                <p
+                  className="uppercase tracking-[0.15em] mb-2"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.65rem",
+                    color: "#1B2A4A",
+                    fontWeight: 600,
+                  }}
+                >
+                  Il Fondatore
+                </p>
+                <h2
+                  className="mb-4"
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                    fontWeight: 700,
+                    color: "#1A1A1A",
+                    lineHeight: 1.15,
+                  }}
+                >
+                  Lamberto Grinover
+                </h2>
+                <p
+                  className="mb-4"
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "1.05rem",
+                    color: "#444",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  28 anni in ruoli direttivi presso Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer e Brookfield — gestendo operazioni da oltre €200M. Oggi porta quella stessa disciplina operativa alle PMI italiane, traducendo l'Intelligenza Artificiale in marginalità concreta.
+                </p>
+                <p
+                  className="mb-4"
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "1.05rem",
+                    color: "#444",
+                    lineHeight: 1.7,
+                    fontStyle: "italic",
+                  }}
+                >
+                  "Non vendiamo tecnologia. Traduciamo l'Intelligenza Artificiale in marginalità concreta — con il rigore di chi ha gestito operazioni da €200M in quattro multinazionali."
+                </p>
+                <Link
+                  href="/chi-siamo"
+                  className="inline-block py-2.5 px-6 text-xs uppercase tracking-[0.12em] transition-all no-underline"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 600,
+                    border: "2px solid #1B2A4A",
+                    color: "#1B2A4A",
+                    backgroundColor: "transparent",
+                  }}
+                  onClick={() => trackCTAClick("Chi Siamo", "homepage_lamberto")}
+                >
+                  Scopri di più &rarr;
+                </Link>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* CTA FINAL — Ação: Botão que abre popup                */}
+      {/* FAQ — Domande Frequenti                                */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container py-16 lg:py-24">
         <FadeIn>
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="rule-thick mb-8" />
-            <h2
-              className="mb-2"
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
-                fontWeight: 700,
-                color: "#1A1A1A",
-                lineHeight: 1.15,
-              }}
-            >
-              Il prossimo passo è tuo.
-            </h2>
-            <p
-              className="mb-8"
-              style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "1.05rem",
-                color: "#555",
-                lineHeight: 1.7,
-              }}
-            >
-              Compila il modulo. Lamberto analizzerà personalmente il tuo profilo e ti contatterà entro 24 ore per fissare la sessione strategica.
-            </p>
-            <CTAButton onClick={openPopup} large />
-          </div>
+          <p
+            className="uppercase tracking-[0.15em] mb-2 text-center"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.65rem",
+              color: "#1B2A4A",
+              fontWeight: 600,
+            }}
+          >
+            Domande Frequenti
+          </p>
+          <h2
+            className="text-center mb-10"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+              fontWeight: 700,
+              color: "#1A1A1A",
+              lineHeight: 1.15,
+            }}
+          >
+            Quello che ci chiedono più spesso.
+          </h2>
         </FadeIn>
+
+        <div className="max-w-3xl mx-auto space-y-0">
+          {[
+            {
+              q: "Cos'è Sintesys.io?",
+              a: "Sintesys.io è una società di consulenza strategica specializzata nell'integrazione dell'Intelligenza Artificiale nelle Piccole e Medie Imprese italiane. Fondata da Lamberto Grinover, traduce la complessità tecnologica in risultati operativi misurabili: riduzione costi, efficienza e marginalità.",
+            },
+            {
+              q: "La newsletter è davvero gratuita?",
+              a: "Sì, completamente gratuita. Riceverai un'edizione settimanale con analisi, casi studio e strategie operative per la tua PMI. Puoi cancellarti in qualsiasi momento con un click. Nessun vincolo, nessun costo nascosto.",
+            },
+            {
+              q: "L'IA è troppo costosa per una PMI?",
+              a: "Con Transizione 5.0, lo Stato copre fino al 50% dell'investimento. Ma il punto vero è un altro: l'IA non è un costo. È un investimento che si ripaga in 3-6 mesi attraverso l'efficienza operativa. Le PMI che implementano l'IA vedono un ROI medio del 300% nel primo anno (fonte: McKinsey, 2024).",
+            },
+            {
+              q: "Non capisco nulla di tecnologia. La newsletter fa per me?",
+              a: "Assolutamente sì. Scriviamo per imprenditori, non per programmatori. Parliamo di marginalità, controllo, flusso di cassa — non di algoritmi e codice. Se gestisci un'azienda con 10-50 dipendenti, è pensata esattamente per te.",
+            },
+            {
+              q: "Cosa ricevo iscrivendomi?",
+              a: "Immediatamente ricevi la Guida Transizione 5.0 — un documento che spiega come accedere ai €6,3 miliardi di fondi MIMIT per la digitalizzazione. Poi, ogni settimana, un'edizione del Giornale dell'IA con analisi esclusive per il tuo settore.",
+            },
+          ].map((item, i) => (
+            <FadeIn key={i} delay={i * 0.05}>
+              <div
+                className="py-6"
+                style={{ borderTop: "1px solid oklch(0.85 0.005 60)" }}
+              >
+                <h3
+                  className="mb-3"
+                  style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "1.1rem",
+                    fontWeight: 700,
+                    color: "#1A1A1A",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {item.q}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.95rem",
+                    color: "#555",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {item.a}
+                </p>
+              </div>
+            </FadeIn>
+          ))}
+          <div style={{ borderTop: "1px solid oklch(0.85 0.005 60)" }} />
+        </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* FOOTER                                                */}
+      {/* NEWSLETTER CTA FINAL — Formulário inline               */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <footer className="container pb-8" role="contentinfo">
+      <section
+        id="newsletter"
+        style={{ backgroundColor: "#1B2A4A" }}
+        className="py-16 lg:py-24"
+      >
+        <div className="container">
+          <FadeIn>
+            <div className="max-w-xl mx-auto text-center">
+              <div
+                className="w-full mb-6 mx-auto max-w-xs"
+                style={{ borderTop: "3px solid rgba(250,250,247,0.3)" }}
+              />
+              <h2
+                className="mb-2"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
+                  fontWeight: 700,
+                  color: "#FAFAF7",
+                  lineHeight: 1.15,
+                }}
+              >
+                Resta informato. Resta competitivo.
+              </h2>
+              <p
+                className="mb-8"
+                style={{
+                  fontFamily: "'Source Serif 4', serif",
+                  fontSize: "1.05rem",
+                  color: "rgba(250,250,247,0.7)",
+                  lineHeight: 1.7,
+                }}
+              >
+                Iscriviti alla newsletter di Sintesys.io e ricevi ogni settimana strategie IA concrete per la tua PMI. Più la Guida Transizione 5.0 in omaggio.
+              </p>
+              <NewsletterForm variant="dark" id="footer-cta" />
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════ */}
+      {/* FOOTER                                                 */}
+      {/* ═══════════════════════════════════════════════════════ */}
+      <footer className="container py-8" role="contentinfo">
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <img
-            src={BRAIN_ICON}
-            alt="Sintesys.io"
-            className="h-8 w-8 rounded-full"
-            loading="lazy"
-            style={{ filter: "brightness(0)" }}
-          />
+          <Link href="/" className="flex items-center gap-2 no-underline">
+            <img
+              src={BRAIN_ICON}
+              alt="Sintesys.io"
+              className="h-8 w-8 rounded-full"
+              loading="lazy"
+              style={{ filter: "brightness(0)" }}
+            />
+            <span
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "0.9rem",
+                fontWeight: 700,
+                color: "#1A1A1A",
+              }}
+            >
+              Sintesys.io
+            </span>
+          </Link>
           <p
             style={{
               fontFamily: "'Inter', sans-serif",
@@ -1236,9 +1218,9 @@ export default function LandingPage() {
               color: "#999",
             }}
           >
-            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} Sintesys.io &mdash; Tutti i diritti riservati.
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-4 sm:gap-6">
             <Link
               href="/giornale"
               className="no-underline"
@@ -1261,6 +1243,17 @@ export default function LandingPage() {
             >
               Chi Siamo
             </Link>
+            <Link
+              href="/mappa"
+              className="no-underline"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.7rem",
+                color: "#999",
+              }}
+            >
+              Mappa IA
+            </Link>
             <a
               href="https://www.instagram.com/sintesys.io/"
               target="_blank"
@@ -1274,14 +1267,31 @@ export default function LandingPage() {
             >
               Instagram
             </a>
+            <Link
+              href="/privacy-policy"
+              className="no-underline"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.7rem",
+                color: "#999",
+              }}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms-of-service"
+              className="no-underline"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.7rem",
+                color: "#999",
+              }}
+            >
+              Termini di Servizio
+            </Link>
           </div>
         </div>
       </footer>
-
-      {/* ═══════════════════════════════════════════════════════ */}
-      {/* POPUP MODAL                                           */}
-      {/* ═══════════════════════════════════════════════════════ */}
-      <AuditPopup isOpen={popupOpen} onClose={closePopup} />
     </div>
   );
 }

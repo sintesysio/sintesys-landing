@@ -293,9 +293,9 @@ export default function Giornale() {
 
                   {/* CTA Cards */}
                   <div className="space-y-4">
-                    {/* CTA 1: Sessione Strategica */}
+                    {/* CTA 1: Mappa delle Opportunità IA */}
                     <a
-                      href="/"
+                      href="/mappa"
                       className="block p-5 transition-all duration-300"
                       style={{
                         backgroundColor: "#1B2A4A",
@@ -313,7 +313,7 @@ export default function Giornale() {
                           fontWeight: 500,
                         }}
                       >
-                        Sessione Strategica Gratuita
+                        Strumento Operativo — €47
                       </p>
                       <p
                         style={{
@@ -325,7 +325,7 @@ export default function Giornale() {
                           marginBottom: "0.5rem",
                         }}
                       >
-                        30 minuti con Lamberto Grinover per analizzare la tua PMI.
+                        Mappa delle Opportunità IA: 80 processi, 8 reparti, 1 dashboard.
                       </p>
                       <span
                         style={{
@@ -337,7 +337,7 @@ export default function Giornale() {
                           color: "rgba(250,250,247,0.7)",
                         }}
                       >
-                        Prenota ora &rarr;
+                        Scopri la Mappa &rarr;
                       </span>
                     </a>
 

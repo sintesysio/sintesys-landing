@@ -324,4 +324,29 @@
 - [x] Página /mappa/grazie (thank you page com tracking de purchase)
 - [x] Notificação ao owner via notifyOwner() após compra
 - [x] Testes vitest para Stripe products e checkout (8 testes passando)
-- [ ] Salvar checkpoint
+- [x] Salvar checkpoint (version: 600af7bd)
+
+## Site Institucional Sintesys.io (Substituir LP de Sessão Estratégica)
+### Estratégia de Funil:
+### 1. Instagram → Distribuição mídia paga (topo de funil)
+### 2. Low-tickets → Vendas diretas (/mappa)
+### 3. Newsletter → Canal de profundidade e conversão (Jornal + Site)
+
+- [x] Redesenhar LandingPage.tsx como site institucional (não mais LP de sessão estratégica)
+- [x] Hero: posicionamento institucional Sintesys.io — IA para PMI Italiane
+- [x] Seção "Lamberto Grinover": bio do fundador com foto e quote
+- [x] Seção "Il Giornale dell'IA": preview do jornal com link para /giornale
+- [x] Seção "Newsletter": formulário inline no hero + CTA final (mesmo padrão do popup)
+- [x] Seção "Cosa Facciamo": 3 pilares (Newsletter, Mappa €47, Audit)
+- [x] Seção "Incentivi Fiscali 2025": Transizione 5.0 com dados
+- [x] Seção "FAQ": 5 perguntas institucionais sobre Sintesys.io e IA
+- [x] Footer com links legais, Instagram, email
+- [x] Formulário de newsletter usa endpoint leads.submit (source: "homepage")
+- [x] NavBar atualizada: Il Giornale, Chi Siamo, Mappa IA, Iscriviti Gratis
+- [x] Ativar popup de newsletter na home (/) além do /giornale
+- [x] Remover popup modal de "audit" (AuditPopup) da LandingPage
+- [x] Manter design editorial (Playfair Display, Source Serif 4, navy/off-white/terracotta)
+- [x] Atualizar Giornale sidebar CTA: Mappa IA em vez de Sessione Strategica
+- [x] Atualizar Links page: Newsletter IA + Mappa IA em vez de Analisi Gratuita
+- [x] Testes vitest passando (139 de 143, 1 timeout intermitente no Mailchimp)
+- [ ] Salvar checkpoint final

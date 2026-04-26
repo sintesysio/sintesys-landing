@@ -25,12 +25,13 @@ import AdminFinanceiro from "./pages/admin/AdminFinanceiro";
 
 /**
  * Popup logic:
- * - ATIVO somente no Giornale (/giornale)
- * - DESATIVADO em todas as outras páginas
+ * - ATIVO na homepage (/) e no Giornale (/giornale)
+ * - DESATIVADO em todas as outras páginas (vendas, admin, etc.)
  */
 function ConditionalPopup() {
   const [location] = useLocation();
-  if (location !== "/giornale") return null;
+  const showPopupRoutes = ["/", "/giornale"];
+  if (!showPopupRoutes.includes(location)) return null;
   return <NewsletterPopup />;
 }
 

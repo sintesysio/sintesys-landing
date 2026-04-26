@@ -1,4 +1,5 @@
 import { Link, useLocation } from "wouter";
+import { trackCTAClick } from "@/lib/tracking";
 
 const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
@@ -7,7 +8,7 @@ export default function NavBar() {
 
   const isGiornaleActive = location === "/giornale";
   const isChiSiamoActive = location === "/chi-siamo";
-  const isContattaciActive = location === "/contattaci";
+  const isMappaActive = location === "/mappa";
 
   return (
     <nav
@@ -21,7 +22,7 @@ export default function NavBar() {
 
       {/* Nav bar — always visible, no hamburger */}
       <div className="flex items-center justify-between py-3">
-        {/* Logo — links to Landing Page */}
+        {/* Logo — links to Home */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <img
             src={BRAIN_ICON}
@@ -47,7 +48,7 @@ export default function NavBar() {
             Il Giornale
           </Link>
 
-          {/* Chi Siamo — visible link style */}
+          {/* Chi Siamo — visible on desktop */}
           <Link
             href="/chi-siamo"
             className="no-underline hidden sm:inline-block px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
@@ -61,20 +62,45 @@ export default function NavBar() {
             Chi Siamo
           </Link>
 
-          {/* Contattaci — CTA button style, always prominent */}
+          {/* Mappa IA — visible on desktop */}
           <Link
-            href="/contattaci"
+            href="/mappa"
+            className="no-underline hidden sm:inline-block px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: isMappaActive ? 600 : 500,
+              color: isMappaActive ? "#1B2A4A" : "#444",
+              borderBottom: isMappaActive ? "2px solid #1B2A4A" : "2px solid transparent",
+            }}
+          >
+            Mappa IA
+          </Link>
+
+          {/* Newsletter CTA — primary action, terracotta button */}
+          <a
+            href="#newsletter"
             className="no-underline px-4 sm:px-6 py-2 sm:py-2.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-all"
             style={{
               fontFamily: "'Inter', sans-serif",
               fontWeight: 600,
-              color: isContattaciActive ? "#1B2A4A" : "#FAFAF7",
-              backgroundColor: isContattaciActive ? "transparent" : "#C4704B",
-              border: isContattaciActive ? "2px solid #1B2A4A" : "2px solid #C4704B",
+              color: "#FAFAF7",
+              backgroundColor: "#C4704B",
+              border: "2px solid #C4704B",
+            }}
+            onClick={(e) => {
+              // If on homepage, scroll to #newsletter; otherwise navigate to home
+              if (location === "/") {
+                e.preventDefault();
+                document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
+                trackCTAClick("Newsletter CTA", "navbar");
+              } else {
+                // Navigate to homepage — the anchor will handle scroll
+                trackCTAClick("Newsletter CTA", "navbar");
+              }
             }}
           >
-            Analisi Gratuita
-          </Link>
+            Iscriviti Gratis
+          </a>
         </div>
       </div>
 

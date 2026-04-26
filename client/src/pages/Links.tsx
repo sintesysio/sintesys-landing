@@ -32,10 +32,17 @@ const LINKS: LinkItem[] = [
     primary: true,
   },
   {
-    label: "Analisi Gratuita della Tua Azienda",
-    description: "30 min con Lamberto Grinover per identificare dove l'IA può tagliare i costi",
+    label: "Newsletter IA Gratuita",
+    description: "Strategie settimanali + Guida Transizione 5.0 in omaggio",
     href: "/",
-    utmContent: "analisi-gratuita",
+    utmContent: "newsletter-ia",
+    icon: "",
+  },
+  {
+    label: "Mappa delle Opportunit\u00e0 IA \u2014 \u20ac47",
+    description: "80 processi analizzati, 8 reparti mappati, dashboard automatica",
+    href: "/mappa",
+    utmContent: "mappa-ia",
     icon: "",
   },
   {
