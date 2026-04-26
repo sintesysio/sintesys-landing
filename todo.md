@@ -366,6 +366,17 @@
 - [x] Criar template Email 2: Follow-up & Valore (D+2) — ID: 10055006
 - [x] Criar template Email 3: Qualificazione & Pitch (D+5) — ID: 10055007
 - [x] Configurar webhook Stripe → Mailchimp (aplicar tag PROD_mappa_ia_47 após compra)
-- [ ] Criar Customer Journey no Mailchimp UI (não suportado via API — guia manual criado)
-- [ ] Aplicar tag STATUS_pronto_settimana_zero no Email 3 (tag final)
-- [ ] Testar fluxo e salvar checkpoint
+- [x] Criar Customer Journey no Mailchimp UI (não suportado via API — guia passo a passo criado)
+- [x] Aplicar tag STATUS_pronto_settimana_zero no Email 3 (tag final — documentado no guia)
+- [x] Testar fluxo e salvar checkpoint (version: 3adb6a9d)
+
+## Ajuste Templates Email — Copy curta + Layout full-width
+- [x] Reescrever Email 1 (Consegna) com copy curta e layout full-width
+- [x] Reescrever Email 2 (Follow-up) com copy curta e layout full-width
+- [x] Reescrever Email 3 (Qualificazione) com copy curta e layout full-width
+- [x] Atualizar templates no Mailchimp via API
+- [x] Reenviar os 3 emails para willian@nanymota.com
+
+## Ajuste Popup Newsletter
+- [x] Popup abre somente na página /giornale (remover da homepage /)
+- [x] Delay de 5 segundos antes de abrir o popup
