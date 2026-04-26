@@ -166,8 +166,8 @@ export default function MappaLandingPage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Mappa delle Opportunità IA — Diagnostico per la tua PMI · €95,50"
-        description="In 30 minuti, scopri dove l'IA può liberare ore della tua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni."
+        title="Mappa delle Opportunità IA — Diagnostico per la Sua PMI · €95,50"
+        description="In 30 minuti, scopra dove l'IA può liberare ore della Sua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni."
         path="/mappa"
       />
       

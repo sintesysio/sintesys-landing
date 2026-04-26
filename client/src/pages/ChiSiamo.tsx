@@ -55,7 +55,7 @@ export default function ChiSiamo() {
               letterSpacing: "-0.02em",
             }}
           >
-            L'IA che le multinazionali usano. Adattata per la tua PMI.
+            L'IA che le multinazionali usano. Adattata per la Sua PMI.
           </h1>
           <div className="rule-thin mt-6 max-w-2xl mx-auto" />
         </div>
@@ -179,7 +179,7 @@ export default function ChiSiamo() {
                   lineHeight: 1.2,
                 }}
               >
-                28 anni in multinazionali. Oggi, al servizio della tua PMI.
+                28 anni in multinazionali. Oggi, al servizio della Sua PMI.
               </h2>
 
               <div
@@ -243,12 +243,12 @@ export default function ChiSiamo() {
               {
                 number: "01",
                 title: "Diagnosi Operativa",
-                desc: "Analizziamo i processi della tua azienda per identificare dove l'IA può generare il massimo impatto sui margini, non dove fa più rumore.",
+                desc: "Analizziamo i processi della Sua azienda per identificare dove l'IA può generare il massimo impatto sui margini, non dove fa più rumore.",
               },
               {
                 number: "02",
                 title: "Strategia su Misura",
-                desc: "Progettiamo un piano di implementazione personalizzato per la tua realtà — nessuna soluzione preconfezionata, solo strategie calibrate sul tuo settore e le tue dimensioni.",
+                desc: "Progettiamo un piano di implementazione personalizzato per la Sua realtà — nessuna soluzione preconfezionata, solo strategie calibrate sul Suo settore e le Sue dimensioni.",
               },
               {
                 number: "03",
@@ -316,7 +316,7 @@ export default function ChiSiamo() {
                   lineHeight: 1.5,
                 }}
               >
-                "Nessun imprenditore dovrebbe affrontare questa trasformazione da solo. L'IA è lo strumento. Il risultato è la tua azienda che funziona meglio — con meno costi, meno errori e più tempo per ciò che conta."
+                "Nessun imprenditore dovrebbe affrontare questa trasformazione da solo. L'IA è lo strumento. Il risultato è la Sua azienda che funziona meglio — con meno costi, meno errori e più tempo per ciò che conta."
               </blockquote>
               <p
                 className="mt-4 uppercase tracking-[0.15em]"

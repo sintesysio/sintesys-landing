@@ -1,6 +1,6 @@
 /**
  * Site Institucional Sintesys.io — Home Page
- * Foco: Captura de lead para newsletter (canal de profundidade e conversão)
+ * Focus: Lead capture for newsletter (depth and conversion channel)
  * Estratégia de funil:
  *   1. Instagram → Distribuição mídia paga (topo de funil)
  *   2. Low-tickets → Vendas diretas (/mappa)

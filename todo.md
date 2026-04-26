@@ -468,3 +468,10 @@
 
 ## Ajuste Preço Mappa no /links
 - [x] Destacar preço "de: para" na Mappa IA no /links (€179,90 riscado → €95,50)
+
+## Revisão Final — Italiano
+- [x] Giornale: "Audit Gratuito" → "Conversazione Strategica" + "Parli con Lamberto →"
+- [x] NotFound.tsx: traduzida para italiano ("Pagina non trovata", "Torna alla Home")
+- [x] MappaGraziePage: P.IVA falso removido, substituído por "Tutti i diritti riservati"
+- [x] Padronizar tom Lei (formal) em: ChiSiamo (5x), Contattaci (12x), MappaLP (2x), MappaGrazie (2x), Links (3x), seoMiddleware (3x)
+- [x] Comentários PT nos arquivos: Grazie.tsx e LandingPage.tsx convertidos para inglês

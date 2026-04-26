@@ -1,7 +1,7 @@
 /**
  * Thank You Page — /grazie
  * Exibida após submit do formulário da Landing Page
- * Foco: confirmar próximos passos + reforçar valor
+ * Focus: confirm next steps + reinforce value
  */
 
 import { Link } from "wouter";

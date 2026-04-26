@@ -36,7 +36,7 @@ const LINKS: LinkItem[] = [
   {
     label: "Newsletter Gratuita + Guida Transizione 5.0",
     description:
-      "Iscriviti e ricevi subito la guida. Ogni settimana, strategie IA concrete per la tua PMI.",
+      "Si iscriva e riceva subito la guida. Ogni settimana, strategie IA concrete per la Sua PMI.",
     href: "/",
     utmContent: "newsletter-guida",
     primary: true,
@@ -63,7 +63,7 @@ const LINKS: LinkItem[] = [
   {
     label: "Chi \u00e8 Sintesys.io",
     description:
-      "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della tua PMI.",
+      "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della Sua PMI.",
     href: "/chi-siamo",
     utmContent: "chi-siamo",
     action: "link",
@@ -183,7 +183,7 @@ export default function Links() {
         >
           L'IA che le multinazionali usano.
           <br />
-          Adattata per la tua PMI.
+          Adattata per la Sua PMI.
         </p>
       </header>
 

@@ -367,7 +367,7 @@ export default function Giornale() {
                           fontWeight: 500,
                         }}
                       >
-                        Audit Gratuito
+                        Conversazione Strategica
                       </p>
                       <p
                         className="cta-text"
@@ -380,7 +380,7 @@ export default function Giornale() {
                           marginBottom: "0.5rem",
                         }}
                       >
-                        Scopri dove la tua azienda perde tempo e margini.
+                        Scopra dove l'IA può migliorare la sua azienda.
                       </p>
                       <span
                         className="cta-arrow"
@@ -393,7 +393,7 @@ export default function Giornale() {
                           color: "#1B2A4A",
                         }}
                       >
-                        Compila il questionario &rarr;
+                        Parli con Lamberto &rarr;
                       </span>
                     </a>
 

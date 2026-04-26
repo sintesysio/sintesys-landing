@@ -414,7 +414,7 @@ export default function Contattaci() {
                 marginBottom: "1.5rem",
               }}
             >
-              <strong>Lamberto Grinover</strong> analizzerà personalmente il profilo della tua azienda
+              <strong>Lamberto Grinover</strong> analizzerà personalmente il profilo della Sua azienda
               e la contatterà per una <strong>conversazione strategica di 30 minuti</strong> dedicata
               alla sua realtà. Nessun venditore, nessun pitch — solo analisi concreta.
             </p>
@@ -438,8 +438,8 @@ export default function Contattaci() {
               </p>
               <div className="space-y-3">
                 {[
-                  { step: "1", text: "Entro 24 ore: Lamberto analizza il tuo profilo aziendale" },
-                  { step: "2", text: "Entro 48 ore: ricevi un'email per fissare i 30 minuti" },
+                  { step: "1", text: "Entro 24 ore: Lamberto analizza il Suo profilo aziendale" },
+                  { step: "2", text: "Entro 48 ore: riceverà un'email per fissare i 30 minuti" },
                   { step: "3", text: "Nella sessione: report personalizzato con 3+ opportunità concrete di risparmio" },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
@@ -479,7 +479,7 @@ export default function Contattaci() {
                 lineHeight: 1.6,
               }}
             >
-              Controlla la tua casella di posta (anche lo spam) — riceverai un'email di conferma
+              Controlli la Sua casella di posta (anche lo spam) — riceverai un'email di conferma
               da <strong>commerciale@sintesys.info</strong> nei prossimi minuti.
             </p>
             <a
@@ -573,8 +573,8 @@ export default function Contattaci() {
               {/* ─── Step 1: Profile & Segmentation ─── */}
               {step === 1 && (
                 <div>
-                  <StepLabel text="La tua azienda" />
-                  <StepTitle text="Aiutaci a capire la tua realtà." />
+                  <StepLabel text="La Sua azienda" />
+                  <StepTitle text="Ci aiuti a capire la Sua realtà." />
 
                   <QuestionLabel text="Fatturato annuo *" />
                   <div className="space-y-2 mb-6">
@@ -617,7 +617,7 @@ export default function Contattaci() {
               {step === 2 && (
                 <div>
                   <StepLabel text="Dove fa più male?" />
-                  <StepTitle text="Ogni azienda ha un punto debole. Qual è il tuo?" />
+                  <StepTitle text="Ogni azienda ha un punto debole. Qual è il Suo?" />
 
                   <QuestionLabel text="Qual è il maggiore ostacolo alla crescita oggi? *" />
                   <div className="space-y-2 mb-6">
@@ -632,7 +632,7 @@ export default function Contattaci() {
                     ))}
                   </div>
 
-                  <QuestionLabel text="Dove si trovano i dati della tua azienda oggi? *" />
+                  <QuestionLabel text="Dove si trovano i dati della Sua azienda oggi? *" />
                   <div className="space-y-2 mb-6">
                     {[
                       "Fogli Excel sparsi e chat WhatsApp",
@@ -681,7 +681,7 @@ export default function Contattaci() {
                     placeholder="es. SAP per la contabilità, Google Workspace per le email, nessun CRM..."
                   />
 
-                  <QuestionLabel text="La tua azienda utilizza già soluzioni di IA o automazione? *" />
+                  <QuestionLabel text="La Sua azienda utilizza già soluzioni di IA o automazione? *" />
                   <div className="space-y-2 mb-4">
                     {[
                       "No, non ancora",
@@ -703,7 +703,7 @@ export default function Contattaci() {
                     </motion.div>
                   )}
 
-                  <QuestionLabel text="I tuoi dipendenti usano strumenti di IA senza approvazione aziendale? (Shadow AI)" />
+                  <QuestionLabel text="I Suoi dipendenti usano strumenti di IA senza approvazione aziendale? (Shadow AI)" />
                   <div className="space-y-2">
                     {[
                       "Sì, probabilmente — non abbiamo regole chiare",
@@ -722,7 +722,7 @@ export default function Contattaci() {
                   <StepLabel text="Il prossimo passo" />
                   <StepTitle text="Cosa vuoi ottenere nei prossimi 90 giorni?" />
 
-                  <QuestionLabel text="Qual è la tua priorità nei prossimi 90 giorni? *" />
+                  <QuestionLabel text="Qual è la Sua priorità nei prossimi 90 giorni? *" />
                   <div className="space-y-2 mb-6">
                     {[
                       "Ridurre costi e aumentare i margini",
@@ -816,9 +816,9 @@ export default function Contattaci() {
             color: "#bbb",
           }}
         >
-          I tuoi dati sono protetti e trattati in conformità al GDPR (Reg. UE 2016/679).
+          I Suoi dati sono protetti e trattati in conformità al GDPR (Reg. UE 2016/679).
           <br />
-          Non condivideremo mai le tue informazioni con terze parti.
+          Non condivideremo mai le Sue informazioni con terze parti.
         </p>
       </section>
 

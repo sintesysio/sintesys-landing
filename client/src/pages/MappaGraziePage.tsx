@@ -148,11 +148,11 @@ export default function MappaGraziePage() {
               }}
             >
               <li>
-                <strong>Controlla la tua email</strong> — riceverai i materiali
+                <strong>Controlli la Sua email</strong> — riceverai i materiali
                 all'indirizzo utilizzato per il pagamento.
               </li>
               <li>
-                <strong>Scarica il foglio Excel</strong> — aprilo e inizia a
+                <strong>Scarichi il foglio Excel</strong> — lo apra e inizi a
                 esplorare gli 80 processi mappati su 8 reparti.
               </li>
               <li>
@@ -398,7 +398,7 @@ export default function MappaGraziePage() {
               color: "rgba(250,250,247,0.5)",
             }}
           >
-            © {new Date().getFullYear()} Sintesys.io — P.IVA 12345678901
+            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati
           </p>
         </div>
       </footer>

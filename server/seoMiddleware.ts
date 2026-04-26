@@ -27,7 +27,7 @@ const DEFAULT_OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/3105196630336198
 const PAGE_META: Record<string, PageMeta> = {
   "/": {
     title: "Sintesys.io — Intelligenza Artificiale operativa per PMI italiane",
-    description: "Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio.",
+    description: "Riduca il caos operativo della Sua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio.",
     canonical: `${BASE_URL}/`,
   },
   "/giornale": {
@@ -36,8 +36,8 @@ const PAGE_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/giornale`,
   },
   "/mappa": {
-    title: "Mappa delle Opportunità IA — Diagnostico per la tua PMI · €95,50",
-    description: "In 30 minuti, scopri dove l'IA può liberare ore della tua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni.",
+    title: "Mappa delle Opportunità IA — Diagnostico per la Sua PMI · €95,50",
+    description: "In 30 minuti, scopra dove l'IA può liberare ore della Sua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni.",
     canonical: `${BASE_URL}/mappa`,
   },
   "/mappa/grazie": {
