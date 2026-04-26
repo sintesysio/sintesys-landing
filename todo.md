@@ -465,3 +465,6 @@
 - [x] Popup: Form só email (removido campo nome)
 - [x] Popup: Confirmation com upsell Mappa €95,50
 - [x] Popup: Trigger scroll 50% + exit-intent, cooldown 14 dias, excluir /mappa /mappa/grazie /grazie /chi-siamo
+
+## Ajuste Preço Mappa no /links
+- [x] Destacar preço "de: para" na Mappa IA no /links (€179,90 riscado → €95,50)

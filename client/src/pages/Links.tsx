@@ -27,6 +27,8 @@ interface LinkItem {
   href: string;
   utmContent: string;
   primary?: boolean;
+  originalPrice?: string;
+  launchPrice?: string;
   action: "stripe" | "link";
 }
 
@@ -41,9 +43,11 @@ const LINKS: LinkItem[] = [
     action: "link",
   },
   {
-    label: "Mappa delle Opportunit\u00e0 IA \u2014 \u20ac47",
+    label: "Mappa delle Opportunit\u00e0 IA",
+    originalPrice: "\u20ac179,90",
+    launchPrice: "\u20ac95,50",
     description:
-      "80 processi analizzati, 8 reparti mappati, dashboard automatica. Scopri dove l'IA pu\u00f2 intervenire.",
+      "80 processi analizzati, 8 reparti mappati, dashboard automatica. Prezzo di lancio.",
     href: "/mappa",
     utmContent: "mappa-ia",
     action: "stripe",
@@ -204,7 +208,18 @@ export default function Links() {
                     className="block text-sm font-semibold leading-tight text-white"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    {checkoutLoading ? "Caricamento..." : link.label}
+                    {checkoutLoading ? "Caricamento..." : (
+                      <>
+                        {link.label}{" "}
+                        {link.originalPrice && (
+                          <span className="line-through opacity-60 text-xs font-normal">{link.originalPrice}</span>
+                        )}
+                        {" "}
+                        {link.launchPrice && (
+                          <span className="text-white font-bold">{link.launchPrice}</span>
+                        )}
+                      </>
+                    )}
                   </span>
                   <span
                     className="block text-xs mt-1 leading-snug text-white/70"
