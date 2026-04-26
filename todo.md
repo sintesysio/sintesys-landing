@@ -353,3 +353,7 @@
 
 ## Ajuste Chi Siamo
 - [x] Remover botão do LinkedIn do Lamberto da página /chi-siamo
+
+## Ajuste Página /links
+- [x] Reorganizar seções: 1) Mappa IA → Checkout Stripe, 2) Il Giornale → Newsletter, 3) Site Institucional → Newsletter, 4) Chi è Sintesys.io
+- [ ] Salvar checkpoint

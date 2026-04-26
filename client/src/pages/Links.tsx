@@ -4,12 +4,19 @@
  * Stile editoriale "Il Giornale dell'IA" — coerente con il brand
  * Tutti i link con UTM tracking completo per GA4
  * Mobile-first (100% traffico da Instagram mobile)
+ *
+ * Sezioni:
+ * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €47)
+ * 2. Il Giornale dell'IA → Newsletter (cattura lead)
+ * 3. Sito Istituzionale → Newsletter (cattura lead)
+ * 4. Chi è Sintesys.io → Pagina Chi Siamo
  */
 
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const BRAIN_ICON =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
 
 const BASE_URL = "https://sintesysio.io";
 
@@ -18,46 +25,43 @@ interface LinkItem {
   description: string;
   href: string;
   utmContent: string;
-  icon: string;
   primary?: boolean;
+  action: "stripe" | "link";
 }
 
 const LINKS: LinkItem[] = [
   {
-    label: "Guida Gratuita Transizione 5.0",
-    description: "Scopri come lo Stato paga fino al 50% della tua innovazione",
-    href: "/giornale",
-    utmContent: "guida-transizione",
-    icon: "",
-    primary: true,
-  },
-  {
-    label: "Newsletter IA Gratuita",
-    description: "Strategie settimanali + Guida Transizione 5.0 in omaggio",
-    href: "/",
-    utmContent: "newsletter-ia",
-    icon: "",
-  },
-  {
-    label: "Mappa delle Opportunit\u00e0 IA \u2014 \u20ac47",
-    description: "80 processi analizzati, 8 reparti mappati, dashboard automatica",
+    label: "Mappa delle Opportunità IA — €47",
+    description:
+      "80 processi analizzati, 8 reparti mappati, dashboard automatica. Scopri dove l'IA può tagliare i costi nella tua PMI.",
     href: "/mappa",
     utmContent: "mappa-ia",
-    icon: "",
+    primary: true,
+    action: "stripe",
   },
   {
     label: "Il Giornale dell'IA",
-    description: "Strategie operative settimanali per titolari di PMI",
+    description:
+      "Ogni settimana strategie operative per titolari di PMI. Iscriviti alla newsletter gratuita.",
     href: "/giornale",
     utmContent: "giornale-ia",
-    icon: "",
+    action: "link",
+  },
+  {
+    label: "Sintesys.io — Sito Istituzionale",
+    description:
+      "IA per PMI italiane: newsletter settimanale, incentivi fiscali, strategie concrete. Iscriviti gratis.",
+    href: "/",
+    utmContent: "sito-istituzionale",
+    action: "link",
   },
   {
     label: "Chi è Sintesys.io",
-    description: "28 anni di esperienza in multinazionali, al servizio della tua PMI",
+    description:
+      "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della tua PMI.",
     href: "/chi-siamo",
     utmContent: "chi-siamo",
-    icon: "",
+    action: "link",
   },
 ];
 
@@ -84,9 +88,35 @@ function getTodayItalian(): string {
 }
 
 export default function Links() {
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
   useEffect(() => {
     trackPageView(window.location.href);
   }, []);
+
+  const handleStripeCheckout = useCallback(async () => {
+    if (checkoutLoading) return;
+    setCheckoutLoading(true);
+    trackCTAClick("Mappa IA Checkout", "linkinbio");
+
+    try {
+      const res = await fetch("/api/stripe/create-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product: "mappa_opportunita_ia" }),
+      });
+      if (!res.ok) throw new Error("Errore nella creazione del checkout");
+      const data = await res.json();
+      if (data.url) {
+        window.open(data.url, "_blank");
+      }
+    } catch {
+      // Fallback: redirect to the Mappa landing page
+      window.location.href = buildUtmUrl("/mappa", "mappa-ia");
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }, [checkoutLoading]);
 
   const handleLinkClick = (link: LinkItem) => {
     trackCTAClick(link.label, "linkinbio");
@@ -140,59 +170,92 @@ export default function Links() {
 
       {/* Links */}
       <main className="w-full max-w-md mx-auto px-5 pb-8 flex flex-col gap-3">
-        {LINKS.map((link) => (
-          <a
-            key={link.utmContent}
-            href={buildUtmUrl(link.href, link.utmContent)}
-            onClick={() => handleLinkClick(link)}
-            className={`
-              group block w-full rounded-lg border transition-all duration-200
-              ${
-                link.primary
-                  ? "bg-[#C4704B] border-[#C4704B] text-white hover:bg-[#A85A3A] shadow-md"
-                  : "bg-white border-[#1B2A4A]/15 text-[#1B2A4A] hover:border-[#1B2A4A]/40 hover:shadow-sm"
-              }
-            `}
-          >
-            <div className="flex items-center gap-3 px-4 py-4">
-              {/* Text */}
-              <div className="flex-1 min-w-0">
-                <span
-                  className={`
-                    block text-sm font-semibold leading-tight
-                    ${link.primary ? "text-white" : "text-[#1B2A4A]"}
-                  `}
-                  style={{ fontFamily: "'Playfair Display', serif" }}
+        {LINKS.map((link) =>
+          link.action === "stripe" ? (
+            /* Mappa IA — Stripe Checkout (vendita diretta) */
+            <button
+              key={link.utmContent}
+              onClick={handleStripeCheckout}
+              disabled={checkoutLoading}
+              className={`
+                group block w-full rounded-lg border transition-all duration-200 text-left cursor-pointer
+                bg-[#C4704B] border-[#C4704B] text-white hover:bg-[#A85A3A] shadow-md
+                disabled:opacity-60 disabled:cursor-wait
+              `}
+            >
+              <div className="flex items-center gap-3 px-4 py-4">
+                <div className="flex-1 min-w-0">
+                  <span
+                    className="block text-sm font-semibold leading-tight text-white"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    {checkoutLoading ? "Caricamento..." : link.label}
+                  </span>
+                  <span
+                    className="block text-xs mt-1 leading-snug text-white/70"
+                    style={{ fontFamily: "'Source Serif 4', serif" }}
+                  >
+                    {link.description}
+                  </span>
+                </div>
+                <svg
+                  className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 text-white/60"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
                 >
-                  {link.label}
-                </span>
-                <span
-                  className={`
-                    block text-xs mt-0.5 leading-snug
-                    ${link.primary ? "text-white/70" : "text-[#1B2A4A]/50"}
-                  `}
-                  style={{ fontFamily: "'Source Serif 4', serif" }}
-                >
-                  {link.description}
-                </span>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </div>
-
-              {/* Arrow */}
-              <svg
-                className={`
-                  w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5
-                  ${link.primary ? "text-white/60" : "text-[#1B2A4A]/30"}
-                `}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </a>
-        ))}
+            </button>
+          ) : (
+            /* Links regulares */
+            <a
+              key={link.utmContent}
+              href={buildUtmUrl(link.href, link.utmContent)}
+              onClick={() => handleLinkClick(link)}
+              className="
+                group block w-full rounded-lg border transition-all duration-200
+                bg-white border-[#1B2A4A]/15 text-[#1B2A4A] hover:border-[#1B2A4A]/40 hover:shadow-sm
+              "
+            >
+              <div className="flex items-center gap-3 px-4 py-4">
+                <div className="flex-1 min-w-0">
+                  <span
+                    className="block text-sm font-semibold leading-tight text-[#1B2A4A]"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    {link.label}
+                  </span>
+                  <span
+                    className="block text-xs mt-1 leading-snug text-[#1B2A4A]/50"
+                    style={{ fontFamily: "'Source Serif 4', serif" }}
+                  >
+                    {link.description}
+                  </span>
+                </div>
+                <svg
+                  className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 text-[#1B2A4A]/30"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </a>
+          )
+        )}
 
         {/* Instagram follow */}
         <a
@@ -232,7 +295,8 @@ export default function Links() {
           className="text-[10px] text-[#1B2A4A]/20 mt-1"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          &copy; {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati
+          &copy; {new Date().getFullYear()} Sintesys.io — Tutti i diritti
+          riservati
         </p>
       </footer>
     </div>
