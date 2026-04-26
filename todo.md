@@ -380,3 +380,35 @@
 ## Ajuste Popup Newsletter
 - [x] Popup abre somente na página /giornale (remover da homepage /)
 - [x] Delay de 5 segundos antes de abrir o popup
+
+## Régua de Email — Padronização Layout Lead Qualificado
+- [x] Analisar template Lead Qualificado como base de layout (600px centralizado, #f5f5f0, border-top navy, footer navy)
+- [x] Upload PDF 00-Benvenuto.pdf para CDN (https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/qXDZDlptIRrTeBBU.pdf)
+- [x] Reescrever Email D0 (Onboarding/Consegna) com layout Lead Qualificado + PDF link
+- [x] Reescrever Email D3 (Follow-up) com layout Lead Qualificado
+- [x] Reescrever Email D4 (Qualificazione) com layout Lead Qualificado
+- [x] Reescrever Email Welcome Newsletter com layout Lead Qualificado
+- [x] Atualizar os 4 templates no Mailchimp via API (IDs: 10055005, 10055006, 10055007, 10054956)
+- [x] Enviar os 4 emails de teste para willian@nanymota.com (todos enviados com sucesso)
+
+## Ajuste Copy Emails — Subtítulos e Linguagem
+- [x] Email D3: remover subtítulo "FOLLOW-UP — MAPPA DELLE OPPORTUNITÀ IA" do header
+- [x] Email D4: remover subtítulo "QUALIFICAZIONE — SETTIMANA ZERO" do header
+- [x] Email D4: reescrever copy sem "automatizzare" — foco em organização, controle, eficiência, redução de despesas fixas, aumento de margem
+- [x] Email Welcome Newsletter: remover subtítulo "BENVENUTO NELLA NEWSLETTER" do header
+- [x] Atualizar templates no Mailchimp e reenviar testes (3 emails enviados v5)
+
+## Ajuste Régua de Emails — Nova Sequência de Nutrição
+- [x] D+3: Reescrever como follow-up de acesso/uso do material + dica rápida (template 10055006)
+- [x] D+5: Criar novo email "Curiosidade IA" (template 10055007)
+- [x] D+8: Criar novo email "Convite Settimana Zero" com CTA placeholder (template 10055008)
+- [x] Atualizar templates no Mailchimp
+- [x] Enviar os 3 emails de teste para willian@nanymota.com
+
+## Revisão Linguística — Italiano nos Templates de Email
+- [x] Revisar Email D+0 (Onboarding) — italiano correto, concordância, sem brasileirismos (subtítulo removido, 'primer' → 'introduzione')
+- [x] Revisar Email D+3 (Follow-up) — italiano correto, concordância, sem brasileirismos ('Dica rapida' → 'Suggerimento rapido')
+- [x] Revisar Email D+5 (Curiosità IA) — italiano correto, concordância, sem brasileirismos ('Le condivido' → 'Condivido con Lei')
+- [x] Revisar Email D+8 (Settimana Zero) — italiano correto, concordância, sem brasileirismos ('riduzione costi' → 'riduzione dei costi', artigos adicionados)
+- [x] Revisar Email Welcome Newsletter — italiano correto, sem correções necessárias
+- [x] Atualizar templates no Mailchimp e reenviar testes (4 templates atualizados + 4 test campaigns enviadas)
