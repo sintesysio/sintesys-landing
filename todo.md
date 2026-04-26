@@ -349,4 +349,7 @@
 - [x] Atualizar Giornale sidebar CTA: Mappa IA em vez de Sessione Strategica
 - [x] Atualizar Links page: Newsletter IA + Mappa IA em vez de Analisi Gratuita
 - [x] Testes vitest passando (139 de 143, 1 timeout intermitente no Mailchimp)
-- [ ] Salvar checkpoint final
+- [x] Salvar checkpoint final (version: c9f9fca0)
+
+## Ajuste Chi Siamo
+- [x] Remover botão do LinkedIn do Lamberto da página /chi-siamo
