@@ -1,4 +1,4 @@
-# Struttura Campagne Ads — Sintesys.io
+# Struttura Campagne Ads — Il Consigliere
 
 ## Table of Contents
 1. [Architettura del Funnel Paid](#architettura-del-funnel-paid)
@@ -93,7 +93,7 @@ Campaign Display/YouTube (Retargeting)
 
 | Categoria | Keywords |
 |---|---|
-| Brand | sintesys, sintesys.io, sintesys consulenza |
+| Brand | ilconsigliere, ilconsigliere.io, ilconsigliere consulenza |
 | Consulenza IA | consulenza intelligenza artificiale PMI, consulenza IA aziende, AI per piccole imprese |
 | Automazione | automazione processi aziendali, automazione PMI, digitalizzazione PMI Italia |
 | Dolori | caos aziendale, disorganizzazione azienda, gestione aziendale efficiente |

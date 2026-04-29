@@ -1,11 +1,11 @@
 # Email Templates per Settore — Materiali Strategici
 
 > Ultima atualização: 29 de março de 2026
-> Remetente: Sintesys.io <commerciale@sintesys.info>
+> Remetente: Il Consigliere <commerciale@ilconsigliere.info>
 > Plataforma: Mailchimp (us14)
 > Público-alvo: PMI italiane (10-50 dipendenti, €1.8M-€12M fatturato)
 
-Estes templates são enviados como segundo email na régua de nutrição, segmentados pela tag de setor que o lead selecionou no formulário. Cada email entrega valor específico para o setor do lead, reforçando a autoridade da Sintesys.io.
+Estes templates são enviados como segundo email na régua de nutrição, segmentados pela tag de setor que o lead selecionou no formulário. Cada email entrega valor específico para o setor do lead, reforçando a autoridade da Il Consigliere.
 
 ---
 
@@ -30,7 +30,7 @@ Nel settore manifatturiero italiano, il tempo è il nemico silenzioso dei margin
 
 **Il dato chiave**: Con Transizione 5.0, lo Stato copre fino al 50% dell'investimento in automazione industriale. Il bando scade nel 2025.
 
-**CTA**: SCOPRI COME APPLICARLO ALLA TUA AZIENDA → sintesysio.io/contattaci
+**CTA**: SCOPRI COME APPLICARLO ALLA TUA AZIENDA → ilconsigliere.io/contattaci
 
 ---
 
@@ -55,7 +55,7 @@ Nel commercio all'ingrosso, il magazzino è il cuore dell'azienda — e spesso i
 
 **Il dato chiave**: Le aziende del commercio che implementano l'IA nella supply chain vedono un ROI medio del 280% nel primo anno.
 
-**CTA**: PRENOTA IL TUO AUDIT GRATUITO → sintesysio.io/contattaci
+**CTA**: PRENOTA IL TUO AUDIT GRATUITO → ilconsigliere.io/contattaci
 
 ---
 
@@ -80,7 +80,7 @@ Ogni transazione nel suo negozio è un dato. Ogni cliente che entra ed esce senz
 
 **Il dato chiave**: I retailer italiani che adottano l'IA registrano un aumento medio del 25% nelle vendite e una riduzione del 30% nelle scorte invendute.
 
-**CTA**: SCOPRI LE OPPORTUNITÀ PER IL TUO NEGOZIO → sintesysio.io/contattaci
+**CTA**: SCOPRI LE OPPORTUNITÀ PER IL TUO NEGOZIO → ilconsigliere.io/contattaci
 
 ---
 
@@ -105,7 +105,7 @@ Negli studi professionali, il tempo è letteralmente denaro. Ogni ora spesa a re
 
 **Il dato chiave**: Gli studi professionali che implementano l'IA aumentano le ore fatturabili del 35% senza aumentare il carico di lavoro.
 
-**CTA**: PRENOTA LA TUA SESSIONE STRATEGICA → sintesysio.io/contattaci
+**CTA**: PRENOTA LA TUA SESSIONE STRATEGICA → ilconsigliere.io/contattaci
 
 ---
 
@@ -130,7 +130,7 @@ Nel settore delle costruzioni, ogni giorno di ritardo costa migliaia di euro. Og
 
 **Il dato chiave**: Con Transizione 5.0, gli investimenti in digitalizzazione del cantiere sono coperti fino al 50% dallo Stato.
 
-**CTA**: SCOPRI COME DIGITALIZZARE IL TUO CANTIERE → sintesysio.io/contattaci
+**CTA**: SCOPRI COME DIGITALIZZARE IL TUO CANTIERE → ilconsigliere.io/contattaci
 
 ---
 
@@ -155,7 +155,7 @@ Nella logistica, ogni chilometro a vuoto è denaro bruciato. Ogni consegna in ri
 
 **Il dato chiave**: Le aziende di logistica che implementano l'IA vedono una riduzione media dei costi operativi del 25% nel primo anno.
 
-**CTA**: PRENOTA IL TUO AUDIT LOGISTICO → sintesysio.io/contattaci
+**CTA**: PRENOTA IL TUO AUDIT LOGISTICO → ilconsigliere.io/contattaci
 
 ---
 
@@ -180,7 +180,7 @@ Nella ristorazione, i margini sono sottili e gli sprechi sono il nemico numero u
 
 **Il dato chiave**: I ristoranti che implementano l'IA nella gestione degli acquisti risparmiano in media €2.000 al mese e aumentano il margine operativo del 8%.
 
-**CTA**: SCOPRI COME L'IA PUÒ AIUTARE IL TUO LOCALE → sintesysio.io/contattaci
+**CTA**: SCOPRI COME L'IA PUÒ AIUTARE IL TUO LOCALE → ilconsigliere.io/contattaci
 
 ---
 

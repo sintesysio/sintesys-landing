@@ -1,4 +1,4 @@
-# Strategia Editoriale: "Il Giornale dell'IA" (Sintesys.io)
+# Strategia Editoriale: "Il Giornale dell'IA" (Il Consigliere)
 
 ## Table of Contents
 1. [Concetto Centrale](#concetto-centrale)
@@ -10,8 +10,8 @@
 
 ## Concetto Centrale
 
-Il profilo Instagram di Sintesys.io funziona **esclusivamente come un veicolo di informazione esecutiva e un portale di notizie serio**: un vero "Giornale dell'IA" (ispirato a modelli di successo come @notjournal.ai, @ofitfeed e @viverdeia.ai). 
-L'obiettivo NON è vendere. L'obiettivo è **coinvolgere il lettore**, educare, sensibilizzare e posizionare Sintesys.io come l'autorità assoluta sull'IA per le PMI in Italia. Vogliamo che l'imprenditore si affidi al nostro portale per capire cosa succede nel mondo tecnologico e come questo impatta la sua azienda.
+Il profilo Instagram di Il Consigliere funziona **esclusivamente come un veicolo di informazione esecutiva e un portale di notizie serio**: un vero "Giornale dell'IA" (ispirato a modelli di successo come @notjournal.ai, @ofitfeed e @viverdeia.ai). 
+L'obiettivo NON è vendere. L'obiettivo è **coinvolgere il lettore**, educare, sensibilizzare e posizionare Il Consigliere come l'autorità assoluta sull'IA per le PMI in Italia. Vogliamo che l'imprenditore si affidi al nostro portale per capire cosa succede nel mondo tecnologico e come questo impatta la sua azienda.
 
 ## Archetipi e Tono di Voce
 
@@ -55,7 +55,7 @@ Il design deve essere impattante per fermare lo scroll veloce nel feed. Mai usar
 | Overlay | Gradiente scuro sulla parte inferiore della foto per garantire la leggibilità del testo. |
 | Categoria | Etichetta in CAPS piccolo sopra il titolo (es. JUSTIÇA, BUSINESS, TECNOLOGIA). |
 | Titolo | **GIGANTE, in CAPS, BOLD, colore bianco**. Posizionato nella metà inferiore dell'immagine. Stile manchete. |
-| Logo | Logo Sintesys.io SEMPRE presente (es. in alto a sinistra o in basso a sinistra). |
+| Logo | Logo Il Consigliere SEMPRE presente (es. in alto a sinistra o in basso a sinistra). |
 | CTA Visivo | Testo piccolo nel footer: "CONTINUE LENDO →" o "SAIBA MAIS NA LEGENDA". |
 | Slide Interne | Sfondo scuro o immagine sfocata, testo bianco, molto leggibile, focalizzato sui dati. |
 

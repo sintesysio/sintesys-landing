@@ -1,14 +1,14 @@
-# Sintesys.io: Base di Conoscenza
+# Il Consigliere: Base di Conoscenza
 
 ## Table of Contents
-1. [Cos'è Sintesys.io](#cosè-sintesysio)
+1. [Cos'è Il Consigliere](#cosè-il-consigliere)
 2. [Il Metodo (Roadmap 90 Giorni)](#il-metodo-roadmap-90-giorni)
 3. [Proposta di Valore](#proposta-di-valore)
 4. [Dati di Mercato](#dati-di-mercato)
 5. [Incentivi Fiscali](#incentivi-fiscali)
 6. [Pitch e Posizionamento](#pitch-e-posizionamento)
 
-## Cos'è Sintesys.io
+## Cos'è Il Consigliere
 
 Consulenza di trasformazione operazionale con IA per PMI italiane. Non vende "IA" in astratto: vende **efficienza operazionale** attraverso una layer di intelligenza che connette Marketing, Vendite, Operazioni e Supporto.
 
@@ -39,7 +39,7 @@ Consulenza di trasformazione operazionale con IA per PMI italiane. Non vende "IA
 
 ## Proposta di Valore
 
-| Dolore del Cliente | Soluzione Sintesys | Risultato Tangibile |
+| Dolore del Cliente | Soluzione Il Consigliere | Risultato Tangibile |
 |---|---|---|
 | Disorganizzazione | Hub Centrale Operativo | Informazione a 1 click |
 | Mancanza di Dati | Dashboard BI con IA | Decisioni basate su fatti |
@@ -67,7 +67,7 @@ Fonti: ISTAT (2023/2025), Politecnico di Milano, Banca d'Italia.
 
 **Non vendere IA. Vendere Tranquillità e Margine.**
 
-> "Oggi spendi il 30% del tuo tempo cercando informazioni e il 40% facendo compiti che un algoritmo farebbe meglio. Sintesys.io non installa solo software; installiamo il Sistema Operativo che permette alla tua azienda di crescere senza che tu debba lavorare più ore."
+> "Oggi spendi il 30% del tuo tempo cercando informazioni e il 40% facendo compiti che un algoritmo farebbe meglio. Il Consigliere non installa solo software; installiamo il Sistema Operativo che permette alla tua azienda di crescere senza che tu debba lavorare più ore."
 
 **Posizionamento chiave**:
 - Attaccare il Burnout: "Lavori 12 ore al giorno ma la tua azienda non cresce. Il problema non è la crisi, è il caos operazionale."

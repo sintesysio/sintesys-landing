@@ -1,4 +1,4 @@
-# Campanhas Google Ads — Sintesys.io (v2)
+# Campanhas Google Ads — Il Consigliere (v2)
 
 **Estratégia Dual Focus: Awareness + Conversão**
 Mercado: Itália | Idioma: Italiano | Público: Titolari di PMI (10–50 dipendenti)
@@ -11,8 +11,8 @@ A estratégia se divide em duas campanhas complementares que cobrem o funil comp
 
 | Campanha | Objetivo | Destino | Tipo | Bidding |
 |----------|----------|---------|------|---------|
-| **Giornale dell'IA** | Tráfego / Awareness | sintesysio.io/giornale | Search | Maximize Clicks |
-| **Sessione Strategica** | Lead Gen / Conversão | sintesysio.io (LP) | Search | Maximize Conversions |
+| **Giornale dell'IA** | Tráfego / Awareness | ilconsigliere.io/giornale | Search | Maximize Clicks |
+| **Sessione Strategica** | Lead Gen / Conversão | ilconsigliere.io (LP) | Search | Maximize Conversions |
 
 O Giornale atrai leitores curiosos sobre IA e os aquece com conteúdo editorial de qualidade. A Landing Page captura leads qualificados prontos para uma sessão estratégica com Lamberto Grinover.
 
@@ -22,7 +22,7 @@ O Giornale atrai leitores curiosos sobre IA e os aquece com conteúdo editorial 
 
 **Objetivo:** Atrair titolari di PMI italiane interessados em IA, automação e inovação para o conteúdo editorial. Construir audiência e reconhecimento de marca.
 
-**URL de destino:** `https://sintesysio.io/giornale?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content={adgroup}&utm_term={keyword}`
+**URL de destino:** `https://ilconsigliere.io/giornale?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content={adgroup}&utm_term={keyword}`
 
 **Tipo de campanha:** Search
 **Bidding strategy:** Maximize Clicks (com CPC máximo de €1,50)
@@ -66,7 +66,7 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt gra
 | Headline 8 | Il Quotidiano dell'Innovazione per PMI |
 | Headline 9 | Credito d'Imposta e IA: Le Novità |
 | Headline 10 | Automazione Intelligente per la Tua Azienda |
-| Headline 11 | Sintesys.io — Consulenza IA Strategica |
+| Headline 11 | Il Consigliere — Consulenza IA Strategica |
 | Headline 12 | Ogni Giorno Nuove Strategie IA |
 | Headline 13 | L'IA Spiegata ai Titolari d'Azienda |
 | Headline 14 | Risparmia Tempo con l'Intelligenza Artificiale |
@@ -81,7 +81,7 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt gra
 | Campo | Texto |
 |-------|-------|
 | Headline 1 | IA per Aziende: Cosa Devi Sapere |
-| Headline 2 | Il Giornale dell'IA di Sintesys.io |
+| Headline 2 | Il Giornale dell'IA di Il Consigliere |
 | Headline 3 | Aggiornamenti Quotidiani sull'IA |
 | Headline 4 | Automazione e IA per PMI Italiane |
 | Headline 5 | Leggi le Ultime Novità sull'IA |
@@ -96,7 +96,7 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt gra
 | Headline 14 | Scopri Come l'IA Riduce i Costi |
 | Headline 15 | Lettura Gratuita — Ogni Giorno |
 | Description 1 | Il Giornale dell'IA è la risorsa quotidiana per imprenditori italiani che vogliono capire come l'Intelligenza Artificiale può trasformare la loro azienda. |
-| Description 2 | Credito d'imposta, automazione dei processi, riduzione degli errori: scopri ogni giorno le opportunità dell'IA per la tua PMI. Lettura gratuita su Sintesys.io. |
+| Description 2 | Credito d'imposta, automazione dei processi, riduzione degli errori: scopri ogni giorno le opportunità dell'IA per la tua PMI. Lettura gratuita su Il Consigliere. |
 | Description 3 | Non serve essere esperti di tecnologia. Il Giornale dell'IA traduce l'innovazione in strategie operative per titolari di PMI con 10-50 dipendenti. |
 | Description 4 | Le PMI italiane che adottano l'IA risparmiano fino al 38% in efficienza operativa. Scopri come nel nostro quotidiano gratuito dedicato agli imprenditori. |
 
@@ -132,14 +132,14 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt gra
 | Headline 9 | Trasformazione Digitale: Guida Pratica |
 | Headline 10 | Risparmia Tempo e Denaro con l'IA |
 | Headline 11 | Notizie su Automazione e IA |
-| Headline 12 | Sintesys.io — Consulenza IA |
+| Headline 12 | Il Consigliere — Consulenza IA |
 | Headline 13 | Processi Più Efficienti con l'IA |
 | Headline 14 | Voucher Digitalizzazione 2026 |
 | Headline 15 | L'IA per il Made in Italy |
 | Description 1 | Scopri come le PMI italiane stanno automatizzando i processi con l'Intelligenza Artificiale. Strategie operative, incentivi fiscali e casi pratici ogni giorno. |
 | Description 2 | Credito d'imposta fino al 48% per innovazione tecnologica. Il Giornale dell'IA ti aggiorna su incentivi, bandi e opportunità per la tua azienda. |
 | Description 3 | Fatturazione, reportistica, inserimento dati: l'IA può automatizzare tutto. Leggi il nostro quotidiano gratuito e scopri come liberare 3+ ore al giorno. |
-| Description 4 | La trasformazione digitale non è solo per le grandi aziende. Scopri strategie concrete per PMI con 10-50 dipendenti nel Giornale dell'IA di Sintesys.io. |
+| Description 4 | La trasformazione digitale non è solo per le grandi aziende. Scopri strategie concrete per PMI con 10-50 dipendenti nel Giornale dell'IA di Il Consigliere. |
 
 ### Extensões — Campanha Giornale
 
@@ -147,10 +147,10 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt gra
 
 | Sitelink | URL | Description |
 |----------|-----|-------------|
-| Sessione Strategica Gratuita | sintesysio.io/?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content=sitelink-sessione | 30 min con un esperto IA. Prenota ora la tua sessione personalizzata. |
-| Chi è Sintesys.io | sintesysio.io/chi-siamo?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content=sitelink-chi-siamo | La nostra missione: portare l'IA nelle PMI italiane in 90 giorni. |
-| Contattaci | sintesysio.io/contattaci?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content=sitelink-contattaci | Richiedi un audit personalizzato per la tua azienda. |
-| Seguici su Instagram | instagram.com/sintesys.io | Contenuti quotidiani sull'IA per imprenditori italiani. |
+| Sessione Strategica Gratuita | ilconsigliere.io/?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content=sitelink-sessione | 30 min con un esperto IA. Prenota ora la tua sessione personalizzata. |
+| Chi è Il Consigliere | ilconsigliere.io/chi-siamo?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content=sitelink-chi-siamo | La nostra missione: portare l'IA nelle PMI italiane in 90 giorni. |
+| Contattaci | ilconsigliere.io/contattaci?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content=sitelink-contattaci | Richiedi un audit personalizzato per la tua azienda. |
+| Seguici su Instagram | instagram.com/ilconsigliere.io | Contenuti quotidiani sull'IA per imprenditori italiani. |
 
 **Callout Extensions:**
 - Lettura Gratuita Quotidiana
@@ -168,7 +168,7 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt gra
 
 **Objetivo:** Gerar leads qualificados (cadastros) de titolari di PMI prontos para agendar uma sessão estratégica com Lamberto Grinover.
 
-**URL de destino:** `https://sintesysio.io/?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content={adgroup}&utm_term={keyword}`
+**URL de destino:** `https://ilconsigliere.io/?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content={adgroup}&utm_term={keyword}`
 
 **Tipo de campanha:** Search
 **Bidding strategy:** Maximize Conversions (target CPA €15–25)
@@ -213,7 +213,7 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt, op
 | Headline 8 | Scopri Dove l'IA Può Fare la Differenza |
 | Headline 9 | Credito d'Imposta Fino al 48% |
 | Headline 10 | +38% di Efficienza Operativa Media |
-| Headline 11 | Sintesys.io — Consulenza IA Strategica |
+| Headline 11 | Il Consigliere — Consulenza IA Strategica |
 | Headline 12 | Per Titolari di PMI con 10-50 Dipendenti |
 | Headline 13 | Taglia Costi ed Elimina Errori |
 | Headline 14 | L'IA su Misura per la Tua Azienda |
@@ -221,7 +221,7 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt, op
 | Description 1 | In 30 minuti, Lamberto Grinover analizza la tua azienda e ti mostra esattamente dove l'IA può tagliare costi, eliminare errori e liberare il tuo team. Prenota ora. |
 | Description 2 | Il 72% delle PMI italiane sa che deve innovare ma non sa da dove iniziare. Noi lo sappiamo. Sessione strategica personalizzata, nessun impegno. Prenota gratis. |
 | Description 3 | Consulenza IA su misura per PMI italiane. Automazione processi, riduzione errori, efficienza operativa. Primi risultati in 90 giorni. Sessione gratuita di 30 min. |
-| Description 4 | La tua azienda perde 3 ore al giorno in processi che l'IA può automatizzare. Scopri come in una sessione strategica gratuita con un esperto di Sintesys.io. |
+| Description 4 | La tua azienda perde 3 ore al giorno in processi che l'IA può automatizzare. Scopri come in una sessione strategica gratuita con un esperto di Il Consigliere. |
 
 **Anúncio RSA 2:**
 
@@ -282,11 +282,11 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt, op
 | Headline 12 | Per Aziende con 10-50 Dipendenti |
 | Headline 13 | Risultati Concreti in 90 Giorni |
 | Headline 14 | Nessun Impegno — Solo Strategia |
-| Headline 15 | Sintesys.io — Consulenza IA |
+| Headline 15 | Il Consigliere — Consulenza IA |
 | Description 1 | Il tuo team passa ore su fatturazione, reportistica e inserimento dati manuali. L'IA può automatizzare tutto. Sessione strategica gratuita di 30 min. Prenota ora. |
-| Description 2 | Dati sparsi, errori ripetuti, margini in calo. L'Intelligenza Artificiale centralizza, automatizza e ottimizza. Scopri come in 30 minuti con un esperto Sintesys.io. |
+| Description 2 | Dati sparsi, errori ripetuti, margini in calo. L'Intelligenza Artificiale centralizza, automatizza e ottimizza. Scopri come in 30 minuti con un esperto Il Consigliere. |
 | Description 3 | La tua azienda perde 3 ore al giorno in processi ripetitivi. Con l'IA risparmi tempo, riduci errori e aumenti i margini. Sessione gratuita, nessun impegno. |
-| Description 4 | Il caos operazionale costa caro. Nessuno ha il quadro completo quando i dati sono sparsi ovunque. L'IA di Sintesys.io risolve questo. Prenota 30 min gratis. |
+| Description 4 | Il caos operazionale costa caro. Nessuno ha il quadro completo quando i dati sono sparsi ovunque. L'IA di Il Consigliere risolve questo. Prenota 30 min gratis. |
 
 ### Extensões — Campanha Sessione Strategica
 
@@ -294,10 +294,10 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt, op
 
 | Sitelink | URL | Description |
 |----------|-----|-------------|
-| Il Giornale dell'IA | sintesysio.io/giornale?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content=sitelink-giornale | Notizie quotidiane sull'IA per imprenditori italiani. |
-| Chi è Lamberto Grinover | sintesysio.io/chi-siamo?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content=sitelink-chi-siamo | Esperto IA con il metodo dei 90 giorni per PMI. |
-| Contattaci Direttamente | sintesysio.io/contattaci?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content=sitelink-contattaci | Richiedi un audit personalizzato per la tua azienda. |
-| Seguici su Instagram | instagram.com/sintesys.io | @sintesys.io — Contenuti IA per PMI ogni giorno. |
+| Il Giornale dell'IA | ilconsigliere.io/giornale?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content=sitelink-giornale | Notizie quotidiane sull'IA per imprenditori italiani. |
+| Chi è Lamberto Grinover | ilconsigliere.io/chi-siamo?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content=sitelink-chi-siamo | Esperto IA con il metodo dei 90 giorni per PMI. |
+| Contattaci Direttamente | ilconsigliere.io/contattaci?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content=sitelink-contattaci | Richiedi un audit personalizzato per la tua azienda. |
+| Seguici su Instagram | instagram.com/ilconsigliere.io | @ilconsigliere.io — Contenuti IA per PMI ogni giorno. |
 
 **Callout Extensions:**
 - Sessione Gratuita 30 Min
@@ -353,12 +353,12 @@ corso, formazione, laurea, università, gratis, free, download, pdf, chatgpt, op
 
 ### Campanha Giornale
 ```
-https://sintesysio.io/giornale?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content={adgroup}&utm_term={keyword}
+https://ilconsigliere.io/giornale?utm_source=google&utm_medium=cpc&utm_campaign=giornale-ia&utm_content={adgroup}&utm_term={keyword}
 ```
 
 ### Campanha Sessione Strategica
 ```
-https://sintesysio.io/?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content={adgroup}&utm_term={keyword}
+https://ilconsigliere.io/?utm_source=google&utm_medium=cpc&utm_campaign=sessione-strategica&utm_content={adgroup}&utm_term={keyword}
 ```
 
 ---

@@ -1,10 +1,10 @@
-# Checklist de QA Mobile — Sintesys.io
+# Checklist de QA Mobile — Il Consigliere
 
 > Ultima atualização: 29 de março de 2026
 > Responsável: Equipe de QA
 > Dispositivos de referência: iPhone 14 (390px), Samsung Galaxy S23 (360px), iPad (768px)
 
-Este documento define o checklist de Quality Assurance para garantir que todas as páginas do site Sintesys.io funcionam corretamente em dispositivos móveis. O site foi desenvolvido com abordagem mobile-first usando Tailwind CSS com breakpoints responsivos.
+Este documento define o checklist de Quality Assurance para garantir que todas as páginas do site Il Consigliere funcionam corretamente em dispositivos móveis. O site foi desenvolvido com abordagem mobile-first usando Tailwind CSS com breakpoints responsivos.
 
 ---
 
@@ -99,7 +99,7 @@ Este documento define o checklist de Quality Assurance para garantir que todas a
 
 | Item | Critério | Mobile | Tablet | Desktop |
 |---|---|---|---|---|
-| Logo Sintesys.io | Visível e clicável (→ /) | A testar | A testar | OK |
+| Logo Il Consigliere | Visível e clicável (→ /) | A testar | A testar | OK |
 | Link "Il Giornale" | Visível e funcional | A testar | A testar | OK |
 | CTA "Audit Gratuito" | Botão navy destacado, tap target >= 44px | A testar | A testar | OK |
 | Sticky behavior | NavBar fixa no topo ao scrollar | A testar | A testar | OK |
@@ -113,7 +113,7 @@ Este documento define o checklist de Quality Assurance para garantir que todas a
 |---|---|---|---|---|
 | Foto Lamberto | Imagem circular responsiva | A testar | A testar | OK |
 | Texto biográfico | Parágrafos legíveis | A testar | A testar | OK |
-| Missão Sintesys | Seção visível sem overflow | A testar | A testar | OK |
+| Missão Il Consigliere | Seção visível sem overflow | A testar | A testar | OK |
 
 ---
 

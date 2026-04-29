@@ -14,7 +14,7 @@ Formato principale ispirato ai grandi portali di notizie.
 - **Overlay**: Gradiente nero dal basso verso l'alto per garantire la lettura.
 - **Categoria**: Testo piccolo in CAPS in alto a sinistra (es. ECONOMIA, TECNOLOGIA, INCENTIVI).
 - **Titolo**: GIGANTE, BOLD, BIANCO, in CAPS. Posizionato nella metà inferiore. Deve sembrare una manchete di giornale.
-- **Logo**: Sintesys.io visibile (es. in alto a destra o in basso a sinistra).
+- **Logo**: Il Consigliere visibile (es. in alto a destra o in basso a sinistra).
 - **CTA Visivo**: Nel rodapé, testo piccolo: "CONTINUE LENDO →" o "ARRASTE PARA O LATO".
 
 **Slide 2 (Il Fatto)**:
@@ -30,7 +30,7 @@ Formato principale ispirato ai grandi portali di notizie.
 - Traduzione dal "burocratese" al "pratico".
 
 **Slide 5 (Chiusura Giornalistica)**:
-- "Segui Il Giornale dell'IA (@sintesys.io) per rimanere sempre aggiornato sulle novità che impattano la tua azienda."
+- "Segui Il Giornale dell'IA (@ilconsigliere.io) per rimanere sempre aggiornato sulle novità che impattano la tua azienda."
 - Invito a salvare o condividere.
 
 ## Carosello "Storia: Passato vs Era IA"
@@ -77,7 +77,7 @@ Come questa cosa si applica specificamente al tessuto delle PMI in Italia.
 
 [CHIUSURA / INVITO ALLA LETTURA]
 → "Cosa ne pensi di questa evoluzione? Parliamone nei commenti."
-→ "Segui @sintesys.io — Il tuo portale quotidiano sull'Intelligenza Artificiale."
+→ "Segui @ilconsigliere.io — Il tuo portale quotidiano sull'Intelligenza Artificiale."
 
 [HASHTAG]
 #PMI #IntelligenzaArtificiale #NotizieTech #InnovazioneItalia #StoriaAziendale

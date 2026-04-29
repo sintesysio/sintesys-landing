@@ -1,7 +1,7 @@
 /**
  * Thank You Page — /grazie
- * Exibida após submit do formulário da Landing Page
- * Focus: confirm next steps + reinforce value
+ * Exibida após inscrição na newsletter
+ * Focus: confirm subscription + deliver lead magnet + soft upsell
  */
 
 import { Link } from "wouter";
@@ -75,7 +75,7 @@ export default function Grazie() {
               lineHeight: 1.1,
             }}
           >
-            Richiesta Ricevuta!
+            Iscrizione Confermata!
           </h1>
 
           <p
@@ -87,7 +87,7 @@ export default function Grazie() {
               lineHeight: 1.7,
             }}
           >
-            Lamberto Grinover analizzerà personalmente il suo profilo aziendale e la contatterà <strong>entro 24 ore</strong> per fissare la sessione strategica gratuita di 30 minuti.
+            Benvenuto nella community di imprenditori italiani che stanno integrando l'IA nelle proprie aziende. La <strong>Guida Transizione 5.0</strong> è in arrivo nella sua casella email.
           </p>
 
           {/* Steps */}
@@ -113,18 +113,18 @@ export default function Grazie() {
               {[
                 {
                   step: "1",
-                  title: "Analisi del profilo",
-                  desc: "Lamberto esamina le informazioni fornite per preparare un'analisi preliminare del suo settore e delle opportunità specifiche.",
+                  title: "Controlli la sua email",
+                  desc: "Entro pochi minuti riceverà la Guida Transizione 5.0 — il documento che spiega come accedere ai €6,3 miliardi di fondi MIMIT per la digitalizzazione. Controlli anche la cartella spam.",
                 },
                 {
                   step: "2",
-                  title: "Contatto entro 24h",
-                  desc: "Riceverà un'email o una telefonata per concordare data e orario della sessione strategica.",
+                  title: "Ogni settimana, una nuova edizione",
+                  desc: "Ogni lunedì riceverà Il Giornale dell'IA — analisi esclusive, casi studio reali e strategie operative per integrare l'Intelligenza Artificiale nella sua PMI.",
                 },
                 {
                   step: "3",
-                  title: "Sessione di 30 minuti",
-                  desc: "Una videochiamata dedicata dove Lamberto le mostrerà esattamente dove l'IA può migliorare la sua azienda, con numeri concreti.",
+                  title: "Risultati concreti",
+                  desc: "Non parliamo di teoria. Ogni edizione contiene almeno un'azione implementabile nella sua azienda entro la settimana — con impatto misurabile su costi, tempo o marginalità.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -185,7 +185,7 @@ export default function Grazie() {
                 fontWeight: 600,
               }}
             >
-              Mentre aspetta
+              Mentre aspetta la prima edizione
             </p>
             <h3
               style={{
@@ -208,7 +208,7 @@ export default function Grazie() {
                 lineHeight: 1.7,
               }}
             >
-              Mentre aspetta la prima edizione, abbiamo costruito uno strumento che le mostra in 30 minuti dove l'IA può intervenire nella <strong>SUA</strong> azienda specifica.
+              Abbiamo costruito uno strumento che le mostra in 30 minuti dove l'IA può intervenire nella <strong>SUA</strong> azienda specifica — lo stesso che usiamo come punto di partenza con i nostri clienti di consulenza.
             </p>
             <p
               className="mb-4"
@@ -219,7 +219,7 @@ export default function Grazie() {
                 lineHeight: 1.6,
               }}
             >
-              Si chiama <strong>Mappa delle Opportunità IA</strong>. Stesso strumento che usiamo come punto di partenza con i nostri clienti di consulenza.
+              Si chiama <strong>Mappa delle Opportunità IA</strong>. 80 processi analizzati, 8 dipartimenti, ROI stimato per ogni intervento.
             </p>
             <div className="flex items-center gap-3 mb-2">
               <span

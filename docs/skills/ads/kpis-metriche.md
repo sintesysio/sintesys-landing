@@ -1,4 +1,4 @@
-# KPIs e Metriche per Campagne Ads — Sintesys.io
+# KPIs e Metriche per Campagne Ads — Il Consigliere
 
 ## Table of Contents
 1. [Metriche Primarie](#metriche-primarie)

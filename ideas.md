@@ -1,4 +1,4 @@
-# Brainstorm de Design — Landing Page Sintesys.io
+# Brainstorm de Design — Landing Page Il Consigliere
 
 ## Contexto
 Landing page de captura de leads para newsletter "Il Giornale dell'IA", link na bio do Instagram. Público: imprenditori italiani de PMI (10-50 funcionários). Tom: institucional, editorial, sério. Sem vendas, apenas captura de nome, email, telefone e tipo de negócio.
@@ -91,7 +91,7 @@ Landing page de captura de leads para newsletter "Il Giornale dell'IA", link na 
 **Signature Elements**:
 1. Badge "ACCESSO RISERVATO" no topo do formulário, como um carimbo de documento confidencial
 2. Números estatísticos em tamanho display (72px+) com fonte condensada, como em dashboards executivos
-3. Selo "Sintesys.io — Intelligence Report" no footer, como assinatura de documento
+3. Selo "Il Consigliere — Intelligence Report" no footer, como assinatura de documento
 
 **Interaction Philosophy**: O formulário se comporta como um "passe de acesso". Ao preencher cada campo, uma barra de progresso sutil avança, comunicando que o usuário está "desbloqueando" o acesso. Hover nos dados estatísticos revela a fonte completa.
 
@@ -110,4 +110,4 @@ Landing page de captura de leads para newsletter "Il Giornale dell'IA", link na 
 
 **Escolha: Idea 1 — "La Prima Pagina"**
 
-Esta abordagem é a mais alinhada com a identidade "Il Giornale dell'IA" da Sintesys.io. O formato de primeira página de jornal cria uma conexão imediata com o conceito editorial que já é usado no Instagram, gerando coerência entre os canais. A tipografia editorial dominante e o grid assimétrico de jornal criam diferenciação visual radical em relação a qualquer outra landing page de consultoria de IA. O formulário como "cupom de assinatura" é uma metáfora perfeita para a captura de leads da newsletter.
+Esta abordagem é a mais alinhada com a identidade "Il Giornale dell'IA" da Il Consigliere. O formato de primeira página de jornal cria uma conexão imediata com o conceito editorial que já é usado no Instagram, gerando coerência entre os canais. A tipografia editorial dominante e o grid assimétrico de jornal criam diferenciação visual radical em relação a qualquer outra landing page de consultoria de IA. O formulário como "cupom de assinatura" é uma metáfora perfeita para a captura de leads da newsletter.

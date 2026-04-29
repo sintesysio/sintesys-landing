@@ -1,14 +1,14 @@
-# CLAUDE.md — Sintesys.io: Contexto Completo do Projeto
+# CLAUDE.md — Il Consigliere: Contexto Completo do Projeto
 
-> Este arquivo contém toda a inteligência acumulada sobre o projeto Sintesys.io.
+> Este arquivo contém toda a inteligência acumulada sobre o projeto Il Consigliere.
 > Leia-o integralmente antes de fazer qualquer alteração no código, na estratégia ou no conteúdo.
 > Última atualização: 30 de março de 2026.
 
 ---
 
-## 1. O que é a Sintesys.io
+## 1. O que é a Il Consigliere
 
-A Sintesys.io é uma consultoria de transformação operacional com Inteligência Artificial para PMIs italianas (10-50 funcionários, faturamento €1,8M-€12M/ano). O fundador é **Lamberto Grinover**.
+A Il Consigliere é uma consultoria de transformação operacional com Inteligência Artificial para PMIs italianas (10-50 funcionários, faturamento €1,8M-€12M/ano). O fundador é **Lamberto Grinover**.
 
 A empresa não vende "IA" em abstrato — vende **eficiência operacional** através de uma camada de inteligência que conecta Marketing, Vendas, Operações e Suporte.
 
@@ -31,7 +31,7 @@ A empresa não vende "IA" em abstrato — vende **eficiência operacional** atra
 
 ### Proposta de Valor
 
-| Dor do Cliente | Solução Sintesys | Resultado Tangível |
+| Dor do Cliente | Solução Il Consigliere | Resultado Tangível |
 |---|---|---|
 | Desorganização | Hub Central Operativo | Informação a 1 click |
 | Falta de Dados | Dashboard BI com IA | Decisões baseadas em fatos |
@@ -42,7 +42,7 @@ A empresa não vende "IA" em abstrato — vende **eficiência operacional** atra
 
 **Regra de ouro: Não vender IA. Vender Tranquilidade e Margem.**
 
-> "Hoje você gasta 30% do seu tempo procurando informações e 40% fazendo tarefas que um algoritmo faria melhor. Sintesys.io não instala apenas software; instalamos o Sistema Operativo que permite à sua empresa crescer sem que você precise trabalhar mais horas."
+> "Hoje você gasta 30% do seu tempo procurando informações e 40% fazendo tarefas que um algoritmo faria melhor. Il Consigliere não instala apenas software; instalamos o Sistema Operativo que permite à sua empresa crescer sem que você precise trabalhar mais horas."
 
 Posicionamento-chave:
 - **Atacar o Burnout**: "Trabalha 12 horas por dia mas a empresa não cresce. O problema não é a crise, é o caos operacional."
@@ -126,7 +126,7 @@ O público-alvo são **titolari/imprenditori** (donos) de PMIs italianas com 10-
 
 ---
 
-## 4. Arquitetura do Site (sintesysio.io)
+## 4. Arquitetura do Site (ilconsigliere.io)
 
 ### URLs Publicadas
 
@@ -134,16 +134,16 @@ O público-alvo são **titolari/imprenditori** (donos) de PMIs italianas com 10-
 |---|---|---|
 | `/` | Landing Page | Conversão direta — popup modal com formulário 6 campos (lead qualificado) |
 | `/giornale` | Il Giornale dell'IA | Conteúdo editorial dinâmico + popup lead magnet (lead simples) |
-| `/chi-siamo` | Chi Siamo | Bio do Lamberto + missão da Sintesys.io |
+| `/chi-siamo` | Chi Siamo | Bio do Lamberto + missão da Il Consigliere |
 | `/contattaci` | Contattaci | Formulário multi-step tipo Typeform (qualificação profunda) |
 | `/grazie` | Thank You Page | Confirmação pós-formulário com próximos passos |
 | `/admin` | Intranet Admin | Dashboard, Leads, Pipeline CRM, Campanhas, Financeiro (protegido por role admin) |
 
 ### Domínios Ativos
 
-- **sintesysio.io** (domínio principal)
-- **www.sintesysio.io** (alias)
-- **sintesysio-io.manus.space** (subdomínio Manus)
+- **ilconsigliere.io** (domínio principal)
+- **www.ilconsigliere.io** (alias)
+- **ilconsigliere.manus.space** (subdomínio Manus)
 
 ### Stack Técnica
 
@@ -232,8 +232,8 @@ Transações financeiras (entradas/saídas). Campos: clientId, type (entrada/sai
 
 | Config | Valor |
 |---|---|
-| Audiência | Sintesys.io (ID: b0d9ab0ecc) |
-| Remetente | Sintesys.io <commerciale@sintesys.info> |
+| Audiência | Il Consigliere (ID: b0d9ab0ecc) |
+| Remetente | Il Consigliere <lamberto@grinoverconsulenza.it> |
 | Domínio | Verificado + Autenticado (DKIM/SPF) |
 | Automação Lead Simples | ID 7061 — Tag "Lead" → Welcome Email com Guida Transizione 5.0 |
 | Automação Lead Qualificado | ID 7062 — Tag "Qualificato" → Welcome Email com agendamento de sessão estratégica |
@@ -251,7 +251,7 @@ Transações financeiras (entradas/saídas). Campos: clientId, type (entrada/sai
 |---|---|
 | Database "Tarefas" (conteúdo) | `8b43c788-4339-826f-8d1d-01cc33289697` |
 | Data Source ID (conteúdo) | `a4e3c788-4339-837d-af42-87c47cfbfe2f` |
-| Parent Page "Sintesys.io" | `3f83c788-4339-8231-bd43-01bbf284ba5c` |
+| Parent Page "Il Consigliere" | `3f83c788-4339-8231-bd43-01bbf284ba5c` |
 | CRM Pipeline (vendas) | `1c043c78-8433-9816-b1a1-c4d4a3a6e7a5` |
 
 Cada lead capturado cria um registro no CRM Pipeline do Notion com status "Lead" ou "Qualificado".
@@ -263,7 +263,7 @@ Cada lead capturado cria um registro no CRM Pipeline do Notion com status "Lead"
 | CNAME | k2._domainkey | dkim2.mcsv.net |
 | CNAME | k3._domainkey | dkim3.mcsv.net |
 | TXT | SPF | v=spf1 include:_spf.google.com include:servers.mcsv.net ~all |
-| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:commerciale@sintesys.info |
+| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:lamberto@grinoverconsulenza.it |
 
 ---
 
@@ -298,7 +298,7 @@ O conteúdo NÃO vende. O conteúdo educa, informa e posiciona. A venda acontece
 - Capa: FOTO EDITORIAL REAL de alta qualidade, nunca ilustrações stock
 - Overlay: Gradiente escuro na parte inferior para legibilidade
 - Título: GIGANTE, CAPS, BOLD, branco, na metade inferior
-- Logo: Sintesys.io SEMPRE presente
+- Logo: Il Consigliere SEMPRE presente
 - Slides internas: Fundo escuro, texto branco, focado em dados
 
 **Frequência**: Mínimo 3 posts excelentes por semana (Seg/Qua/Sex), pode estender para diário.
@@ -392,7 +392,7 @@ Rodar testes: `pnpm test`
 | `todo.md` | Histórico completo de todas as features implementadas |
 | `docs/skills/content/SKILL.md` | Workflow completo de produção de conteúdo Instagram (6 estágios, aprovação, publicação) |
 | `docs/skills/content/pubblico-target.md` | Público-alvo detalhado: dores, crenças, medos dos donos de PMI |
-| `docs/skills/content/sintesys-knowledge-base.md` | Knowledge base da empresa (produto, serviços, diferenciais) |
+| `docs/skills/content/ilconsigliere-knowledge-base.md` | Knowledge base da empresa (produto, serviços, diferenciais) |
 | `docs/skills/content/strategia-editoriale.md` | Estratégia editorial completa (pilares, tom, frequência, regras visuais) |
 | `docs/skills/content/templates-contenuto.md` | Templates de conteúdo (carrossel, reel, post único) |
 | `docs/skills/ads/SKILL.md` | Workflow de campanhas pagas (Meta + Google Ads) |
@@ -408,7 +408,7 @@ Rodar testes: `pnpm test`
 |---|---|---|
 | Database "Tarefas" | `8b43c788-4339-826f-8d1d-01cc33289697` | Pipeline de conteúdo (6 estágios) |
 | Data Source ID | `a4e3c788-4339-837d-af42-87c47cfbfe2f` | Criar/atualizar tarefas |
-| Parent Page "Sintesys.io" | `3f83c788-4339-8231-bd43-01bbf284ba5c` | Página raiz do workspace |
+| Parent Page "Il Consigliere" | `3f83c788-4339-8231-bd43-01bbf284ba5c` | Página raiz do workspace |
 | CRM Pipeline (vendas) | `1c043c78-8433-9816-b1a1-c4d4a3a6e7a5` | Pipeline de vendas (leads) |
 
 ### Pipeline de Conteúdo (6 estágios)
@@ -468,7 +468,7 @@ Secrets configurados no projeto (não editar diretamente, usar `webdev_request_s
 - [ ] Depoimentos/case studies reais na LP
 - [ ] Módulo de propostas comerciais
 - [ ] Relatórios automatizados (semanal/mensal)
-- [ ] Migrar admin para projeto separado (app.sintesysio.io) se necessário
+- [ ] Migrar admin para projeto separado (app.ilconsigliere.io) se necessário
 
 ---
 
@@ -510,13 +510,13 @@ pnpm build        # Build de produção
 
 **1. Exportar o código para GitHub**
 
-No painel do Manus, vá em **Settings → GitHub** e exporte o repositório. Escolha um nome (ex: `sintesys-landing`) e o owner da sua conta GitHub.
+No painel do Manus, vá em **Settings → GitHub** e exporte o repositório. Escolha um nome (ex: `ilconsigliere-landing`) e o owner da sua conta GitHub.
 
 **2. Clonar o repositório localmente**
 
 ```bash
-git clone https://github.com/SEU_USUARIO/sintesys-landing.git
-cd sintesys-landing
+git clone https://github.com/SEU_USUARIO/ilconsigliere-landing.git
+cd ilconsigliere-landing
 ```
 
 **3. Instalar dependências**

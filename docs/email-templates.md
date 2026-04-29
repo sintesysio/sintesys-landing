@@ -1,7 +1,7 @@
 # Email Templates - Mailchimp Automações
 
 > Última atualização: 29 de março de 2026
-> Remetente: Sintesys.io <commerciale@sintesys.info>
+> Remetente: Il Consigliere <commerciale@ilconsigliere.info>
 > Plataforma: Mailchimp (us14)
 > Status: Ambas automações ATIVAS
 
@@ -36,9 +36,9 @@
 - €6.3 Mld Fondi disponibili
 - 2025 Scadenza bando
 
-**CTA**: "SCARICA LA GUIDA COMPLETA" → sintesysio.io
+**CTA**: "SCARICA LA GUIDA COMPLETA" → ilconsigliere.io
 
-**Footer**: Sintesys.io — Intelligenza Artificiale per PMI Italiane
+**Footer**: Il Consigliere — Intelligenza Artificiale per PMI Italiane
 
 ---
 
@@ -52,24 +52,24 @@
 
 ### Conteúdo do Email
 
-**Header**: Sintesys.io — Conferma Audit IA Gratuito
+**Header**: Il Consigliere — Conferma Audit IA Gratuito
 
 **Corpo principal**:
 - Lamberto Grinover analisa pessoalmente o perfil da empresa
 - Sessão estratégica de 30 minutos dedicada à realidade do cliente
 
-**Box destaque**: Sessione Strategica di 30 Minuti — Con Lamberto Grinover, Fondatore di Sintesys.io
+**Box destaque**: Sessione Strategica di 30 Minuti — Con Lamberto Grinover, Fondatore di Il Consigliere
 
 **3 Passos (Cosa succede ora)**:
 1. **Analisi del profilo** — Lamberto studia le risposte del suo audit nelle prossime 24 ore
 2. **Conferma disponibilità** — Riceverà un link per prenotare i 30 minuti nell'agenda di Lamberto
 3. **Report personalizzato** — Nella sessione, riceverà 3+ opportunità concrete con stima di ROI
 
-**CTA**: "CONFERMA LA TUA DISPONIBILITÀ" → sintesysio.io/contattaci
+**CTA**: "CONFERMA LA TUA DISPONIBILITÀ" → ilconsigliere.io/contattaci
 
 **Nota**: Sessione completamente gratuita e senza impegno
 
-**Footer**: Sintesys.io — Intelligenza Artificiale per PMI Italiane
+**Footer**: Il Consigliere — Intelligenza Artificiale per PMI Italiane
 
 ---
 
@@ -89,11 +89,11 @@
 | CNAME | k2._domainkey | dkim2.mcsv.net |
 | CNAME | k3._domainkey | dkim3.mcsv.net |
 | TXT | SPF | v=spf1 include:_spf.google.com include:servers.mcsv.net ~all |
-| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:commerciale@sintesys.info |
+| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:commerciale@ilconsigliere.info |
 
 ### Audiência Mailchimp
 
-- **Nome**: Sintesys.io
+- **Nome**: Il Consigliere
 - **ID**: b0d9ab0ecc
-- **Remetente padrão**: Sintesys.io <commerciale@sintesys.info>
+- **Remetente padrão**: Il Consigliere <commerciale@ilconsigliere.info>
 - **Status domínio**: Verificado + Autenticado (DKIM)

@@ -4,7 +4,7 @@
 > Plataforma: Mailchimp (us14) — Customer Journeys
 > Público-alvo: PMI italiane (10-50 dipendenti)
 
-Este documento define as duas réguas de nutrição completas para a Sintesys.io, segmentadas por tipo de lead. Cada régua é acionada automaticamente pela tag aplicada no momento da inscrição pelo backend do site.
+Este documento define as duas réguas de nutrição completas para a Il Consigliere, segmentadas por tipo de lead. Cada régua é acionada automaticamente pela tag aplicada no momento da inscrição pelo backend do site.
 
 ---
 
@@ -38,11 +38,11 @@ Email segmentado pela tag de setor do lead. Conteúdo específico com 3 aplicaç
 
 **Dia 7 — Gap Intenzione vs. Azione**
 
-Conteúdo educacional baseado nos dados do Politecnico di Milano: 87% dos empresários reconhecem a necessidade de inovar, mas menos de 30% agiram. Posiciona a Sintesys.io como a ponte entre intenção e ação. CTA suave para o Giornale dell'IA (mantém engajamento sem pressão de venda).
+Conteúdo educacional baseado nos dados do Politecnico di Milano: 87% dos empresários reconhecem a necessidade de inovar, mas menos de 30% agiram. Posiciona a Il Consigliere como a ponte entre intenção e ação. CTA suave para o Giornale dell'IA (mantém engajamento sem pressão de venda).
 
 **Dia 10 — 3 Erros Comuns**
 
-Conteúdo de valor que aborda os 3 erros mais comuns que PMIs cometem ao implementar IA: (1) começar sem estratégia, (2) ignorar os incentivos fiscais, (3) tentar fazer sozinho sem consultoria especializada. Cada erro é seguido pela solução que a Sintesys.io oferece.
+Conteúdo de valor que aborda os 3 erros mais comuns que PMIs cometem ao implementar IA: (1) começar sem estratégia, (2) ignorar os incentivos fiscais, (3) tentar fazer sozinho sem consultoria especializada. Cada erro é seguido pela solução que a Il Consigliere oferece.
 
 **Dia 14 — Urgência Transizione 5.0**
 
@@ -50,7 +50,7 @@ Email focado na urgência dos incentivos fiscais. Destaca que os fundos de Trans
 
 **Dia 21 — Caso Studio por Setor**
 
-Email com caso studio (real ou representativo) de uma PMI do mesmo setor do lead que implementou IA com a Sintesys.io. Inclui métricas de antes/depois (eficiência, custos, tempo economizado) e citação do empresário.
+Email com caso studio (real ou representativo) de uma PMI do mesmo setor do lead que implementou IA com a Il Consigliere. Inclui métricas de antes/depois (eficiência, custos, tempo economizado) e citação do empresário.
 
 **Dia 28 — Último Push**
 

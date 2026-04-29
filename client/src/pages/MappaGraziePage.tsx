@@ -352,10 +352,10 @@ export default function MappaGraziePage() {
           >
             Problemi con la consegna? Scrivi a{" "}
             <a
-              href="mailto:info@ilconsigliere.io"
+              href="mailto:lamberto@grinoverconsulenza.it"
               style={{ color: "#1B2A4A", textDecoration: "underline" }}
             >
-              info@ilconsigliere.io
+              lamberto@grinoverconsulenza.it
             </a>{" "}
             e ti risponderemo entro 24 ore.
           </p>

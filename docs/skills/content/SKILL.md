@@ -1,15 +1,15 @@
 ---
-name: sintesys-content
-description: Produce and publish daily Instagram content for Sintesys.io in editorial newspaper style ("Il Giornale dell'IA") targeting Italian SME owners. Use for creating posts, carousels, reels, captions, editorial calendars, designing visuals, and publishing to Instagram for Sintesys.io. Includes a 6-stage approval workflow (Backlog → Em planejamento → Produção → Aprovação → Aprovado → Publicado) with Notion task management and Instagram MCP publishing with soundtrack.
+name: ilconsigliere-content
+description: Produce and publish daily Instagram content for Il Consigliere in editorial newspaper style ("Il Giornale dell'IA") targeting Italian SME owners. Use for creating posts, carousels, reels, captions, editorial calendars, designing visuals, and publishing to Instagram for Il Consigliere. Includes a 6-stage approval workflow (Backlog → Em planejamento → Produção → Aprovação → Aprovado → Publicado) with Notion task management and Instagram MCP publishing with soundtrack.
 ---
 
-# Sintesys.io — Daily Content Production & Publishing
+# Il Consigliere — Daily Content Production & Publishing
 
-Produce and publish Instagram content daily for Sintesys.io following the "Il Giornale dell'IA" editorial strategy. Target audience: Italian SME owners (10-50 employees, €1.8M-€12M/year revenue).
+Produce and publish Instagram content daily for Il Consigliere following the "Il Giornale dell'IA" editorial strategy. Target audience: Italian SME owners (10-50 employees, €1.8M-€12M/year revenue).
 
 ## Diretriz Estrategica da Conta (CRITICO)
 
-O foco da Sintesys.io e **construir uma audiencia de PMIs italianas** para vender solucoes de IA. O conteudo organico e o produto principal da estrategia de aquisicao. Cada post deve ser pensado como uma peca de distribuicao que sera amplificada por trafego pago (skill `sintesys-ads`).
+O foco da Il Consigliere e **construir uma audiencia de PMIs italianas** para vender solucoes de IA. O conteudo organico e o produto principal da estrategia de aquisicao. Cada post deve ser pensado como uma peca de distribuicao que sera amplificada por trafego pago (skill `ilconsigliere-ads`).
 
 **Prioridades do conteudo (em ordem)**:
 1. **Atrair visitantes ao perfil** — O conteudo deve ser tao relevante que o empresario italiano clica no perfil para ver mais
@@ -29,13 +29,13 @@ O foco da Sintesys.io e **construir uma audiencia de PMIs italianas** para vende
 
 ## Notion Connection (LIVE)
 
-The Notion workspace is connected via MCP. Below are the real IDs for the Sintesys.io content pipeline:
+The Notion workspace is connected via MCP. Below are the real IDs for the Il Consigliere content pipeline:
 
 | Resource | ID |
 |---|---|
 | Database "Tarefas" | `8b43c788-4339-826f-8d1d-01cc33289697` |
 | Data Source ID | `a4e3c788-4339-837d-af42-87c47cfbfe2f` |
-| Parent Page "Sintesys.io" | `3f83c788-4339-8231-bd43-01bbf284ba5c` |
+| Parent Page "Il Consigliere" | `3f83c788-4339-8231-bd43-01bbf284ba5c` |
 
 ### Database Properties (Schema)
 
@@ -162,7 +162,7 @@ Approva il piano per procedere alla produzione.
 - Background: White or very light gray (#FAFAFA)
 - Typography: Serif for headlines, sans-serif for body
 - Colors: Black text, dark blue (#1B2A4A) or charcoal (#333333) accents
-- Logo: "Sintesys.io" bottom-right, small and discrete
+- Logo: "Il Consigliere" bottom-right, small and discrete
 - Style: Clean, editorial, premium — Apple meets Il Sole 24 Ore
 - NO decorative elements, gradients, stock photos, or emoji
 
@@ -170,7 +170,7 @@ Approva il piano per procedere alla produzione.
 - HOOK: Shocking data or provocative question
 - BODY: 2-3 paragraphs, concrete data, Italian context (min 150 words)
 - REFLECTION: Open question stimulating saves/shares
-- SOFT CTA: "Segui @sintesys.io" / "Salva questo post" / "Iscriviti alla newsletter"
+- SOFT CTA: "Segui @ilconsigliere.io" / "Salva questo post" / "Iscriviti alla newsletter"
 - HASHTAGS: Maximum 5
 
 ### Update Notion Status
@@ -309,14 +309,14 @@ Prossimo contenuto previsto: [next day and topic]
 - **Mission**: Build Italian SME audience to sell AI solutions. Content is the distribution vehicle, not the sales pitch
 - **Profile Magnetism**: Every post must make the reader want to visit the profile and follow. Feed must look like a serious news portal
 - **Language**: ALL content (captions, text on images) MUST be in Italian
-- **No sales CTA**: First 3 months — NEVER include sales CTAs. Only: "Segui @sintesys.io", "Salva questo post", "Iscriviti alla newsletter — link in bio"
+- **No sales CTA**: First 3 months — NEVER include sales CTAs. Only: "Segui @ilconsigliere.io", "Salva questo post", "Iscriviti alla newsletter — link in bio"
 - **Tone**: Analytical, direct, institutional. Like Il Sole 24 Ore. Never informal, never internet slang
 - **Archetypes**: Saggio (wisdom, data, clarity) + Governante (order, control, method)
 - **Audience**: ALWAYS speak to the OWNER (imprenditore/titolare), never IT or marketing teams
 - **Key words**: Marginalita, Controllo, Tranquillita, Flusso di Cassa, Efficienza, Governance
 - **Metrics focus**: Saves and Shares, not Likes. Profile Visits is the north star metric
 - **Frequency**: Minimum 3 excellent posts per week (Mon/Wed/Fri), can extend to daily
-- **Paid Amplification**: Every post published is a candidate for paid distribution via `sintesys-ads`. High-performing organic posts (saves/shares) should be flagged for boosting
+- **Paid Amplification**: Every post published is a candidate for paid distribution via `ilconsigliere-ads`. High-performing organic posts (saves/shares) should be flagged for boosting
 
 ## Performance Review
 
@@ -355,5 +355,5 @@ Topics with high saves/shares should be expanded. Low-performing formats should 
 
 - `references/pubblico-target.md` — Psychographic profile of Italian SME owner
 - `references/strategia-editoriale.md` — Full editorial strategy (archetypes, tone, pillars, visual identity)
-- `references/sintesys-knowledge-base.md` — Sintesys.io service details (90-day method, pricing, positioning)
+- `references/ilconsigliere-knowledge-base.md` — Il Consigliere service details (90-day method, pricing, positioning)
 - `references/templates-contenuto.md` — Content templates for each format (carousel, image, quote, chart, caption, calendar)

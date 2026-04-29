@@ -1,4 +1,4 @@
-# Creativi e Copy per Ads — Sintesys.io
+# Creativi e Copy per Ads — Il Consigliere
 
 ## Table of Contents
 1. [Regole Generali dei Creativi](#regole-generali-dei-creativi)
@@ -24,7 +24,7 @@
 ```
 HOOK: [Dato scioccante o domanda provocatoria — max 1 riga]
 BODY: [2-3 righe che espandono il problema con dati reali]
-CTA: Segui @sintesys.io per restare aggiornato
+CTA: Segui @ilconsigliere.io per restare aggiornato
 ```
 
 ### MOFU (Consideration) — Obiettivo: Educare e Coinvolgere
@@ -54,12 +54,12 @@ CTA: [Azione specifica: Prenota la tua consulenza / Scarica la guida]
 **Copy**:
 > Il problema non è la banca. È che le tue decisioni sono basate su Excel e intuito.
 > L'88% degli imprenditori vuole innovare. Solo il 26% lo fa davvero.
-> Segui @sintesys.io — Il Giornale dell'IA per chi guida un'azienda.
+> Segui @ilconsigliere.io — Il Giornale dell'IA per chi guida un'azienda.
 
 ### TOFU — Esempio 2 (Video)
 **Hook (primi 3s)**: "Sai quanto tempo perdi ogni giorno copiando dati da un sistema all'altro?"
 **Body**: "Il tuo nemico non è la concorrenza. È il caos operazionale che ti ruba 3 ore al giorno."
-**CTA**: "Segui @sintesys.io per scoprire come le PMI stanno cambiando."
+**CTA**: "Segui @ilconsigliere.io per scoprire come le PMI stanno cambiando."
 
 ### MOFU — Esempio 1
 **Headline immagine**: "Shadow AI: i tuoi dipendenti usano ChatGPT senza che tu lo sappia."
@@ -84,7 +84,7 @@ CTA: [Azione specifica: Prenota la tua consulenza / Scarica la guida]
 | Sfondo | Foto editoriale reale (alta qualità) con overlay scuro per leggibilità |
 | Headline | GRANDE, CAPS, BOLD, bianco. Nella metà inferiore. Stile manchette giornale |
 | Sottotitolo | Sans-serif, dimensione media, dato chiave o domanda |
-| Logo | "Sintesys.io" sempre presente, discreto (angolo basso) |
+| Logo | "Il Consigliere" sempre presente, discreto (angolo basso) |
 | Colori accento | Blu scuro (#1B2A4A), Carbone (#333333), Bianco (#FFFFFF) |
 | NO | Gradients, stock photos generiche, emoji, elementi decorativi, colori vivaci |
 | Stile | Premium, editoriale. Apple meets Il Sole 24 Ore |
