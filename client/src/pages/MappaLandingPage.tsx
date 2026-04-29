@@ -176,8 +176,18 @@ export default function MappaLandingPage() {
       {/* ═══════════════════════════════════════════════════════ */}
       <header style={{ backgroundColor: "#1B2A4A" }}>
         <div className="container flex items-center justify-between py-3">
-          <Link href="/" className="flex items-center gap-2 no-underline">
-            <img src={CONSIGLIERE_LOGO} alt="Il Consigliere" className="h-8 object-contain" loading="eager" style={{ filter: "brightness(0) invert(1)" }} />
+          <Link href="/" className="no-underline">
+            <span
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.1rem",
+                fontWeight: 600,
+                color: "#FAFAF7",
+                letterSpacing: "0.02em",
+              }}
+            >
+              ilconsigliere.io
+            </span>
           </Link>
           <span
             style={{
