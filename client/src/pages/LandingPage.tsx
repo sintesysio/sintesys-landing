@@ -18,7 +18,7 @@ import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
 import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
-const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
@@ -569,7 +569,7 @@ export default function LandingPage() {
             {
               step: "02",
               title: "Mappa",
-              subtitle: "Mappa delle Opportunità IA — €95,50",
+              subtitle: "Mappa delle Opportunità IA — €49,50",
               desc: "Un foglio Excel con 80 processi analizzati, 8 reparti mappati e una dashboard automatica che ti mostra esattamente dove l'IA può liberare ore e ridurre costi.",
               cta: "Scopri la Mappa",
               href: "/mappa",

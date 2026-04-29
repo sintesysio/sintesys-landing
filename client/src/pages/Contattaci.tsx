@@ -11,7 +11,7 @@ import SEOHead from "@/components/SEOHead";
 import { trpc } from "@/lib/trpc";
 import { trackLeadQualified, trackFormView } from "@/lib/tracking";
 
-const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
 const TOTAL_STEPS = 5; // Contact info + 4 qualification sections
 

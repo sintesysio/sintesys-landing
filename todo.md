@@ -475,3 +475,13 @@
 - [x] MappaGraziePage: P.IVA falso removido, substituído por "Tutti i diritti riservati"
 - [x] Padronizar tom Lei (formal) em: ChiSiamo (5x), Contattaci (12x), MappaLP (2x), MappaGrazie (2x), Links (3x), seoMiddleware (3x)
 - [x] Comentários PT nos arquivos: Grazie.tsx e LandingPage.tsx convertidos para inglês
+
+## Ajustes Pós-Rebrand (29/04/2026)
+- [ ] Ajustar preço Mappa para €49,50 (era €129,90) nas páginas /grazie, /links, /mappa
+- [ ] Logo navbar /mappa: remover fundo branco, deixar só o desenho (transparente)
+- [ ] Ajustar nome na barra de menu da /mappa para "Il Consigliere"
+- [ ] Remover upsell da página /mappa/grazie
+
+- [x] Atualização de preço: €95,50 → €49,50 (lancio) e €179,90 → €129,90 (regular) em todas as páginas
+- [x] Remoção do upsell da página /mappa/grazie
+- [x] Logo transparente: removido fundo branco do emblema, upload CDN, atualizado em todas as páginas (10 arquivos)

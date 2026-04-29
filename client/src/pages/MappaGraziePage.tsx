@@ -9,7 +9,7 @@ import SEOHead from "@/components/SEOHead";
 import { Link } from "wouter";
 import { trackPurchase } from "@/lib/tracking";
 
-const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
 export default function MappaGraziePage() {
   // Extract session_id from URL params
@@ -166,145 +166,7 @@ export default function MappaGraziePage() {
             </ol>
           </div>
 
-          {/* ═══════════════════════════════════════════════════════ */}
-          {/* UPSELL — Sessione Diagnosi IA                           */}
-          {/* ═══════════════════════════════════════════════════════ */}
-          <div
-            className="text-left p-8 mb-8"
-            style={{
-              backgroundColor: "#fff",
-              border: "2px solid #C4704B",
-            }}
-          >
-            <div
-              className="w-full mb-4"
-              style={{ borderTop: "3px solid #C4704B" }}
-            />
-            <p
-              className="uppercase tracking-[0.15em] mb-2"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.6rem",
-                color: "#C4704B",
-                fontWeight: 600,
-              }}
-            >
-              Passo successivo consigliato
-            </p>
-            <h3
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.3rem",
-                fontWeight: 700,
-                color: "#1A1A1A",
-                lineHeight: 1.25,
-                marginBottom: "0.75rem",
-              }}
-            >
-              Sessione Diagnosi IA — 90 minuti con Lamberto
-            </h3>
-            <p
-              style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "1rem",
-                color: "#444",
-                lineHeight: 1.7,
-                marginBottom: "1rem",
-              }}
-            >
-                          La Mappa le indicherà dove agire. Se preferisce vedere <strong>COME</strong> agire, in diretta con Lamberto, è disponibile la Sessione Diagnosi IA — 90 minuti, gruppo ristretto, una volta al mese.
-            </p>
-            <div className="flex flex-col gap-1 mb-2">
-              <div className="flex items-center gap-3">
-                <span
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.75rem",
-                    color: "#999",
-                  }}
-                >
-                  Prezzo regolare:
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    color: "#999",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  €247
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.75rem",
-                    color: "#999",
-                  }}
-                >
-                  Prezzo standalone:
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    color: "#999",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  €197
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: "#1A1A1A",
-                  }}
-                >
-                  Sconto esclusivo acquirenti Mappa:
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.6rem",
-                    fontWeight: 700,
-                    color: "#C4704B",
-                  }}
-                >
-                  €147
-                </span>
-              </div>
-              <p
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.65rem",
-                  color: "#999",
-                  marginTop: "0.25rem",
-                }}
-              >
-                Risparmio €100 sul prezzo regolare. Codice già applicato.
-              </p>
-            </div>
-            <Link href="/contattaci">
-              <span
-                className="inline-block cursor-pointer px-6 py-3 text-xs uppercase tracking-[0.15em]"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 600,
-                  backgroundColor: "#C4704B",
-                  color: "#FAFAF7",
-                }}
-              >                Aggiungi la Sessione Diagnosi IA — €147 →\u2192
-              </span>
-            </Link>
-          </div>
+
 
           {/* ═══════════════════════════════════════════════════════ */}
           {/* NEWSLETTER INVITE                                       */}

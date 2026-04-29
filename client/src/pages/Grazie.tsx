@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { trackConversion } from "@/lib/tracking";
 
-const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
 export default function Grazie() {
   useEffect(() => {
@@ -231,7 +231,7 @@ export default function Grazie() {
                   textDecoration: "line-through",
                 }}
               >
-                €179,90
+                €129,90
               </span>
               <span
                 style={{
@@ -241,7 +241,7 @@ export default function Grazie() {
                   color: "#C4704B",
                 }}
               >
-                €95,50
+                €49,50
               </span>
             </div>
             <p
@@ -267,7 +267,7 @@ export default function Grazie() {
                 backgroundColor: "#C4704B",
               }}
             >
-              Scopri la Mappa — €95,50 →
+              Scopri la Mappa — €49,50 →
             </Link>
           </div>
 

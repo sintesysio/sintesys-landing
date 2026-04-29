@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { trackCTAClick } from "@/lib/tracking";
 
-const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
 export default function NavBar() {
   const [location] = useLocation();
@@ -27,7 +27,7 @@ export default function NavBar() {
           <img
             src={LOGO_ICON}
             alt="Il Consigliere"
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 object-contain"
             loading="eager"
           />
         </Link>

@@ -6,7 +6,7 @@
  * Mobile-first (100% traffico da Instagram mobile)
  *
  * Sezioni:
- * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €95,50)
+ * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €49,50)
  * 2. Il Giornale dell'IA → Newsletter (cattura lead)
  * 3. Sito Istituzionale → Newsletter (cattura lead)
  * 4. Chi è Il Consigliere → Pagina Chi Siamo
@@ -17,7 +17,7 @@ import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON =
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
 const BASE_URL = "https://ilconsigliere.io";
 
@@ -44,8 +44,8 @@ const LINKS: LinkItem[] = [
   },
   {
     label: "Mappa delle Opportunit\u00e0 IA",
-    originalPrice: "\u20ac179,90",
-    launchPrice: "\u20ac95,50",
+    originalPrice: "\u20ac129,90",
+    launchPrice: "\u20ac49,50",
     description:
       "80 processi analizzati, 8 reparti mappati, dashboard automatica. Prezzo di lancio.",
     href: "/mappa",

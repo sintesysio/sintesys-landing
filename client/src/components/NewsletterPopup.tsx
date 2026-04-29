@@ -5,7 +5,7 @@
  * Excluded pages: /mappa, /mappa/grazie, /grazie, /chi-siamo.
  * Form: email only.
  * Headline: A/B variants (random).
- * Confirmation: soft upsell to Mappa €95,50 (lancio) / €179,90 (regolare).
+ * Confirmation: soft upsell to Mappa €49,50 (lancio) / €129,90 (regolare).
  * Updated per 08-Aggiornamento-Sito-LP.docx.
  */
 
@@ -302,7 +302,7 @@ export default function NewsletterPopup() {
                             textDecoration: "line-through",
                           }}
                         >
-                          €179,90
+                          €129,90
                         </span>
                         <span
                           style={{
@@ -312,7 +312,7 @@ export default function NewsletterPopup() {
                             color: "#C4704B",
                           }}
                         >
-                          €95,50
+                          €49,50
                         </span>
                         <span
                           style={{
@@ -334,7 +334,7 @@ export default function NewsletterPopup() {
                           color: "#FAFAF7",
                         }}
                       >
-                        Scopri la Mappa — €95,50 →
+                        Scopri la Mappa — €49,50 →
                       </a>
                       <div className="mt-2">
                         <button

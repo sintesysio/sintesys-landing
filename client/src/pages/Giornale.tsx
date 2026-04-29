@@ -14,7 +14,7 @@ import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
 import SEOHead from "@/components/SEOHead";
 
-const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const DATA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/data-section-9fYjcLRyFVkjjbgNw5fX7E.webp";
 
@@ -319,7 +319,7 @@ export default function Giornale() {
                           fontWeight: 500,
                         }}
                       >
-                        Strumento Operativo — €95,50
+                        Strumento Operativo — €49,50
                       </p>
                       <p
                         style={{

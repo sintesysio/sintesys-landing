@@ -6,7 +6,7 @@
  * so no manual Product/Price creation in the Dashboard is needed.
  *
  * Pricing aggiornato (08-Aggiornamento-Sito-LP):
- *   Mappa: €179,90 regolare → €95,50 lancio
+ *   Mappa: €129,90 regolare → €49,50 lancio
  *   Sessione: €247 regolare → €197 standalone → €147 bump (con Mappa)
  */
 
@@ -15,8 +15,8 @@ export const PRODUCTS = {
     name: "Mappa delle Opportunità IA",
     description:
       "Foglio Excel professionale con 80 processi pre-mappati su 8 reparti + 5 documenti Word di accompagnamento. Consegna immediata via email.",
-    priceEurCents: 9550, // €95,50 — prezzo di lancio (regolare €179,90)
-    regularPriceEurCents: 17990, // €179,90 — prezzo regolare (compare-at)
+    priceEurCents: 4950, // €49,50 — prezzo di lancio (regolare €129,90)
+    regularPriceEurCents: 12990, // €129,90 — prezzo regolare (compare-at)
     currency: "eur",
     metadata: {
       product_key: "mappa_opportunita_ia",
