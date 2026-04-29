@@ -25,7 +25,7 @@ export default function TermsOfService() {
           style={{ fontFamily: "'Inter', sans-serif", color: "#777" }}
         >
           Ultimo aggiornamento: 31 marzo 2026 &middot; Applicabili a tutti i
-          servizi Sintesys.io
+          servizi Il Consigliere
         </p>
         <div className="rule-thin mt-6" />
       </header>
@@ -42,8 +42,8 @@ export default function TermsOfService() {
               1. Accettazione dei Termini
             </h2>
             <p className="leading-relaxed">
-              Accedendo e utilizzando il sito web <strong>sintesys.io</strong> e i servizi
-              offerti da Sintesys.io (di seguito "i Servizi"), l'utente accetta di essere
+              Accedendo e utilizzando il sito web <strong>ilconsigliere.io</strong> e i servizi
+              offerti da Il Consigliere (di seguito "i Servizi"), l'utente accetta di essere
               vincolato dai presenti Termini di Servizio, dall'Informativa sulla Privacy e
               da tutte le leggi e i regolamenti applicabili. Se non si accettano i presenti
               Termini, si prega di non utilizzare il sito né i Servizi.
@@ -56,7 +56,7 @@ export default function TermsOfService() {
               2. Descrizione dei Servizi
             </h2>
             <p className="leading-relaxed">
-              Sintesys.io fornisce servizi di consulenza strategica in intelligenza
+              Il Consigliere fornisce servizi di consulenza strategica in intelligenza
               artificiale e trasformazione digitale per le Piccole e Medie Imprese (PMI)
               italiane. I Servizi includono, a titolo esemplificativo e non esaustivo:
             </p>
@@ -104,7 +104,7 @@ export default function TermsOfService() {
                 "Non tentare di ottenere accesso non autorizzato ai nostri sistemi, reti o dati.",
                 "Non riprodurre, distribuire o modificare i contenuti del sito senza autorizzazione scritta.",
                 "Fornire informazioni veritiere e aggiornate durante la registrazione e l'utilizzo dei Servizi.",
-                "Non utilizzare i Servizi per attività che possano danneggiare Sintesys.io o terze parti.",
+                "Non utilizzare i Servizi per attività che possano danneggiare Il Consigliere o terze parti.",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="text-[#C4704B] font-bold mt-0.5" style={{ fontFamily: "'Inter', sans-serif" }}>—</span>
@@ -123,7 +123,7 @@ export default function TermsOfService() {
               I nostri Servizi possono integrarsi con applicazioni e piattaforme di terze
               parti, tra cui Meta (Facebook/Instagram), Google e Mailchimp. L'utilizzo di
               tali integrazioni è soggetto ai termini e alle politiche sulla privacy delle
-              rispettive piattaforme. Sintesys.io non è responsabile per le pratiche, i
+              rispettive piattaforme. Il Consigliere non è responsabile per le pratiche, i
               contenuti o la disponibilità di servizi di terze parti.
             </p>
           </section>
@@ -136,10 +136,10 @@ export default function TermsOfService() {
             <p className="leading-relaxed">
               Tutti i contenuti presenti sul sito — inclusi testi, grafica, loghi, immagini,
               software, metodologie e materiali formativi — sono di proprietà esclusiva di
-              Sintesys.io e sono protetti dalle leggi italiane e internazionali sul diritto
+              Il Consigliere e sono protetti dalle leggi italiane e internazionali sul diritto
               d'autore e sulla proprietà intellettuale. È vietata qualsiasi riproduzione,
               distribuzione o creazione di opere derivate senza il previo consenso scritto
-              di Sintesys.io.
+              di Il Consigliere.
             </p>
           </section>
 
@@ -149,11 +149,11 @@ export default function TermsOfService() {
               7. Servizi di Consulenza e Risultati
             </h2>
             <p className="leading-relaxed">
-              I servizi di consulenza offerti da Sintesys.io sono basati sulle migliori
+              I servizi di consulenza offerti da Il Consigliere sono basati sulle migliori
               pratiche del settore e sull'esperienza professionale del team. Tuttavia, i
               risultati specifici possono variare in base a molteplici fattori, tra cui le
               condizioni di mercato, le risorse disponibili e l'implementazione da parte
-              del cliente. Sintesys.io non garantisce risultati economici specifici
+              del cliente. Il Consigliere non garantisce risultati economici specifici
               derivanti dall'utilizzo dei Servizi.
             </p>
           </section>
@@ -164,11 +164,11 @@ export default function TermsOfService() {
               8. Limitazione di Responsabilità
             </h2>
             <p className="leading-relaxed">
-              Nella misura massima consentita dalla legge applicabile, Sintesys.io non sarà
+              Nella misura massima consentita dalla legge applicabile, Il Consigliere non sarà
               responsabile per eventuali danni diretti, indiretti, incidentali,
               consequenziali o speciali derivanti dall'uso o dall'impossibilità di
               utilizzare i Servizi o il sito web. La responsabilità complessiva di
-              Sintesys.io nei confronti dell'utente non potrà in alcun caso superare
+              Il Consigliere nei confronti dell'utente non potrà in alcun caso superare
               l'importo effettivamente pagato dall'utente per i Servizi nei 12 mesi
               precedenti.
             </p>
@@ -180,7 +180,7 @@ export default function TermsOfService() {
               9. Modifiche ai Termini
             </h2>
             <p className="leading-relaxed">
-              Sintesys.io si riserva il diritto di modificare i presenti Termini in
+              Il Consigliere si riserva il diritto di modificare i presenti Termini in
               qualsiasi momento. Le modifiche entreranno in vigore al momento della
               pubblicazione sul sito. L'uso continuato dei Servizi dopo la pubblicazione
               delle modifiche costituisce accettazione dei nuovi Termini. In caso di
@@ -195,7 +195,7 @@ export default function TermsOfService() {
               10. Recesso e Risoluzione
             </h2>
             <p className="leading-relaxed">
-              L'utente può cessare l'utilizzo dei Servizi in qualsiasi momento. Sintesys.io
+              L'utente può cessare l'utilizzo dei Servizi in qualsiasi momento. Il Consigliere
               si riserva il diritto di sospendere o terminare l'accesso ai Servizi in caso
               di violazione dei presenti Termini, con preavviso ragionevole salvo casi di
               urgenza. Le disposizioni relative a proprietà intellettuale, limitazione di
@@ -227,8 +227,8 @@ export default function TermsOfService() {
               contattarci all'indirizzo:
             </p>
             <p className="mt-3 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="mailto:legal@sintesys.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                legal@sintesys.io
+              <a href="mailto:legal@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                legal@ilconsigliere.io
               </a>
             </p>
           </section>
@@ -240,7 +240,7 @@ export default function TermsOfService() {
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
-            &copy; {new Date().getFullYear()} Sintesys.io &mdash; Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} Il Consigliere &mdash; Tutti i diritti riservati.
           </p>
           <div className="flex gap-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
             <a href="/privacy-policy" className="hover:text-[#1B2A4A] transition-colors">Informativa Privacy</a>

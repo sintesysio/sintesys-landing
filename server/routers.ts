@@ -19,7 +19,7 @@ async function generateLeadsSpreadsheet(): Promise<string> {
   const leads = await getAllLeads();
 
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "Sintesys.io";
+  workbook.creator = "Il Consigliere";
   workbook.created = new Date();
 
   const sheet = workbook.addWorksheet("Leads", {
@@ -85,7 +85,7 @@ async function generateLeadsSpreadsheet(): Promise<string> {
 
   // Upload to S3 with unique filename
   const timestamp = new Date().toISOString().slice(0, 10);
-  const fileKey = `leads/sintesys-leads-${timestamp}-${nanoid(6)}.xlsx`;
+  const fileKey = `leads/ilconsigliere-leads-${timestamp}-${nanoid(6)}.xlsx`;
   const { url } = await storagePut(
     fileKey,
     Buffer.from(buffer),
@@ -552,7 +552,7 @@ export const appRouter = router({
       const qLeads = await getAllQualifiedLeads();
 
       const workbook = new ExcelJS.Workbook();
-      workbook.creator = "Sintesys.io";
+      workbook.creator = "Il Consigliere";
       workbook.created = new Date();
 
       const sheet = workbook.addWorksheet("Lead Qualificati", {
@@ -625,7 +625,7 @@ export const appRouter = router({
 
       const buffer = await workbook.xlsx.writeBuffer();
       const timestamp = new Date().toISOString().slice(0, 10);
-      const fileKey = `qualified-leads/sintesys-qualified-leads-${timestamp}-${nanoid(6)}.xlsx`;
+      const fileKey = `qualified-leads/ilconsigliere-qualified-leads-${timestamp}-${nanoid(6)}.xlsx`;
       const { url } = await storagePut(
         fileKey,
         Buffer.from(buffer),

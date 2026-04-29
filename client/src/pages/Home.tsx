@@ -13,7 +13,7 @@ import { motion, useInView } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const DATA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/data-section-9fYjcLRyFVkjjbgNw5fX7E.webp";
 
@@ -148,7 +148,7 @@ export default function Home() {
               fontWeight: 400,
             }}
           >
-            L'Intelligenza Artificiale tradotta in marginalità concreta &mdash; by Sintesys.io
+            L'Intelligenza Artificiale tradotta in marginalità concreta &mdash; by Il Consigliere
           </p>
         </div>
 
@@ -399,7 +399,7 @@ export default function Home() {
 
                     {/* Instagram follow */}
                     <a
-                      href="https://www.instagram.com/sintesys.io/"
+                      href="https://www.instagram.com/ilconsigliere.io/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block p-4 text-center transition-all duration-300"
@@ -420,7 +420,7 @@ export default function Home() {
                           color: "#1B2A4A",
                         }}
                       >
-                        Segui @sintesys.io su Instagram
+                        Segui @ilconsigliere.io su Instagram
                       </span>
                     </a>
                   </div>
@@ -1017,12 +1017,12 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* FOOTER */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <footer className="container pb-8" role="contentinfo" aria-label="Informazioni su Sintesys.io">
+      <footer className="container pb-8" role="contentinfo" aria-label="Informazioni su Il Consigliere">
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <img
-            src={BRAIN_ICON}
-            alt="Sintesys.io — Consulenza Intelligenza Artificiale per PMI italiane"
+            src={LOGO_ICON}
+            alt="Il Consigliere — Consulenza Intelligenza Artificiale per PMI italiane"
             className="h-8 w-8 rounded-full"
             loading="lazy"
             width="32"
@@ -1036,11 +1036,11 @@ export default function Home() {
               color: "#999",
             }}
           >
-            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati.
+            © {new Date().getFullYear()} Il Consigliere — Tutti i diritti riservati.
           </p>
           <div className="flex gap-6">
             <a
-              href="https://www.instagram.com/sintesys.io/"
+              href="https://www.instagram.com/ilconsigliere.io/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -1055,7 +1055,7 @@ export default function Home() {
               Instagram
             </a>
             <a
-              href="https://sintesys.io"
+              href="https://ilconsigliere.io"
               target="_blank"
               rel="noopener noreferrer"
               style={{

@@ -9,7 +9,7 @@ describe("GA4 Configuration", () => {
     expect(gaId).toMatch(/^G-[A-Z0-9]+$/);
   });
 
-  it("VITE_GA4_ID should be the correct Sintesys.io property", () => {
+  it("VITE_GA4_ID should be the correct Il Consigliere property", () => {
     const gaId = process.env.VITE_GA4_ID;
     expect(gaId).toBe("G-WWCFW68S8V");
   });

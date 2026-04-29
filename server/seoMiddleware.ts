@@ -21,12 +21,12 @@ interface PageMeta {
   noindex?: boolean;
 }
 
-const BASE_URL = "https://sintesysio.io";
+const BASE_URL = "https://ilconsigliere.io";
 const DEFAULT_OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 
 const PAGE_META: Record<string, PageMeta> = {
   "/": {
-    title: "Sintesys.io — Intelligenza Artificiale operativa per PMI italiane",
+    title: "Il Consigliere — Intelligenza Artificiale operativa per PMI italiane",
     description: "Riduca il caos operativo della Sua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio.",
     canonical: `${BASE_URL}/`,
   },
@@ -41,28 +41,28 @@ const PAGE_META: Record<string, PageMeta> = {
     canonical: `${BASE_URL}/mappa`,
   },
   "/mappa/grazie": {
-    title: "Grazie — La sua Mappa è in arrivo | Sintesys.io",
+    title: "Grazie — La sua Mappa è in arrivo | Il Consigliere",
     description: "Confermato. Riceverà i 6 file via email entro 2 minuti.",
     canonical: `${BASE_URL}/mappa/grazie`,
     noindex: true,
   },
   "/chi-siamo": {
-    title: "Chi è Sintesys.io — 28 anni di operations in multinazionali",
+    title: "Chi è Il Consigliere — 28 anni di operations in multinazionali",
     description: "Fondata da Lamberto Grinover. Da Nissan, Cushman & Wakefield, Tishman Speyer e Brookfield alle PMI italiane.",
     canonical: `${BASE_URL}/chi-siamo`,
   },
   "/contattaci": {
-    title: "Contatti & Conversazione Strategica — Sintesys.io",
+    title: "Contatti & Conversazione Strategica — Il Consigliere",
     description: "Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h.",
     canonical: `${BASE_URL}/contattaci`,
   },
   "/links": {
-    title: "Sintesys.io — Link | Tutti i nostri canali",
-    description: "Tutti i contenuti, prodotti e modi per entrare in contatto con Sintesys.io.",
+    title: "Il Consigliere — Link | Tutti i nostri canali",
+    description: "Tutti i contenuti, prodotti e modi per entrare in contatto con Il Consigliere.",
     canonical: `${BASE_URL}/links`,
   },
   "/grazie": {
-    title: "Grazie — Iscrizione confermata | Sintesys.io",
+    title: "Grazie — Iscrizione confermata | Il Consigliere",
     description: "Riceverà la Guida Transizione 5.0 entro pochi minuti. Controlli anche lo spam.",
     canonical: `${BASE_URL}/grazie`,
     noindex: true,

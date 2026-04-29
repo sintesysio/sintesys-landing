@@ -37,7 +37,7 @@ import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
 import { Button } from "./ui/button";
 
 const LOGO_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/sintesys-logo_8369f699.png";
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
@@ -75,13 +75,13 @@ export default function AdminLayout({
     return (
       <div className="flex items-center justify-center min-h-screen bg-background">
         <div className="flex flex-col items-center gap-8 p-8 max-w-md w-full">
-          <img src={LOGO_URL} alt="Sintesys.io" className="w-16 h-16" />
+          <img src={LOGO_URL} alt="Il Consigliere" className="w-16 h-16" />
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-2xl font-semibold tracking-tight text-center">
               Acesso Restrito
             </h1>
             <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Esta área é exclusiva para administradores da Sintesys.io. Faça
+              Esta área é exclusiva para administradores da Il Consigliere. Faça
               login para continuar.
             </p>
           </div>
@@ -204,9 +204,9 @@ function AdminSidebarContent({
               </button>
               {!isCollapsed && (
                 <div className="flex items-center gap-2 min-w-0">
-                  <img src={LOGO_URL} alt="Sintesys.io" className="w-6 h-6" />
+                  <img src={LOGO_URL} alt="Il Consigliere" className="w-6 h-6" />
                   <span className="font-semibold tracking-tight truncate text-white text-sm">
-                    Sintesys.io
+                    Il Consigliere
                   </span>
                 </div>
               )}

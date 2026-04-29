@@ -11,7 +11,7 @@ interface SEOHeadProps {
 }
 
 const DEFAULT_OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
-const BASE_URL = "https://sintesysio.io";
+const BASE_URL = "https://ilconsigliere.io";
 
 export default function SEOHead({
   title,
@@ -38,7 +38,7 @@ export default function SEOHead({
       <meta property="og:type" content="website" />
       <meta property="og:locale" content="it_IT" />
       <meta property="og:url" content={fullUrl} />
-      <meta property="og:site_name" content="Sintesys.io" />
+      <meta property="og:site_name" content="Il Consigliere" />
       <meta property="og:title" content={finalOgTitle} />
       <meta property="og:description" content={finalOgDescription} />
       <meta property="og:image" content={finalOgImage} />

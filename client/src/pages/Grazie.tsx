@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { trackConversion } from "@/lib/tracking";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 
 export default function Grazie() {
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function Grazie() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Grazie — Iscrizione confermata | Sintesys.io"
+        title="Grazie — Iscrizione confermata | Il Consigliere"
         description="Riceverà la Guida Transizione 5.0 entro pochi minuti. Controlli anche lo spam."
         path="/grazie"
         noindex
@@ -31,7 +31,7 @@ export default function Grazie() {
         <div className="rule-thick mt-0" />
         <div className="flex items-center justify-between py-3">
           <Link href="/" className="flex items-center gap-2 no-underline">
-            <img src={BRAIN_ICON} alt="Sintesys.io" className="h-8 w-8 rounded-full" loading="eager" />
+            <img src={LOGO_ICON} alt="Il Consigliere" className="h-8 w-8 rounded-full" loading="eager" />
             <span
               style={{
                 fontFamily: "'Playfair Display', serif",
@@ -40,7 +40,7 @@ export default function Grazie() {
                 color: "#1A1A1A",
               }}
             >
-              Sintesys.io
+              Il Consigliere
             </span>
           </Link>
         </div>
@@ -320,7 +320,7 @@ export default function Grazie() {
             color: "#999",
           }}
         >
-          © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati.
+          © {new Date().getFullYear()} Il Consigliere — Tutti i diritti riservati.
         </p>
       </footer>
     </div>

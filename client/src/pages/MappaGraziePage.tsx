@@ -9,7 +9,7 @@ import SEOHead from "@/components/SEOHead";
 import { Link } from "wouter";
 import { trackPurchase } from "@/lib/tracking";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 
 export default function MappaGraziePage() {
   // Extract session_id from URL params
@@ -32,7 +32,7 @@ export default function MappaGraziePage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Grazie — La sua Mappa è in arrivo | Sintesys.io"
+        title="Grazie — La sua Mappa è in arrivo | Il Consigliere"
         description="Confermato. Riceverà i 6 file via email entro 2 minuti."
         path="/mappa/grazie"
         noindex
@@ -48,7 +48,7 @@ export default function MappaGraziePage() {
         <div className="container py-3 flex items-center justify-between">
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer">
-              <img src={BRAIN_ICON} alt="Sintesys.io" className="w-7 h-7" />
+              <img src={LOGO_ICON} alt="Il Consigliere" className="w-7 h-7" />
               <span
                 style={{
                   fontFamily: "'Playfair Display', serif",
@@ -58,7 +58,7 @@ export default function MappaGraziePage() {
                   letterSpacing: "0.04em",
                 }}
               >
-                Sintesys.io
+                Il Consigliere
               </span>
             </div>
           </Link>
@@ -352,10 +352,10 @@ export default function MappaGraziePage() {
           >
             Problemi con la consegna? Scrivi a{" "}
             <a
-              href="mailto:info@sintesys.io"
+              href="mailto:info@ilconsigliere.io"
               style={{ color: "#1B2A4A", textDecoration: "underline" }}
             >
-              info@sintesys.io
+              info@ilconsigliere.io
             </a>{" "}
             e ti risponderemo entro 24 ore.
           </p>
@@ -398,7 +398,7 @@ export default function MappaGraziePage() {
               color: "rgba(250,250,247,0.5)",
             }}
           >
-            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati
+            © {new Date().getFullYear()} Il Consigliere — Tutti i diritti riservati
           </p>
         </div>
       </footer>

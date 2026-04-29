@@ -1,11 +1,11 @@
-# Robots.txt — Sintesys.io
+# Robots.txt — Il Consigliere
 # Il Giornale dell'IA
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://sintesysio.io/sitemap.xml
+Sitemap: https://ilconsigliere.io/sitemap.xml
 
 # Crawl-delay (optional, for polite crawling)
 Crawl-delay: 1

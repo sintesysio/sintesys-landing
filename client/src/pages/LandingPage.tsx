@@ -1,5 +1,5 @@
 /**
- * Site Institucional Sintesys.io — Home Page
+ * Site Institucional Il Consigliere — Home Page
  * Focus: Lead capture for newsletter (depth and conversion channel)
  * Estratégia de funil:
  *   1. Instagram → Distribuição mídia paga (topo de funil)
@@ -18,7 +18,7 @@ import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
 import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
@@ -274,10 +274,10 @@ export default function LandingPage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Sintesys.io — Intelligenza Artificiale operativa per PMI italiane"
+        title="Il Consigliere — Intelligenza Artificiale operativa per PMI italiane"
         description="Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio."
         path="/"
-        ogTitle="Sintesys.io — Intelligenza Artificiale operativa per PMI italiane"
+        ogTitle="Il Consigliere — Intelligenza Artificiale operativa per PMI italiane"
         ogDescription="Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio."
       />
       <NavBar />
@@ -323,7 +323,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Sintesys.io traduce l'Intelligenza Artificiale in risultati operativi concreti per le Piccole e Medie Imprese italiane. Niente teoria, niente gergo tecnico — solo strategie misurabili che riducono costi, eliminano sprechi e liberano il tuo tempo.
+                Il Consigliere traduce l'Intelligenza Artificiale in risultati operativi concreti per le Piccole e Medie Imprese italiane. Niente teoria, niente gergo tecnico — solo strategie misurabili che riducono costi, eliminano sprechi e liberano il tuo tempo.
               </p>
               <p
                 className="mb-8"
@@ -903,7 +903,7 @@ export default function LandingPage() {
                 >
                   <img
                     src={LAMBERTO_PHOTO}
-                    alt="Lamberto Grinover — Fondatore Sintesys.io"
+                    alt="Lamberto Grinover — Fondatore Il Consigliere"
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
@@ -1009,8 +1009,8 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto space-y-0">
           {[
             {
-              q: "Cos'è Sintesys.io?",
-              a: "Sintesys.io è una società di consulenza strategica specializzata nell'integrazione dell'Intelligenza Artificiale nelle Piccole e Medie Imprese italiane. Fondata da Lamberto Grinover, traduce la complessità tecnologica in risultati operativi misurabili: riduzione costi, efficienza e marginalità.",
+              q: "Cos'è Il Consigliere?",
+              a: "Il Consigliere è una società di consulenza strategica specializzata nell'integrazione dell'Intelligenza Artificiale nelle Piccole e Medie Imprese italiane. Fondata da Lamberto Grinover, traduce la complessità tecnologica in risultati operativi misurabili: riduzione costi, efficienza e marginalità.",
             },
             {
               q: "La newsletter è davvero gratuita?",
@@ -1099,7 +1099,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Iscriviti alla newsletter di Sintesys.io e ricevi ogni settimana strategie IA concrete per la tua PMI. Più la Guida Transizione 5.0 in omaggio.
+                Iscriviti alla newsletter di Il Consigliere e ricevi ogni settimana strategie IA concrete per la tua PMI. Più la Guida Transizione 5.0 in omaggio.
               </p>
               <NewsletterForm variant="dark" id="footer-cta" />
             </div>
@@ -1115,8 +1115,8 @@ export default function LandingPage() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-2 no-underline">
             <img
-              src={BRAIN_ICON}
-              alt="Sintesys.io"
+              src={LOGO_ICON}
+              alt="Il Consigliere"
               className="h-8 w-8 rounded-full"
               loading="lazy"
               style={{ filter: "brightness(0)" }}
@@ -1129,7 +1129,7 @@ export default function LandingPage() {
                 color: "#1A1A1A",
               }}
             >
-              Sintesys.io
+              Il Consigliere
             </span>
           </Link>
           <p
@@ -1139,7 +1139,7 @@ export default function LandingPage() {
               color: "#999",
             }}
           >
-            &copy; {new Date().getFullYear()} Sintesys.io &mdash; Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} Il Consigliere &mdash; Tutti i diritti riservati.
           </p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <Link
@@ -1176,7 +1176,7 @@ export default function LandingPage() {
               Mappa IA
             </Link>
             <a
-              href="https://www.instagram.com/sintesys.io/"
+              href="https://www.instagram.com/ilconsigliere.io/"
               target="_blank"
               rel="noopener noreferrer"
               className="no-underline"

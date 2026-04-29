@@ -8,16 +8,16 @@ import { describe, it, expect } from "vitest";
  * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €95,50)
  * 2. Il Giornale dell'IA → Newsletter (cattura lead)
  * 3. Sito Istituzionale → Newsletter (cattura lead)
- * 4. Chi è Sintesys.io → Pagina Chi Siamo
+ * 4. Chi è Il Consigliere → Pagina Chi Siamo
  */
 
-const BASE_URL = "https://sintesysio.io";
+const BASE_URL = "https://ilconsigliere.io";
 
 function buildUtmUrl(path: string, utmContent: string): string {
   const url = new URL(path, BASE_URL);
   url.searchParams.set("utm_source", "ig");
   url.searchParams.set("utm_medium", "linkinbio");
-  url.searchParams.set("utm_campaign", "bio-sintesys");
+  url.searchParams.set("utm_campaign", "bio-ilconsigliere");
   url.searchParams.set("utm_content", utmContent);
   url.searchParams.set("utm_term", "bio-link");
   return url.toString();
@@ -27,8 +27,8 @@ function buildUtmUrl(path: string, utmContent: string): string {
 const LINKS = [
   { label: "Mappa delle Opportunità IA — €95,50", href: "/mappa", utmContent: "mappa-ia", primary: true, action: "stripe" as const },
   { label: "Il Giornale dell'IA", href: "/giornale", utmContent: "giornale-ia", action: "link" as const },
-  { label: "Sintesys.io — Sito Istituzionale", href: "/", utmContent: "sito-istituzionale", action: "link" as const },
-  { label: "Chi è Sintesys.io", href: "/chi-siamo", utmContent: "chi-siamo", action: "link" as const },
+  { label: "Il Consigliere — Sito Istituzionale", href: "/", utmContent: "sito-istituzionale", action: "link" as const },
+  { label: "Chi è Il Consigliere", href: "/chi-siamo", utmContent: "chi-siamo", action: "link" as const },
 ];
 
 describe("Links Page — UTM URL Generation", () => {
@@ -36,10 +36,10 @@ describe("Links Page — UTM URL Generation", () => {
     const url = buildUtmUrl("/mappa", "mappa-ia");
     expect(url).toContain("utm_source=ig");
     expect(url).toContain("utm_medium=linkinbio");
-    expect(url).toContain("utm_campaign=bio-sintesys");
+    expect(url).toContain("utm_campaign=bio-ilconsigliere");
     expect(url).toContain("utm_content=mappa-ia");
     expect(url).toContain("utm_term=bio-link");
-    expect(url).toContain("sintesysio.io");
+    expect(url).toContain("ilconsigliere.io");
   });
 
   it("generates correct UTM URL for Il Giornale dell'IA", () => {
@@ -52,7 +52,7 @@ describe("Links Page — UTM URL Generation", () => {
   it("generates correct UTM URL for Sito Istituzionale", () => {
     const url = buildUtmUrl("/", "sito-istituzionale");
     expect(url).toContain("utm_content=sito-istituzionale");
-    expect(url).toContain("sintesysio.io");
+    expect(url).toContain("ilconsigliere.io");
   });
 
   it("generates correct UTM URL for Chi Siamo", () => {
@@ -64,7 +64,7 @@ describe("Links Page — UTM URL Generation", () => {
   it("all UTM URLs use the production domain", () => {
     LINKS.forEach((link) => {
       const url = buildUtmUrl(link.href, link.utmContent);
-      expect(url.startsWith("https://sintesysio.io")).toBe(true);
+      expect(url.startsWith("https://ilconsigliere.io")).toBe(true);
     });
   });
 
@@ -73,7 +73,7 @@ describe("Links Page — UTM URL Generation", () => {
     const parsed = new URL(url);
     expect(parsed.searchParams.get("utm_source")).toBe("ig");
     expect(parsed.searchParams.get("utm_medium")).toBe("linkinbio");
-    expect(parsed.searchParams.get("utm_campaign")).toBe("bio-sintesys");
+    expect(parsed.searchParams.get("utm_campaign")).toBe("bio-ilconsigliere");
     expect(parsed.searchParams.get("utm_content")).toBe("mappa-ia");
     expect(parsed.searchParams.get("utm_term")).toBe("bio-link");
   });

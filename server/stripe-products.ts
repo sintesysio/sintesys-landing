@@ -1,5 +1,5 @@
 /**
- * Stripe Products & Prices — Sintesys.io
+ * Stripe Products & Prices — Il Consigliere
  *
  * Centralized product definitions for Stripe Checkout.
  * Products are created on-the-fly using Stripe's inline price_data

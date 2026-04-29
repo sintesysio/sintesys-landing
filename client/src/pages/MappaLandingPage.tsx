@@ -14,8 +14,8 @@ import { Link } from "wouter";
 import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
 import { toast } from "sonner";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
-const SINTESYS_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/uMGoFQehbWRsupxh.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
+const CONSIGLIERE_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/uMGoFQehbWRsupxh.png";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 const PRODUCT_MOCKUP = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/mappa-product-mockup-YeV4GMZTfumsJocuzn54Da.webp";
 
@@ -177,7 +177,7 @@ export default function MappaLandingPage() {
       <header style={{ backgroundColor: "#1B2A4A" }}>
         <div className="container flex items-center justify-between py-3">
           <Link href="/" className="flex items-center gap-2 no-underline">
-            <img src={SINTESYS_LOGO} alt="Sintesys.io" className="h-8 object-contain" loading="eager" style={{ filter: "brightness(0) invert(1)" }} />
+            <img src={CONSIGLIERE_LOGO} alt="Il Consigliere" className="h-8 object-contain" loading="eager" style={{ filter: "brightness(0) invert(1)" }} />
           </Link>
           <span
             style={{
@@ -661,7 +661,7 @@ export default function MappaLandingPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Stiamo costruendo la base operativa di Sintesys.io adesso. I primi 100 imprenditori italiani che acquistano la Mappa ci aiutano a calibrare lo strumento — in cambio, ricevono il prezzo di lancio. Quando arriviamo a quota 100, il prezzo torna a €179,90.
+                  Stiamo costruendo la base operativa di Il Consigliere adesso. I primi 100 imprenditori italiani che acquistano la Mappa ci aiutano a calibrare lo strumento — in cambio, ricevono il prezzo di lancio. Quando arriviamo a quota 100, il prezzo torna a €179,90.
                 </p>
                 <p
                   className="mt-3"
@@ -685,7 +685,7 @@ export default function MappaLandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* CHI L'HA COSTRUITA — Lamberto + Sintesys.io             */}
+      {/* CHI L'HA COSTRUITA — Lamberto + Il Consigliere             */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="py-14 lg:py-20" style={{ backgroundColor: "rgba(27,42,74,0.04)" }}>
         <div className="container">
@@ -709,7 +709,7 @@ export default function MappaLandingPage() {
             <FadeIn delay={0.1} className="lg:col-span-3">
               <img
                 src={LAMBERTO_PHOTO}
-                alt="Lamberto Grinover — Fondatore di Sintesys.io"
+                alt="Lamberto Grinover — Fondatore di Il Consigliere"
                 className="w-32 h-32 lg:w-full lg:h-auto object-cover rounded-sm"
                 loading="lazy"
                 style={{ filter: "grayscale(20%)" }}
@@ -721,7 +721,7 @@ export default function MappaLandingPage() {
                   <strong style={{ color: "#1A1A1A" }}>Lamberto Grinover.</strong> 28 anni in ruoli direttivi in quattro multinazionali — Nissan Italia, Cushman &amp; Wakefield, Tishman Speyer, Brookfield — gestendo operazioni per oltre €200M e team di 150+ persone.
                 </p>
                 <p className="mb-5">
-                  Oggi porta quella stessa disciplina operativa alle PMI italiane. Sintesys.io non vende software, non vende corsi, non vende illusioni. Vende il metodo per portare ordine prima, e intelligenza dopo.
+                  Oggi porta quella stessa disciplina operativa alle PMI italiane. Il Consigliere non vende software, non vende corsi, non vende illusioni. Vende il metodo per portare ordine prima, e intelligenza dopo.
                 </p>
                 <p>
                   La Mappa che riceverà è il primo strumento del metodo — quello che usiamo come punto di partenza con ogni nostro cliente di consulenza. Adesso lo abbiamo reso disponibile in versione self-service.
@@ -876,7 +876,7 @@ export default function MappaLandingPage() {
                   Ha quattordici giorni dal momento dell'acquisto. Apre il foglio, lo prova, lo legge. Se decide che non vale i €95,50 che ha speso, le rimborsiamo l'intera cifra. Senza domande, senza moduli, senza giustificazioni.
                 </p>
                 <p className="mb-5">
-                  Una sola email a <strong style={{ color: "#1B2A4A" }}>ciao@sintesys.io</strong> con scritto "rimborso" e l'oggetto del suo ordine. Bonifico entro tre giorni lavorativi.
+                  Una sola email a <strong style={{ color: "#1B2A4A" }}>ciao@ilconsigliere.io</strong> con scritto "rimborso" e l'oggetto del suo ordine. Bonifico entro tre giorni lavorativi.
                 </p>
                 <p style={{ fontStyle: "italic", color: "#666" }}>
                   Funziona così perché abbiamo già lavorato la versione attuale con decine di imprenditori, e sappiamo che la Mappa fa il suo mestiere. Se non lo fa per Lei, è giusto che non paghi.
@@ -931,7 +931,7 @@ export default function MappaLandingPage() {
             },
             {
               q: "E la privacy?",
-              a: "I dati che inserisce nel foglio restano sul suo computer. Sintesys.io non ha accesso a quello che scrive. Il foglio non si connette a internet, non manda statistiche, non comunica con noi. Ce lo siamo costruiti così di proposito.",
+              a: "I dati che inserisce nel foglio restano sul suo computer. Il Consigliere non ha accesso a quello che scrive. Il foglio non si connette a internet, non manda statistiche, non comunica con noi. Ce lo siamo costruiti così di proposito.",
             },
           ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.05}>
@@ -1073,8 +1073,8 @@ export default function MappaLandingPage() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <img
-              src={BRAIN_ICON}
-              alt="Sintesys.io"
+              src={LOGO_ICON}
+              alt="Il Consigliere"
               className="h-6 w-6 rounded-full"
               loading="lazy"
               style={{ filter: "brightness(0)" }}
@@ -1086,12 +1086,12 @@ export default function MappaLandingPage() {
                 color: "#999",
               }}
             >
-              Sintesys.io — ciao@sintesys.io
+              Il Consigliere — ciao@ilconsigliere.io
             </span>
           </div>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
-              href="https://www.instagram.com/sintesys.io/"
+              href="https://www.instagram.com/ilconsigliere.io/"
               target="_blank"
               rel="noopener noreferrer"
               className="no-underline"
@@ -1128,7 +1128,7 @@ export default function MappaLandingPage() {
               color: "#bbb",
             }}
           >
-            © {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati.
+            © {new Date().getFullYear()} Il Consigliere — Tutti i diritti riservati.
           </p>
         </div>
       </footer>

@@ -155,7 +155,7 @@ function createAdminCaller() {
       id: 1,
       openId: "admin-open-id",
       name: "Lamberto Grinover",
-      email: "lamberto@sintesys.io",
+      email: "lamberto@ilconsigliere.io",
       avatarUrl: null,
       role: "admin",
       createdAt: new Date(),

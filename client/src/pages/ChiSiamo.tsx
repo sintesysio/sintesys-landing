@@ -1,5 +1,5 @@
 /**
- * Chi Siamo — About page for Sintesys.io
+ * Chi Siamo — About page for Il Consigliere
  * Positions Lamberto Grinover as an executive consultant in technological innovation and AI.
  * Uses the same editorial newspaper style as the landing page.
  */
@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import NavBar from "@/components/NavBar";
 import SEOHead from "@/components/SEOHead";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -28,7 +28,7 @@ export default function ChiSiamo() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
       <SEOHead
-        title="Chi è Sintesys.io — 28 anni di operations in multinazionali"
+        title="Chi è Il Consigliere — 28 anni di operations in multinazionali"
         description="Fondata da Lamberto Grinover. Da Nissan, Cushman & Wakefield, Tishman Speyer e Brookfield alle PMI italiane."
         path="/chi-siamo"
       />
@@ -86,7 +86,7 @@ export default function ChiSiamo() {
                 >
                   <img
                     src="https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png"
-                    alt="Lamberto Grinover — Fondatore di Sintesys.io"
+                    alt="Lamberto Grinover — Fondatore di Il Consigliere"
                     className="w-full h-full object-cover object-top"
                     loading="lazy"
                     width="128"
@@ -201,7 +201,7 @@ export default function ChiSiamo() {
                   Non parla di algoritmi. Parla la lingua dell'imprenditore: <strong>marginalità, controllo dei costi, efficienza e flusso di cassa</strong>. Non vende tecnologia — vende risultati misurabili, con il rigore analitico di chi ha gestito P&amp;L da centinaia di milioni.
                 </p>
                 <p>
-                  Ha fondato <strong>Sintesys.io</strong> con una missione semplice — tradurre l'Intelligenza Artificiale in marginalità concreta per chi ha 10-50 dipendenti e margini da proteggere.
+                  Ha fondato <strong>Il Consigliere</strong> con una missione semplice — tradurre l'Intelligenza Artificiale in marginalità concreta per chi ha 10-50 dipendenti e margini da proteggere.
                 </p>
               </div>
             </FadeIn>
@@ -210,7 +210,7 @@ export default function ChiSiamo() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* MISSIONE SINTESYS.IO */}
+      {/* MISSIONE IL CONSIGLIERE */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="container pb-16">
         <div className="max-w-5xl mx-auto">
@@ -326,7 +326,7 @@ export default function ChiSiamo() {
                   color: "#999",
                 }}
               >
-                — Lamberto Grinover, Fondatore Sintesys.io
+                — Lamberto Grinover, Fondatore Il Consigliere
               </p>
               <div className="rule-thin mt-8 max-w-md mx-auto" />
             </div>
@@ -405,7 +405,7 @@ export default function ChiSiamo() {
         <div className="rule-thick mb-4" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <img src={BRAIN_ICON} alt="Sintesys.io" className="h-6 w-6 rounded-full opacity-60" />
+            <img src={LOGO_ICON} alt="Il Consigliere" className="h-6 w-6 rounded-full opacity-60" />
             <span
               style={{
                 fontFamily: "'Inter', sans-serif",
@@ -413,7 +413,7 @@ export default function ChiSiamo() {
                 color: "#999",
               }}
             >
-              &copy; {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati
+              &copy; {new Date().getFullYear()} Il Consigliere — Tutti i diritti riservati
             </span>
           </div>
           <span

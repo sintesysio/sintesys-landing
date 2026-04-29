@@ -14,7 +14,7 @@ describe("Meta Pixel Configuration", () => {
     expect(pixelId).toMatch(/^\d{15,16}$/);
   });
 
-  it("should match the Sintesys.io Meta Pixel ID", () => {
+  it("should match the Il Consigliere Meta Pixel ID", () => {
     const pixelId = process.env.VITE_META_PIXEL_ID!;
     expect(pixelId).toBe("1492021632520081");
   });

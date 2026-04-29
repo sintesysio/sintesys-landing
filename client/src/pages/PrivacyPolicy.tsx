@@ -42,11 +42,11 @@ export default function PrivacyPolicy() {
               1. Titolare del Trattamento
             </h2>
             <p className="leading-relaxed">
-              Il titolare del trattamento dei dati personali è <strong>Sintesys.io</strong>,
+              Il titolare del trattamento dei dati personali è <strong>Il Consigliere</strong>,
               con sede operativa in Italia. Per qualsiasi comunicazione relativa alla
               protezione dei dati, è possibile scrivere a{" "}
-              <a href="mailto:privacy@sintesys.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                privacy@sintesys.io
+              <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                privacy@ilconsigliere.io
               </a>.
             </p>
           </section>
@@ -237,8 +237,8 @@ export default function PrivacyPolicy() {
               dei tuoi dati personali, puoi contattarci all'indirizzo:
             </p>
             <p className="mt-3 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="mailto:privacy@sintesys.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                privacy@sintesys.io
+              <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                privacy@ilconsigliere.io
               </a>
             </p>
           </section>
@@ -250,7 +250,7 @@ export default function PrivacyPolicy() {
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
-            &copy; {new Date().getFullYear()} Sintesys.io &mdash; Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} Il Consigliere &mdash; Tutti i diritti riservati.
           </p>
           <div className="flex gap-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
             <a href="/terms-of-service" className="hover:text-[#1B2A4A] transition-colors">Termini di Servizio</a>

@@ -15,7 +15,7 @@ import { nanoid } from "nanoid";
 
 // Generate unique test email to avoid collisions
 const TEST_ID = nanoid(6);
-const TEST_EMAIL = `integration-lp-${TEST_ID}@sintesys-test.io`;
+const TEST_EMAIL = `integration-lp-${TEST_ID}@ilconsigliere-test.io`;
 const TEST_DATA = {
   name: `Integration Test LP ${TEST_ID}`,
   email: TEST_EMAIL,
@@ -95,7 +95,7 @@ describe("landingLeads.submit — Integration Test (Real APIs)", () => {
     console.log(`[DB] ✓ Verified lead in DB: ${found!.email}`);
   });
 
-  it("Step 3: Syncs to Mailchimp with tag Qualificato", async () => {
+  it("Step 3: Syncs to Mailchimp with tag Qualificato", { timeout: 15000 }, async () => {
     const apiKey = process.env.MAILCHIMP_API_KEY;
     if (!apiKey) {
       console.log("[Mailchimp] Skipped: no API key");

@@ -1,5 +1,5 @@
 /**
- * Link in Bio — Instagram (@sintesys.io)
+ * Link in Bio — Instagram (@ilconsigliere.io)
  * Pagina di menu per il link nella bio di Instagram
  * Stile editoriale "Il Giornale dell'IA" — coerente con il brand
  * Tutti i link con UTM tracking completo per GA4
@@ -9,17 +9,17 @@
  * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €95,50)
  * 2. Il Giornale dell'IA → Newsletter (cattura lead)
  * 3. Sito Istituzionale → Newsletter (cattura lead)
- * 4. Chi è Sintesys.io → Pagina Chi Siamo
+ * 4. Chi è Il Consigliere → Pagina Chi Siamo
  */
 
 import { useEffect, useState, useCallback } from "react";
 import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
-const BRAIN_ICON =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON =
+  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 
-const BASE_URL = "https://sintesysio.io";
+const BASE_URL = "https://ilconsigliere.io";
 
 interface LinkItem {
   label: string;
@@ -61,7 +61,7 @@ const LINKS: LinkItem[] = [
     action: "link",
   },
   {
-    label: "Chi \u00e8 Sintesys.io",
+    label: "Chi \u00e8 Il Consigliere",
     description:
       "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della Sua PMI.",
     href: "/chi-siamo",
@@ -82,7 +82,7 @@ function buildUtmUrl(path: string, utmContent: string): string {
   const url = new URL(path, BASE_URL);
   url.searchParams.set("utm_source", "ig");
   url.searchParams.set("utm_medium", "linkinbio");
-  url.searchParams.set("utm_campaign", "bio-sintesys");
+  url.searchParams.set("utm_campaign", "bio-ilconsigliere");
   url.searchParams.set("utm_content", utmContent);
   url.searchParams.set("utm_term", "bio-link");
   return url.toString();
@@ -138,8 +138,8 @@ export default function Links() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] flex flex-col items-center">
       <SEOHead
-        title="Sintesys.io — Link | Tutti i nostri canali"
-        description="Tutti i contenuti, prodotti e modi per entrare in contatto con Sintesys.io."
+        title="Il Consigliere — Link | Tutti i nostri canali"
+        description="Tutti i contenuti, prodotti e modi per entrare in contatto con Il Consigliere."
         path="/links"
       />
       
@@ -149,8 +149,8 @@ export default function Links() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="h-px flex-1 bg-[#1B2A4A]/20" />
           <img
-            src={BRAIN_ICON}
-            alt="Sintesys.io"
+            src={LOGO_ICON}
+            alt="Il Consigliere"
             className="w-10 h-10"
           />
           <div className="h-px flex-1 bg-[#1B2A4A]/20" />
@@ -161,7 +161,7 @@ export default function Links() {
           className="text-2xl font-bold text-[#1B2A4A] tracking-tight leading-tight"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Sintesys.io
+          Il Consigliere
         </h1>
 
         {/* Date line — newspaper style */}
@@ -289,7 +289,7 @@ export default function Links() {
 
         {/* Instagram follow */}
         <a
-          href="https://www.instagram.com/sintesys.io/"
+          href="https://www.instagram.com/ilconsigliere.io/"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackCTAClick("Segui su Instagram", "linkinbio")}
@@ -307,7 +307,7 @@ export default function Links() {
             className="text-xs font-medium uppercase tracking-wider"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            @sintesys.io
+            @ilconsigliere.io
           </span>
         </a>
       </main>
@@ -325,7 +325,7 @@ export default function Links() {
           className="text-[10px] text-[#1B2A4A]/20 mt-1"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          &copy; {new Date().getFullYear()} Sintesys.io — Tutti i diritti
+          &copy; {new Date().getFullYear()} Il Consigliere — Tutti i diritti
           riservati
         </p>
       </footer>

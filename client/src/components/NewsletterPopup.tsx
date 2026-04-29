@@ -14,8 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView } from "@/lib/tracking";
 
-const STORAGE_KEY = "sintesys_popup_submitted";
-const SEEN_KEY = "sintesys_popup_seen";
+const STORAGE_KEY = "ilconsigliere_popup_submitted";
+const SEEN_KEY = "ilconsigliere_popup_seen";
 const COOLDOWN_DAYS = 14;
 const EXCLUDED_PATHS = ["/mappa", "/mappa/grazie", "/grazie", "/chi-siamo"];
 

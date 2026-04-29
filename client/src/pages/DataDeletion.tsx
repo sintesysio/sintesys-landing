@@ -67,8 +67,8 @@ export default function DataDeletion() {
                   </h3>
                   <p className="leading-relaxed">
                     Scrivi un'email a{" "}
-                    <a href="mailto:privacy@sintesys.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                      privacy@sintesys.io
+                    <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                      privacy@ilconsigliere.io
                     </a>{" "}
                     con oggetto <strong>"Richiesta Cancellazione Dati"</strong>. Utilizza
                     l'indirizzo email associato al tuo account per una verifica rapida.
@@ -172,7 +172,7 @@ export default function DataDeletion() {
               {[
                 "Accedi al tuo profilo Facebook e vai su Impostazioni e privacy > Impostazioni.",
                 "Nel menu a sinistra, seleziona App e siti web.",
-                "Trova l'app Sintesys.io nella lista delle applicazioni collegate.",
+                "Trova l'app Il Consigliere nella lista delle applicazioni collegate.",
                 "Clicca su Rimuovi per revocare l'accesso e richiedere la cancellazione dei dati.",
               ].map((step, i) => (
                 <div key={i} className="flex items-start gap-3">
@@ -198,8 +198,8 @@ export default function DataDeletion() {
               esercitare i tuoi diritti ai sensi del GDPR, puoi contattarci all'indirizzo:
             </p>
             <p className="mt-3 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="mailto:privacy@sintesys.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                privacy@sintesys.io
+              <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                privacy@ilconsigliere.io
               </a>
             </p>
             <p className="mt-4 text-sm" style={{ color: "#777" }}>
@@ -223,7 +223,7 @@ export default function DataDeletion() {
         <div className="rule-thin mb-6" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
-            &copy; {new Date().getFullYear()} Sintesys.io &mdash; Tutti i diritti riservati.
+            &copy; {new Date().getFullYear()} Il Consigliere &mdash; Tutti i diritti riservati.
           </p>
           <div className="flex gap-6" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
             <a href="/privacy-policy" className="hover:text-[#1B2A4A] transition-colors">Informativa Privacy</a>

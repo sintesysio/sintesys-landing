@@ -57,8 +57,8 @@ describe("Mailchimp API credentials", () => {
 });
 
 describe("Mailchimp sync functions", () => {
-  const TEST_EMAIL_SIMPLE = `test-lead-${Date.now()}@sintesys-test.io`;
-  const TEST_EMAIL_QUALIFIED = `test-qual-${Date.now()}@sintesys-test.io`;
+  const TEST_EMAIL_SIMPLE = `test-lead-${Date.now()}@ilconsigliere-test.io`;
+  const TEST_EMAIL_QUALIFIED = `test-qual-${Date.now()}@ilconsigliere-test.io`;
 
   it("syncSimpleLead adds a subscriber with tag 'lead' and sector tag", async () => {
     const { syncSimpleLead } = await import("./mailchimp");

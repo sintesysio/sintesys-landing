@@ -11,7 +11,7 @@ import SEOHead from "@/components/SEOHead";
 import { trpc } from "@/lib/trpc";
 import { trackLeadQualified, trackFormView } from "@/lib/tracking";
 
-const BRAIN_ICON = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/brain-icon_a74d4c28.png";
+const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/PabMcZkaHOkqxPeO.png";
 
 const TOTAL_STEPS = 5; // Contact info + 4 qualification sections
 
@@ -375,7 +375,7 @@ export default function Contattaci() {
     return (
       <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
         <SEOHead
-        title="Contatti \& Conversazione Strategica — Sintesys.io"
+        title="Contatti \& Conversazione Strategica — Il Consigliere"
         description="Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h."
         path="/contattaci"
       />
@@ -480,7 +480,7 @@ export default function Contattaci() {
               }}
             >
               Controlli la Sua casella di posta (anche lo spam) — riceverai un'email di conferma
-              da <strong>commerciale@sintesys.info</strong> nei prossimi minuti.
+              da <strong>lamberto@grinoverconsulenza.it</strong> nei prossimi minuti.
             </p>
             <a
               href="/"
@@ -503,7 +503,7 @@ export default function Contattaci() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
       <SEOHead
-        title="Contatti \& Conversazione Strategica — Sintesys.io"
+        title="Contatti \& Conversazione Strategica — Il Consigliere"
         description="Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h."
         path="/contattaci"
       />
@@ -539,7 +539,7 @@ export default function Contattaci() {
             lineHeight: 1.6,
           }}
         >
-          30 minuti per capire se Sintesys può davvero fare la differenza nella sua azienda.{" "}
+          30 minuti per capire se Il Consigliere può davvero fare la differenza nella sua azienda.{" "}
           <strong style={{ color: "#1B2A4A" }}>Posti limitati ogni mese — accettiamo solo PMI con almeno 10 dipendenti.</strong>
         </p>
       </section>
@@ -827,9 +827,9 @@ export default function Contattaci() {
         <div className="rule-thick mb-4" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <img src={BRAIN_ICON} alt="Sintesys.io" className="h-6 w-6 rounded-full opacity-60" />
+            <img src={LOGO_ICON} alt="Il Consigliere" className="h-6 w-6 rounded-full opacity-60" />
             <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}>
-              &copy; {new Date().getFullYear()} Sintesys.io — Tutti i diritti riservati
+              &copy; {new Date().getFullYear()} Il Consigliere — Tutti i diritti riservati
             </span>
           </div>
         </div>

@@ -29,7 +29,7 @@ vi.mock("./mailchimp", () => ({
       id: "camp_002",
       webId: 12346,
       title: "Welcome Series - Giorno 1",
-      subject: "Benvenuto in Sintesys.io",
+      subject: "Benvenuto in Il Consigliere",
       status: "sent",
       sendTime: "2026-03-10T09:00:00Z",
       recipients: 50,
