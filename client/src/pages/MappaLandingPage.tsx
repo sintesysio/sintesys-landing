@@ -7,9 +7,9 @@
  * Aggiornato: 08-Aggiornamento-Sito-LP.docx
  */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import SEOHead from "@/components/SEOHead";
-import { motion } from "framer-motion";
+
 import { Link } from "wouter";
 import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
 
@@ -54,18 +54,34 @@ function CountdownTimer() {
   return <>{timeLeft || "01:00:00"}</>;
 }
 
-/* ─── Fade-in animation wrapper ─── */
+/* ─── Fade-in animation wrapper (CSS-only, no framer-motion) ─── */
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { rootMargin: "-30px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    <div
+      ref={ref}
       className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.6s ease-out ${delay}s, transform 0.6s ease-out ${delay}s`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -93,18 +109,17 @@ function CTAButton({ onClick, large = false, label = "Voglio la Mappa — €49,
   );
 }
 
-/* ─── Sticky CTA Bar ─── */
+/* ─── Sticky CTA Bar (CSS-only) ─── */
 function StickyBar({ visible, onClick }: { visible: boolean; onClick: () => void }) {
   return (
-    <motion.div
-      initial={{ y: 100 }}
-      animate={{ y: visible ? 0 : 100 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+    <div
       className="fixed bottom-0 left-0 right-0 z-40"
       style={{
         backgroundColor: "#1B2A4A",
         borderTop: "2px solid rgba(196,112,75,0.4)",
         boxShadow: "0 -4px 24px rgba(0,0,0,0.15)",
+        transform: visible ? "translateY(0)" : "translateY(100%)",
+        transition: "transform 0.3s ease-out",
       }}
     >
       <div className="container flex items-center justify-between py-3">
@@ -135,7 +150,7 @@ function StickyBar({ visible, onClick }: { visible: boolean; onClick: () => void
           Voglio la Mappa — €49,50
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -505,6 +520,8 @@ export default function MappaLandingPage() {
                   alt="Mappa delle Opportunità IA — Excel e documenti Word"
                   className="w-full max-w-lg object-contain"
                   loading="lazy"
+                  width={512}
+                  height={384}
                   style={{ borderRadius: "4px" }}
                 />
               </div>
@@ -732,6 +749,8 @@ export default function MappaLandingPage() {
                 alt="Lamberto Grinover — Fondatore di Il Consigliere"
                 className="w-32 h-32 lg:w-full lg:h-auto object-cover rounded-sm"
                 loading="lazy"
+                width={320}
+                height={320}
                 style={{ filter: "grayscale(20%)" }}
               />
             </FadeIn>
