@@ -487,3 +487,5 @@
 - [x] Logo transparente: removido fundo branco do emblema, upload CDN, atualizado em todas as páginas (10 arquivos)
 - [x] /mappa header: remover logo e deixar apenas texto 'ilconsigliere.io' na barra de menu
 - [x] Migrar todas as referências de domínio: sintesysio.io → www.ilconsigliere.io (canonical, sitemap, robots, SEO, links absolutos)
+- [ ] Alterar título do site: 'Il Giornale dell'IA | Sintesys.io' → 'Il Giornale dell'IA | il consigliere.io'
+- [x] Incluir link checkout Stripe (https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01) nos CTAs de /grazie e /mappa

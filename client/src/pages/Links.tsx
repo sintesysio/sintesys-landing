@@ -12,7 +12,7 @@
  * 4. Chi è Il Consigliere → Pagina Chi Siamo
  */
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
@@ -101,35 +101,16 @@ function getTodayItalian(): string {
 }
 
 export default function Links() {
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
 
   useEffect(() => {
     trackPageView(window.location.href);
   }, []);
 
-  const handleStripeCheckout = useCallback(async () => {
-    if (checkoutLoading) return;
-    setCheckoutLoading(true);
+  const handleStripeCheckout = useCallback(() => {
     trackCTAClick("Mappa IA Checkout", "linkinbio");
-
-    try {
-      const res = await fetch("/api/stripe/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product: "mappa_opportunita_ia" }),
-      });
-      if (!res.ok) throw new Error("Errore nella creazione del checkout");
-      const data = await res.json();
-      if (data.url) {
-        window.open(data.url, "_blank");
-      }
-    } catch {
-      // Fallback: redirect to the Mappa landing page
-      window.location.href = buildUtmUrl("/mappa", "mappa-ia");
-    } finally {
-      setCheckoutLoading(false);
-    }
-  }, [checkoutLoading]);
+    window.open("https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01", "_blank");
+  }, []);
 
   const handleLinkClick = (link: LinkItem) => {
     trackCTAClick(link.label, "linkinbio");
@@ -195,11 +176,11 @@ export default function Links() {
             <button
               key={link.utmContent}
               onClick={handleStripeCheckout}
-              disabled={checkoutLoading}
+
               className={`
                 group block w-full rounded-lg border transition-all duration-200 text-left cursor-pointer
                 bg-[#C4704B] border-[#C4704B] text-white hover:bg-[#A85A3A] shadow-md
-                disabled:opacity-60 disabled:cursor-wait
+
               `}
             >
               <div className="flex items-center gap-3 px-4 py-4">
@@ -208,8 +189,7 @@ export default function Links() {
                     className="block text-sm font-semibold leading-tight text-white"
                     style={{ fontFamily: "'Playfair Display', serif" }}
                   >
-                    {checkoutLoading ? "Caricamento..." : (
-                      <>
+                    <>
                         {link.label}{" "}
                         {link.originalPrice && (
                           <span className="line-through opacity-60 text-xs font-normal">{link.originalPrice}</span>
@@ -218,8 +198,7 @@ export default function Links() {
                         {link.launchPrice && (
                           <span className="text-white font-bold">{link.launchPrice}</span>
                         )}
-                      </>
-                    )}
+                    </>
                   </span>
                   <span
                     className="block text-xs mt-1 leading-snug text-white/70"

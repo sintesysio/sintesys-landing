@@ -254,8 +254,10 @@ export default function Grazie() {
             >
               Prezzo di lancio (fino ai primi 100 clienti) · Garanzia 14 giorni inclusa
             </p>
-            <Link
-              href="/mappa"
+            <a
+              href="https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block no-underline px-6 py-2.5"
               style={{
                 fontFamily: "'Inter', sans-serif",
@@ -267,8 +269,8 @@ export default function Grazie() {
                 backgroundColor: "#C4704B",
               }}
             >
-              Scopri la Mappa — €49,50 →
-            </Link>
+              Acquista la Mappa — €49,50 →
+            </a>
           </div>
 
           {/* CTA to Giornale */}

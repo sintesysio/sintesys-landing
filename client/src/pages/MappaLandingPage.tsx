@@ -12,7 +12,7 @@ import SEOHead from "@/components/SEOHead";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
-import { toast } from "sonner";
+
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const CONSIGLIERE_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/uMGoFQehbWRsupxh.png";
@@ -124,44 +124,16 @@ export default function MappaLandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
-
-  const handleCTA = useCallback(async (location: string) => {
+  const handleCTA = useCallback((location: string) => {
     trackCTAClick("Voglio la Mappa €49,50", location);
     trackInitiateCheckout({
       productName: "Mappa delle Opportunità IA",
-      value: 95.50,
+      value: 49.50,
       currency: "EUR",
       includesOrderBump: false,
     });
-
-    if (isCheckoutLoading) return;
-    setIsCheckoutLoading(true);
-
-    try {
-      const res = await fetch("/api/stripe/create-checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ includeOrderBump: false }),
-      });
-
-      if (!res.ok) throw new Error("Errore nella creazione del checkout");
-
-      const data = await res.json();
-
-      if (data.url) {
-        toast.info("Reindirizzamento al pagamento sicuro...");
-        window.open(data.url, "_blank");
-      } else {
-        throw new Error("URL di checkout non disponibile");
-      }
-    } catch (err) {
-      console.error("[Checkout] Error:", err);
-      toast.error("Si è verificato un errore. Riprova tra qualche istante.");
-    } finally {
-      setIsCheckoutLoading(false);
-    }
-  }, [isCheckoutLoading]);
+    window.open("https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01", "_blank");
+  }, []);
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
