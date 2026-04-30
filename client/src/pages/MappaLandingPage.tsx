@@ -51,11 +51,7 @@ function CountdownTimer() {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <span style={{ color: "#C4704B", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
-      {timeLeft || "01:00:00"}
-    </span>
-  );
+  return <>{timeLeft || "01:00:00"}</>;
 }
 
 /* ─── Fade-in animation wrapper ─── */
@@ -186,23 +182,37 @@ export default function MappaLandingPage() {
       {/* 1. HEADER — barra navy, brand                         */}
       {/* ═══════════════════════════════════════════════════════ */}
       <header style={{ backgroundColor: "#1B2A4A" }}>
-        <div className="container flex items-center justify-center py-3 gap-3">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <div className="container flex items-center justify-center py-4 gap-4">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" />
             <polyline points="12 6 12 12 16 14" />
           </svg>
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.75rem",
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "#FAFAF7",
-            }}
-          >
-            Offerta scade tra: <CountdownTimer />
-          </span>
+          <div className="flex flex-col items-center sm:flex-row sm:gap-3">
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.85rem",
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#FAFAF7",
+              }}
+            >
+              ⚠️ Offerta scade tra:
+            </span>
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "1.4rem",
+                fontWeight: 800,
+                color: "#C4704B",
+                fontVariantNumeric: "tabular-nums",
+                letterSpacing: "0.05em",
+              }}
+            >
+              <CountdownTimer />
+            </span>
+          </div>
         </div>
       </header>
 
