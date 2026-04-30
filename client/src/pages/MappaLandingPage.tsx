@@ -278,12 +278,14 @@ export default function MappaLandingPage() {
             </p>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <CTAButton onClick={() => handleCTA("hero")} large />
-            <div className="mt-4 flex flex-wrap items-center gap-4">
+            <div className="flex justify-center sm:justify-start">
+              <CTAButton onClick={() => handleCTA("hero")} large />
+            </div>
+            <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-4">
               <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 500, color: "#999", textDecoration: "line-through" }}>€129,90</span>
               <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: "#C4704B" }}>→ €49,50 · Prezzo di lancio</span>
             </div>
-            <div className="mt-3 flex flex-wrap gap-4">
+            <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-4">
               {["Pagamento sicuro", "Consegna immediata via email", "Garanzia 14 giorni"].map((t) => (
                 <span
                   key={t}
