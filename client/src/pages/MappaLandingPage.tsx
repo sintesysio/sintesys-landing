@@ -19,6 +19,45 @@ const CONSIGLIERE_LOGO = "https://files.manuscdn.com/user_upload_by_module/sessi
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 const PRODUCT_MOCKUP = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/mappa-product-mockup-YeV4GMZTfumsJocuzn54Da.webp";
 
+/* ─── Countdown Timer (1h from first visit, persisted in localStorage) ─── */
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    const STORAGE_KEY = "mappa_offer_deadline";
+    const ONE_HOUR_MS = 60 * 60 * 1000;
+    let deadline = localStorage.getItem(STORAGE_KEY);
+    if (!deadline) {
+      deadline = String(Date.now() + ONE_HOUR_MS);
+      localStorage.setItem(STORAGE_KEY, deadline);
+    }
+    const deadlineMs = Number(deadline);
+
+    const tick = () => {
+      const diff = deadlineMs - Date.now();
+      if (diff <= 0) {
+        setTimeLeft("00:00:00");
+        return;
+      }
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      setTimeLeft(
+        `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`
+      );
+    };
+    tick();
+    const interval = setInterval(tick, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span style={{ color: "#C4704B", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
+      {timeLeft || "01:00:00"}
+    </span>
+  );
+}
+
 /* ─── Fade-in animation wrapper ─── */
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -147,31 +186,22 @@ export default function MappaLandingPage() {
       {/* 1. HEADER — barra navy, brand                         */}
       {/* ═══════════════════════════════════════════════════════ */}
       <header style={{ backgroundColor: "#1B2A4A" }}>
-        <div className="container flex items-center justify-between py-3">
-          <Link href="/" className="no-underline">
-            <span
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.1rem",
-                fontWeight: 600,
-                color: "#FAFAF7",
-                letterSpacing: "0.02em",
-              }}
-            >
-              www.ilconsigliere.io
-            </span>
-          </Link>
+        <div className="container flex items-center justify-center py-3 gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
           <span
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: "0.6rem",
-              fontWeight: 500,
-              letterSpacing: "0.12em",
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "rgba(250,250,247,0.6)",
+              color: "#FAFAF7",
             }}
           >
-            L'intelligenza operativa per la PMI italiana
+            Offerta scade tra: <CountdownTimer />
           </span>
         </div>
       </header>

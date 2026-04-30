@@ -489,3 +489,4 @@
 - [x] Migrar todas as referências de domínio: sintesysio.io → www.ilconsigliere.io (canonical, sitemap, robots, SEO, links absolutos)
 - [ ] Alterar título do site: 'Il Giornale dell'IA | Sintesys.io' → 'Il Giornale dell'IA | il consigliere.io'
 - [x] Incluir link checkout Stripe (https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01) nos CTAs de /grazie e /mappa
+- [x] Substituir nomes da barra de menu azul por cronômetro regressivo de 1h na /mappa
