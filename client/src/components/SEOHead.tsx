@@ -11,7 +11,7 @@ interface SEOHeadProps {
 }
 
 const DEFAULT_OG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
-const BASE_URL = "https://ilconsigliere.io";
+const BASE_URL = "https://www.ilconsigliere.io";
 
 export default function SEOHead({
   title,

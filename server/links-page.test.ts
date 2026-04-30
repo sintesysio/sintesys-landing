@@ -11,7 +11,7 @@ import { describe, it, expect } from "vitest";
  * 4. Chi è Il Consigliere → Pagina Chi Siamo
  */
 
-const BASE_URL = "https://ilconsigliere.io";
+const BASE_URL = "https://www.ilconsigliere.io";
 
 function buildUtmUrl(path: string, utmContent: string): string {
   const url = new URL(path, BASE_URL);
@@ -39,7 +39,7 @@ describe("Links Page — UTM URL Generation", () => {
     expect(url).toContain("utm_campaign=bio-ilconsigliere");
     expect(url).toContain("utm_content=mappa-ia");
     expect(url).toContain("utm_term=bio-link");
-    expect(url).toContain("ilconsigliere.io");
+    expect(url).toContain("www.ilconsigliere.io");
   });
 
   it("generates correct UTM URL for Il Giornale dell'IA", () => {
@@ -52,7 +52,7 @@ describe("Links Page — UTM URL Generation", () => {
   it("generates correct UTM URL for Sito Istituzionale", () => {
     const url = buildUtmUrl("/", "sito-istituzionale");
     expect(url).toContain("utm_content=sito-istituzionale");
-    expect(url).toContain("ilconsigliere.io");
+    expect(url).toContain("www.ilconsigliere.io");
   });
 
   it("generates correct UTM URL for Chi Siamo", () => {
@@ -64,7 +64,7 @@ describe("Links Page — UTM URL Generation", () => {
   it("all UTM URLs use the production domain", () => {
     LINKS.forEach((link) => {
       const url = buildUtmUrl(link.href, link.utmContent);
-      expect(url.startsWith("https://ilconsigliere.io")).toBe(true);
+      expect(url.startsWith("https://www.ilconsigliere.io")).toBe(true);
     });
   });
 

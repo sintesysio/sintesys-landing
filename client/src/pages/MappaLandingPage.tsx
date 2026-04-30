@@ -186,7 +186,7 @@ export default function MappaLandingPage() {
                 letterSpacing: "0.02em",
               }}
             >
-              ilconsigliere.io
+              www.ilconsigliere.io
             </span>
           </Link>
           <span

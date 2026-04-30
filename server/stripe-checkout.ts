@@ -28,7 +28,7 @@ export function registerStripeCheckout(app: Express) {
         customerName?: string;
       };
 
-      const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, "") || "https://ilconsigliere.io";
+      const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, "") || "https://www.ilconsigliere.io";
 
       // Build line items
       const lineItems = [

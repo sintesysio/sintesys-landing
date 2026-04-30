@@ -2,15 +2,15 @@ import { describe, it, expect } from "vitest";
 import { PRODUCTS } from "./stripe-products";
 
 describe("Stripe Products Configuration", () => {
-  it("should have mappa product with correct launch price €95,50", () => {
+  it("should have mappa product with correct launch price €49,50", () => {
     expect(PRODUCTS.mappa).toBeDefined();
-    expect(PRODUCTS.mappa.priceEurCents).toBe(9550);
+    expect(PRODUCTS.mappa.priceEurCents).toBe(4950);
     expect(PRODUCTS.mappa.currency).toBe("eur");
     expect(PRODUCTS.mappa.name).toBe("Mappa delle Opportunità IA");
   });
 
-  it("should have mappa regular price €179,90", () => {
-    expect(PRODUCTS.mappa.regularPriceEurCents).toBe(17990);
+  it("should have mappa regular price €129,90", () => {
+    expect(PRODUCTS.mappa.regularPriceEurCents).toBe(12990);
   });
 
   it("should have sessioneDiagnosi standalone launch price €197", () => {
@@ -35,17 +35,17 @@ describe("Stripe Products Configuration", () => {
     expect(PRODUCTS.sessioneDiagnosi.metadata.type).toBe("order_bump");
   });
 
-  it("mappa launch price should be €95.50", () => {
-    expect(PRODUCTS.mappa.priceEurCents / 100).toBe(95.5);
+  it("mappa launch price should be €49.50", () => {
+    expect(PRODUCTS.mappa.priceEurCents / 100).toBe(49.5);
   });
 
   it("sessioneDiagnosi standalone price should be €197.00", () => {
     expect(PRODUCTS.sessioneDiagnosi.priceEurCents / 100).toBe(197);
   });
 
-  it("combined order (mappa + bump) should total €242.50", () => {
+  it("combined order (mappa + bump) should total €196.50", () => {
     const total = (PRODUCTS.mappa.priceEurCents + PRODUCTS.sessioneDiagnosi.bumpPriceEurCents) / 100;
-    expect(total).toBe(242.5);
+    expect(total).toBe(196.5);
   });
 });
 

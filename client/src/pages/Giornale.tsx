@@ -1055,7 +1055,7 @@ export default function Giornale() {
               Instagram
             </a>
             <a
-              href="https://ilconsigliere.io"
+              href="https://www.ilconsigliere.io"
               target="_blank"
               rel="noopener noreferrer"
               style={{

@@ -486,3 +486,4 @@
 - [x] Remoção do upsell da página /mappa/grazie
 - [x] Logo transparente: removido fundo branco do emblema, upload CDN, atualizado em todas as páginas (10 arquivos)
 - [x] /mappa header: remover logo e deixar apenas texto 'ilconsigliere.io' na barra de menu
+- [x] Migrar todas as referências de domínio: sintesysio.io → www.ilconsigliere.io (canonical, sitemap, robots, SEO, links absolutos)

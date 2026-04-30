@@ -19,7 +19,7 @@ import { trackPageView, trackCTAClick } from "@/lib/tracking";
 const LOGO_ICON =
   "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
-const BASE_URL = "https://ilconsigliere.io";
+const BASE_URL = "https://www.ilconsigliere.io";
 
 interface LinkItem {
   label: string;

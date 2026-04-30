@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://ilconsigliere.io/sitemap.xml
+Sitemap: https://www.ilconsigliere.io/sitemap.xml
 
 # Crawl-delay (optional, for polite crawling)
 Crawl-delay: 1

@@ -42,7 +42,7 @@ export default function TermsOfService() {
               1. Accettazione dei Termini
             </h2>
             <p className="leading-relaxed">
-              Accedendo e utilizzando il sito web <strong>ilconsigliere.io</strong> e i servizi
+              Accedendo e utilizzando il sito web <strong>www.ilconsigliere.io</strong> e i servizi
               offerti da Il Consigliere (di seguito "i Servizi"), l'utente accetta di essere
               vincolato dai presenti Termini di Servizio, dall'Informativa sulla Privacy e
               da tutte le leggi e i regolamenti applicabili. Se non si accettano i presenti
