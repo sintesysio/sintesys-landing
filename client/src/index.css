@@ -190,12 +190,28 @@ textarea::placeholder {
 }
 
 /* Terracotta CTA buttons */
+@keyframes subtle-shake {
+  0%, 88% { transform: translateX(0); }
+  90% { transform: translateX(-2px); }
+  92% { transform: translateX(2px); }
+  94% { transform: translateX(-1.5px); }
+  96% { transform: translateX(1.5px); }
+  98% { transform: translateX(-0.5px); }
+  100% { transform: translateX(0); }
+}
 .btn-terracotta {
   background-color: #C4704B;
   color: #FAFAF7;
   transition: background-color 0.2s ease;
 }
-.btn-terracotta:hover {
+.btn-terracotta-shake {
+  background-color: #C4704B;
+  color: #FAFAF7;
+  transition: background-color 0.2s ease;
+  animation: subtle-shake 3s ease-in-out infinite;
+}
+.btn-terracotta:hover,
+.btn-terracotta-shake:hover {
   background-color: #A85A3A;
 }
 

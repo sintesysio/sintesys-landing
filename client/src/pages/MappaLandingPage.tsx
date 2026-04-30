@@ -86,11 +86,11 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 /* ─── CTA Button component ─── */
-function CTAButton({ onClick, large = false, label = "Voglio la Mappa — €49,50" }: { onClick: () => void; large?: boolean; label?: string }) {
+function CTAButton({ onClick, large = false, label = "Voglio la Mappa — €49,50", shake = false }: { onClick: () => void; large?: boolean; label?: string; shake?: boolean }) {
   return (
     <button
       onClick={onClick}
-      className="btn-terracotta"
+      className={shake ? "btn-terracotta-shake" : "btn-terracotta"}
       style={{
         fontFamily: "'Inter', sans-serif",
         fontSize: large ? "0.85rem" : "0.75rem",
@@ -279,11 +279,11 @@ export default function MappaLandingPage() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <div className="flex justify-center sm:justify-start">
-              <CTAButton onClick={() => handleCTA("hero")} large />
+              <CTAButton onClick={() => handleCTA("hero")} large shake />
             </div>
-            <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-4">
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 500, color: "#999", textDecoration: "line-through" }}>€129,90</span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: "#C4704B" }}>→ €49,50 · Prezzo di lancio</span>
+            <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-6">
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.1rem", fontWeight: 500, color: "#999", textDecoration: "line-through" }}>€129,90</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.3rem", fontWeight: 800, color: "#C4704B", background: "rgba(196,112,75,0.08)", padding: "0.25rem 0.75rem", borderRadius: "4px" }}>→ €49,50 · Prezzo di lancio</span>
             </div>
             <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-4">
               {["Pagamento sicuro", "Consegna immediata via email", "Garanzia 14 giorni"].map((t) => (
