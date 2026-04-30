@@ -182,37 +182,35 @@ export default function MappaLandingPage() {
       {/* 1. HEADER — barra navy, brand                         */}
       {/* ═══════════════════════════════════════════════════════ */}
       <header style={{ backgroundColor: "#1B2A4A" }}>
-        <div className="container flex items-center justify-center py-4 gap-4">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-          <div className="flex flex-col items-center sm:flex-row sm:gap-3">
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "#FAFAF7",
-              }}
-            >
-              ⚠️ Offerta scade tra:
-            </span>
-            <span
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "1.4rem",
-                fontWeight: 800,
-                color: "#C4704B",
-                fontVariantNumeric: "tabular-nums",
-                letterSpacing: "0.05em",
-              }}
-            >
-              <CountdownTimer />
-            </span>
-          </div>
+        <div className="container flex items-center justify-center py-2.5 gap-2">
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.7rem",
+              fontWeight: 500,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "rgba(250,250,247,0.7)",
+            }}
+          >
+            ⚠️ Offerta scade tra
+          </span>
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "1.1rem",
+              fontWeight: 700,
+              color: "#FAFAF7",
+              fontVariantNumeric: "tabular-nums",
+              letterSpacing: "0.06em",
+              background: "rgba(196,112,75,0.15)",
+              padding: "0.15rem 0.5rem",
+              borderRadius: "4px",
+              border: "1px solid rgba(196,112,75,0.4)",
+            }}
+          >
+            <CountdownTimer />
+          </span>
         </div>
       </header>
 
