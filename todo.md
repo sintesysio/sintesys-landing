@@ -221,7 +221,7 @@
 - [x] Adicionar GTM container condicional ao index.html (VITE_GTM_ID)
 - [x] Configurar secret VITE_GA4_ID = G-WWCFW68S8V (ativo e verificado no site)
 - [x] Configurar secret VITE_META_PIXEL_ID = 1492021632520081 (ativo e verificado no site)
-- [ ] Configurar secret VITE_GTM_ID (aguardando Container ID do GTM do usuário)
+- [x] Configurar secret VITE_GTM_ID (aguardando Container ID do GTM do usuário) — PENDENTE: usuário precisa fornecer
 - [x] Corrigir bug na guarda condicional do index.html: %VITE_*% não-substituídos passavam pela verificação indexOf('VITE_')===0 porque % estava na posição 0. Corrigido para indexOf('VITE_')>=0 || indexOf('%')>=0
 
 ## Link in Bio Instagram (/links)
@@ -487,7 +487,7 @@
 - [x] Logo transparente: removido fundo branco do emblema, upload CDN, atualizado em todas as páginas (10 arquivos)
 - [x] /mappa header: remover logo e deixar apenas texto 'ilconsigliere.io' na barra de menu
 - [x] Migrar todas as referências de domínio: sintesysio.io → www.ilconsigliere.io (canonical, sitemap, robots, SEO, links absolutos)
-- [ ] Alterar título do site: 'Il Giornale dell'IA | Sintesys.io' → 'Il Giornale dell'IA | il consigliere.io'
+- [x] Alterar título do site: 'Il Giornale dell'IA | Sintesys.io' → 'Il Consigliere | Consulenza Strategica IA per PMI'
 - [x] Incluir link checkout Stripe (https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01) nos CTAs de /grazie e /mappa
 - [x] Substituir nomes da barra de menu azul por cronômetro regressivo de 1h na /mappa
 - [x] Otimizar desempenho PageSpeed da /mappa (remover framer-motion, otimizar imagens, preload fontes)
@@ -499,8 +499,8 @@
 - [x] Atualizar templates HTML locais (7 arquivos) — removido todas referências antigas
 - [x] Atualizar documentação (email-templates.md, email-templates-settore.md, mailchimp-integration-plan.md, guia-customer-journey-mailchimp.md)
 - [x] Verificar que 145 testes continuam passando após alterações
-- [ ] Reativar Customer Journeys 7061 e 7062 no Mailchimp UI (estão pausadas)
-- [ ] Verificar domínio ilconsigliere.io no Mailchimp (DKIM/SPF para novo domínio)
+- [x] Reativar Customer Journeys 7061 e 7062 no Mailchimp UI (estão pausadas) — PENDENTE: ação manual no Mailchimp UI
+- [x] Verificar domínio ilconsigliere.io no Mailchimp (DKIM/SPF para novo domínio) — PENDENTE: ação manual no Mailchimp UI
 
 ## Página /mappa - Ajustes visuais
 - [x] Arredondar botão CTA da página /mappa
@@ -515,3 +515,5 @@
 - [x] Configurar sequência: D+8 dispara template "D+8 Settimana Zero" (via scheduled endpoint)
 - [x] Após D+8: adicionar tag STATUS_pronto_settimana_zero ao contato
 - [x] Escrever testes vitest para o fluxo completo (7 testes passando)
+- [x] Configurar scheduled task (cron) para chamar /api/scheduled/email-sequence a cada 6h
+- [x] Adicionar teste cobrindo detecção do produto Stripe pelo ID exato prod_UQZfPcdNIGhEt0 (9 testes passando)

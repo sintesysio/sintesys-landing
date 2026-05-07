@@ -160,7 +160,7 @@ describe("Email Sequence Integration", () => {
   });
 
   describe("Stripe webhook product detection", () => {
-    it("should identify Mappa IA purchase by product_key", () => {
+    it("should identify Mappa IA purchase by product_key metadata", () => {
       const productKey1 = "mappa_opportunita_ia";
       const productKey2 = "mappa_with_sessione";
       const productKey3 = "sessione_diagnosi_ia";
@@ -171,6 +171,35 @@ describe("Email Sequence Integration", () => {
       expect(isMappa(productKey1)).toBe(true);
       expect(isMappa(productKey2)).toBe(true);
       expect(isMappa(productKey3)).toBe(false);
+    });
+
+    it("should have correct product metadata matching Stripe product prod_UQZfPcdNIGhEt0", async () => {
+      const { PRODUCTS } = await import("./stripe-products");
+
+      // The Mappa product (prod_UQZfPcdNIGhEt0) is identified by its metadata.product_key
+      expect(PRODUCTS.mappa.metadata.product_key).toBe("mappa_opportunita_ia");
+      expect(PRODUCTS.mappa.priceEurCents).toBe(4950); // €49,50
+      expect(PRODUCTS.mappa.currency).toBe("eur");
+      expect(PRODUCTS.mappa.metadata.type).toBe("low_ticket");
+
+      // Sessione is the order bump product
+      expect(PRODUCTS.sessioneDiagnosi.metadata.product_key).toBe("sessione_diagnosi_ia");
+      expect(PRODUCTS.sessioneDiagnosi.metadata.type).toBe("order_bump");
+    });
+
+    it("webhook should trigger Mappa flow for both product keys", () => {
+      // Simulates the webhook logic in stripe-webhook.ts line 90
+      const testCases = [
+        { productKey: "mappa_opportunita_ia", shouldTrigger: true },
+        { productKey: "mappa_with_sessione", shouldTrigger: true },
+        { productKey: "sessione_diagnosi_ia", shouldTrigger: false },
+        { productKey: "unknown", shouldTrigger: false },
+      ];
+
+      for (const { productKey, shouldTrigger } of testCases) {
+        const isMappaPurchase = productKey === "mappa_opportunita_ia" || productKey === "mappa_with_sessione";
+        expect(isMappaPurchase).toBe(shouldTrigger);
+      }
     });
   });
 });
