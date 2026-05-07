@@ -19,22 +19,17 @@ const CONSIGLIERE_LOGO = "https://files.manuscdn.com/user_upload_by_module/sessi
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 const PRODUCT_MOCKUP = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/mappa-product-mockup-YeV4GMZTfumsJocuzn54Da.webp";
 
-/* ─── Countdown Timer (1h from first visit, persisted in localStorage) ─── */
+/* ─── Countdown Timer (1h from page open, resets every visit) ─── */
 function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState("");
+  const deadlineRef = useRef<number>(Date.now() + 60 * 60 * 1000);
 
   useEffect(() => {
-    const STORAGE_KEY = "mappa_offer_deadline";
-    const ONE_HOUR_MS = 60 * 60 * 1000;
-    let deadline = localStorage.getItem(STORAGE_KEY);
-    if (!deadline) {
-      deadline = String(Date.now() + ONE_HOUR_MS);
-      localStorage.setItem(STORAGE_KEY, deadline);
-    }
-    const deadlineMs = Number(deadline);
+    // Reset deadline every time the page is opened
+    deadlineRef.current = Date.now() + 60 * 60 * 1000;
 
     const tick = () => {
-      const diff = deadlineMs - Date.now();
+      const diff = deadlineRef.current - Date.now();
       if (diff <= 0) {
         setTimeLeft("00:00:00");
         return;

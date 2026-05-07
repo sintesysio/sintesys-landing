@@ -202,11 +202,13 @@ textarea::placeholder {
 .btn-terracotta {
   background-color: #C4704B;
   color: #FAFAF7;
+  border-radius: 50px;
   transition: background-color 0.2s ease;
 }
 .btn-terracotta-shake {
   background-color: #C4704B;
   color: #FAFAF7;
+  border-radius: 50px;
   transition: background-color 0.2s ease;
   animation: subtle-shake 3s ease-in-out infinite;
 }

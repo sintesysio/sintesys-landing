@@ -501,3 +501,7 @@
 - [x] Verificar que 145 testes continuam passando após alterações
 - [ ] Reativar Customer Journeys 7061 e 7062 no Mailchimp UI (estão pausadas)
 - [ ] Verificar domínio ilconsigliere.io no Mailchimp (DKIM/SPF para novo domínio)
+
+## Página /mappa - Ajustes visuais
+- [x] Arredondar botão CTA da página /mappa
+- [x] Implementar timer de contagem regressiva que inicia a cada visita
