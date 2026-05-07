@@ -2,14 +2,20 @@
  * Stripe Webhook Handler — /api/stripe/webhook
  *
  * Handles checkout.session.completed events.
- * Logs purchases and notifies the owner.
+ * When product prod_UQZfPcdNIGhEt0 (Mappa IA) is purchased:
+ * 1. Creates/updates contact in Mailchimp with tag PROD_mappa_ia_47
+ * 2. Records purchase in DB for email sequence tracking
+ * 3. Sends D+0 email immediately
+ * 4. Notifies the owner
  */
 
 import type { Express, Request, Response } from "express";
 import Stripe from "stripe";
 import { notifyOwner } from "./_core/notification";
 import { PRODUCTS } from "./stripe-products";
-import { applyMailchimpTag } from "./mailchimp";
+import { syncPurchaserToMailchimp } from "./mailchimp";
+import { sendTemplateEmail } from "./email-sequence";
+import { recordPurchase, markEmailSent } from "./db";
 
 function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -70,7 +76,7 @@ export function registerStripeWebhook(app: Express) {
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const customerEmail = session.customer_details?.email || session.metadata?.customer_email || "unknown";
-  const customerName = session.metadata?.customer_name || "unknown";
+  const customerName = session.customer_details?.name || session.metadata?.customer_name || "unknown";
   const productKey = session.metadata?.product_key || "unknown";
   const includesOrderBump = session.metadata?.includes_order_bump === "true";
   const amountTotal = session.amount_total ? (session.amount_total / 100).toFixed(2) : "0.00";
@@ -81,23 +87,54 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 
   // Determine what was purchased
   const items: string[] = [];
-  if (productKey === "mappa_opportunita_ia" || productKey === "mappa_with_sessione") {
+  const isMappaPurchase = productKey === "mappa_opportunita_ia" || productKey === "mappa_with_sessione";
+  if (isMappaPurchase) {
     items.push(`Mappa delle Opportunità IA (€${(PRODUCTS.mappa.priceEurCents / 100).toFixed(2)})`);
   }
   if (includesOrderBump || productKey === "mappa_with_sessione") {
     items.push(`Sessione Diagnosi IA (€${(PRODUCTS.sessioneDiagnosi.priceEurCents / 100).toFixed(2)})`);
   }
 
-  // Apply Mailchimp tag PROD_mappa_ia_47 for post-purchase automation
-  try {
-    const tagResult = await applyMailchimpTag(customerEmail, "PROD_mappa_ia_47");
-    if (tagResult.success) {
-      console.log(`[Stripe Webhook] ✓ Mailchimp tag PROD_mappa_ia_47 applied to ${customerEmail}`);
-    } else {
-      console.warn(`[Stripe Webhook] ✗ Mailchimp tag failed for ${customerEmail}: ${tagResult.error}`);
+  // === MAPPA IA PURCHASE FLOW ===
+  if (isMappaPurchase) {
+    // 1. Create/update contact in Mailchimp + apply tag PROD_mappa_ia_47
+    try {
+      const tagResult = await syncPurchaserToMailchimp(customerEmail, customerName, "PROD_mappa_ia_47");
+      if (tagResult.success) {
+        console.log(`[Stripe Webhook] ✓ Mailchimp: contact created/updated + tag PROD_mappa_ia_47 applied to ${customerEmail}`);
+      } else {
+        console.warn(`[Stripe Webhook] ✗ Mailchimp sync failed for ${customerEmail}: ${tagResult.error}`);
+      }
+    } catch (err) {
+      console.error("[Stripe Webhook] ✗ Mailchimp sync error:", err);
     }
-  } catch (err) {
-    console.error("[Stripe Webhook] ✗ Mailchimp tag error:", err);
+
+    // 2. Record purchase in DB for email sequence tracking
+    try {
+      await recordPurchase({
+        email: customerEmail,
+        name: customerName,
+        stripeSessionId: session.id,
+        productKey,
+        amountCents: session.amount_total || 0,
+      });
+      console.log(`[Stripe Webhook] ✓ Purchase recorded in DB for ${customerEmail}`);
+    } catch (err) {
+      console.error("[Stripe Webhook] ✗ Failed to record purchase:", err);
+    }
+
+    // 3. Send D+0 email immediately (Consegna Mappa)
+    try {
+      const emailResult = await sendTemplateEmail(customerEmail, "d0");
+      if (emailResult.success) {
+        await markEmailSent(customerEmail, session.id, "d0");
+        console.log(`[Stripe Webhook] ✓ D+0 email sent to ${customerEmail}`);
+      } else {
+        console.warn(`[Stripe Webhook] ✗ D+0 email failed for ${customerEmail}: ${emailResult.error}`);
+      }
+    } catch (err) {
+      console.error("[Stripe Webhook] ✗ D+0 email error:", err);
+    }
   }
 
   // Notify owner about the purchase
@@ -118,7 +155,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         `Payment Intent: ${session.payment_intent}`,
         `Data: ${new Date().toISOString()}`,
         ``,
-        `AZIONE RICHIESTA: Inviare i materiali a ${customerEmail}`,
+        `✅ Email D+0 (Consegna Mappa) inviata automaticamente.`,
+        `📧 Sequenza automatica: D+3, D+5, D+8 programmati.`,
       ].join("\n"),
     });
     console.log(`[Stripe Webhook] ✓ Owner notified about purchase from ${customerEmail}`);

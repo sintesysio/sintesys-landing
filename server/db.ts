@@ -1,6 +1,6 @@
 import { eq, and, gte, lte, between } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition, qualifiedLeads, InsertQualifiedLead, QualifiedLead, clients, InsertClient, Client, transactions, InsertTransaction, Transaction } from "../drizzle/schema";
+import { InsertUser, users, leads, InsertLead, Lead, dailyEditions, DailyEdition, InsertDailyEdition, qualifiedLeads, InsertQualifiedLead, QualifiedLead, clients, InsertClient, Client, transactions, InsertTransaction, Transaction, purchases, InsertPurchase, Purchase } from "../drizzle/schema";
 import { desc, sql, asc } from "drizzle-orm";
 import { ENV } from './_core/env';
 
@@ -388,4 +388,79 @@ export async function getBalanceByClient() {
     .groupBy(transactions.clientId);
 
   return result;
+}
+
+// ─── Purchase Queries (Email Sequence) ──────────────────────────────────────────
+
+export async function recordPurchase(data: {
+  email: string;
+  name: string;
+  stripeSessionId: string;
+  productKey: string;
+  amountCents: number;
+}): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  await db.insert(purchases).values({
+    email: data.email,
+    name: data.name,
+    stripeSessionId: data.stripeSessionId,
+    productKey: data.productKey,
+    amountCents: data.amountCents,
+  });
+}
+
+export async function markEmailSent(
+  email: string,
+  stripeSessionId: string,
+  step: "d0" | "d3" | "d5" | "d8"
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  const fieldMap = {
+    d0: purchases.emailD0Sent,
+    d3: purchases.emailD3Sent,
+    d5: purchases.emailD5Sent,
+    d8: purchases.emailD8Sent,
+  };
+
+  await db.update(purchases)
+    .set({ [fieldMap[step].name]: new Date() })
+    .where(and(
+      eq(purchases.email, email),
+      eq(purchases.stripeSessionId, stripeSessionId)
+    ));
+}
+
+export async function markSettimanaZeroTagApplied(
+  email: string,
+  stripeSessionId: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.update(purchases)
+    .set({ tagSettimanaZeroApplied: new Date() })
+    .where(and(
+      eq(purchases.email, email),
+      eq(purchases.stripeSessionId, stripeSessionId)
+    ));
+}
+
+/**
+ * Get purchases that need email sequence processing.
+ * Returns purchases where certain emails haven't been sent yet based on elapsed days.
+ */
+export async function getPendingEmailSequence(): Promise<Purchase[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  // Get all purchases that haven't completed the full sequence
+  return db.select().from(purchases)
+    .where(
+      sql`${purchases.tagSettimanaZeroApplied} IS NULL`
+    )
+    .orderBy(asc(purchases.purchasedAt));
 }

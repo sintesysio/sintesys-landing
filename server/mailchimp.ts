@@ -341,6 +341,75 @@ export async function applyMailchimpTag(
   }
 }
 
+/**
+ * Sync a purchaser to Mailchimp: create/update contact with name and apply purchase tag.
+ * Used by Stripe webhook after successful payment for Mappa IA.
+ * This triggers the Customer Journey that sends the D+0, D+3, D+5, D+8 email sequence.
+ */
+export async function syncPurchaserToMailchimp(
+  email: string,
+  fullName: string,
+  tagName: string
+): Promise<{ success: boolean; error?: string }> {
+  if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID) {
+    console.warn("[Mailchimp] Missing API key or List ID, skipping purchaser sync");
+    return { success: false, error: "Missing Mailchimp credentials" };
+  }
+
+  const subscriberHash = md5(email);
+  const { firstName, lastName } = splitName(fullName);
+
+  try {
+    // Step 1: Upsert the member with name fields
+    const putRes = await fetch(
+      `${BASE_URL}/lists/${MAILCHIMP_LIST_ID}/members/${subscriberHash}`,
+      {
+        method: "PUT",
+        headers: { Authorization: AUTH_HEADER, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email_address: email.toLowerCase().trim(),
+          status_if_new: "subscribed",
+          merge_fields: {
+            FNAME: firstName,
+            LNAME: lastName,
+            LEADTYPE: "Acquirente",
+          },
+        }),
+        signal: AbortSignal.timeout(10000),
+      }
+    );
+
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      console.error("[Mailchimp] PUT member for purchaser failed:", putRes.status, err);
+      return { success: false, error: `PUT failed: ${putRes.status}` };
+    }
+
+    // Step 2: Apply the purchase tag (triggers Customer Journey)
+    const tagsUrl = `${BASE_URL}/lists/${MAILCHIMP_LIST_ID}/members/${subscriberHash}/tags`;
+    const tagsRes = await fetch(tagsUrl, {
+      method: "POST",
+      headers: { Authorization: AUTH_HEADER, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tags: [{ name: tagName, status: "active" }],
+      }),
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!tagsRes.ok) {
+      const err = await tagsRes.json().catch(() => ({}));
+      console.warn("[Mailchimp] Purchase tag application failed:", tagsRes.status, err);
+      return { success: false, error: `Tags failed: ${tagsRes.status}` };
+    }
+
+    console.log(`[Mailchimp] Purchaser synced: ${email} (${fullName}), tag: ${tagName}`);
+    return { success: true };
+  } catch (err) {
+    console.error("[Mailchimp] Error syncing purchaser:", err);
+    return { success: false, error: String(err) };
+  }
+}
+
 export async function syncQualifiedLead(data: QualifiedLeadData): Promise<{ success: boolean; error?: string }> {
   const { firstName, lastName } = splitName(data.name);
 

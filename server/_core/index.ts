@@ -9,6 +9,7 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { registerStripeWebhook } from "../stripe-webhook";
 import { registerStripeCheckout } from "../stripe-checkout";
+import { registerScheduledEmailSequence } from "../scheduled-email-sequence";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -40,6 +41,8 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // Stripe checkout session creation (needs JSON parsing)
   registerStripeCheckout(app);
+  // Scheduled email sequence endpoint (called by scheduled task every 6h)
+  registerScheduledEmailSequence(app);
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // tRPC API

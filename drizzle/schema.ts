@@ -152,3 +152,27 @@ export const transactions = mysqlTable("transactions", {
 
 export type Transaction = typeof transactions.$inferSelect;
 export type InsertTransaction = typeof transactions.$inferInsert;
+
+/**
+ * Purchases table — tracks Stripe purchases for email sequence automation.
+ * Used to schedule D+0, D+3, D+5, D+8 emails and the final tag application.
+ */
+export const purchases = mysqlTable("purchases", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull(),
+  name: varchar("name", { length: 255 }),
+  stripeSessionId: varchar("stripeSessionId", { length: 255 }).notNull(),
+  productKey: varchar("productKey", { length: 100 }).notNull(),
+  amountCents: int("amountCents").notNull(),
+  purchasedAt: timestamp("purchasedAt").defaultNow().notNull(),
+  // Email sequence tracking
+  emailD0Sent: timestamp("emailD0Sent"),
+  emailD3Sent: timestamp("emailD3Sent"),
+  emailD5Sent: timestamp("emailD5Sent"),
+  emailD8Sent: timestamp("emailD8Sent"),
+  tagSettimanaZeroApplied: timestamp("tagSettimanaZeroApplied"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Purchase = typeof purchases.$inferSelect;
+export type InsertPurchase = typeof purchases.$inferInsert;

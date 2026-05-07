@@ -505,3 +505,13 @@
 ## Página /mappa - Ajustes visuais
 - [x] Arredondar botão CTA da página /mappa
 - [x] Implementar timer de contagem regressiva que inicia a cada visita
+
+## Integração Stripe → Mailchimp (Pós-Compra Mappa IA)
+- [x] Webhook Stripe: detectar compra aprovada do produto prod_UQZfPcdNIGhEt0
+- [x] Criar/atualizar contato no Mailchimp com tag PROD_mappa_ia_47
+- [x] Configurar sequência: D+0 dispara template "D+0 Consegna Mappa" (via webhook)
+- [x] Configurar sequência: D+3 dispara template "D+3 Follow-up" (via scheduled endpoint)
+- [x] Configurar sequência: D+5 dispara template "D+5 Curiosità IA" (via scheduled endpoint)
+- [x] Configurar sequência: D+8 dispara template "D+8 Settimana Zero" (via scheduled endpoint)
+- [x] Após D+8: adicionar tag STATUS_pronto_settimana_zero ao contato
+- [x] Escrever testes vitest para o fluxo completo (7 testes passando)
