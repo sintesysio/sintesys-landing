@@ -491,3 +491,13 @@
 - [x] Incluir link checkout Stripe (https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01) nos CTAs de /grazie e /mappa
 - [x] Substituir nomes da barra de menu azul por cronômetro regressivo de 1h na /mappa
 - [x] Otimizar desempenho PageSpeed da /mappa (remover framer-motion, otimizar imagens, preload fontes)
+
+## Migração Mailchimp para lamberto@ilconsigliere.io
+- [x] Atualizar audience default sender de commerciale@sintesys.info para lamberto@ilconsigliere.io
+- [x] Atualizar sender (from_name/reply_to) de todas as 42 campanhas para lamberto@ilconsigliere.io
+- [x] Atualizar conteúdo HTML das campanhas ativas (paused) — removido Sintesys, sintesysio.io, €47
+- [x] Atualizar templates HTML locais (7 arquivos) — removido todas referências antigas
+- [x] Atualizar documentação (email-templates.md, email-templates-settore.md, mailchimp-integration-plan.md, guia-customer-journey-mailchimp.md)
+- [x] Verificar que 145 testes continuam passando após alterações
+- [ ] Reativar Customer Journeys 7061 e 7062 no Mailchimp UI (estão pausadas)
+- [ ] Verificar domínio ilconsigliere.io no Mailchimp (DKIM/SPF para novo domínio)

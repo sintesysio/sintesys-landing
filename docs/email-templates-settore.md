@@ -1,7 +1,7 @@
 # Email Templates per Settore — Materiali Strategici
 
 > Ultima atualização: 29 de março de 2026
-> Remetente: Il Consigliere <commerciale@ilconsigliere.info>
+> Remetente: Il Consigliere <lamberto@ilconsigliere.io>
 > Plataforma: Mailchimp (us14)
 > Público-alvo: PMI italiane (10-50 dipendenti, €1.8M-€12M fatturato)
 

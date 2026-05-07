@@ -1,7 +1,7 @@
 # Email Templates - Mailchimp Automações
 
 > Última atualização: 29 de março de 2026
-> Remetente: Il Consigliere <commerciale@ilconsigliere.info>
+> Remetente: Il Consigliere <lamberto@ilconsigliere.io>
 > Plataforma: Mailchimp (us14)
 > Status: Ambas automações ATIVAS
 
@@ -89,11 +89,11 @@
 | CNAME | k2._domainkey | dkim2.mcsv.net |
 | CNAME | k3._domainkey | dkim3.mcsv.net |
 | TXT | SPF | v=spf1 include:_spf.google.com include:servers.mcsv.net ~all |
-| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:commerciale@ilconsigliere.info |
+| TXT | _dmarc | v=DMARC1; p=none; rua=mailto:lamberto@ilconsigliere.io |
 
 ### Audiência Mailchimp
 
 - **Nome**: Il Consigliere
 - **ID**: b0d9ab0ecc
-- **Remetente padrão**: Il Consigliere <commerciale@ilconsigliere.info>
+- **Remetente padrão**: Il Consigliere <lamberto@ilconsigliere.io>
 - **Status domínio**: Verificado + Autenticado (DKIM)
