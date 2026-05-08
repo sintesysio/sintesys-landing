@@ -517,3 +517,6 @@
 - [x] Escrever testes vitest para o fluxo completo (7 testes passando)
 - [x] Configurar scheduled task (cron) para chamar /api/scheduled/email-sequence a cada 6h
 - [x] Adicionar teste cobrindo detecção do produto Stripe pelo ID exato prod_UQZfPcdNIGhEt0 (9 testes passando)
+
+## Google Tag Manager
+- [x] Inserir GTM-N5R29R22 em todas as páginas publicadas
