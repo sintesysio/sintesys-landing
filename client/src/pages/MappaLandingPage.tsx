@@ -912,7 +912,7 @@ export default function MappaLandingPage() {
                   Ha quattordici giorni dal momento dell'acquisto. Apre il foglio, lo prova, lo legge. Se decide che non vale i €49,50 che ha speso, le rimborsiamo l'intera cifra. Senza domande, senza moduli, senza giustificazioni.
                 </p>
                 <p className="mb-5">
-                  Una sola email a <strong style={{ color: "#1B2A4A" }}>ciao@ilconsigliere.io</strong> con scritto "rimborso" e l'oggetto del suo ordine. Bonifico entro tre giorni lavorativi.
+                  Una sola email a <strong style={{ color: "#1B2A4A" }}>lamberto@ilconsigliere.io</strong> con scritto "rimborso" e l'oggetto del suo ordine. Bonifico entro tre giorni lavorativi.
                 </p>
                 <p style={{ fontStyle: "italic", color: "#666" }}>
                   Funziona così perché abbiamo già lavorato la versione attuale con decine di imprenditori, e sappiamo che la Mappa fa il suo mestiere. Se non lo fa per Lei, è giusto che non paghi.
@@ -1122,7 +1122,7 @@ export default function MappaLandingPage() {
                 color: "#999",
               }}
             >
-              Il Consigliere — ciao@ilconsigliere.io
+              Il Consigliere — lamberto@ilconsigliere.io
             </span>
           </div>
           <div className="flex flex-wrap gap-4 justify-center">

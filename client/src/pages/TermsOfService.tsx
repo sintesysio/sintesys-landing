@@ -227,8 +227,8 @@ export default function TermsOfService() {
               contattarci all'indirizzo:
             </p>
             <p className="mt-3 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="mailto:legal@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                legal@ilconsigliere.io
+              <a href="mailto:lamberto@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                lamberto@ilconsigliere.io
               </a>
             </p>
           </section>

@@ -67,8 +67,8 @@ export default function DataDeletion() {
                   </h3>
                   <p className="leading-relaxed">
                     Scrivi un'email a{" "}
-                    <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                      privacy@ilconsigliere.io
+                    <a href="mailto:lamberto@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                      lamberto@ilconsigliere.io
                     </a>{" "}
                     con oggetto <strong>"Richiesta Cancellazione Dati"</strong>. Utilizza
                     l'indirizzo email associato al tuo account per una verifica rapida.
@@ -198,8 +198,8 @@ export default function DataDeletion() {
               esercitare i tuoi diritti ai sensi del GDPR, puoi contattarci all'indirizzo:
             </p>
             <p className="mt-3 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                privacy@ilconsigliere.io
+              <a href="mailto:lamberto@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                lamberto@ilconsigliere.io
               </a>
             </p>
             <p className="mt-4 text-sm" style={{ color: "#777" }}>

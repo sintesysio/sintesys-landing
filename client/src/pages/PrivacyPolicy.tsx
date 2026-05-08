@@ -45,8 +45,8 @@ export default function PrivacyPolicy() {
               Il titolare del trattamento dei dati personali è <strong>Il Consigliere</strong>,
               con sede operativa in Italia. Per qualsiasi comunicazione relativa alla
               protezione dei dati, è possibile scrivere a{" "}
-              <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                privacy@ilconsigliere.io
+              <a href="mailto:lamberto@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                lamberto@ilconsigliere.io
               </a>.
             </p>
           </section>
@@ -237,8 +237,8 @@ export default function PrivacyPolicy() {
               dei tuoi dati personali, puoi contattarci all'indirizzo:
             </p>
             <p className="mt-3 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <a href="mailto:privacy@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
-                privacy@ilconsigliere.io
+              <a href="mailto:lamberto@ilconsigliere.io" className="text-[#1B2A4A] underline underline-offset-2 hover:text-[#C4704B]">
+                lamberto@ilconsigliere.io
               </a>
             </p>
           </section>
