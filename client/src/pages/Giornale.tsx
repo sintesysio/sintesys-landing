@@ -101,7 +101,7 @@ export default function Giornale() {
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
       <SEOHead
         title="Il Giornale dell'IA — Newsletter settimanale per imprenditori italiani"
-        description="Ogni settimana, analisi e strategie IA concrete per PMI con 10-50 dipendenti. Gratuita. Niente gergo."
+        description="Ogni settimana, analisi e strategie IA concrete per PMI con 10-50 dipendenti. Niente gergo."
         path="/giornale"
       />
       <NavBar />
@@ -988,7 +988,7 @@ export default function Giornale() {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
               >
-                Scarica la Guida Gratuita
+                Scarica la Guida
               </a>
               <a
                 href="/contattaci"

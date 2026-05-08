@@ -243,7 +243,7 @@ function NewsletterForm({ variant = "light", id = "home" }: { variant?: "light" 
           opacity: submitLead.isPending ? 0.7 : 1,
         }}
       >
-        {submitLead.isPending ? "Invio in corso..." : "Iscriviti alla Newsletter Gratuita →"}
+        {submitLead.isPending ? "Invio in corso..." : "Iscriviti alla Newsletter →"}
       </button>
 
       {/* Privacy note */}
@@ -275,10 +275,10 @@ export default function LandingPage() {
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
         title="Il Consigliere — Intelligenza Artificiale operativa per PMI italiane"
-        description="Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio."
+        description="Riduci il caos operativo della tua PMI. Newsletter settimanale + Guida Transizione 5.0 inclusa."
         path="/"
         ogTitle="Il Consigliere — Intelligenza Artificiale operativa per PMI italiane"
-        ogDescription="Riduci il caos operativo della tua PMI. Newsletter settimanale gratuita + Guida Transizione 5.0 in omaggio."
+        ogDescription="Riduci il caos operativo della tua PMI. Newsletter settimanale + Guida Transizione 5.0 inclusa."
       />
       <NavBar />
 
@@ -334,13 +334,13 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Ogni settimana, titolari di PMI italiane con 10-50 dipendenti ricevono la nostra newsletter con analisi esclusive, casi studio reali e strategie operative per integrare l'IA nella propria azienda. <strong>Iscriviti gratuitamente.</strong>
+                Ogni settimana, titolari di PMI italiane con 10-50 dipendenti ricevono la nostra newsletter con analisi esclusive, casi studio reali e strategie operative per integrare l'IA nella propria azienda. <strong>Iscriviti ora.</strong>
               </p>
 
               {/* Trust badges */}
               <div className="flex flex-wrap gap-4 mb-6">
                 {[
-                  { icon: "✓", text: "Newsletter Settimanale Gratuita" },
+                  { icon: "✓", text: "Newsletter Settimanale" },
                   { icon: "✓", text: "Guida Transizione 5.0 Inclusa" },
                   { icon: "✓", text: "Cancellazione in Un Click" },
                 ].map((badge) => (
@@ -390,7 +390,7 @@ export default function LandingPage() {
                     fontWeight: 600,
                   }}
                 >
-                  Newsletter Gratuita
+                  Newsletter
                 </p>
                 <h3
                   className="mb-3"
@@ -561,7 +561,7 @@ export default function LandingPage() {
               step: "01",
               title: "Informati",
               subtitle: "Newsletter + Il Giornale dell'IA",
-              desc: "Ogni settimana ricevi analisi, casi studio e strategie operative per capire come l'IA può trasformare la tua PMI. Gratuito, concreto, senza gergo tecnico.",
+              desc: "Ogni settimana ricevi analisi, casi studio e strategie operative per capire come l'IA può trasformare la tua PMI. Concreto, senza gergo tecnico.",
               cta: "Iscriviti alla Newsletter",
               href: "#newsletter",
               isScroll: true,
@@ -1013,8 +1013,8 @@ export default function LandingPage() {
               a: "Il Consigliere è una società di consulenza strategica specializzata nell'integrazione dell'Intelligenza Artificiale nelle Piccole e Medie Imprese italiane. Fondata da Lamberto Grinover, traduce la complessità tecnologica in risultati operativi misurabili: riduzione costi, efficienza e marginalità.",
             },
             {
-              q: "La newsletter è davvero gratuita?",
-              a: "Sì, completamente gratuita. Riceverai un'edizione settimanale con analisi, casi studio e strategie operative per la tua PMI. Puoi cancellarti in qualsiasi momento con un click. Nessun vincolo, nessun costo nascosto.",
+              q: "Come funziona la newsletter?",
+              a: "Riceverai un'edizione settimanale con analisi, casi studio e strategie operative per la tua PMI. Puoi cancellarti in qualsiasi momento con un click. Nessun vincolo.",
             },
             {
               q: "L'IA è troppo costosa per una PMI?",

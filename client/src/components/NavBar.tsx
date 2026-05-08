@@ -99,7 +99,7 @@ export default function NavBar() {
               }
             }}
           >
-            Iscriviti Gratis →
+            Iscriviti Ora →
           </a>
         </div>
       </div>

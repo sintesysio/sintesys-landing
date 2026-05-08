@@ -187,7 +187,7 @@ export default function MappaGraziePage() {
                 marginBottom: "0.75rem",
               }}
             >
-              Iscritto al Giornale dell'IA? Riceva ogni settimana strategie operative aggiuntive — gratis.
+              Si iscriva al Giornale dell'IA e riceva ogni settimana strategie operative aggiuntive.
             </p>
             <Link href="/">
               <span

@@ -22,12 +22,12 @@ const EXCLUDED_PATHS = ["/mappa", "/mappa/grazie", "/grazie", "/chi-siamo"];
 // A/B headline variants
 const VARIANT_A = {
   headline: "Lo Stato paga il 50% della digitalizzazione della sua PMI.",
-  subheadline: "Il 60% non lo sa. Scarica la Guida Transizione 5.0 — gratis.",
+  subheadline: "Il 60% non lo sa. Scarica la Guida Transizione 5.0 — iscriviti alla newsletter.",
   cta: "Sì, voglio la Guida →",
 };
 const VARIANT_B = {
   headline: "Il caos operativo non è la crisi.",
-  subheadline: "È il problema che nessuno le ha ancora mappato. La newsletter le mostra come uscirne — ogni settimana. Iscriviti gratis.",
+  subheadline: "È il problema che nessuno le ha ancora mappato. La newsletter le mostra come uscirne — ogni settimana.",
   cta: "Iscriviti alla Newsletter →",
 };
 

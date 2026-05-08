@@ -319,7 +319,7 @@ export default function Home() {
                           fontWeight: 500,
                         }}
                       >
-                        Analisi Gratuita
+                        Analisi Operativa
                       </p>
                       <p
                         style={{
@@ -988,7 +988,7 @@ export default function Home() {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
               >
-                Scarica la Guida Gratuita
+                Scarica la Guida
               </a>
               <a
                 href="/contattaci"

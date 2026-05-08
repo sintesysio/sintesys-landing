@@ -34,7 +34,7 @@ interface LinkItem {
 
 const LINKS: LinkItem[] = [
   {
-    label: "Newsletter Gratuita + Guida Transizione 5.0",
+    label: "Newsletter + Guida Transizione 5.0",
     description:
       "Si iscriva e riceva subito la guida. Ogni settimana, strategie IA concrete per la Sua PMI.",
     href: "/",
@@ -71,7 +71,7 @@ const LINKS: LinkItem[] = [
   {
     label: "Parli con Lamberto",
     description:
-      "Conversazione strategica gratuita. Scopriamo insieme dove l'IA pu\u00f2 migliorare la sua azienda.",
+      "Conversazione strategica. Scopriamo insieme dove l'IA pu\u00f2 migliorare la Sua azienda.",
     href: "/contattaci",
     utmContent: "parli-con-lamberto",
     action: "link",
