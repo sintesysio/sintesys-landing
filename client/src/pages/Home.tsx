@@ -939,7 +939,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════ */}
       {/* SECONDARY CTA — Bottom subscription — DYNAMIC */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-8 lg:mt-16 mb-16" id="cta" aria-label="Invito all'iscrizione">
+      <section className="container mt-8 lg:mt-16 mb-16" id="newsletter" aria-label="Invito all'iscrizione">
         <div className="rule-thick mb-8" />
         <FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

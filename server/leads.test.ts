@@ -26,6 +26,11 @@ vi.mock("./notion", () => ({
   syncQualifiedLeadToNotion: vi.fn().mockResolvedValue(undefined),
 }));
 
+// Mock the welcome-email module
+vi.mock("./welcome-email", () => ({
+  sendWelcomeEmail: vi.fn().mockResolvedValue({ success: true, campaignId: "test_campaign" }),
+}));
+
 // Mock the storage module
 vi.mock("./storage", () => ({
   storagePut: vi.fn().mockResolvedValue({

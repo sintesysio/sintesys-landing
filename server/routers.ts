@@ -4,6 +4,7 @@ import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
 import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads, createClient, updateClient, deleteClient, getClientById, getAllClients, createTransaction, updateTransaction, deleteTransaction, getTransactionsByClient, getAllTransactions, getTransactionsByDateRange, getLeadsStats, getFinancialSummary, getBalanceByClient } from "./db";
 import { syncSimpleLead, syncQualifiedLead, getMailchimpListStats, getMailchimpCampaigns } from "./mailchimp";
+import { sendWelcomeEmail } from "./welcome-email";
 import { syncSimpleLeadToNotion, syncQualifiedLeadToNotion, getNotionPipelineDeals, getNotionDealDetail } from "./notion";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
@@ -260,6 +261,16 @@ export const appRouter = router({
           });
         } catch (err) {
           console.error("[Notification] ✗ Failed to notify owner about new lead:", err instanceof Error ? err.message : err);
+        }
+
+        // Send welcome email (non-blocking, don't fail the lead creation)
+        try {
+          await sendWelcomeEmail(input.email, input.name);
+          console.log(`[WelcomeEmail] ✓ Welcome email triggered for ${input.email}`);
+        } catch (err) {
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          syncErrors.push({ service: "WelcomeEmail", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[WelcomeEmail] ✗ Failed to send welcome email to ${input.email}:`, errorMsg);
         }
 
         // Log structured summary

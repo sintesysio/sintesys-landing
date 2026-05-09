@@ -8,11 +8,12 @@
  * If no edition is available, it falls back to static default content.
  */
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import NavBar from "@/components/NavBar";
 import SEOHead from "@/components/SEOHead";
+import { trackLeadSimple, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
@@ -77,6 +78,187 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
     >
       {children}
     </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* INLINE NEWSLETTER FORM — Giornale page                 */
+/* ═══════════════════════════════════════════════════════ */
+function GiornaleNewsletterForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
+
+  const submitLead = trpc.leads.submit.useMutation({
+    onSuccess: () => {
+      setSubmitted(true);
+      trackLeadSimple({ name, email, source: "giornale" });
+    },
+    onError: (err) => {
+      if (err.message.includes("già registrato") || err.message.includes("duplicate")) {
+        setSubmitted(true);
+        trackLeadSimple({ name, email, source: "giornale" });
+      } else {
+        setError("Si è verificato un errore. Riprova.");
+      }
+    },
+  });
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      setError("");
+      if (!name.trim() || !email.trim()) {
+        setError("Compila tutti i campi obbligatori.");
+        return;
+      }
+      trackCTAClick("Newsletter Iscriviti", "giornale");
+      submitLead.mutate({
+        name: name.trim(),
+        email: email.trim(),
+        source: "giornale",
+      });
+    },
+    [name, email, submitLead]
+  );
+
+  if (submitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center py-6"
+      >
+        <div
+          className="w-12 h-12 mx-auto mb-3 flex items-center justify-center rounded-full"
+          style={{ backgroundColor: "rgba(250,250,247,0.15)" }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FAFAF7" strokeWidth="2.5">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </div>
+        <h3
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: "1.3rem",
+            fontWeight: 700,
+            color: "#FAFAF7",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Perfetto. Benvenuto.
+        </h3>
+        <p
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            fontSize: "0.95rem",
+            color: "rgba(250,250,247,0.7)",
+            lineHeight: 1.6,
+          }}
+        >
+          Controlla la tua casella email. Riceverai la Guida Transizione 5.0 e il primo aggiornamento settimanale entro pochi minuti.
+        </p>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <div>
+        <label
+          htmlFor="giornale-name"
+          className="block uppercase tracking-[0.12em] mb-1"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "0.6rem",
+            color: "rgba(250,250,247,0.5)",
+            fontWeight: 500,
+          }}
+        >
+          Nome e Cognome *
+        </label>
+        <input
+          id="giornale-name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Mario Rossi"
+          required
+          autoComplete="name"
+          className="w-full px-3 py-2.5 text-sm outline-none transition-colors placeholder-white/30"
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            border: "1px solid rgba(250,250,247,0.2)",
+            backgroundColor: "rgba(250,250,247,0.08)",
+            color: "#FAFAF7",
+          }}
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="giornale-email"
+          className="block uppercase tracking-[0.12em] mb-1"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "0.6rem",
+            color: "rgba(250,250,247,0.5)",
+            fontWeight: 500,
+          }}
+        >
+          Email Aziendale *
+        </label>
+        <input
+          id="giornale-email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="mario@azienda.it"
+          required
+          autoComplete="email"
+          className="w-full px-3 py-2.5 text-sm outline-none transition-colors placeholder-white/30"
+          style={{
+            fontFamily: "'Source Serif 4', serif",
+            border: "1px solid rgba(250,250,247,0.2)",
+            backgroundColor: "rgba(250,250,247,0.08)",
+            color: "#FAFAF7",
+          }}
+        />
+      </div>
+      {error && (
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#fc8181" }}>
+          {error}
+        </p>
+      )}
+      <button
+        type="submit"
+        disabled={submitLead.isPending}
+        className="w-full py-3 text-xs uppercase tracking-[0.15em] transition-all"
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: 600,
+          backgroundColor: "#C4704B",
+          color: "#FAFAF7",
+          border: "none",
+          cursor: submitLead.isPending ? "wait" : "pointer",
+          opacity: submitLead.isPending ? 0.7 : 1,
+        }}
+      >
+        {submitLead.isPending ? "Invio in corso..." : "Iscriviti alla Newsletter →"}
+      </button>
+      <p
+        className="text-center"
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: "0.6rem",
+          color: "rgba(250,250,247,0.35)",
+          lineHeight: 1.4,
+        }}
+      >
+        Nessuno spam. Puoi cancellarti in qualsiasi momento.
+        <br />I tuoi dati sono trattati secondo la normativa GDPR.
+      </p>
+    </form>
   );
 }
 
@@ -937,81 +1119,47 @@ export default function Giornale() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* SECONDARY CTA — Bottom subscription — DYNAMIC */}
+      {/* NEWSLETTER INLINE FORM — with id for anchor links       */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section className="container mt-8 lg:mt-16 mb-16" id="cta" aria-label="Invito all'iscrizione">
-        <div className="rule-thick mb-8" />
-        <FadeIn>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7">
+      <section
+        id="newsletter"
+        style={{ backgroundColor: "#1B2A4A" }}
+        className="py-16 lg:py-24 mt-8 lg:mt-16"
+      >
+        <div className="container">
+          <FadeIn>
+            <div className="max-w-xl mx-auto text-center">
+              <div
+                className="w-full mb-6 mx-auto max-w-xs"
+                style={{ borderTop: "3px solid rgba(250,250,247,0.3)" }}
+              />
               <h2
-                className="mb-4"
+                className="mb-2"
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   fontSize: "clamp(1.5rem, 3vw, 2.5rem)",
                   fontWeight: 700,
-                  color: "#1A1A1A",
+                  color: "#FAFAF7",
                   lineHeight: 1.15,
                 }}
               >
                 {content.ctaTitle}
               </h2>
               <p
+                className="mb-8"
                 style={{
                   fontFamily: "'Source Serif 4', serif",
                   fontSize: "1.05rem",
-                  color: "#555",
+                  color: "rgba(250,250,247,0.7)",
                   lineHeight: 1.7,
                 }}
               >
                 {content.ctaText}
               </p>
+              <GiornaleNewsletterForm />
             </div>
-            <div className="lg:col-span-5 flex flex-col gap-3">
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="inline-block w-full text-center py-4 transition-all duration-300"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  backgroundColor: "#1B2A4A",
-                  color: "#FAFAF7",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0f1d36")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1B2A4A")}
-              >
-                Scarica la Guida
-              </a>
-              <a
-                href="/contattaci"
-                className="inline-block w-full text-center py-4 transition-all duration-300"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  backgroundColor: "transparent",
-                  color: "#1B2A4A",
-                  textDecoration: "none",
-                  border: "2px solid #1B2A4A",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#1B2A4A"; e.currentTarget.style.color = "#FAFAF7"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#1B2A4A"; }}
-              >
-                Parli con Lamberto &rarr;
-              </a>
-            </div>
-          </div>
-        </FadeIn>
+          </FadeIn>
+        </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}

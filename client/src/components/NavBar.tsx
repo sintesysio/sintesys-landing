@@ -88,8 +88,8 @@ export default function NavBar() {
               border: "2px solid #C4704B",
             }}
             onClick={(e) => {
-              // If on homepage, scroll to #newsletter; otherwise navigate to home
-              if (location === "/") {
+              // If on homepage or giornale, scroll to #newsletter; otherwise navigate to home
+              if (location === "/" || location === "/giornale") {
                 e.preventDefault();
                 document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
                 trackCTAClick("Newsletter CTA", "navbar");
