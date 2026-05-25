@@ -18,6 +18,7 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const DataDeletion = lazy(() => import("./pages/DataDeletion"));
 const MappaLandingPage = lazy(() => import("./pages/MappaLandingPage"));
 const MappaGraziePage = lazy(() => import("./pages/MappaGraziePage"));
+const LeadCapturePage = lazy(() => import("./pages/LeadCapturePage"));
 const NewsletterPopup = lazy(() => import("./components/NewsletterPopup"));
 const AdminLayout = lazy(() => import("./components/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -77,6 +78,7 @@ function Router() {
         <Route path={"/links"} component={Links} />
         <Route path={"/mappa"} component={MappaLandingPage} />
         <Route path={"/mappa/grazie"} component={MappaGraziePage} />
+        <Route path={"/lead"} component={LeadCapturePage} />
         <Route path={"/privacy-policy"} component={PrivacyPolicy} />
         <Route path={"/terms-of-service"} component={TermsOfService} />
         <Route path={"/data-deletion"} component={DataDeletion} />

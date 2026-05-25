@@ -520,3 +520,18 @@
 
 ## Google Tag Manager
 - [x] Inserir GTM-N5R29R22 em todas as páginas publicadas
+
+## Página de Captura de Lead dedicada (/lead)
+- [ ] Criar página /lead com formulário: nome, email, telefone + pergunta "In quale settore operi?"
+- [ ] Setores: Manifattura, Commercio, Servizi professionali, Costruzioni, Logistica, Ristorazione/Hospitality, Tecnologia, Altro
+- [ ] Design editorial consistente com o site (navy, serif, off-white)
+- [ ] Integrar com endpoint leads.submit existente (source: "lead_page")
+- [ ] Garantir tag "lead" + setor no Mailchimp
+- [ ] Página de agradecimento após envio
+- [ ] Adicionar rota /lead no App.tsx
+- [ ] Escrever teste vitest para a nova rota
+- [ ] Salvar checkpoint
+
+## Roteiros de Vídeo "Caixinha de Perguntas" para Lamberto
+- [ ] Criar 10 roteiros de vídeo com pergunta + resposta (IA, negócios, incentivos para PMI)
+- [ ] Entregar em documento Word formatado
