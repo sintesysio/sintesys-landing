@@ -529,7 +529,7 @@
 - [x] Garantir tag "lead" + setor no Mailchimp
 - [x] Página de agradecimento após envio
 - [x] Adicionar rota /lead no App.tsx
-- [ ] Escrever teste vitest para a nova rota
+- [x] Escrever teste vitest para a nova rota
 - [x] Salvar checkpoint
 
 ## Roteiros de Vídeo "Caixinha de Perguntas" para Lamberto
