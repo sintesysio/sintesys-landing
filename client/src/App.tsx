@@ -19,6 +19,9 @@ const DataDeletion = lazy(() => import("./pages/DataDeletion"));
 const MappaLandingPage = lazy(() => import("./pages/MappaLandingPage"));
 const MappaGraziePage = lazy(() => import("./pages/MappaGraziePage"));
 const LeadCapturePage = lazy(() => import("./pages/LeadCapturePage"));
+const MasterclassPage = lazy(() => import("./pages/MasterclassPage"));
+const MasterclassGraziePage = lazy(() => import("./pages/MasterclassGraziePage"));
+const MentoriaPage = lazy(() => import("./pages/MentoriaPage"));
 const NewsletterPopup = lazy(() => import("./components/NewsletterPopup"));
 const AdminLayout = lazy(() => import("./components/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -79,6 +82,9 @@ function Router() {
         <Route path={"/mappa"} component={MappaLandingPage} />
         <Route path={"/mappa/grazie"} component={MappaGraziePage} />
         <Route path={"/lead"} component={LeadCapturePage} />
+        <Route path={"/masterclass"} component={MasterclassPage} />
+        <Route path={"/masterclass/grazie"} component={MasterclassGraziePage} />
+        <Route path={"/mentoria"} component={MentoriaPage} />
         <Route path={"/privacy-policy"} component={PrivacyPolicy} />
         <Route path={"/terms-of-service"} component={TermsOfService} />
         <Route path={"/data-deletion"} component={DataDeletion} />

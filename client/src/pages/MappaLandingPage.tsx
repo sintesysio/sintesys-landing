@@ -1,5 +1,5 @@
 /**
- * Landing Page — Mappa delle Opportunità IA (€49,50 lancio / €129,90 regolare)
+ * Landing Page — Mappa delle Opportunità IA (Gratuita per iscritti)
  * Prodotto low-ticket: foglio Excel + 5 documenti Word
  * Long-form editoriale stile Il Sole 24 Ore
  * Struttura: 13 sezioni (incluso Pricing Block), CTA in 3 posizioni
@@ -81,31 +81,33 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 /* ─── CTA Button component ─── */
-function CTAButton({ onClick, large = false, label = "Voglio la Mappa — €49,50", shake = false }: { onClick: () => void; large?: boolean; label?: string; shake?: boolean }) {
+function CTAButton({ large = false, label = "Ricevila gratuitamente →", shake = false }: { large?: boolean; label?: string; shake?: boolean; onClick?: () => void }) {
   return (
-    <button
-      onClick={onClick}
+    <Link
+      href="/lead"
       className={shake ? "btn-terracotta-shake" : "btn-terracotta"}
       style={{
         fontFamily: "'Inter', sans-serif",
         fontSize: large ? "0.85rem" : "0.75rem",
         fontWeight: 700,
         letterSpacing: "0.1em",
-        textTransform: "uppercase",
+        textTransform: "uppercase" as const,
         padding: large ? "1rem 2.5rem" : "0.875rem 2rem",
         border: "none",
         cursor: "pointer",
         display: "inline-block",
-        textAlign: "center",
+        textAlign: "center" as const,
+        textDecoration: "none",
       }}
+      onClick={() => trackCTAClick("Ricevila gratuitamente", "mappa_page")}
     >
       {label}
-    </button>
+    </Link>
   );
 }
 
-/* ─── Sticky CTA Bar (CSS-only) ─── */
-function StickyBar({ visible, onClick }: { visible: boolean; onClick: () => void }) {
+/* ─── Sticky CTA Bar — now links to /lead ─── */
+function StickyBar({ visible }: { visible: boolean; onClick?: () => void }) {
   return (
     <div
       className="fixed bottom-0 left-0 right-0 z-40"
@@ -126,24 +128,26 @@ function StickyBar({ visible, onClick }: { visible: boolean; onClick: () => void
             color: "#FAFAF7",
           }}
         >
-          Mappa delle Opportunità IA — <strong>€49,50</strong>
+          Mappa delle Opportunità IA — <strong>Inclusa gratuitamente</strong>
         </p>
-        <button
-          onClick={onClick}
-          className="btn-terracotta w-full sm:w-auto"
+        <Link
+          href="/lead"
+          className="btn-terracotta w-full sm:w-auto text-center no-underline"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: "0.75rem",
             fontWeight: 700,
             letterSpacing: "0.1em",
-            textTransform: "uppercase",
+            textTransform: "uppercase" as const,
             padding: "0.75rem 2rem",
             border: "none",
             cursor: "pointer",
+            display: "inline-block",
           }}
+          onClick={() => trackCTAClick("Ricevila gratuitamente", "sticky_bar")}
         >
-          Voglio la Mappa — €49,50
-        </button>
+          Iscriviti e ricevila gratis →
+        </Link>
       </div>
     </div>
   );
@@ -170,20 +174,15 @@ export default function MappaLandingPage() {
   }, []);
 
   const handleCTA = useCallback((location: string) => {
-    trackCTAClick("Voglio la Mappa €49,50", location);
-    trackInitiateCheckout({
-      productName: "Mappa delle Opportunità IA",
-      value: 49.50,
-      currency: "EUR",
-      includesOrderBump: false,
-    });
-    window.open("https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01", "_blank");
+    trackCTAClick("Ricevila gratuitamente", location);
+    // Now redirects to /lead instead of Stripe
+    window.location.href = "/lead";
   }, []);
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Mappa delle Opportunità IA — Diagnostico per la Sua PMI · €49,50"
+        title="Mappa delle Opportunità IA — Diagnostico per la Sua PMI"
         description="In 30 minuti, scopra dove l'IA può liberare ore della Sua settimana. 80 processi pre-mappati, 8 reparti, garanzia 14 giorni."
         path="/mappa"
       />
@@ -277,8 +276,7 @@ export default function MappaLandingPage() {
               <CTAButton onClick={() => handleCTA("hero")} large shake />
             </div>
             <div className="mt-4 flex flex-wrap items-center justify-center sm:justify-start gap-4">
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 500, color: "#999", textDecoration: "line-through" }}>€129,90</span>
-              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: "#C4704B" }}>→ €49,50 · Prezzo di lancio</span>
+              <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 700, color: "#C4704B" }}>Inclusa gratuitamente per tutti gli iscritti alla newsletter</span>
             </div>
             <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-4">
               {["Pagamento sicuro", "Consegna immediata via email", "Garanzia 14 giorni"].map((t) => (
@@ -630,33 +628,8 @@ export default function MappaLandingPage() {
                   lineHeight: 1.15,
                 }}
               >
-                Il prezzo, e perché lo abbiamo scelto.
+                Inclusa gratuitamente per tutti gli iscritti alla newsletter.
               </h2>
-              <p
-                className="mb-6"
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.75rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  color: "#888",
-                }}
-              >
-                Prezzo regolare
-              </p>
-              <p
-                className="mb-2"
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: "1.5rem",
-                  fontWeight: 600,
-                  color: "#999",
-                  textDecoration: "line-through",
-                }}
-              >
-                €129,90
-              </p>
               <p
                 className="mb-4"
                 style={{
@@ -667,7 +640,7 @@ export default function MappaLandingPage() {
                   lineHeight: 1,
                 }}
               >
-                €49,50
+                Gratis
               </p>
               <p
                 className="mb-6"
@@ -678,7 +651,7 @@ export default function MappaLandingPage() {
                   color: "#1B2A4A",
                 }}
               >
-                Prezzo di lancio fino ai primi 100 clienti. Risparmi €84,40. Garanzia 14 giorni inclusa.
+                Iscrivendosi alla newsletter riceve immediatamente la Mappa + la Guida Transizione 5.0.
               </p>
               <div
                 className="mx-auto max-w-xl py-6 px-8"
@@ -695,19 +668,7 @@ export default function MappaLandingPage() {
                     lineHeight: 1.7,
                   }}
                 >
-                  Stiamo costruendo la base operativa di Il Consigliere adesso. I primi 100 imprenditori italiani che acquistano la Mappa ci aiutano a calibrare lo strumento — in cambio, ricevono il prezzo di lancio. Quando arriviamo a quota 100, il prezzo torna a €129,90.
-                </p>
-                <p
-                  className="mt-3"
-                  style={{
-                    fontFamily: "'Source Serif 4', serif",
-                    fontSize: "0.9rem",
-                    color: "#777",
-                    fontStyle: "italic",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  Non è scarcity costruita. È il modo in cui stiamo facendo crescere l'operazione.
+                  Abbiamo deciso di rendere la Mappa gratuita per un motivo semplice: è lo strumento più potente che abbiamo per mostrare a un imprenditore dove l'IA può intervenire nella sua azienda. Chi la compila, capisce. Chi capisce, agisce.
                 </p>
               </div>
               <div className="mt-8">
@@ -784,7 +745,7 @@ export default function MappaLandingPage() {
               lineHeight: 1.15,
             }}
           >
-            Tutto quello che è incluso, a €49,50.
+            Tutto quello che è incluso, gratuitamente.
           </h2>
         </FadeIn>
 
@@ -909,13 +870,13 @@ export default function MappaLandingPage() {
               </h2>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "1rem", color: "#444", lineHeight: 1.85 }}>
                 <p className="mb-5">
-                  Ha quattordici giorni dal momento dell'acquisto. Apre il foglio, lo prova, lo legge. Se decide che non vale i €49,50 che ha speso, le rimborsiamo l'intera cifra. Senza domande, senza moduli, senza giustificazioni.
+                  Riceve tutto immediatamente via email. Apre il foglio, lo prova, lo compila. Se decide che non fa per lei, si cancella dalla newsletter con un click. Senza domande, senza moduli, senza giustificazioni.
                 </p>
                 <p className="mb-5">
-                  Una sola email a <strong style={{ color: "#1B2A4A" }}>lamberto@ilconsigliere.io</strong> con scritto "rimborso" e l'oggetto del suo ordine. Bonifico entro tre giorni lavorativi.
+                  Nessun rischio. Non le chiediamo nulla se non il suo tempo per compilarla.
                 </p>
                 <p style={{ fontStyle: "italic", color: "#666" }}>
-                  Funziona così perché abbiamo già lavorato la versione attuale con decine di imprenditori, e sappiamo che la Mappa fa il suo mestiere. Se non lo fa per Lei, è giusto che non paghi.
+                  Funziona così perché abbiamo già lavorato la versione attuale con decine di imprenditori, e sappiamo che la Mappa fa il suo mestiere. Se non le serve, si cancella in un click.
                 </p>
               </div>
             </div>
@@ -1070,18 +1031,16 @@ export default function MappaLandingPage() {
               </p>
 
               {/* CTA #3 — grande, finale */}
-              <CTAButton onClick={() => handleCTA("blocco_finale")} large label="Scarica la Mappa adesso — €49,50" />
+              <CTAButton large label="Iscriviti e ricevi la Mappa gratis →" />
 
               <div className="mt-4 flex flex-wrap justify-center items-center gap-4">
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 500, color: "rgba(250,250,247,0.4)", textDecoration: "line-through" }}>€129,90</span>
-                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 700, color: "#C4704B" }}>Prezzo di lancio fino ai primi 100 clienti</span>
+                <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", fontWeight: 700, color: "#C4704B" }}>Inclusa gratuitamente per gli iscritti alla newsletter</span>
               </div>
               <div className="mt-3 flex flex-wrap justify-center gap-4">
                 {[
-                  "Pagamento sicuro Stripe",
-                  "Consegna entro 2 minuti",
-                  "Garanzia 14 giorni",
-                  "Fattura disponibile per partita IVA",
+                  "Consegna immediata via email",
+                  "Nessun pagamento richiesto",
+                  "Cancellazione in 1 click",
                 ].map((t) => (
                   <span
                     key={t}

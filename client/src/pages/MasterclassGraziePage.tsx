@@ -1,7 +1,7 @@
 /**
- * Thank You Page — /grazie
- * Exibida após inscrição na newsletter/lead
- * Focus: confirm subscription + mention Guida + Mappa delivery + upsell Masterclass
+ * Masterclass Thank You Page — /masterclass/grazie
+ * Shown after successful Masterclass purchase
+ * Fires Purchase pixel event
  */
 
 import { Link } from "wouter";
@@ -12,24 +12,28 @@ import { trackConversion } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 
-export default function Grazie() {
+export default function MasterclassGraziePage() {
   useEffect(() => {
-    trackConversion({ source: "thank_you_page" });
-    // Fire Meta Pixel Lead event
+    trackConversion({ source: "masterclass_purchase" });
+    // Fire Meta Pixel Purchase event
     if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "Lead", { content_name: "newsletter" });
+      (window as any).fbq("track", "Purchase", {
+        value: 97,
+        currency: "EUR",
+        content_name: "Masterclass Il Consigliere",
+      });
     }
   }, []);
 
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Grazie — Iscrizione confermata | Il Consigliere"
-        description="Riceverà la Guida Transizione 5.0 e la Mappa delle Opportunità IA entro pochi minuti."
-        path="/grazie"
+        title="Perfetto — Il suo posto è confermato | Il Consigliere"
+        description="Riceverà il link Zoom all'email indicata 24 ore prima della sessione."
+        path="/masterclass/grazie"
         noindex
       />
-      
+
       {/* Navbar minimal */}
       <nav className="container" style={{ backgroundColor: "#FAFAF7" }}>
         <div className="rule-thick mt-0" />
@@ -62,9 +66,9 @@ export default function Grazie() {
           {/* Success icon */}
           <div
             className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6"
-            style={{ backgroundColor: "rgba(27,42,74,0.08)" }}
+            style={{ backgroundColor: "rgba(196,112,75,0.1)" }}
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
@@ -79,7 +83,7 @@ export default function Grazie() {
               lineHeight: 1.1,
             }}
           >
-            Iscrizione Confermata!
+            Perfetto. Il suo posto è confermato.
           </h1>
 
           <p
@@ -91,7 +95,8 @@ export default function Grazie() {
               lineHeight: 1.7,
             }}
           >
-            Benvenuto nella community di imprenditori italiani che stanno integrando l'IA nelle proprie aziende. La <strong>Guida Transizione 5.0</strong> e la <strong>Mappa delle Opportunità IA</strong> sono in arrivo nella sua casella email.
+            Riceverà il link Zoom all'email indicata <strong>24 ore prima della sessione</strong>. 
+            Segni la data in agenda — questa è una sessione che richiede la sua presenza attiva.
           </p>
 
           {/* Steps */}
@@ -111,24 +116,24 @@ export default function Grazie() {
                 color: "#1A1A1A",
               }}
             >
-              Cosa succede adesso?
+              Come prepararsi alla Masterclass
             </h2>
             <div className="space-y-5">
               {[
                 {
                   step: "1",
-                  title: "Controlli la sua email",
-                  desc: "Entro pochi minuti riceverà due allegati: la Guida Transizione 5.0 (come accedere ai €6,3 miliardi di fondi MIMIT) e la Mappa delle Opportunità IA (80 processi, 8 reparti, dashboard automatica). Controlli anche la cartella spam.",
+                  title: "Compili la Mappa delle Opportunità IA",
+                  desc: "Se non l'ha ancora fatto, la riceve gratuitamente iscrivendosi alla newsletter. Compilarla prima della sessione le permette di arrivare con domande specifiche sulla sua azienda.",
                 },
                 {
                   step: "2",
-                  title: "Compili la Mappa",
-                  desc: "Non la legga — la compili. 30 minuti per scoprire esattamente dove la sua azienda perde tempo e denaro. Il valore non è nel foglio, è nei numeri che lei ci mette dentro.",
+                  title: "Prepari 2-3 domande concrete",
+                  desc: "Non domande generiche sull'IA. Domande sulla SUA azienda: dove perde tempo, dove i margini si erodono, dove i processi si bloccano. Più specifiche sono, più valore riceve.",
                 },
                 {
                   step: "3",
-                  title: "Ogni settimana, una nuova edizione",
-                  desc: "Ogni lunedì riceverà Il Giornale dell'IA — analisi esclusive, casi studio reali e strategie operative per integrare l'Intelligenza Artificiale nella sua PMI.",
+                  title: "Si presenti puntuale",
+                  desc: "La sessione inizia alle 18:00 CET. Il link Zoom arriva 24 ore prima. Non c'è registrazione — chi c'è, c'è. Chi non c'è, perde l'opportunità.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -139,7 +144,7 @@ export default function Grazie() {
                       fontSize: "0.9rem",
                       fontWeight: 700,
                       color: "#FAFAF7",
-                      backgroundColor: "#1B2A4A",
+                      backgroundColor: "#C4704B",
                     }}
                   >
                     {item.step}
@@ -172,86 +177,6 @@ export default function Grazie() {
             </div>
           </div>
 
-          {/* Upsell — Masterclass */}
-          <div
-            className="p-6 lg:p-8 mb-6"
-            style={{
-              backgroundColor: "#fff",
-              border: "2px solid #C4704B",
-            }}
-          >
-            <p
-              className="uppercase tracking-[0.15em] mb-2"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.6rem",
-                color: "#C4704B",
-                fontWeight: 600,
-              }}
-            >
-              Passo Successivo
-            </p>
-            <h3
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.15rem",
-                fontWeight: 700,
-                color: "#1A1A1A",
-                lineHeight: 1.25,
-                marginBottom: "0.75rem",
-              }}
-            >
-              Ha ricevuto gli strumenti. Il passo successivo è usarli insieme.
-            </h3>
-            <p
-              className="mb-4"
-              style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.95rem",
-                color: "#444",
-                lineHeight: 1.7,
-              }}
-            >
-              Una volta al mese, Lamberto Grinover apre le porte a un gruppo selezionato di imprenditori per una sessione live di 90 minuti. Diagnosi della sua azienda, piano d'azione concreto, domande reali — in diretta.
-            </p>
-            <p
-              className="mb-5"
-              style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.9rem",
-                color: "#555",
-                lineHeight: 1.6,
-              }}
-            >
-              Non è un webinar generico. È una sessione operativa con chi ha gestito operazioni da €200M.
-            </p>
-            <Link
-              href="/masterclass"
-              className="inline-block no-underline px-6 py-2.5"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#FAFAF7",
-                backgroundColor: "#C4704B",
-              }}
-            >
-              Scopri la Masterclass →
-            </Link>
-            <p
-              className="mt-3"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.7rem",
-                color: "#888",
-              }}
-            >
-              €97 · 1 volta al mese · Posti limitati
-            </p>
-          </div>
-
           {/* CTA to Giornale */}
           <div
             className="p-6"
@@ -269,11 +194,11 @@ export default function Grazie() {
                 lineHeight: 1.6,
               }}
             >
-              Mentre aspetta, scopra <strong>Il Giornale dell'IA</strong> — strategie operative di Intelligenza Artificiale per imprenditori italiani, aggiornate ogni giorno.
+              Mentre aspetta la sessione, legga <strong>Il Giornale dell'IA</strong> — ogni giorno una nuova analisi operativa per la sua PMI.
             </p>
             <Link
               href="/giornale"
-              className="inline-block no-underline px-6 py-2.5 transition-all"
+              className="inline-block no-underline px-6 py-2.5"
               style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: "0.75rem",

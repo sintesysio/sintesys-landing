@@ -14,13 +14,24 @@ export const PRODUCTS = {
   mappa: {
     name: "Mappa delle Opportunità IA",
     description:
-      "Foglio Excel professionale con 80 processi pre-mappati su 8 reparti + 5 documenti Word di accompagnamento. Consegna immediata via email.",
-    priceEurCents: 4950, // €49,50 — prezzo di lancio (regolare €129,90)
+      "Foglio Excel professionale con 80 processi pre-mappati su 8 reparti + 5 documenti Word di accompagnamento. Ora inclusa gratuitamente per gli iscritti alla newsletter.",
+    priceEurCents: 0, // Gratuita per iscritti (era €49,50)
     regularPriceEurCents: 12990, // €129,90 — prezzo regolare (compare-at)
     currency: "eur",
     metadata: {
       product_key: "mappa_opportunita_ia",
-      type: "low_ticket",
+      type: "free_lead_magnet",
+    },
+  },
+  masterclass: {
+    name: "Masterclass Il Consigliere",
+    description:
+      "Sessione live di 90 minuti con Lamberto Grinover. Diagnosi della sua azienda, piano d'azione concreto, domande reali. Una volta al mese, max 15 partecipanti.",
+    priceEurCents: 9700, // €97,00
+    currency: "eur",
+    metadata: {
+      product_key: "masterclass_il_consigliere",
+      type: "mid_ticket",
     },
   },
   sessioneDiagnosi: {

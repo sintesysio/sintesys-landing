@@ -22,56 +22,82 @@ export function registerStripeCheckout(app: Express) {
   app.post("/api/stripe/create-checkout", async (req: Request, res: Response) => {
     try {
       const stripe = getStripe();
-      const { includeOrderBump = false, customerEmail, customerName } = req.body as {
+      const { includeOrderBump = false, customerEmail, customerName, productKey } = req.body as {
         includeOrderBump?: boolean;
         customerEmail?: string;
         customerName?: string;
+        productKey?: string;
       };
-
       const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, "") || "https://www.ilconsigliere.io";
 
+      // Determine which product to sell
+      const isMasterclass = productKey === "masterclass";
+
       // Build line items
-      const lineItems = [
-        {
-          price_data: {
-            currency: PRODUCTS.mappa.currency as string,
-            product_data: {
-              name: PRODUCTS.mappa.name as string,
-              description: PRODUCTS.mappa.description as string,
+      let lineItems;
+      let productKeyMeta: string;
+      let successUrl: string;
+      let cancelUrl: string;
+
+      if (isMasterclass) {
+        lineItems = [
+          {
+            price_data: {
+              currency: PRODUCTS.masterclass.currency as string,
+              product_data: {
+                name: PRODUCTS.masterclass.name as string,
+                description: PRODUCTS.masterclass.description as string,
+              },
+              unit_amount: PRODUCTS.masterclass.priceEurCents as number,
             },
-            unit_amount: PRODUCTS.mappa.priceEurCents as number,
+            quantity: 1,
           },
-          quantity: 1,
-        },
-      ];
-
-      // Add order bump if selected
-      if (includeOrderBump) {
-        lineItems.push({
-          price_data: {
-            currency: PRODUCTS.sessioneDiagnosi.currency as string,
-            product_data: {
-              name: PRODUCTS.sessioneDiagnosi.name as string,
-              description: PRODUCTS.sessioneDiagnosi.description as string,
+        ];
+        productKeyMeta = "masterclass_il_consigliere";
+        successUrl = `${origin}/masterclass/grazie?session_id={CHECKOUT_SESSION_ID}`;
+        cancelUrl = `${origin}/masterclass`;
+      } else {
+        lineItems = [
+          {
+            price_data: {
+              currency: PRODUCTS.mappa.currency as string,
+              product_data: {
+                name: PRODUCTS.mappa.name as string,
+                description: PRODUCTS.mappa.description as string,
+              },
+              unit_amount: PRODUCTS.mappa.priceEurCents as number,
             },
-            unit_amount: PRODUCTS.sessioneDiagnosi.bumpPriceEurCents as number,
+            quantity: 1,
           },
-          quantity: 1,
-        });
-      }
+        ];
 
-      const productKey = includeOrderBump ? "mappa_with_sessione" : "mappa_opportunita_ia";
-
-      // Create checkout session — using stripe SDK's inferred types
+        // Add order bump if selected
+        if (includeOrderBump) {
+          lineItems.push({
+            price_data: {
+              currency: PRODUCTS.sessioneDiagnosi.currency as string,
+              product_data: {
+                name: PRODUCTS.sessioneDiagnosi.name as string,
+                description: PRODUCTS.sessioneDiagnosi.description as string,
+              },
+              unit_amount: PRODUCTS.sessioneDiagnosi.bumpPriceEurCents as number,
+            },
+            quantity: 1,
+          });
+        }
+        productKeyMeta = includeOrderBump ? "mappa_with_sessione" : "mappa_opportunita_ia";
+        successUrl = `${origin}/mappa/grazie?session_id={CHECKOUT_SESSION_ID}`;
+        cancelUrl = `${origin}/mappa`;
+      }     // Create checkout session — using stripe SDK's inferred types
       const session = await stripe.checkout.sessions.create({
         mode: "payment",
         payment_method_types: ["card"],
         line_items: lineItems,
-        success_url: `${origin}/mappa/grazie?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${origin}/mappa`,
+        success_url: successUrl,
+        cancel_url: cancelUrl,
         allow_promotion_codes: true,
         metadata: {
-          product_key: productKey,
+          product_key: productKeyMeta,
           includes_order_bump: includeOrderBump ? "true" : "false",
           customer_name: customerName || "",
           customer_email: customerEmail || "",

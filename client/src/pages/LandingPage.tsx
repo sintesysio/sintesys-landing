@@ -299,7 +299,7 @@ export default function LandingPage() {
                   fontWeight: 600,
                 }}
               >
-                L'intelligenza Operativa per la PMI Italiana
+                Esclusivo per iscritti — Mappa delle Opportunità IA inclusa
               </p>
               <h1
                 className="mb-6"
@@ -323,7 +323,7 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Il Consigliere traduce l'Intelligenza Artificiale in risultati operativi concreti per le Piccole e Medie Imprese italiane. Niente teoria, niente gergo tecnico — solo strategie misurabili che riducono costi, eliminano sprechi e liberano il tuo tempo.
+                Il Consigliere traduce l'Intelligenza Artificiale in risultati operativi concreti. Ogni iscritto riceve subito la <strong>Guida Transizione 5.0</strong> e la <strong>Mappa delle Opportunità IA</strong> — lo strumento che usiamo come punto di partenza con ogni nostro cliente.
               </p>
               <p
                 className="mb-8"
@@ -334,15 +334,15 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Ogni settimana, titolari di PMI italiane con 10-50 dipendenti ricevono la nostra newsletter con analisi esclusive, casi studio reali e strategie operative per integrare l'IA nella propria azienda. <strong>Iscriviti ora.</strong>
+                80 processi analizzati, 8 reparti, una dashboard automatica — più la newsletter settimanale con strategie operative per PMI italiane con 10–50 dipendenti.
               </p>
 
               {/* Trust badges */}
-              <div className="flex flex-wrap gap-4 mb-6">
+              <div className="flex flex-wrap gap-4 mb-8">
                 {[
+                  { icon: "✓", text: "Mappa delle Opportunità IA Inclusa" },
+                  { icon: "✓", text: "Guida Transizione 5.0" },
                   { icon: "✓", text: "Newsletter Settimanale" },
-                  { icon: "✓", text: "Guida Transizione 5.0 Inclusa" },
-                  { icon: "✓", text: "Cancellazione in Un Click" },
                 ].map((badge) => (
                   <div
                     key={badge.text}
@@ -364,59 +364,45 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
+
+              {/* CTA → /lead */}
+              <Link
+                href="/lead"
+                className="inline-block py-3.5 px-8 text-xs uppercase tracking-[0.15em] transition-all no-underline"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  backgroundColor: "#C4704B",
+                  color: "#FAFAF7",
+                  border: "none",
+                }}
+                onClick={() => trackCTAClick("Iscriviti e ricevi la Mappa", "homepage_hero")}
+              >
+                Iscriviti e ricevi la Mappa →
+              </Link>
             </FadeIn>
           </div>
 
-          {/* Right: Newsletter Form */}
+          {/* Right: Hero image */}
           <div className="lg:col-span-5">
             <FadeIn delay={0.2}>
-              <div
-                className="p-6 lg:p-8"
+              <img
+                src={HERO_IMG}
+                alt="Il Giornale dell'IA — Strategie operative per PMI italiane"
+                className="w-full"
+                loading="eager"
+                style={{ filter: "grayscale(10%)" }}
+              />
+              <p
+                className="mt-2 italic text-center"
                 style={{
-                  border: "1px solid oklch(0.80 0.005 60)",
-                  backgroundColor: "#fff",
+                  fontFamily: "'Source Serif 4', serif",
+                  fontSize: "0.8rem",
+                  color: "#888",
                 }}
               >
-                <div
-                  className="w-full mb-4"
-                  style={{ borderTop: "3px solid #1B2A4A" }}
-                />
-                <p
-                  className="uppercase tracking-[0.2em] mb-1"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.65rem",
-                    color: "#1B2A4A",
-                    fontWeight: 600,
-                  }}
-                >
-                  Newsletter
-                </p>
-                <h3
-                  className="mb-3"
-                  style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.25rem",
-                    fontWeight: 700,
-                    color: "#1A1A1A",
-                    lineHeight: 1.25,
-                  }}
-                >
-                  Ricevi ogni settimana strategie IA concrete per la tua PMI.
-                </h3>
-                <p
-                  className="mb-4"
-                  style={{
-                    fontFamily: "'Source Serif 4', serif",
-                    fontSize: "0.9rem",
-                    color: "#555",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  Più la Guida Transizione 5.0 — come accedere ai €6,3 miliardi di fondi MIMIT per la digitalizzazione.
-                </p>
-                <NewsletterForm variant="light" id="hero" />
-              </div>
+                Ogni settimana, strategie IA concrete per la tua PMI.
+              </p>
             </FadeIn>
           </div>
         </div>
@@ -560,28 +546,28 @@ export default function LandingPage() {
             {
               step: "01",
               title: "Informati",
-              subtitle: "Newsletter + Il Giornale dell'IA",
-              desc: "Ogni settimana ricevi analisi, casi studio e strategie operative per capire come l'IA può trasformare la tua PMI. Concreto, senza gergo tecnico.",
-              cta: "Iscriviti alla Newsletter",
-              href: "#newsletter",
-              isScroll: true,
+              subtitle: "Newsletter + Mappa delle Opportunità IA",
+              desc: "Iscrivendoti ricevi subito la Guida Transizione 5.0 e la Mappa delle Opportunità IA. Poi, ogni settimana, analisi e strategie operative per la tua PMI.",
+              cta: "Iscriviti e ricevi la Mappa",
+              href: "/lead",
+              isScroll: false,
             },
             {
               step: "02",
-              title: "Mappa",
-              subtitle: "Mappa delle Opportunità IA — €49,50",
-              desc: "Un foglio Excel con 80 processi analizzati, 8 reparti mappati e una dashboard automatica che ti mostra esattamente dove l'IA può liberare ore e ridurre costi.",
-              cta: "Scopri la Mappa",
-              href: "/mappa",
+              title: "Masterclass",
+              subtitle: "Evento Live — €97 · 1 volta al mese",
+              desc: "90 minuti con Lamberto Grinover: diagnosi della tua azienda, piano d'azione concreto e confronto con altri imprenditori. Non è un webinar — è una sessione operativa.",
+              cta: "Scopri la Masterclass",
+              href: "/masterclass",
               isScroll: false,
             },
             {
               step: "03",
-              title: "Agisci",
-              subtitle: "Audit Operativo Personalizzato",
-              desc: "Lamberto Grinover analizza i tuoi processi in una sessione strategica e costruisce un piano d'azione su misura per la tua azienda. Il primo passo verso l'implementazione.",
-              cta: "Parli con Lamberto",
-              href: "/contattaci",
+              title: "Mentoria",
+              subtitle: "12 mesi di percorso guidato",
+              desc: "Per chi vuole andare oltre la diagnosi: un programma strutturato con sessioni settimanali, implementazione guidata e comunità di imprenditori. Su candidatura.",
+              cta: "Scopri la Mentoria",
+              href: "/mentoria",
               isScroll: false,
             },
           ].map((item, i) => (
@@ -640,41 +626,20 @@ export default function LandingPage() {
                 >
                   {item.desc}
                 </p>
-                {item.isScroll ? (
-                  <a
-                    href={item.href}
-                    className="inline-block text-center py-2.5 px-5 text-xs uppercase tracking-[0.12em] transition-all no-underline"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontWeight: 600,
-                      border: "2px solid #1B2A4A",
-                      color: "#1B2A4A",
-                      backgroundColor: "transparent",
-                    }}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
-                      trackCTAClick("Newsletter Scroll", "homepage_pillar");
-                    }}
-                  >
-                    {item.cta} &rarr;
-                  </a>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className="inline-block text-center py-2.5 px-5 text-xs uppercase tracking-[0.12em] transition-all no-underline"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontWeight: 600,
-                      border: "2px solid #1B2A4A",
-                      color: "#1B2A4A",
-                      backgroundColor: "transparent",
-                    }}
-                    onClick={() => trackCTAClick(item.cta, "homepage_pillar")}
-                  >
-                    {item.cta} &rarr;
-                  </Link>
-                )}
+                <Link
+                  href={item.href}
+                  className="inline-block text-center py-2.5 px-5 text-xs uppercase tracking-[0.12em] transition-all no-underline"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 600,
+                    border: "2px solid #1B2A4A",
+                    color: "#1B2A4A",
+                    backgroundColor: "transparent",
+                  }}
+                  onClick={() => trackCTAClick(item.cta, "homepage_pillar")}
+                >
+                  {item.cta} &rarr;
+                </Link>
               </div>
             </FadeIn>
           ))}
@@ -1026,7 +991,11 @@ export default function LandingPage() {
             },
             {
               q: "Cosa ricevo iscrivendomi?",
-              a: "Immediatamente ricevi la Guida Transizione 5.0 — un documento che spiega come accedere ai €6,3 miliardi di fondi MIMIT per la digitalizzazione. Poi, ogni settimana, un'edizione del Giornale dell'IA con analisi esclusive per il tuo settore.",
+              a: "Immediatamente ricevi due strumenti operativi: la Guida Transizione 5.0 (come accedere ai €6,3 miliardi di fondi MIMIT) e la Mappa delle Opportunità IA — 80 processi analizzati, 8 reparti, una dashboard che ti mostra dove intervenire. Poi, ogni settimana, Il Giornale dell'IA con analisi esclusive.",
+            },
+            {
+              q: "Cos'è la Masterclass?",
+              a: "Una sessione live di 90 minuti con Lamberto Grinover, una volta al mese. Non è un webinar generico: è una sessione operativa dove analizziamo la tua azienda, costruiamo un piano d'azione concreto e rispondiamo alle tue domande reali. Costo: €97 una tantum.",
             },
           ].map((item, i) => (
             <FadeIn key={i} delay={i * 0.05}>
@@ -1063,9 +1032,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════ */}
-      {/* NEWSLETTER CTA FINAL — Formulário inline               */}
-      {/* ═══════════════════════════════════════════════════════ */}
+          {/* ═══════════════════════════════════════════════════ */}
+      {/* CTA FINAL — Bloco simples → /lead                      */}
+      {/* ═══════════════════════════════════════════════════ */}
       <section
         id="newsletter"
         style={{ backgroundColor: "#1B2A4A" }}
@@ -1099,9 +1068,22 @@ export default function LandingPage() {
                   lineHeight: 1.7,
                 }}
               >
-                Iscriviti alla newsletter di Il Consigliere e ricevi ogni settimana strategie IA concrete per la tua PMI. Più la Guida Transizione 5.0 in omaggio.
+                Iscriviti e ricevi subito la Mappa delle Opportunità IA e la Guida Transizione 5.0. Più la newsletter settimanale con strategie operative per la tua PMI.
               </p>
-              <NewsletterForm variant="dark" id="footer-cta" />
+              <Link
+                href="/lead"
+                className="inline-block py-3.5 px-10 text-xs uppercase tracking-[0.15em] transition-all no-underline"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  backgroundColor: "#C4704B",
+                  color: "#FAFAF7",
+                  border: "none",
+                }}
+                onClick={() => trackCTAClick("Ricevi la Mappa Gratis", "homepage_footer_cta")}
+              >
+                Ricevi la Mappa Gratis →
+              </Link>
             </div>
           </FadeIn>
         </div>

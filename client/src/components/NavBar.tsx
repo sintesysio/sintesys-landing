@@ -76,9 +76,9 @@ export default function NavBar() {
             Mappa IA
           </Link>
 
-          {/* Newsletter CTA — primary action, terracotta button */}
-          <a
-            href="#newsletter"
+          {/* Lead CTA — primary action, terracotta button → /lead */}
+          <Link
+            href="/lead"
             className="no-underline px-4 sm:px-6 py-2 sm:py-2.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-all"
             style={{
               fontFamily: "'Inter', sans-serif",
@@ -87,20 +87,10 @@ export default function NavBar() {
               backgroundColor: "#C4704B",
               border: "2px solid #C4704B",
             }}
-            onClick={(e) => {
-              // If on homepage or giornale, scroll to #newsletter; otherwise navigate to home
-              if (location === "/" || location === "/giornale") {
-                e.preventDefault();
-                document.getElementById("newsletter")?.scrollIntoView({ behavior: "smooth" });
-                trackCTAClick("Newsletter CTA", "navbar");
-              } else {
-                // Navigate to homepage — the anchor will handle scroll
-                trackCTAClick("Newsletter CTA", "navbar");
-              }
-            }}
+            onClick={() => trackCTAClick("Lead CTA", "navbar")}
           >
-            Iscriviti Ora →
-          </a>
+            Ricevi la Mappa Gratis →
+          </Link>
         </div>
       </div>
 
