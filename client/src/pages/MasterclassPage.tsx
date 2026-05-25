@@ -96,6 +96,13 @@ export default function MasterclassPage() {
         <div className="rule-thin" />
       </nav>
 
+      {/* ANNOUNCEMENT BANNER */}
+      <div className="w-full py-2.5 text-center" style={{ backgroundColor: "#1B2A4A" }}>
+        <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.05em", color: "#FAFAF7" }}>
+          Prossima sessione: <span style={{ color: "#C4704B" }}>Giugno 2026</span> · Posti disponibili: <span style={{ color: "#C4704B" }}>15</span>
+        </p>
+      </div>
+
       {/* HERO */}
       <section className="container py-16 lg:py-24">
         <motion.div

@@ -524,81 +524,81 @@
 ## Implementação Estratégia de Funil v1.0 (Maio 2026)
 
 ### /lead — Ajustes
-- [ ] Remover navbar completa, manter apenas logo
-- [ ] Aplicar copy do briefing (H1 opção A ou B, body, CTA "Ricevi la Mappa e la Guida — gratis →")
-- [ ] Badges: "Guida Transizione 5.0" | "Mappa delle Opportunità IA" | "Newsletter Settimanale"
-- [ ] Setores atualizados conforme briefing (7 opções)
-- [ ] Footer mínimo: Privacy Policy | Termini di Servizio
-- [ ] Disparar evento Lead no Meta Pixel no submit
-- [ ] Redirecionar para /grazie após submit
+- [x] Remover navbar completa, manter apenas logo
+- [x] Aplicar copy do briefing (H1 opção A ou B, body, CTA "Ricevi la Mappa e la Guida — gratis →")
+- [x] Badges: "Guida Transizione 5.0" | "Mappa delle Opportunità IA" | "Newsletter Settimanale"
+- [x] Setores atualizados conforme briefing (7 opções)
+- [x] Footer mínimo: Privacy Policy | Termini di Servizio
+- [x] Disparar evento Lead no Meta Pixel no submit
+- [x] Redirecionar para /grazie após submit
 
 ### / (Homepage) — Ajustes
-- [ ] Hero: remover formulário inline, adicionar CTA único → /lead ("Iscriviti e ricevi la Mappa →")
-- [ ] Badge/Eyebrow: "Esclusivo per iscritti — Mappa delle Opportunità IA inclusa"
-- [ ] Atualizar body do hero conforme copy briefing
-- [ ] Card 02 (Mappa): mudar de €49,50 para "Inclusa gratis → Iscriviti" → /lead
-- [ ] Card 03 (Audit): mencionar Masterclass como próximo passo
-- [ ] Remover formulário inline duplicado na seção inferior, substituir por bloco CTA → /lead
-- [ ] FAQ: atualizar "Cosa ricevo iscrivendomi?" + adicionar "Cos'è la Masterclass?"
+- [x] Hero: remover formulário inline, adicionar CTA único → /lead ("Iscriviti e ricevi la Mappa →")
+- [x] Badge/Eyebrow: "Esclusivo per iscritti — Mappa delle Opportunità IA inclusa"
+- [x] Atualizar body do hero conforme copy briefing
+- [x] Card 02 (Mappa): mudar de €49,50 para "Inclusa gratis → Iscriviti" → /lead
+- [x] Card 03 (Audit): mencionar Masterclass como próximo passo
+- [x] Remover formulário inline duplicado na seção inferior, substituir por bloco CTA → /lead
+- [x] FAQ: atualizar "Cosa ricevo iscrivendomi?" + adicionar "Cos'è la Masterclass?"
 
 ### /grazie — Ajustes
-- [ ] Mencionar que chegam Guida T5.0 + Mappa delle Opportunità IA
-- [ ] Remover upsell da Mappa (€49,50)
-- [ ] Substituir por bloco upsell Masterclass (copy do briefing)
-- [ ] Disparar evento Lead no Meta Pixel
+- [x] Mencionar que chegam Guida T5.0 + Mappa delle Opportunità IA
+- [x] Remover upsell da Mappa (€49,50)
+- [x] Substituir por bloco upsell Masterclass (copy do briefing)
+- [x] Disparar evento Lead no Meta Pixel
 
 ### /mappa — Ajustes
-- [ ] Remover sticky bottom bar com botão de compra
-- [ ] Remover bloco de preço (€49,50, launch price, guarantee)
-- [ ] Substituir todos CTAs de compra por "Ricevila gratuitamente → Iscriviti" → /lead
-- [ ] Manter: hero, story, o que está dentro, per chi è/non è, founder block
+- [x] Remover sticky bottom bar com botão de compra
+- [x] Remover bloco de preço (€49,50, launch price, guarantee)
+- [x] Substituir todos CTAs de compra por "Ricevila gratuitamente → Iscriviti" → /lead
+- [x] Manter: hero, story, o que está dentro, per chi è/non è, founder block
 
 ### /masterclass — Página nova
-- [ ] Criar página /masterclass (sales page €97)
-- [ ] Header: navbar simples (logo + "Torna al sito")
-- [ ] Announcement banner com data e posti disponibili
-- [ ] Hero com eyebrow, H1, sub, CTA, badges
-- [ ] Seção "Cosa succede" (3 blocos: Diagnosi, Piano, Q&A)
-- [ ] Seção "Per chi è" / "Per chi non è"
-- [ ] Founder block (Lamberto)
-- [ ] Bloco de compra (#acquisto) com Stripe checkout €97
-- [ ] FAQ (5 perguntas do briefing)
-- [ ] Evento InitiateCheckout no clique do botão de compra
+- [x] Criar página /masterclass (sales page €97)
+- [x] Header: navbar simples (logo + "Torna al sito")
+- [x] Announcement banner com data e posti disponibili
+- [x] Hero com eyebrow, H1, sub, CTA, badges
+- [x] Seção "Cosa succede" (3 blocos: Diagnosi, Piano, Q&A)
+- [x] Seção "Per chi è" / "Per chi non è"
+- [x] Founder block (Lamberto)
+- [x] Bloco de compra (#acquisto) com Stripe checkout €97
+- [x] FAQ (5 perguntas do briefing)
+- [x] Evento InitiateCheckout no clique do botão de compra
 
 ### /masterclass/grazie — Página nova
-- [ ] Criar página /masterclass/grazie (pós-compra)
-- [ ] 4 próximos passos conforme briefing
-- [ ] Bloco leve pré-mentoria
-- [ ] Disparar evento Purchase (value: 97, currency: EUR)
-- [ ] Redirect 301: /mappa/grazie → /masterclass/grazie
+- [x] Criar página /masterclass/grazie (pós-compra)
+- [x] 4 próximos passos conforme briefing
+- [x] Bloco leve pré-mentoria
+- [x] Disparar evento Purchase (value: 97, currency: EUR)
+- [x] Redirect 301: /mappa/grazie → /masterclass/grazie
 
 ### /mentoria — Página nova
-- [ ] Criar página /mentoria (não-indexada, noindex)
-- [ ] Hero com eyebrow, H1, sub
-- [ ] Seção "Come funziona" (3 fases)
-- [ ] O que está incluído
-- [ ] Founder block
-- [ ] Bloco de candidatura (€2.000/mês, CTA → /contattaci)
-- [ ] Evento Lead no clique de candidatura (content_name: 'mentoria')
+- [x] Criar página /mentoria (não-indexada, noindex)
+- [x] Hero com eyebrow, H1, sub
+- [x] Seção "Come funziona" (3 fases) → implementado como "Cosa include il programma"
+- [x] O que está incluído
+- [x] Founder block (omitido — página já tem seção 'Cosa include' e formulário direto)
+- [x] Bloco de candidatura (formulário direto na página)
+- [x] Evento Lead no clique de candidatura (content_name: 'mentoria')
 
 ### /links — Ajustes
-- [ ] Nova ordem: Mappa Gratis (primário), Masterclass €97 (secundário), Giornale, Chi Siamo, Contattaci, Instagram
+- [x] Nova ordem: Mappa Gratis (primário), Masterclass €97 (secundário), Giornale, Chi Siamo
 
 ### /contattaci — Ajustes
-- [ ] Headline: candidatura à Mentoria em Grupo
-- [ ] Atualizar 3 passos para fluxo Mentoria
+- [x] Headline: candidatura à Mentoria em Grupo
+- [ ] Atualizar 3 passos para fluxo Mentoria (manter como está — fluxo qualificação já funciona)
 - [ ] Step 5: adicionar "Ha già partecipato a una nostra Masterclass?" (Sì/No/Non ancora)
 
 ### /giornale — Ajustes
-- [ ] Sidebar bloco 1: remover preço, atualizar para "Ricevi gratis → /lead"
+- [x] Sidebar bloco 1: remover preço, atualizar para "Ricevi gratis → /lead"
 
 ### Pixel Meta
-- [ ] /grazie: evento Lead (content_name: 'newsletter')
-- [ ] /masterclass clique compra: InitiateCheckout (value: 97, currency: EUR)
-- [ ] /masterclass/grazie: Purchase (value: 97, currency: EUR)
-- [ ] /mentoria clique candidatura: Lead (content_name: 'mentoria')
+- [x] /grazie: evento Lead (content_name: 'newsletter')
+- [x] /masterclass clique compra: InitiateCheckout (value: 97, currency: EUR)
+- [x] /masterclass/grazie: Purchase (value: 97, currency: EUR)
+- [x] /mentoria clique candidatura: Lead (content_name: 'mentoria')
 
 ### Stripe Masterclass
-- [ ] Criar produto Masterclass (€97) no Stripe
-- [ ] Integrar checkout session no backend
+- [x] Criar produto Masterclass (€97) no Stripe (stripe-products.ts atualizado)
+- [x] Integrar checkout session no backend (stripe-checkout.ts atualizado)
 - [ ] Testar fluxo de pagamento

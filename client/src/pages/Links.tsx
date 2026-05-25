@@ -34,23 +34,21 @@ interface LinkItem {
 
 const LINKS: LinkItem[] = [
   {
-    label: "Newsletter + Guida Transizione 5.0",
+    label: "Mappa + Guida Gratis",
     description:
-      "Si iscriva e riceva subito la guida. Ogni settimana, strategie IA concrete per la Sua PMI.",
-    href: "/",
-    utmContent: "newsletter-guida",
+      "Si iscriva e riceva subito la Mappa delle Opportunit\u00e0 IA e la Guida Transizione 5.0. Gratuitamente.",
+    href: "/lead",
+    utmContent: "lead-mappa-gratis",
     primary: true,
     action: "link",
   },
   {
-    label: "Mappa delle Opportunit\u00e0 IA",
-    originalPrice: "\u20ac129,90",
-    launchPrice: "\u20ac49,50",
+    label: "Masterclass — \u20ac97",
     description:
-      "80 processi analizzati, 8 reparti mappati, dashboard automatica. Prezzo di lancio.",
-    href: "/mappa",
-    utmContent: "mappa-ia",
-    action: "stripe",
+      "90 minuti live con Lamberto Grinover. Diagnosi della sua azienda + piano d'azione concreto.",
+    href: "/masterclass",
+    utmContent: "masterclass",
+    action: "link",
   },
   {
     label: "Il Giornale dell'IA",
@@ -66,14 +64,6 @@ const LINKS: LinkItem[] = [
       "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della Sua PMI.",
     href: "/chi-siamo",
     utmContent: "chi-siamo",
-    action: "link",
-  },
-  {
-    label: "Parli con Lamberto",
-    description:
-      "Conversazione strategica. Scopriamo insieme dove l'IA pu\u00f2 migliorare la Sua azienda.",
-    href: "/contattaci",
-    utmContent: "parli-con-lamberto",
     action: "link",
   },
 ];

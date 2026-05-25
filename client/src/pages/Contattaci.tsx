@@ -375,9 +375,9 @@ export default function Contattaci() {
     return (
       <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
         <SEOHead
-        title="Contatti \& Conversazione Strategica — Il Consigliere"
-        description="Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h."
-        path="/contattaci"
+title="Candidatura Mentoria in Gruppo — Il Consigliere"
+         description="Compili il questionario per candidarsi alla Mentoria in Gruppo con Lamberto Grinover."
+         path="/contattaci"
       />
       <NavBar />
         <div className="container py-20 text-center max-w-2xl mx-auto">
@@ -503,7 +503,7 @@ export default function Contattaci() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#FAFAF7" }}>
       <SEOHead
-        title="Contatti \& Conversazione Strategica — Il Consigliere"
+        title="Candidatura Mentoria in Gruppo — Il Consigliere"
         description="Compili il questionario per parlare con Lamberto Grinover. Risposta entro 24h."
         path="/contattaci"
       />
@@ -516,7 +516,7 @@ export default function Contattaci() {
           className="uppercase tracking-[0.2em] mb-2 text-center"
           style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.65rem", color: "#999" }}
         >
-          Conversazione Strategica
+          Candidatura Mentoria
         </p>
         <h1
           className="text-center mb-2"
@@ -528,7 +528,7 @@ export default function Contattaci() {
             lineHeight: 1.15,
           }}
         >
-          Parli con Lamberto. Scopriamo insieme dove intervenire.
+          Candidatura — Mentoria in Gruppo con Lamberto.
         </h1>
         <p
           className="text-center mb-8"

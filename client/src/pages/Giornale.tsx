@@ -483,7 +483,7 @@ export default function Giornale() {
                   <div className="space-y-4">
                     {/* CTA 1: Mappa delle Opportunità IA */}
                     <a
-                      href="/mappa"
+                      href="/lead"
                       className="block p-5 transition-all duration-300"
                       style={{
                         backgroundColor: "#1B2A4A",
@@ -501,7 +501,7 @@ export default function Giornale() {
                           fontWeight: 500,
                         }}
                       >
-                        Strumento Operativo — €49,50
+                        Gratuito per gli iscritti
                       </p>
                       <p
                         style={{
@@ -525,7 +525,7 @@ export default function Giornale() {
                           color: "rgba(250,250,247,0.7)",
                         }}
                       >
-                        Scopri la Mappa &rarr;
+                        Iscriviti e ricevila gratis &rarr;
                       </span>
                     </a>
 
