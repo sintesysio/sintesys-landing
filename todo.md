@@ -522,16 +522,19 @@
 - [x] Inserir GTM-N5R29R22 em todas as páginas publicadas
 
 ## Página de Captura de Lead dedicada (/lead)
-- [ ] Criar página /lead com formulário: nome, email, telefone + pergunta "In quale settore operi?"
-- [ ] Setores: Manifattura, Commercio, Servizi professionali, Costruzioni, Logistica, Ristorazione/Hospitality, Tecnologia, Altro
-- [ ] Design editorial consistente com o site (navy, serif, off-white)
-- [ ] Integrar com endpoint leads.submit existente (source: "lead_page")
-- [ ] Garantir tag "lead" + setor no Mailchimp
-- [ ] Página de agradecimento após envio
-- [ ] Adicionar rota /lead no App.tsx
+- [x] Criar página /lead com formulário: nome, email, telefone + pergunta "In quale settore operi?"
+- [x] Setores: Manifattura, Commercio, Servizi professionali, Costruzioni, Logistica, Ristorazione/Hospitality, Tecnologia, Altro
+- [x] Design editorial consistente com o site (navy, serif, off-white)
+- [x] Integrar com endpoint leads.submit existente (source: "lead_page")
+- [x] Garantir tag "lead" + setor no Mailchimp
+- [x] Página de agradecimento após envio
+- [x] Adicionar rota /lead no App.tsx
 - [ ] Escrever teste vitest para a nova rota
-- [ ] Salvar checkpoint
+- [x] Salvar checkpoint
 
 ## Roteiros de Vídeo "Caixinha de Perguntas" para Lamberto
-- [ ] Criar 10 roteiros de vídeo com pergunta + resposta (IA, negócios, incentivos para PMI)
-- [ ] Entregar em documento Word formatado
+- [x] Criar 10 roteiros de vídeo com pergunta + resposta (IA, negócios, incentivos para PMI)
+- [x] Entregar em documento Word formatado
+
+## Rewrite /lead page com copy completa
+- [x] Reescrever /lead com headline forte, copy de transformação, apresentação do Lamberto, benefícios, prova social + formulário
