@@ -1,7 +1,15 @@
 /**
  * Thank You Page — /grazie
- * Exibida após inscrição na newsletter/lead
- * Focus: confirm subscription + mention Guida + Mappa delivery + upsell Masterclass
+ * Fase 1: Sem venda de Masterclass
+ *
+ * Diagnóstico aplicado:
+ * 1. REMOVIDO: CTA "Scopri la Masterclass" (Fase 1 = sem venda)
+ * 2. CORRIGIDO: H1 humano, não "Iscrizione Confermata!"
+ * 3. REMOVIDO: "community" — não existe
+ * 4. CORRIGIDO: Instrução email com remetente, assunto, tempo, spam
+ * 5. CORRIGIDO: "Compili la Mappa" com motivação e resultado
+ * 6. CONFIRMADO: Pixel Lead event disparado
+ * 7. CORRIGIDO: Link Giornale com descrição clara
  */
 
 import { Link } from "wouter";
@@ -15,7 +23,7 @@ const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file
 export default function Grazie() {
   useEffect(() => {
     trackConversion({ source: "thank_you_page" });
-    // Fire Meta Pixel Lead event
+    // Fire Meta Pixel Lead event (standard event)
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "Lead", { content_name: "newsletter" });
     }
@@ -24,8 +32,8 @@ export default function Grazie() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Grazie — Iscrizione confermata | Il Consigliere"
-        description="Riceverà la Guida Transizione 5.0 e la Mappa delle Opportunità IA entro pochi minuti."
+        title="Benvenuto — La Mappa è in arrivo | Il Consigliere"
+        description="Ha fatto la scelta giusta. In meno di 5 minuti riceve la Mappa delle Opportunità IA e la Guida Transizione 5.0."
         path="/grazie"
         noindex
       />
@@ -69,6 +77,7 @@ export default function Grazie() {
             </svg>
           </div>
 
+          {/* FIX #2: Headline humana, não "Iscrizione Confermata!" */}
           <h1
             className="mb-4"
             style={{
@@ -79,9 +88,10 @@ export default function Grazie() {
               lineHeight: 1.1,
             }}
           >
-            Iscrizione Confermata!
+            Benvenuto. La Mappa è in arrivo.
           </h1>
 
+          {/* FIX #3: Sem "community" — subheadline honesta */}
           <p
             className="mb-8"
             style={{
@@ -91,10 +101,10 @@ export default function Grazie() {
               lineHeight: 1.7,
             }}
           >
-            Benvenuto nella community di imprenditori italiani che stanno integrando l'IA nelle proprie aziende. La <strong>Guida Transizione 5.0</strong> e la <strong>Mappa delle Opportunità IA</strong> sono in arrivo nella sua casella email.
+            Ha fatto la scelta giusta. In meno di 5 minuti riceve via email la <strong>Mappa delle Opportunità IA</strong> e la <strong>Guida Transizione 5.0</strong>.
           </p>
 
-          {/* Steps */}
+          {/* Steps — FIX #4 e #5 */}
           <div
             className="p-6 lg:p-8 mb-8 text-left"
             style={{
@@ -111,24 +121,19 @@ export default function Grazie() {
                 color: "#1A1A1A",
               }}
             >
-              Cosa succede adesso?
+              Cosa fare adesso
             </h2>
             <div className="space-y-5">
               {[
                 {
                   step: "1",
                   title: "Controlli la sua email",
-                  desc: "Entro pochi minuti riceverà due allegati: la Guida Transizione 5.0 (come accedere ai €6,3 miliardi di fondi MIMIT) e la Mappa delle Opportunità IA (80 processi, 8 reparti, dashboard automatica). Controlli anche la cartella spam.",
+                  desc: "Arriva da lamberto@ilconsigliere.io con oggetto: \"La sua Mappa è pronta\". Se non la trova entro 5 minuti, controlli la cartella spam e sposti il mittente in \"affidabile\".",
                 },
                 {
                   step: "2",
                   title: "Compili la Mappa",
-                  desc: "Non la legga — la compili. 30 minuti per scoprire esattamente dove la sua azienda perde tempo e denaro. Il valore non è nel foglio, è nei numeri che lei ci mette dentro.",
-                },
-                {
-                  step: "3",
-                  title: "Ogni settimana, una nuova edizione",
-                  desc: "Ogni lunedì riceverà Il Giornale dell'IA — analisi esclusive, casi studio reali e strategie operative per integrare l'Intelligenza Artificiale nella sua PMI.",
+                  desc: "Dedichi 10 minuti a scorrere gli 80 processi. Identifichi i 3 con il maggior potenziale per la sua azienda — saranno le priorità da cui partire. Il valore non è nel foglio: è nei numeri che lei ci mette dentro.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -172,87 +177,9 @@ export default function Grazie() {
             </div>
           </div>
 
-          {/* Upsell — Masterclass */}
-          <div
-            className="p-6 lg:p-8 mb-6"
-            style={{
-              backgroundColor: "#fff",
-              border: "2px solid #C4704B",
-            }}
-          >
-            <p
-              className="uppercase tracking-[0.15em] mb-2"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.6rem",
-                color: "#C4704B",
-                fontWeight: 600,
-              }}
-            >
-              Passo Successivo
-            </p>
-            <h3
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.15rem",
-                fontWeight: 700,
-                color: "#1A1A1A",
-                lineHeight: 1.25,
-                marginBottom: "0.75rem",
-              }}
-            >
-              Ha ricevuto gli strumenti. Il passo successivo è usarli insieme.
-            </h3>
-            <p
-              className="mb-4"
-              style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.95rem",
-                color: "#444",
-                lineHeight: 1.7,
-              }}
-            >
-              Una volta al mese, Lamberto Grinover apre le porte a un gruppo selezionato di imprenditori per una sessione live di 90 minuti. Diagnosi della sua azienda, piano d'azione concreto, domande reali — in diretta.
-            </p>
-            <p
-              className="mb-5"
-              style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.9rem",
-                color: "#555",
-                lineHeight: 1.6,
-              }}
-            >
-              Non è un webinar generico. È una sessione operativa con chi ha gestito operazioni da €200M.
-            </p>
-            <Link
-              href="/masterclass"
-              className="inline-block no-underline px-6 py-2.5"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#FAFAF7",
-                backgroundColor: "#C4704B",
-              }}
-            >
-              Scopri la Masterclass →
-            </Link>
-            <p
-              className="mt-3"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "0.7rem",
-                color: "#888",
-              }}
-            >
-              €97 · 1 volta al mese · Posti limitati
-            </p>
-          </div>
+          {/* FIX #1: REMOVIDO bloco upsell Masterclass — Fase 1 */}
 
-          {/* CTA to Giornale */}
+          {/* FIX #7: Giornale com descrição clara */}
           <div
             className="p-6"
             style={{
@@ -261,15 +188,27 @@ export default function Grazie() {
             }}
           >
             <p
-              className="mb-3"
+              className="mb-2"
               style={{
                 fontFamily: "'Source Serif 4', serif",
                 fontSize: "1rem",
-                color: "#444",
+                color: "#1A1A1A",
+                lineHeight: 1.5,
+                fontWeight: 600,
+              }}
+            >
+              Nel frattempo, legga gli ultimi casi pratici.
+            </p>
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.9rem",
+                color: "#555",
                 lineHeight: 1.6,
               }}
             >
-              Mentre aspetta, scopra <strong>Il Giornale dell'IA</strong> — strategie operative di Intelligenza Artificiale per imprenditori italiani, aggiornate ogni giorno.
+              <strong>Il Giornale dell'IA</strong> — ogni settimana un caso reale di PMI italiana che ha implementato l'IA. Niente teoria. Solo quello che ha funzionato e perché.
             </p>
             <Link
               href="/giornale"
@@ -284,7 +223,7 @@ export default function Grazie() {
                 backgroundColor: "#1B2A4A",
               }}
             >
-              Leggi Il Giornale dell'IA
+              Leggi Il Giornale dell'IA →
             </Link>
           </div>
         </motion.div>

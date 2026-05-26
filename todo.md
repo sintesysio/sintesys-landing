@@ -632,3 +632,21 @@
 - [x] Garantia com termos específicos ("entro i primi 30 minuti, rimborso intero")
 - [x] Closing com urgência ("Ogni mese che passa senza un piano, i suoi concorrenti avanzano")
 - [x] FAQ "Posso partecipare senza la Mappa?" com resposta clara e estratégica
+
+## Rewrite /grazie — Diagnóstico 7 pontos (Fase 1)
+- [x] Remover CTA "Scopri la Masterclass" (Fase 1 = sem venda)
+- [x] H1: "Benvenuto. La Mappa è in arrivo." (não "Iscrizione Confermata!")
+- [x] Remover "community" — não existe
+- [x] Instrução email: remetente, assunto, tempo, spam
+- [x] "Compili la Mappa" com motivação e resultado
+- [x] Pixel Lead event confirmado
+- [x] Link Giornale com descrição
+
+## Rewrite /masterclass/grazie — Diagnóstico 7 pontos
+- [x] Pré-enquadramento consultoria All Hands
+- [x] Confirmar pagamento + instrução fattura P.IVA
+- [x] Data/hora da sessão visível na página
+- [x] Remover "Si presenti puntuale" (condescendente)
+- [x] "Prepari domande" com direção específica
+- [x] Reforço emocional da compra
+- [x] Pixel Purchase como evento padrão (não custom)

@@ -1,7 +1,15 @@
 /**
  * Masterclass Thank You Page — /masterclass/grazie
  * Shown after successful Masterclass purchase
- * Fires Purchase pixel event
+ *
+ * Diagnóstico aplicado:
+ * 1. ADICIONADO: Pré-enquadramento consultoria All Hands
+ * 2. ADICIONADO: Confirmação pagamento + instrução fattura P.IVA
+ * 3. ADICIONADO: Data/hora da sessão visível
+ * 4. REMOVIDO: "Si presenti puntuale" (condescendente)
+ * 5. CORRIGIDO: "Prepari domande" com direção específica
+ * 6. ADICIONADO: Reforço emocional da compra
+ * 7. CONFIRMADO: Pixel Purchase como evento padrão
  */
 
 import { Link } from "wouter";
@@ -15,12 +23,13 @@ const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file
 export default function MasterclassGraziePage() {
   useEffect(() => {
     trackConversion({ source: "masterclass_purchase" });
-    // Fire Meta Pixel Purchase event
+    // FIX #7: Fire Meta Pixel Purchase event (standard event, not custom)
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "Purchase", {
         value: 97,
         currency: "EUR",
         content_name: "Masterclass Il Consigliere",
+        content_type: "product",
       });
     }
   }, []);
@@ -29,7 +38,7 @@ export default function MasterclassGraziePage() {
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
         title="Perfetto — Il suo posto è confermato | Il Consigliere"
-        description="Riceverà il link Zoom all'email indicata 24 ore prima della sessione."
+        description="Ha preso la decisione giusta. Ora si prepari a usare bene questi 90 minuti."
         path="/masterclass/grazie"
         noindex
       />
@@ -73,6 +82,7 @@ export default function MasterclassGraziePage() {
             </svg>
           </div>
 
+          {/* H1 */}
           <h1
             className="mb-4"
             style={{
@@ -86,6 +96,7 @@ export default function MasterclassGraziePage() {
             Perfetto. Il suo posto è confermato.
           </h1>
 
+          {/* FIX #6: Reforço emocional */}
           <p
             className="mb-8"
             style={{
@@ -95,11 +106,64 @@ export default function MasterclassGraziePage() {
               lineHeight: 1.7,
             }}
           >
-            Riceverà il link Zoom all'email indicata <strong>24 ore prima della sessione</strong>. 
-            Segni la data in agenda — questa è una sessione che richiede la sua presenza attiva.
+            Ha preso la decisione giusta. Ora si prepari a usare bene questi 90 minuti.
           </p>
 
-          {/* Steps */}
+          {/* FIX #3: Bloco de confirmação — data/hora + FIX #2: pagamento/fattura */}
+          <div
+            className="p-6 lg:p-8 mb-8 text-left"
+            style={{
+              backgroundColor: "#fff",
+              border: "2px solid #C4704B",
+            }}
+          >
+            <h2
+              className="mb-4"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.1rem",
+                fontWeight: 700,
+                color: "#1A1A1A",
+              }}
+            >
+              Dettagli della sessione
+            </h2>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="#C4704B" strokeWidth="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.95rem", color: "#333", lineHeight: 1.6 }}>
+                  <strong>Prossima sessione:</strong> la data esatta viene comunicata via email entro 48 ore. Live su Zoom, ore 18:00 CET.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="#C4704B" strokeWidth="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.95rem", color: "#333", lineHeight: 1.6 }}>
+                  <strong>Link Zoom:</strong> arriva 24 ore prima da <em>lamberto@ilconsigliere.io</em>. Controlli anche lo spam.
+                </p>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="#C4704B" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.95rem", color: "#333", lineHeight: 1.6 }}>
+                  <strong>Ricevuta:</strong> inviata alla stessa email. Per fattura con P.IVA, risponda all'email di conferma indicando i dati fiscali.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Steps — FIX #4 e #5 */}
           <div
             className="p-6 lg:p-8 mb-8 text-left"
             style={{
@@ -116,24 +180,25 @@ export default function MasterclassGraziePage() {
                 color: "#1A1A1A",
               }}
             >
-              Come prepararsi alla Masterclass
+              Come arrivare pronti
             </h2>
             <div className="space-y-5">
               {[
                 {
                   step: "1",
                   title: "Compili la Mappa delle Opportunità IA",
-                  desc: "Se non l'ha ancora fatto, la riceve gratuitamente iscrivendosi alla newsletter. Compilarla prima della sessione le permette di arrivare con domande specifiche sulla sua azienda.",
+                  desc: "Se non l'ha già fatto, la riceve gratuitamente iscrivendosi alla newsletter. Identifichi i 3 processi con il maggior potenziale per la sua azienda. Saranno il punto di partenza della diagnosi durante la sessione.",
+                  link: { text: "→ Ricevi la Mappa gratis", href: "/lead" },
                 },
                 {
                   step: "2",
-                  title: "Prepari 2-3 domande concrete",
-                  desc: "Non domande generiche sull'IA. Domande sulla SUA azienda: dove perde tempo, dove i margini si erodono, dove i processi si bloccano. Più specifiche sono, più valore riceve.",
+                  title: "Prepari 2-3 domande sulla sua operazione",
+                  desc: "Non domande generiche sull'IA. Domande specifiche sulla sua azienda: \"Nel mio settore, dove conviene iniziare?\", \"Ho già [strumento X] — si integra con quello che suggerisce?\". Più è specifico, più valore porta a casa.",
                 },
                 {
                   step: "3",
-                  title: "Si presenti puntuale",
-                  desc: "La sessione inizia alle 18:00 CET. Il link Zoom arriva 24 ore prima. Non c'è registrazione — chi c'è, c'è. Chi non c'è, perde l'opportunità.",
+                  title: "Tenga pronto qualcosa per appuntare",
+                  desc: "La sessione non viene registrata. Le priorità e il piano d'azione emergono in diretta — vale la pena annotarli.",
                 },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
@@ -171,13 +236,58 @@ export default function MasterclassGraziePage() {
                     >
                       {item.desc}
                     </p>
+                    {"link" in item && item.link && (
+                      <Link
+                        href={item.link.href}
+                        className="inline-block no-underline mt-2"
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.75rem",
+                          fontWeight: 600,
+                          color: "#C4704B",
+                        }}
+                      >
+                        {item.link.text}
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* CTA to Giornale */}
+          {/* FIX #1: Pré-enquadramento consultoria */}
+          <div
+            className="p-6 lg:p-8 mb-8 text-left"
+            style={{
+              backgroundColor: "rgba(27,42,74,0.03)",
+              border: "1px solid rgba(27,42,74,0.1)",
+            }}
+          >
+            <h3
+              className="mb-3"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1rem",
+                fontWeight: 700,
+                color: "#1A1A1A",
+              }}
+            >
+              Una cosa da sapere prima della sessione.
+            </h3>
+            <p
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.9rem",
+                color: "#555",
+                lineHeight: 1.7,
+              }}
+            >
+              Nell'ultima parte della Masterclass presenterò brevemente come lavoro con le PMI che vogliono andare oltre la diagnosi — con un percorso strutturato di consulenza operativa. Non è un obbligo, né una pressione. Se durante la sessione vede che c'è lavoro da fare insieme, sarà il momento giusto per dirmelo.
+            </p>
+          </div>
+
+          {/* Giornale — link secondário */}
           <div
             className="p-6"
             style={{
@@ -194,7 +304,7 @@ export default function MasterclassGraziePage() {
                 lineHeight: 1.6,
               }}
             >
-              Mentre aspetta la sessione, legga <strong>Il Giornale dell'IA</strong> — ogni giorno una nuova analisi operativa per la sua PMI.
+              Mentre aspetta la sessione, legga <strong>Il Giornale dell'IA</strong> — ogni settimana un caso reale di PMI italiana che ha implementato l'IA.
             </p>
             <Link
               href="/giornale"
@@ -209,7 +319,7 @@ export default function MasterclassGraziePage() {
                 backgroundColor: "#1B2A4A",
               }}
             >
-              Leggi Il Giornale dell'IA
+              Leggi Il Giornale dell'IA →
             </Link>
           </div>
         </motion.div>
