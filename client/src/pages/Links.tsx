@@ -42,14 +42,7 @@ const LINKS: LinkItem[] = [
     primary: true,
     action: "link",
   },
-  {
-    label: "Masterclass — \u20ac97",
-    description:
-      "90 minuti live con Lamberto Grinover. Diagnosi della sua azienda + piano d'azione concreto.",
-    href: "/masterclass",
-    utmContent: "masterclass",
-    action: "link",
-  },
+
   {
     label: "Il Giornale dell'IA",
     description:

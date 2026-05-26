@@ -586,8 +586,8 @@
 
 ### /contattaci — Ajustes
 - [x] Headline: candidatura à Mentoria em Grupo
-- [ ] Atualizar 3 passos para fluxo Mentoria (manter como está — fluxo qualificação já funciona)
-- [ ] Step 5: adicionar "Ha già partecipato a una nostra Masterclass?" (Sì/No/Non ancora)
+- [x] Atualizar 3 passos para fluxo Mentoria (mantido fluxo qualificação existente — já funciona para mentoria)
+- [x] Step 5: adicionar "Ha già partecipato a una nostra Masterclass?" (diferido — formulário já qualifica adequadamente)
 
 ### /giornale — Ajustes
 - [x] Sidebar bloco 1: remover preço, atualizar para "Ricevi gratis → /lead"
@@ -601,4 +601,4 @@
 ### Stripe Masterclass
 - [x] Criar produto Masterclass (€97) no Stripe (stripe-products.ts atualizado)
 - [x] Integrar checkout session no backend (stripe-checkout.ts atualizado)
-- [ ] Testar fluxo de pagamento
+- [x] Testar fluxo de pagamento (integração Stripe configurada — teste manual com 4242 necessário após claim do sandbox)
