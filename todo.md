@@ -610,7 +610,7 @@
 - [x] Redirect 301: /mappa → /lead
 - [x] Verificar Homepage: CTA principal → /lead, sem Mappa como produto pago
 - [x] NavBar: removido link "Mappa IA" (rota morta)
-- [ ] Verificar /masterclass: copy reflete "All Hands Consulting" (aguardando briefing)
+- [x] Verificar /masterclass: copy reescrita com 9 pontos de diagnóstico (v2)
 
 ## Rewrite /lead — Diagnóstico 8 pontos
 - [x] Superlabel: trocar "Esclusivo per iscritti" por qualificador de audiência PMI
@@ -621,3 +621,14 @@
 - [x] CTA: verbo de ação própria (não "Ricevi")
 - [x] Dado "80 processi analizzati" no H1/subheadline
 - [x] Lamberto: foto + 1 linha de credibilidade
+
+## Rewrite /masterclass — Diagnóstico 9 pontos
+- [x] Headline de venda (não título de produto): "In 90 minuti saprai esattamente dove la tua azienda perde soldi"
+- [x] "Cosa succede" com detalhes concretos (timestamps 0-30, 30-60, 60-90 min)
+- [x] Ancoragem de valor: "Una consulenza privata costa €1.500/sessione" vs €97
+- [x] Mover "Per chi è" para cima (6 bullets ressonantes logo após hero)
+- [x] Pré-enquadrar consultoria no closing ("presento brevemente come lavoro con PMI")
+- [x] "Posti limitati" com número concreto ("Massimo 20 partecipanti · Rimangono 14 posti")
+- [x] Garantia com termos específicos ("entro i primi 30 minuti, rimborso intero")
+- [x] Closing com urgência ("Ogni mese che passa senza un piano, i suoi concorrenti avanzano")
+- [x] FAQ "Posso partecipare senza la Mappa?" com resposta clara e estratégica

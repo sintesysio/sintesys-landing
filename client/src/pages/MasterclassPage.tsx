@@ -1,7 +1,16 @@
 /**
- * Masterclass Sales Page — /masterclass
- * Prodotto: Sessione live 90 min con Lamberto Grinover — €97
- * Design: Editorial style, focused on conversion
+ * Masterclass Sales Page — /masterclass (v2 — Diagnóstico 9 pontos)
+ *
+ * Correções:
+ * 1. Headline de venda (resultado, não título de produto)
+ * 2. "Cosa succede" com detalhes concretos
+ * 3. Ancoragem de valor (€500-1500/h vs €97)
+ * 4. "Per chi è" movido para cima (perto do hero)
+ * 5. Pré-enquadramento da consultoria All Hands no final
+ * 6. "Posti limitati" com número concreto (max 20)
+ * 7. Garantia com termos específicos
+ * 8. Closing com urgência + objeção tratada
+ * 9. FAQ com respostas claras
  */
 
 import { Link } from "wouter";
@@ -10,12 +19,10 @@ import { motion } from "framer-motion";
 import { useEffect, useCallback } from "react";
 import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
 
-
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
 export default function MasterclassPage() {
-
   useEffect(() => {
     trackPageView("/masterclass");
   }, []);
@@ -29,7 +36,6 @@ export default function MasterclassPage() {
       includesOrderBump: false,
     });
 
-    // Fire Meta Pixel InitiateCheckout
     if (typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "InitiateCheckout", {
         value: 97,
@@ -56,8 +62,8 @@ export default function MasterclassPage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Masterclass — 90 Minuti con Lamberto Grinover | Il Consigliere"
-        description="Una sessione operativa di 90 minuti per capire esattamente dove l'IA può intervenire nella sua azienda. €97, una volta al mese, posti limitati."
+        title="In 90 minuti saprai esattamente dove l'IA può tagliare costi nella tua PMI | Il Consigliere"
+        description="Sessione operativa live con Lamberto Grinover. Diagnosi personalizzata dei processi della tua azienda, piano d'azione concreto, Q&A. Max 20 partecipanti. €97."
         path="/masterclass"
       />
 
@@ -96,14 +102,14 @@ export default function MasterclassPage() {
         <div className="rule-thin" />
       </nav>
 
-      {/* ANNOUNCEMENT BANNER */}
+      {/* FIX #6: ANNOUNCEMENT BANNER com número concreto */}
       <div className="w-full py-2.5 text-center" style={{ backgroundColor: "#1B2A4A" }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.05em", color: "#FAFAF7" }}>
-          Prossima sessione: <span style={{ color: "#C4704B" }}>Giugno 2026</span> · Posti disponibili: <span style={{ color: "#C4704B" }}>15</span>
+          Prossima sessione: <span style={{ color: "#C4704B" }}>Giugno 2026</span> · Massimo 20 partecipanti · <span style={{ color: "#C4704B" }}>Rimangono 14 posti</span>
         </p>
       </div>
 
-      {/* HERO */}
+      {/* FIX #1: HERO — headline de venda (resultado, não título) */}
       <section className="container py-16 lg:py-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -120,7 +126,7 @@ export default function MasterclassPage() {
               fontWeight: 600,
             }}
           >
-            Evento Live · 1 volta al mese · 90 minuti
+            Sessione Live · Max 20 partecipanti · 90 minuti operativi
           </p>
 
           <h1
@@ -133,26 +139,25 @@ export default function MasterclassPage() {
               lineHeight: 1.1,
             }}
           >
-            90 minuti per capire esattamente cosa impedisce alla sua azienda di crescere.
+            In 90 minuti saprai esattamente dove la tua azienda perde soldi — e dove l'IA può intervenire domani.
           </h1>
 
+          {/* FIX #4: "Per chi è" movido para perto do hero */}
           <p
-            className="mb-8 max-w-2xl"
+            className="mb-6"
             style={{
               fontFamily: "'Source Serif 4', serif",
-              fontSize: "1.15rem",
+              fontSize: "1.1rem",
               color: "#444",
               lineHeight: 1.7,
             }}
           >
-            Una sessione operativa con Lamberto Grinover — non un webinar generico. 
-            Diagnosi della sua azienda, piano d'azione concreto, domande reali. 
-            In diretta, con chi ha gestito operazioni da €200M.
+            Per titolari che hanno provato ChatGPT ma non hanno visto risultati concreti nel business. Per chi vuole un piano d'azione, non un altro corso teorico.
           </p>
 
           {/* Badges */}
           <div className="flex flex-wrap gap-4 mb-8">
-            {["Live su Zoom", "90 minuti", "1 volta al mese", "Posti limitati"].map((badge) => (
+            {["Live su Zoom — non registrata", "Diagnosi personalizzata", "Piano d'azione scritto", "Q&A illimitato"].map((badge) => (
               <span
                 key={badge}
                 className="inline-flex items-center gap-1.5"
@@ -195,17 +200,61 @@ export default function MasterclassPage() {
               color: "#888",
             }}
           >
-            Pagamento sicuro via Stripe · Fattura disponibile
+            Pagamento sicuro via Stripe · Fattura per P.IVA disponibile
           </p>
         </motion.div>
       </section>
 
-      {/* WHAT YOU GET */}
+      {/* FIX #4: PER CHI È — seção expandida, posição alta */}
+      <section className="py-12 lg:py-16" style={{ backgroundColor: "rgba(196,112,75,0.05)" }}>
+        <div className="container">
+          <h2
+            className="mb-8 max-w-3xl"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)",
+              fontWeight: 700,
+              color: "#1A1A1A",
+              lineHeight: 1.2,
+            }}
+          >
+            Questa sessione è per lei se:
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
+            {[
+              "Ha 10-50 dipendenti e sa che l'IA è importante, ma non sa da dove iniziare senza sprecare budget",
+              "Ha provato ChatGPT o altri strumenti ma non ha visto risultati concreti nel fatturato o nei costi",
+              "Vuole un piano d'azione operativo, non un altro webinar teorico con slide generiche",
+              "Ha compilato la Mappa delle Opportunità e vuole capire come implementare le priorità identificate",
+              "È stanco di consulenti IT che parlano di tecnologia senza capire il business",
+              "Vuole parlare con qualcuno che ha gestito operazioni reali, non con un formatore da palco",
+            ].map((item, i) => (
+              <div key={i} className="flex gap-3">
+                <svg className="flex-shrink-0 mt-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <p
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.9rem",
+                    color: "#444",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FIX #2: COSA SUCCEDE — detalhes concretos e específicos */}
       <section className="py-14 lg:py-20" style={{ backgroundColor: "rgba(27,42,74,0.03)" }}>
         <div className="container">
           <div className="rule-thick mb-8 max-w-3xl" />
           <h2
-            className="mb-10 max-w-3xl"
+            className="mb-4 max-w-3xl"
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: "clamp(1.4rem, 3vw, 2rem)",
@@ -214,25 +263,39 @@ export default function MasterclassPage() {
               lineHeight: 1.2,
             }}
           >
-            Cosa succede durante la Masterclass.
+            Cosa succede in 90 minuti.
           </h2>
+          <p
+            className="mb-10 max-w-2xl"
+            style={{
+              fontFamily: "'Source Serif 4', serif",
+              fontSize: "0.95rem",
+              color: "#666",
+              lineHeight: 1.6,
+            }}
+          >
+            Non è un webinar con slide. È una sessione operativa dove lavoriamo sulla sua azienda.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl">
             {[
               {
                 num: "01",
-                title: "Diagnosi della sua azienda",
-                desc: "Analizziamo insieme i processi della sua PMI. Dove perde tempo, dove perde denaro, dove l'IA può intervenire domani — non tra sei mesi.",
+                time: "0–30 min",
+                title: "Diagnosi dei processi",
+                desc: "Analizziamo i suoi 3 reparti più critici: dove il team perde ore in attività ripetitive, dove i dati non comunicano tra loro, dove le decisioni si bloccano per mancanza di informazioni. Usiamo la Mappa come punto di partenza.",
               },
               {
                 num: "02",
-                title: "Piano d'azione concreto",
-                desc: "Non slide generiche. Un piano operativo personalizzato con priorità, tempistiche e ROI stimato per ogni intervento. Esce con un documento, non con appunti.",
+                time: "30–60 min",
+                title: "Piano d'azione con priorità e ROI",
+                desc: "Costruiamo insieme un piano operativo: quali processi automatizzare per primi, con quale strumento, in quanto tempo, e con quale ritorno stimato. Esce con un documento scritto — non con appunti vaghi.",
               },
               {
                 num: "03",
-                title: "Domande reali, risposte operative",
-                desc: "Sessione Q&A aperta. Le domande che non ha il coraggio di fare al suo consulente IT, qui trovano risposte concrete da chi ha implementato l'IA in aziende reali.",
+                time: "60–90 min",
+                title: "Q&A — le domande che non osa fare",
+                desc: "Sessione aperta. Budget reali, errori da evitare, fornitori da scegliere, tempistiche oneste. Le risposte che il suo consulente IT non le dà perché non ha gestito un'azienda.",
               },
             ].map((item) => (
               <div key={item.num}>
@@ -246,8 +309,21 @@ export default function MasterclassPage() {
                 >
                   {item.num}
                 </span>
+                <p
+                  className="mt-1 mb-2"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "0.6rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "#C4704B",
+                  }}
+                >
+                  {item.time}
+                </p>
                 <h3
-                  className="mt-2 mb-2"
+                  className="mb-2"
                   style={{
                     fontFamily: "'Inter', sans-serif",
                     fontSize: "0.9rem",
@@ -260,7 +336,7 @@ export default function MasterclassPage() {
                 <p
                   style={{
                     fontFamily: "'Source Serif 4', serif",
-                    fontSize: "0.9rem",
+                    fontSize: "0.85rem",
                     color: "#555",
                     lineHeight: 1.6,
                   }}
@@ -273,7 +349,7 @@ export default function MasterclassPage() {
         </div>
       </section>
 
-      {/* WHO IS LAMBERTO */}
+      {/* WHO IS LAMBERTO — mantido (está bom no diagnóstico) */}
       <section className="container py-14 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-4xl">
           <div>
@@ -321,61 +397,33 @@ export default function MasterclassPage() {
                 Ex-direttore operativo con €200M+ gestiti tra Italia e Brasile. Ha fondato Il Consigliere per tradurre la complessità dell'IA in risultati operativi misurabili per le PMI italiane.
               </p>
               <p className="mb-3">
-                Non è un tecnico che parla di business. È un imprenditore che ha capito la tecnologia e la usa come leva strategica.
+                <strong>Non è un tecnico che parla di business. È un imprenditore che ha capito la tecnologia e la usa come leva strategica.</strong>
               </p>
               <p>
-                Nella Masterclass, porta la stessa metodologia che usa con i clienti di consulenza privata — ma in un formato accessibile a €97.
+                Nella Masterclass porta la stessa metodologia che usa nelle consulenze private da €1.500/sessione — in un formato accessibile per chi vuole iniziare con chiarezza.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOR WHO */}
-      <section className="py-14 lg:py-20" style={{ backgroundColor: "rgba(196,112,75,0.06)" }}>
-        <div className="container">
-          <h2
-            className="mb-8 max-w-3xl"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)",
-              fontWeight: 700,
-              color: "#1A1A1A",
-              lineHeight: 1.2,
-            }}
-          >
-            Per chi è la Masterclass.
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
-            {[
-              "Imprenditori con 10-50 dipendenti che sanno che l'IA è importante ma non sanno da dove iniziare",
-              "Titolari che hanno provato ChatGPT ma non hanno visto risultati concreti nel business",
-              "Manager che vogliono un piano d'azione, non un altro corso teorico",
-              "Chi ha compilato la Mappa e vuole capire come implementare le priorità identificate",
-            ].map((item, i) => (
-              <div key={i} className="flex gap-3">
-                <svg className="flex-shrink-0 mt-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-                <p
-                  style={{
-                    fontFamily: "'Source Serif 4', serif",
-                    fontSize: "0.9rem",
-                    color: "#444",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {item}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRICING CTA */}
+      {/* FIX #3: PRICING CTA com ancoragem de valor */}
       <section className="container py-16 lg:py-24">
         <div className="max-w-2xl mx-auto text-center">
+          {/* Ancoragem */}
+          <p
+            className="mb-3"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.7rem",
+              fontWeight: 500,
+              color: "#999",
+              letterSpacing: "0.05em",
+            }}
+          >
+            Una consulenza privata con Lamberto costa €1.500/sessione.
+          </p>
+
           <h2
             className="mb-4"
             style={{
@@ -386,10 +434,10 @@ export default function MasterclassPage() {
               lineHeight: 1.15,
             }}
           >
-            €97. Una sessione. Un piano d'azione.
+            La Masterclass: €97. Stessa metodologia.
           </h2>
           <p
-            className="mb-8 max-w-xl mx-auto"
+            className="mb-4 max-w-xl mx-auto"
             style={{
               fontFamily: "'Source Serif 4', serif",
               fontSize: "1rem",
@@ -397,7 +445,21 @@ export default function MasterclassPage() {
               lineHeight: 1.7,
             }}
           >
-            Non è un abbonamento. Non è un corso da 40 ore. È una sessione live di 90 minuti dove esce con un piano operativo per la sua azienda. Se non trova valore, le rimborsiamo l'intero importo.
+            Non è un abbonamento. Non è un corso da 40 ore. È una sessione live di 90 minuti dove esce con un piano operativo per la sua azienda — scritto, con priorità e ROI stimato.
+          </p>
+
+          {/* FIX #7: Garantia com termos específicos */}
+          <p
+            className="mb-8 max-w-lg mx-auto"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.8rem",
+              color: "#C4704B",
+              fontWeight: 500,
+              lineHeight: 1.5,
+            }}
+          >
+            Garanzia: se entro i primi 30 minuti ritiene che la sessione non faccia per lei, le rimborsiamo l'intero importo. Nessuna domanda.
           </p>
 
           <button
@@ -418,7 +480,7 @@ export default function MasterclassPage() {
           </button>
 
           <div className="mt-6 flex flex-wrap justify-center gap-4">
-            {["Pagamento sicuro Stripe", "Fattura per P.IVA", "Garanzia soddisfatti o rimborsati"].map((t) => (
+            {["Pagamento sicuro Stripe", "Fattura per P.IVA", "Deducibile al 100%", "Max 20 partecipanti"].map((t) => (
               <span
                 key={t}
                 style={{
@@ -435,7 +497,7 @@ export default function MasterclassPage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FIX #9: FAQ com respostas claras e estratégicas */}
       <section className="py-14 lg:py-20" style={{ backgroundColor: "rgba(27,42,74,0.03)" }}>
         <div className="container">
           <div className="rule-thick mb-8 max-w-3xl" />
@@ -454,24 +516,28 @@ export default function MasterclassPage() {
           <div className="max-w-3xl space-y-6">
             {[
               {
-                q: "Quando è la prossima sessione?",
-                a: "Le date vengono comunicate via email agli iscritti. Generalmente una volta al mese, il giovedì alle 18:00 CET.",
+                q: "Posso partecipare senza aver compilato la Mappa?",
+                a: "Sì, ma le consiglio fortemente di compilarla prima. La Mappa è gratuita — la riceve iscrivendosi alla newsletter su /lead. Arrivare con la Mappa compilata significa avere già chiaro dove la sua azienda perde tempo, e usare i 90 minuti per costruire il piano d'azione invece di fare la diagnosi da zero.",
               },
               {
-                q: "Posso partecipare se non ho ancora la Mappa?",
-                a: "Sì, ma consigliamo di compilarla prima. La Mappa è gratuita per gli iscritti alla newsletter — iscriviti su /lead e ricevila subito. Compilarla prima della Masterclass le permette di arrivare con domande specifiche.",
+                q: "In cosa è diversa da un webinar?",
+                a: "Un webinar ha 500 persone, slide generiche e nessuna interazione. Qui siamo massimo 20. Lavoriamo sulla sua azienda. Le domande sono le sue. Il piano d'azione è personalizzato. E non viene registrata — quindi i partecipanti condividono dati reali.",
+              },
+              {
+                q: "€97 — cosa include esattamente?",
+                a: "90 minuti live su Zoom con Lamberto. Diagnosi dei processi critici della sua azienda. Piano d'azione scritto con priorità e ROI stimato. Sessione Q&A illimitata. Nessun upsell durante la sessione — solo contenuto operativo.",
+              },
+              {
+                q: "Quando è la prossima sessione?",
+                a: "Le date vengono comunicate via email agli iscritti. Generalmente una volta al mese, il giovedì alle 18:00 CET. Dopo l'acquisto riceve il link Zoom e la data confermata.",
+              },
+              {
+                q: "E se non posso partecipare alla data prevista?",
+                a: "Può spostare alla sessione successiva senza costi aggiuntivi. Oppure richiedere il rimborso completo entro 14 giorni dall'acquisto — nessuna domanda, nessuna complicazione.",
               },
               {
                 q: "È registrata?",
-                a: "No. La Masterclass è live e non viene registrata. Questo garantisce che i partecipanti condividano liberamente i dati della propria azienda durante la sessione.",
-              },
-              {
-                q: "Cosa succede se non posso partecipare?",
-                a: "Può spostare la partecipazione alla sessione successiva, oppure richiedere il rimborso completo entro 14 giorni dall'acquisto.",
-              },
-              {
-                q: "Quanti partecipanti ci sono?",
-                a: "Massimo 15 per sessione. Questo garantisce che ogni partecipante abbia tempo per le proprie domande e che la sessione rimanga operativa, non generica.",
+                a: "No. La sessione non viene registrata. Questo è intenzionale: garantisce che ogni partecipante condivida liberamente numeri e situazioni reali della propria azienda. È anche ciò che rende la sessione irripetibile — se perde la data, perde il contenuto.",
               },
             ].map((item, i) => (
               <div
@@ -506,7 +572,7 @@ export default function MasterclassPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* FIX #5: Pré-enquadramento consultoria + FIX #8: Closing forte */}
       <section className="py-16 lg:py-20" style={{ backgroundColor: "#1B2A4A" }}>
         <div className="container text-center">
           <h2
@@ -519,19 +585,33 @@ export default function MasterclassPage() {
               lineHeight: 1.2,
             }}
           >
-            Il prossimo passo è suo.
+            Ogni mese che passa senza un piano, i suoi concorrenti avanzano.
           </h2>
           <p
-            className="mb-8 max-w-xl mx-auto"
+            className="mb-4 max-w-xl mx-auto"
             style={{
               fontFamily: "'Source Serif 4', serif",
               fontSize: "1rem",
-              color: "rgba(250,250,247,0.7)",
+              color: "rgba(250,250,247,0.75)",
               lineHeight: 1.7,
             }}
           >
-            90 minuti. Un piano d'azione. La chiarezza che serve per decidere.
+            €97 per 90 minuti di chiarezza. Un piano d'azione scritto. La certezza di sapere esattamente dove investire — e dove non sprecare un euro.
           </p>
+
+          {/* FIX #5: Pré-enquadramento */}
+          <p
+            className="mb-8 max-w-lg mx-auto"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.75rem",
+              color: "rgba(250,250,247,0.5)",
+              lineHeight: 1.5,
+            }}
+          >
+            Al termine della sessione, per chi vuole andare oltre, presento brevemente come lavoro con le PMI che scelgono l'implementazione guidata. Nessun obbligo — solo un'opzione per chi vuole accelerare.
+          </p>
+
           <button
             onClick={() => handlePurchase("final_cta")}
             className="btn-terracotta"
@@ -548,6 +628,18 @@ export default function MasterclassPage() {
           >
             Prenota il tuo posto — €97 →
           </button>
+
+          {/* FIX #7: Garantia reforçada no closing */}
+          <p
+            className="mt-4"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.7rem",
+              color: "rgba(250,250,247,0.5)",
+            }}
+          >
+            Rimborso garantito entro i primi 30 minuti. Zero rischio.
+          </p>
         </div>
       </section>
 
