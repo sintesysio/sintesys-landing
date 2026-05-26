@@ -8,7 +8,6 @@ export default function NavBar() {
 
   const isGiornaleActive = location === "/giornale";
   const isChiSiamoActive = location === "/chi-siamo";
-  const isMappaActive = location === "/mappa";
 
   return (
     <nav
@@ -62,19 +61,6 @@ export default function NavBar() {
             Chi Siamo
           </Link>
 
-          {/* Mappa IA — visible on desktop */}
-          <Link
-            href="/mappa"
-            className="no-underline hidden sm:inline-block px-3 sm:px-4 py-1.5 text-[0.65rem] sm:text-xs tracking-[0.12em] sm:tracking-[0.15em] uppercase transition-colors"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontWeight: isMappaActive ? 600 : 500,
-              color: isMappaActive ? "#1B2A4A" : "#444",
-              borderBottom: isMappaActive ? "2px solid #1B2A4A" : "2px solid transparent",
-            }}
-          >
-            Mappa IA
-          </Link>
 
           {/* Lead CTA — primary action, terracotta button → /lead */}
           <Link

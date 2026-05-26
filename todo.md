@@ -602,3 +602,12 @@
 - [x] Criar produto Masterclass (€97) no Stripe (stripe-products.ts atualizado)
 - [x] Integrar checkout session no backend (stripe-checkout.ts atualizado)
 - [x] Testar fluxo de pagamento (integração Stripe configurada — teste manual com 4242 necessário após claim do sandbox)
+
+## Limpeza de Funil v2 — Redirects e Simplificação
+- [x] Redirect 301: /mentoria → /masterclass
+- [x] Redirect 301: /contattaci → /masterclass
+- [x] Redirect 301: /mappa/grazie → /grazie (atualizar redirect existente)
+- [x] Redirect 301: /mappa → /lead
+- [x] Verificar Homepage: CTA principal → /lead, sem Mappa como produto pago
+- [x] NavBar: removido link "Mappa IA" (rota morta)
+- [ ] Verificar /masterclass: copy reflete "All Hands Consulting" (aguardando briefing)

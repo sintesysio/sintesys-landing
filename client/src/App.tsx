@@ -5,23 +5,20 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Redirect from "./components/Redirect";
 
 // Lazy-loaded pages for code splitting (reduces initial JS bundle)
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const Giornale = lazy(() => import("./pages/Giornale"));
 const ChiSiamo = lazy(() => import("./pages/ChiSiamo"));
-const Contattaci = lazy(() => import("./pages/Contattaci"));
 const Grazie = lazy(() => import("./pages/Grazie"));
 const Links = lazy(() => import("./pages/Links"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const DataDeletion = lazy(() => import("./pages/DataDeletion"));
-const MappaLandingPage = lazy(() => import("./pages/MappaLandingPage"));
-const MappaGraziePage = lazy(() => import("./pages/MappaGraziePage"));
 const LeadCapturePage = lazy(() => import("./pages/LeadCapturePage"));
 const MasterclassPage = lazy(() => import("./pages/MasterclassPage"));
 const MasterclassGraziePage = lazy(() => import("./pages/MasterclassGraziePage"));
-const MentoriaPage = lazy(() => import("./pages/MentoriaPage"));
 const NewsletterPopup = lazy(() => import("./components/NewsletterPopup"));
 const AdminLayout = lazy(() => import("./components/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -76,15 +73,23 @@ function Router() {
         <Route path={"/"} component={LandingPage} />
         <Route path={"/giornale"} component={Giornale} />
         <Route path={"/chi-siamo"} component={ChiSiamo} />
-        <Route path={"/contattaci"} component={Contattaci} />
         <Route path={"/grazie"} component={Grazie} />
         <Route path={"/links"} component={Links} />
-        <Route path={"/mappa"} component={MappaLandingPage} />
-        <Route path={"/mappa/grazie"} component={MappaGraziePage} />
         <Route path={"/lead"} component={LeadCapturePage} />
         <Route path={"/masterclass"} component={MasterclassPage} />
         <Route path={"/masterclass/grazie"} component={MasterclassGraziePage} />
-        <Route path={"/mentoria"} component={MentoriaPage} />
+
+        {/* === REDIRECTS 301 === */}
+        {/* /mentoria eliminada do funil → redireciona para /masterclass */}
+        <Route path={"/mentoria"}>{() => <Redirect to="/masterclass" />}</Route>
+        {/* /contattaci eliminada do funil → redireciona para /masterclass */}
+        <Route path={"/contattaci"}>{() => <Redirect to="/masterclass" />}</Route>
+        {/* /mappa agora é grátis via newsletter → redireciona para /lead */}
+        <Route path={"/mappa"}>{() => <Redirect to="/lead" />}</Route>
+        {/* /mappa/grazie → redireciona para /grazie (lead, não comprador) */}
+        <Route path={"/mappa/grazie"}>{() => <Redirect to="/grazie" />}</Route>
+
+        {/* Páginas legais */}
         <Route path={"/privacy-policy"} component={PrivacyPolicy} />
         <Route path={"/terms-of-service"} component={TermsOfService} />
         <Route path={"/data-deletion"} component={DataDeletion} />
