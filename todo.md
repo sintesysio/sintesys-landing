@@ -611,3 +611,13 @@
 - [x] Verificar Homepage: CTA principal → /lead, sem Mappa como produto pago
 - [x] NavBar: removido link "Mappa IA" (rota morta)
 - [ ] Verificar /masterclass: copy reflete "All Hands Consulting" (aguardando briefing)
+
+## Rewrite /lead — Diagnóstico 8 pontos
+- [x] Superlabel: trocar "Esclusivo per iscritti" por qualificador de audiência PMI
+- [x] Headline: ativar dor/urgência (concorrentes já usam IA, tu não sabe por onde começar)
+- [x] Prova social: número concreto (80 processi, 8 reparti) visível no corpo
+- [x] Badge Newsletter: virar benefício ("1 caso pratico a settimana")
+- [x] Hierarquia: Mappa = herói, Guida = bônus
+- [x] CTA: verbo de ação própria (não "Ricevi")
+- [x] Dado "80 processi analizzati" no H1/subheadline
+- [x] Lamberto: foto + 1 linha de credibilidade

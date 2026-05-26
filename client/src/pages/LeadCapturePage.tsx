@@ -1,8 +1,15 @@
 /**
- * /lead — Página de Captura de Lead
- * Funil Etapa 2: capturar contato + ensinar pixel
- * Design: limpo, sem navbar completa, foco total em conversão
- * Evento: dispara Lead no Meta Pixel no submit → redireciona para /grazie
+ * /lead — Página de Captura de Lead (v3 — Diagnóstico 8 pontos)
+ * 
+ * Correções aplicadas:
+ * 1. Superlabel → qualificador de audiência PMI (não "esclusivo per iscritti")
+ * 2. Headline → ativa dor/urgência (concorrentes já usam IA)
+ * 3. Prova social → "80 processi analizzati, 8 reparti" visível no corpo
+ * 4. Badge Newsletter → benefício concreto ("1 caso pratico a settimana")
+ * 5. Hierarquia → Mappa = herói, Guida = bônus
+ * 6. CTA → verbo de ação própria ("Scopri dove stai perdendo tempo →")
+ * 7. Dado forte → "80 processi" no H1/subheadline
+ * 8. Lamberto → foto + credibilidade
  */
 
 import { useState, useCallback, useEffect } from "react";
@@ -13,6 +20,7 @@ import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
+const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover-v2-Tq2cPBpFxRYWbxN7zLnJBi.webp";
 
 const SECTORS = [
   "Manifattura e produzione",
@@ -40,7 +48,6 @@ export default function LeadCapturePage() {
     onSuccess: () => {
       trackLeadSimple({ name, email, sector, source: "lead_page" });
       trackCTAClick("Lead Submit", "lead_page");
-      // Redirect to /grazie (where Lead pixel event fires)
       setLocation("/grazie");
     },
     onError: (err) => {
@@ -75,12 +82,12 @@ export default function LeadCapturePage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="Ricevi la Mappa delle Opportunità IA — Gratis | Il Consigliere"
-        description="Iscriviti e ricevi la Guida Transizione 5.0 e la Mappa delle Opportunità IA — 80 processi analizzati per la tua PMI."
+        title="Mappa delle Opportunità IA — 80 processi analizzati per la tua PMI | Il Consigliere"
+        description="Scopri dove la tua azienda perde tempo e denaro. 80 processi analizzati in 8 reparti. Scarica gratis la Mappa delle Opportunità IA."
         path="/lead"
       />
 
-      {/* Header minimal — solo logo, sem navbar */}
+      {/* Header minimal — solo logo */}
       <header className="container">
         <div className="rule-thick mt-0" />
         <div className="flex items-center justify-between py-4">
@@ -111,6 +118,7 @@ export default function LeadCapturePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
+              {/* FIX #1: Qualificador de audiência (não "esclusivo per iscritti") */}
               <p
                 className="uppercase tracking-[0.15em] mb-3"
                 style={{
@@ -120,9 +128,10 @@ export default function LeadCapturePage() {
                   fontWeight: 600,
                 }}
               >
-                Esclusivo per iscritti
+                Per imprenditori PMI con 10–50 dipendenti
               </p>
 
+              {/* FIX #2 + #7: Headline com dor + dado "80 processi" */}
               <h1
                 className="mb-6"
                 style={{
@@ -133,12 +142,15 @@ export default function LeadCapturePage() {
                   lineHeight: 1.1,
                 }}
               >
-                La Mappa che i nostri clienti usano come primo passo.{" "}
-                <span style={{ color: "#C4704B" }}>Adesso è sua — gratis.</span>
+                I tuoi concorrenti stanno già usando l'IA.{" "}
+                <span style={{ color: "#C4704B" }}>
+                  Tu sai dove iniziare?
+                </span>
               </h1>
 
+              {/* FIX #3 + #5: Prova social concreta + Mappa = herói */}
               <p
-                className="mb-6"
+                className="mb-5"
                 style={{
                   fontFamily: "'Source Serif 4', serif",
                   fontSize: "1.1rem",
@@ -146,11 +158,12 @@ export default function LeadCapturePage() {
                   lineHeight: 1.7,
                 }}
               >
-                Iscrivendosi riceve immediatamente due strumenti operativi: la{" "}
-                <strong>Guida Transizione 5.0</strong> (come accedere ai €6,3 miliardi di fondi MIMIT) e la{" "}
-                <strong>Mappa delle Opportunità IA</strong> — 80 processi analizzati, 8 reparti, una dashboard che le mostra esattamente dove intervenire.
+                La <strong>Mappa delle Opportunità IA</strong> analizza{" "}
+                <strong>80 processi in 8 reparti</strong> della tua azienda e ti mostra
+                esattamente dove stai perdendo tempo e denaro — e dove l'IA può intervenire domani.
               </p>
 
+              {/* FIX #5: Guida = bônus (hierarquia clara) */}
               <p
                 className="mb-8"
                 style={{
@@ -160,15 +173,16 @@ export default function LeadCapturePage() {
                   lineHeight: 1.7,
                 }}
               >
-                Poi, ogni settimana, Il Giornale dell'IA: analisi, casi studio e strategie per PMI italiane con 10–50 dipendenti. Niente gergo. Solo impatto reale.
+                In più, ricevi la <strong>Guida Transizione 5.0</strong> — come accedere ai €6,3 miliardi
+                di fondi MIMIT che il Governo ha stanziato per le PMI che innovano.
               </p>
 
-              {/* Badges */}
-              <div className="flex flex-wrap gap-3">
+              {/* FIX #4: Badges com benefícios concretos (não "Newsletter Settimanale") */}
+              <div className="flex flex-wrap gap-3 mb-10">
                 {[
-                  "Guida Transizione 5.0",
-                  "Mappa delle Opportunità IA",
-                  "Newsletter Settimanale",
+                  "Mappa delle Opportunità IA — 80 processi",
+                  "Guida Transizione 5.0 — fondi MIMIT",
+                  "1 caso pratico a settimana nella tua inbox",
                 ].map((badge) => (
                   <span
                     key={badge}
@@ -188,6 +202,46 @@ export default function LeadCapturePage() {
                     {badge}
                   </span>
                 ))}
+              </div>
+
+              {/* FIX #8: Lamberto — foto + credibilidade */}
+              <div
+                className="flex items-center gap-4 p-4"
+                style={{
+                  backgroundColor: "rgba(27,42,74,0.03)",
+                  border: "1px solid rgba(27,42,74,0.08)",
+                }}
+              >
+                <img
+                  src={LAMBERTO_PHOTO}
+                  alt="Lamberto Grinover"
+                  className="w-14 h-14 rounded-full object-cover"
+                  style={{ border: "2px solid rgba(27,42,74,0.15)" }}
+                />
+                <div>
+                  <p
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "0.9rem",
+                      fontWeight: 700,
+                      color: "#1A1A1A",
+                      marginBottom: "2px",
+                    }}
+                  >
+                    Lamberto Grinover
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.7rem",
+                      color: "#666",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    Ex-direttore operativo. Ha guidato la trasformazione digitale di PMI italiane
+                    in 6 settori. Oggi aiuta imprenditori a implementare l'IA senza sprecare budget.
+                  </p>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -219,7 +273,7 @@ export default function LeadCapturePage() {
                     lineHeight: 1.25,
                   }}
                 >
-                  Ricevi la Mappa e la Guida — gratis.
+                  Scarica la Mappa — gratis.
                 </h2>
 
                 {/* Nome */}
@@ -369,7 +423,7 @@ export default function LeadCapturePage() {
                   </p>
                 )}
 
-                {/* Submit */}
+                {/* FIX #6: CTA com verbo de ação própria */}
                 <button
                   type="submit"
                   disabled={submitLead.isPending}
@@ -384,7 +438,7 @@ export default function LeadCapturePage() {
                     opacity: submitLead.isPending ? 0.7 : 1,
                   }}
                 >
-                  {submitLead.isPending ? "Invio in corso..." : "Ricevi la Mappa e la Guida — gratis →"}
+                  {submitLead.isPending ? "Invio in corso..." : "Scopri dove stai perdendo tempo →"}
                 </button>
 
                 {/* Privacy */}
