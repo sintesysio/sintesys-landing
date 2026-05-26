@@ -1,23 +1,22 @@
 /**
  * Link in Bio — Instagram (@ilconsigliere.io)
- * Pagina di menu per il link nella bio di Instagram
- * Stile editoriale "Il Giornale dell'IA" — coerente con il brand
- * Tutti i link con UTM tracking completo per GA4
- * Mobile-first (100% traffico da Instagram mobile)
+ * Fase 1: Objetivo único = capturar leads
  *
- * Sezioni:
- * 1. Mappa delle Opportunità IA → Checkout Stripe (vendita diretta €49,50)
- * 2. Il Giornale dell'IA → Newsletter (cattura lead)
- * 3. Sito Istituzionale → Newsletter (cattura lead)
- * 4. Chi è Il Consigliere → Pagina Chi Siamo
+ * Diagnóstico aplicado:
+ * 1. DELETADO: Link "Mappa IA Checkout" Stripe (contradiz "gratis")
+ * 2. DELETADO: "Segui su Instagram" (redundante — visitante veio do IG)
+ * 3. ADICIONADO: Foto circular do Lamberto no header
+ * 4. CORRIGIDO: Tagline fala do dono de PMI, não de multinacionais
+ * 5. CORRIGIDO: Descrição do link 1 com benefício específico (80 processi)
+ * 6. CORRIGIDO: "Chi è Lamberto Grinover" (pessoa, não marca)
  */
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
-const LOGO_ICON =
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
+const LAMBERTO_PHOTO =
+  "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
 
 const BASE_URL = "https://www.ilconsigliere.io";
 
@@ -27,37 +26,30 @@ interface LinkItem {
   href: string;
   utmContent: string;
   primary?: boolean;
-  originalPrice?: string;
-  launchPrice?: string;
-  action: "stripe" | "link";
 }
 
 const LINKS: LinkItem[] = [
   {
-    label: "Mappa + Guida Gratis",
+    label: "Ricevi la Mappa delle Opportunità IA — Gratis",
     description:
-      "Si iscriva e riceva subito la Mappa delle Opportunit\u00e0 IA e la Guida Transizione 5.0. Gratuitamente.",
+      "80 processi analizzati. In 10 minuti sa da dove iniziare.",
     href: "/lead",
     utmContent: "lead-mappa-gratis",
     primary: true,
-    action: "link",
   },
-
   {
-    label: "Il Giornale dell'IA",
+    label: "Il Giornale dell'IA — casi pratici per PMI",
     description:
-      "Archivio editoriale: analisi settimanali, casi studio e strategie operative per PMI italiane.",
+      "Un caso reale ogni settimana. Gratis.",
     href: "/giornale",
     utmContent: "giornale-ia",
-    action: "link",
   },
   {
-    label: "Chi \u00e8 Il Consigliere",
+    label: "Chi è Lamberto Grinover",
     description:
-      "Lamberto Grinover: 28 anni in multinazionali, oggi al servizio della Sua PMI.",
+      "Ex-direttore operativo. Oggi aiuta le PMI italiane a usare l'IA dove conta.",
     href: "/chi-siamo",
     utmContent: "chi-siamo",
-    action: "link",
   },
 ];
 
@@ -71,28 +63,9 @@ function buildUtmUrl(path: string, utmContent: string): string {
   return url.toString();
 }
 
-function getTodayItalian(): string {
-  const now = new Date();
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  };
-  const formatted = now.toLocaleDateString("it-IT", options);
-  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
-}
-
 export default function Links() {
-
-
   useEffect(() => {
     trackPageView(window.location.href);
-  }, []);
-
-  const handleStripeCheckout = useCallback(() => {
-    trackCTAClick("Mappa IA Checkout", "linkinbio");
-    window.open("https://buy.stripe.com/6oU9ANd3Q0MkaAvgXVdIA01", "_blank");
   }, []);
 
   const handleLinkClick = (link: LinkItem) => {
@@ -102,176 +75,105 @@ export default function Links() {
   return (
     <div className="min-h-screen bg-[#FAFAF7] flex flex-col items-center">
       <SEOHead
-        title="Il Consigliere — Link | Tutti i nostri canali"
-        description="Tutti i contenuti, prodotti e modi per entrare in contatto con Il Consigliere."
+        title="Lamberto Grinover — IA per PMI Italiane"
+        description="Ricevi la Mappa delle Opportunità IA gratis. 80 processi analizzati in 8 reparti."
         path="/links"
       />
-      
-      {/* Masthead */}
-      <header className="w-full max-w-md mx-auto pt-8 pb-4 px-5 text-center">
-        {/* Decorative top line */}
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="h-px flex-1 bg-[#1B2A4A]/20" />
+
+      {/* Header — FIX #3: foto Lamberto + FIX #4: tagline PMI */}
+      <header className="w-full max-w-md mx-auto pt-8 pb-6 px-5 text-center">
+        {/* Foto circular */}
+        <div className="flex justify-center mb-4">
           <img
-            src={LOGO_ICON}
-            alt="Il Consigliere"
-            className="w-10 h-10"
+            src={LAMBERTO_PHOTO}
+            alt="Lamberto Grinover"
+            className="w-20 h-20 rounded-full object-cover border-2 border-[#1B2A4A]/10"
+            loading="eager"
           />
-          <div className="h-px flex-1 bg-[#1B2A4A]/20" />
         </div>
 
-        {/* Brand title */}
+        {/* Nome + cargo */}
         <h1
-          className="text-2xl font-bold text-[#1B2A4A] tracking-tight leading-tight"
+          className="text-xl font-bold text-[#1B2A4A] tracking-tight leading-tight"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
-          Il Consigliere
+          Lamberto Grinover
         </h1>
 
-        {/* Date line — newspaper style */}
-        <div className="flex items-center justify-center gap-3 mt-3">
-          <div className="h-px flex-1 bg-[#1B2A4A]/10" />
-          <span
-            className="text-[10px] text-[#1B2A4A]/40 uppercase tracking-wider whitespace-nowrap"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            {getTodayItalian()}
-          </span>
-          <div className="h-px flex-1 bg-[#1B2A4A]/10" />
-        </div>
-
-        {/* Tagline */}
+        {/* FIX #4: Tagline focada no PMI, não em multinacionais */}
         <p
-          className="text-sm text-[#1B2A4A]/70 mt-3 leading-relaxed"
+          className="text-sm text-[#1B2A4A]/70 mt-2 leading-relaxed"
           style={{ fontFamily: "'Source Serif 4', serif" }}
         >
-          L'IA che le multinazionali usano.
-          <br />
-          Adattata per la Sua PMI.
+          Aiuto le PMI italiane a usare l'IA dove conta davvero.
         </p>
-      </header>
 
-      {/* Links */}
-      <main className="w-full max-w-md mx-auto px-5 pb-8 flex flex-col gap-3">
-        {LINKS.map((link) =>
-          link.action === "stripe" ? (
-            /* Mappa IA — Stripe Checkout (vendita diretta) */
-            <button
-              key={link.utmContent}
-              onClick={handleStripeCheckout}
-
-              className={`
-                group block w-full rounded-lg border transition-all duration-200 text-left cursor-pointer
-                bg-[#C4704B] border-[#C4704B] text-white hover:bg-[#A85A3A] shadow-md
-
-              `}
-            >
-              <div className="flex items-center gap-3 px-4 py-4">
-                <div className="flex-1 min-w-0">
-                  <span
-                    className="block text-sm font-semibold leading-tight text-white"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    <>
-                        {link.label}{" "}
-                        {link.originalPrice && (
-                          <span className="line-through opacity-60 text-xs font-normal">{link.originalPrice}</span>
-                        )}
-                        {" "}
-                        {link.launchPrice && (
-                          <span className="text-white font-bold">{link.launchPrice}</span>
-                        )}
-                    </>
-                  </span>
-                  <span
-                    className="block text-xs mt-1 leading-snug text-white/70"
-                    style={{ fontFamily: "'Source Serif 4', serif" }}
-                  >
-                    {link.description}
-                  </span>
-                </div>
-                <svg
-                  className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 text-white/60"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
-            </button>
-          ) : (
-            /* Links regulares */
-            <a
-              key={link.utmContent}
-              href={buildUtmUrl(link.href, link.utmContent)}
-              onClick={() => handleLinkClick(link)}
-              className="
-                group block w-full rounded-lg border transition-all duration-200
-                bg-white border-[#1B2A4A]/15 text-[#1B2A4A] hover:border-[#1B2A4A]/40 hover:shadow-sm
-              "
-            >
-              <div className="flex items-center gap-3 px-4 py-4">
-                <div className="flex-1 min-w-0">
-                  <span
-                    className="block text-sm font-semibold leading-tight text-[#1B2A4A]"
-                    style={{ fontFamily: "'Playfair Display', serif" }}
-                  >
-                    {link.label}
-                  </span>
-                  <span
-                    className="block text-xs mt-1 leading-snug text-[#1B2A4A]/50"
-                    style={{ fontFamily: "'Source Serif 4', serif" }}
-                  >
-                    {link.description}
-                  </span>
-                </div>
-                <svg
-                  className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 text-[#1B2A4A]/30"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
-            </a>
-          )
-        )}
-
-        {/* Instagram follow */}
-        <a
-          href="https://www.instagram.com/ilconsigliere.io/"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackCTAClick("Segui su Instagram", "linkinbio")}
-          className="
-            group flex items-center justify-center gap-2 w-full rounded-lg border
-            border-[#1B2A4A]/10 bg-[#FAFAF7] text-[#1B2A4A]/60
-            hover:border-[#1B2A4A]/30 hover:text-[#1B2A4A]/80
-            transition-all duration-200 py-3 mt-1
-          "
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-          </svg>
+        {/* Separator */}
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <div className="h-px flex-1 bg-[#1B2A4A]/10" />
           <span
-            className="text-xs font-medium uppercase tracking-wider"
+            className="text-[10px] text-[#1B2A4A]/30 uppercase tracking-wider"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             @ilconsigliere.io
           </span>
-        </a>
+          <div className="h-px flex-1 bg-[#1B2A4A]/10" />
+        </div>
+      </header>
+
+      {/* Links — apenas 3, sem Stripe, sem Instagram */}
+      <main className="w-full max-w-md mx-auto px-5 pb-8 flex flex-col gap-3">
+        {LINKS.map((link) => (
+          <a
+            key={link.utmContent}
+            href={buildUtmUrl(link.href, link.utmContent)}
+            onClick={() => handleLinkClick(link)}
+            className={`
+              group block w-full rounded-lg border transition-all duration-200
+              ${
+                link.primary
+                  ? "bg-[#C4704B] border-[#C4704B] text-white hover:bg-[#A85A3A] shadow-md"
+                  : "bg-white border-[#1B2A4A]/15 text-[#1B2A4A] hover:border-[#1B2A4A]/40 hover:shadow-sm"
+              }
+            `}
+          >
+            <div className="flex items-center gap-3 px-4 py-4">
+              <div className="flex-1 min-w-0">
+                <span
+                  className={`block text-sm font-semibold leading-tight ${
+                    link.primary ? "text-white" : "text-[#1B2A4A]"
+                  }`}
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                >
+                  {link.label}
+                </span>
+                <span
+                  className={`block text-xs mt-1 leading-snug ${
+                    link.primary ? "text-white/70" : "text-[#1B2A4A]/50"
+                  }`}
+                  style={{ fontFamily: "'Source Serif 4', serif" }}
+                >
+                  {link.description}
+                </span>
+              </div>
+              <svg
+                className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 ${
+                  link.primary ? "text-white/60" : "text-[#1B2A4A]/30"
+                }`}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
+          </a>
+        ))}
       </main>
 
       {/* Footer */}
