@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
-const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-v5_323be851.jpeg";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-links-photo_7f79fe0a.jpeg";
 
 const BASE_URL = "https://www.ilconsigliere.io";
 
