@@ -15,8 +15,7 @@ import { useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
 import { trackPageView, trackCTAClick } from "@/lib/tracking";
 
-const LAMBERTO_PHOTO =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-v5_323be851.jpeg";
 
 const BASE_URL = "https://www.ilconsigliere.io";
 

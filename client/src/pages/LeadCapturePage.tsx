@@ -17,7 +17,7 @@ import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
-const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-square_d4983052.jpeg";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-v5_323be851.jpeg";
 
 const SECTORS = [
   "Manifattura e produzione",

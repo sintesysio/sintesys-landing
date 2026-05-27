@@ -20,7 +20,7 @@ import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const HERO_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/hero-newspaper-X6Nu9ZvEg3XFvxCoNGtAqn.webp";
-const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-v5_323be851.jpeg";
 
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {

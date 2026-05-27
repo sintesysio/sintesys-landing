@@ -85,9 +85,9 @@ export default function ChiSiamo() {
                   }}
                 >
                   <img
-                    src="https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png"
+                    src="/manus-storage/lamberto-headshot-v5_323be851.jpeg"
                     alt="Lamberto Grinover — Fondatore di Il Consigliere"
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-center"
                     loading="lazy"
                     width="128"
                     height="128"

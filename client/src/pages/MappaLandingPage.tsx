@@ -16,7 +16,7 @@ import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/track
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
 const CONSIGLIERE_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/uMGoFQehbWRsupxh.png";
-const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover_a1c8f6fb.png";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-v5_323be851.jpeg";
 const PRODUCT_MOCKUP = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/mappa-product-mockup-YeV4GMZTfumsJocuzn54Da.webp";
 
 /* ─── Countdown Timer (1h from page open, resets every visit) ─── */
