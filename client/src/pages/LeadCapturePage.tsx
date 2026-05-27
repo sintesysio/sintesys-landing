@@ -469,7 +469,7 @@ export default function LeadCapturePage() {
                   <img
                     src={LAMBERTO_PHOTO}
                     alt="Lamberto Grinover"
-                    className="w-48 h-48 rounded-full object-cover"
+                    className="w-36 h-36 rounded-full object-cover object-top"
                     style={{ border: "3px solid rgba(27,42,74,0.1)" }}
                   />
                 </div>
