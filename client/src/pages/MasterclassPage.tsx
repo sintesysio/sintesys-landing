@@ -20,7 +20,7 @@ import { useEffect, useCallback } from "react";
 import { trackCTAClick, trackPageView, trackInitiateCheckout } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
-const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-v5_323be851.jpeg";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-links-square-v2_c959460c.jpeg";
 
 export default function MasterclassPage() {
   useEffect(() => {
@@ -62,8 +62,8 @@ export default function MasterclassPage() {
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
-        title="In 90 minuti saprai esattamente dove l'IA può tagliare costi nella tua PMI | Il Consigliere"
-        description="Sessione operativa live con Lamberto Grinover. Diagnosi personalizzata dei processi della tua azienda, piano d'azione concreto, Q&A. Max 20 partecipanti. €97."
+        title="In 120 minuti saprai esattamente dove l'IA può tagliare costi nella tua PMI | Il Consigliere"
+        description="Sessione operativa live con Lamberto Grinover. Diagnosi personalizzata dei processi della tua azienda, piano d'azione concreto, Q&A. Posti limitati. €97."
         path="/masterclass"
       />
 
@@ -84,20 +84,7 @@ export default function MasterclassPage() {
               Il Consigliere
             </span>
           </Link>
-          <Link
-            href="/lead"
-            className="no-underline"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "#1B2A4A",
-            }}
-          >
-            Ricevi la Mappa Gratis →
-          </Link>
+
         </div>
         <div className="rule-thin" />
       </nav>
@@ -105,7 +92,7 @@ export default function MasterclassPage() {
       {/* FIX #6: ANNOUNCEMENT BANNER com número concreto */}
       <div className="w-full py-2.5 text-center" style={{ backgroundColor: "#1B2A4A" }}>
         <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.05em", color: "#FAFAF7" }}>
-          Prossima sessione: <span style={{ color: "#C4704B" }}>Giugno 2026</span> · Massimo 20 partecipanti · <span style={{ color: "#C4704B" }}>Rimangono 14 posti</span>
+          Posti limitati e 1 turma al mese — <span style={{ color: "#C4704B" }}>Rimangono 9 posti</span>
         </p>
       </div>
 
@@ -126,7 +113,7 @@ export default function MasterclassPage() {
               fontWeight: 600,
             }}
           >
-            Sessione Live · Max 20 partecipanti · 90 minuti operativi
+            Sessione Live · Posti limitati · 120 minuti operativi
           </p>
 
           <h1
@@ -139,7 +126,7 @@ export default function MasterclassPage() {
               lineHeight: 1.1,
             }}
           >
-            In 90 minuti saprai esattamente dove la tua azienda perde soldi — e dove l'IA può intervenire domani.
+            In 120 minuti saprai esattamente dove la tua azienda perde soldi — e dove l'IA può intervenire domani.
           </h1>
 
           {/* FIX #4: "Per chi è" movido para perto do hero */}
@@ -263,7 +250,7 @@ export default function MasterclassPage() {
               lineHeight: 1.2,
             }}
           >
-            Cosa succede in 90 minuti.
+            Cosa succede in 120 minuti.
           </h2>
           <p
             className="mb-10 max-w-2xl"
@@ -281,19 +268,19 @@ export default function MasterclassPage() {
             {[
               {
                 num: "01",
-                time: "0–30 min",
+                time: "0–40 min",
                 title: "Diagnosi dei processi",
                 desc: "Analizziamo i suoi 3 reparti più critici: dove il team perde ore in attività ripetitive, dove i dati non comunicano tra loro, dove le decisioni si bloccano per mancanza di informazioni. Usiamo la Mappa come punto di partenza.",
               },
               {
                 num: "02",
-                time: "30–60 min",
+                time: "40–80 min",
                 title: "Piano d'azione con priorità e ROI",
                 desc: "Costruiamo insieme un piano operativo: quali processi automatizzare per primi, con quale strumento, in quanto tempo, e con quale ritorno stimato. Esce con un documento scritto — non con appunti vaghi.",
               },
               {
                 num: "03",
-                time: "60–90 min",
+                time: "80–120 min",
                 title: "Q&A — le domande che non osa fare",
                 desc: "Sessione aperta. Budget reali, errori da evitare, fornitori da scegliere, tempistiche oneste. Le risposte che il suo consulente IT non le dà perché non ha gestito un'azienda.",
               },
@@ -445,7 +432,7 @@ export default function MasterclassPage() {
               lineHeight: 1.7,
             }}
           >
-            Non è un abbonamento. Non è un corso da 40 ore. È una sessione live di 90 minuti dove esce con un piano operativo per la sua azienda — scritto, con priorità e ROI stimato.
+            Non è un abbonamento. Non è un corso da 40 ore. È una sessione live di 120 minuti dove esce con un piano operativo per la sua azienda — scritto, con priorità e ROI stimato.
           </p>
 
           {/* FIX #7: Garantia com termos específicos */}
@@ -480,7 +467,7 @@ export default function MasterclassPage() {
           </button>
 
           <div className="mt-6 flex flex-wrap justify-center gap-4">
-            {["Pagamento sicuro Stripe", "Fattura per P.IVA", "Deducibile al 100%", "Max 20 partecipanti"].map((t) => (
+            {["Pagamento sicuro Stripe", "Fattura per P.IVA", "Deducibile al 100%", "Posti limitati"].map((t) => (
               <span
                 key={t}
                 style={{
@@ -517,15 +504,15 @@ export default function MasterclassPage() {
             {[
               {
                 q: "Posso partecipare senza aver compilato la Mappa?",
-                a: "Sì, ma le consiglio fortemente di compilarla prima. La Mappa è gratuita — la riceve iscrivendosi alla newsletter su /lead. Arrivare con la Mappa compilata significa avere già chiaro dove la sua azienda perde tempo, e usare i 90 minuti per costruire il piano d'azione invece di fare la diagnosi da zero.",
+                a: "Sì, ma le consiglio fortemente di compilarla prima. La Mappa è gratuita — la riceve iscrivendosi alla newsletter su /lead. Arrivare con la Mappa compilata significa avere già chiaro dove la sua azienda perde tempo, e usare i 120 minuti per costruire il piano d'azione invece di fare la diagnosi da zero.",
               },
               {
                 q: "In cosa è diversa da un webinar?",
-                a: "Un webinar ha 500 persone, slide generiche e nessuna interazione. Qui siamo massimo 20. Lavoriamo sulla sua azienda. Le domande sono le sue. Il piano d'azione è personalizzato. E non viene registrata — quindi i partecipanti condividono dati reali.",
+                a: "Un webinar ha 500 persone, slide generiche e nessuna interazione. Qui siamo un gruppo ristretto. Lavoriamo sulla sua azienda. Le domande sono le sue. Il piano d'azione è personalizzato. E non viene registrata — quindi i partecipanti condividono dati reali.",
               },
               {
                 q: "€97 — cosa include esattamente?",
-                a: "90 minuti live su Zoom con Lamberto. Diagnosi dei processi critici della sua azienda. Piano d'azione scritto con priorità e ROI stimato. Sessione Q&A illimitata. Nessun upsell durante la sessione — solo contenuto operativo.",
+                a: "120 minuti live su Zoom con Lamberto. Diagnosi dei processi critici della sua azienda. Piano d'azione scritto con priorità e ROI stimato. Sessione Q&A illimitata. Nessun upsell durante la sessione — solo contenuto operativo.",
               },
               {
                 q: "Quando è la prossima sessione?",
@@ -596,7 +583,7 @@ export default function MasterclassPage() {
               lineHeight: 1.7,
             }}
           >
-            €97 per 90 minuti di chiarezza. Un piano d'azione scritto. La certezza di sapere esattamente dove investire — e dove non sprecare un euro.
+            €97 per 120 minuti di chiarezza. Un piano d'azione scritto. La certezza di sapere esattamente dove investire — e dove non sprecare un euro.
           </p>
 
           {/* FIX #5: Pré-enquadramento */}
