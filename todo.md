@@ -650,3 +650,8 @@
 - [x] "Prepari domande" com direção específica
 - [x] Reforço emocional da compra
 - [x] Pixel Purchase como evento padrão (não custom)
+
+## Rewrite /lead v4 — Estrutura multi-dobra + form pop-up
+- [x] Trocar foto do Lamberto pela nova (headshot enviado)
+- [x] Criar 4 dobras: 1) Headline+Sub, 2) O que é a Mappa + resultado, 3) O que recebe na Newsletter, 4) Quem é o Lamberto
+- [x] Formulário: remover do corpo da página, colocar em modal/pop-up acionado por botão CTA

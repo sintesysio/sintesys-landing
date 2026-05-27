@@ -1,26 +1,23 @@
 /**
- * /lead — Página de Captura de Lead (v3 — Diagnóstico 8 pontos)
- * 
- * Correções aplicadas:
- * 1. Superlabel → qualificador de audiência PMI (não "esclusivo per iscritti")
- * 2. Headline → ativa dor/urgência (concorrentes já usam IA)
- * 3. Prova social → "80 processi analizzati, 8 reparti" visível no corpo
- * 4. Badge Newsletter → benefício concreto ("1 caso pratico a settimana")
- * 5. Hierarquia → Mappa = herói, Guida = bônus
- * 6. CTA → verbo de ação própria ("Scopri dove stai perdendo tempo →")
- * 7. Dado forte → "80 processi" no H1/subheadline
- * 8. Lamberto → foto + credibilidade
+ * /lead — Página de Captura de Lead (v4 — Multi-dobra + Form Pop-up)
+ *
+ * Estrutura:
+ * Dobra 1: Headline + Sub (dor + urgência)
+ * Dobra 2: O que é a Mappa + resultado que gera
+ * Dobra 3: O que recebe na Newsletter (não é só email)
+ * Dobra 4: Quem é o Lamberto
+ * CTA: Botão que abre formulário em pop-up/modal
  */
 
 import { useState, useCallback, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import SEOHead from "@/components/SEOHead";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
-const LAMBERTO_PHOTO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663033619872/TAqDaeLFTUVVb7FZ3dEW9K/lamberto-grinover-v2-Tq2cPBpFxRYWbxN7zLnJBi.webp";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-new_5b7d0c2f.jpeg";
 
 const SECTORS = [
   "Manifattura e produzione",
@@ -34,6 +31,7 @@ const SECTORS = [
 
 export default function LeadCapturePage() {
   const [, setLocation] = useLocation();
+  const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -79,6 +77,11 @@ export default function LeadCapturePage() {
     [name, email, phone, sector, submitLead]
   );
 
+  const openModal = () => {
+    setShowModal(true);
+    trackCTAClick("Open Form Modal", "lead_page");
+  };
+
   return (
     <div style={{ backgroundColor: "#FAFAF7", minHeight: "100vh" }}>
       <SEOHead
@@ -108,185 +111,571 @@ export default function LeadCapturePage() {
         <div className="rule-thin" />
       </header>
 
-      {/* HERO + FORM */}
-      <section className="container py-12 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Left: Copy */}
-          <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {/* FIX #1: Qualificador de audiência (não "esclusivo per iscritti") */}
+      {/* ═══════════════════════════════════════════════════════════════
+          DOBRA 1: Headline + Sub (dor + urgência)
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="container py-16 lg:py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <p
+            className="uppercase tracking-[0.15em] mb-4"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.65rem",
+              color: "#C4704B",
+              fontWeight: 600,
+            }}
+          >
+            Per imprenditori PMI con 10–50 dipendenti
+          </p>
+
+          <h1
+            className="mb-6"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(2rem, 5vw, 3.5rem)",
+              fontWeight: 800,
+              color: "#1A1A1A",
+              lineHeight: 1.08,
+            }}
+          >
+            I tuoi concorrenti stanno già usando l'IA.{" "}
+            <span style={{ color: "#C4704B" }}>Tu sai dove iniziare?</span>
+          </h1>
+
+          <p
+            className="mb-10 mx-auto"
+            style={{
+              fontFamily: "'Source Serif 4', serif",
+              fontSize: "1.15rem",
+              color: "#444",
+              lineHeight: 1.7,
+              maxWidth: "600px",
+            }}
+          >
+            La Mappa delle Opportunità IA analizza <strong>80 processi in 8 reparti</strong> della tua azienda
+            e ti mostra esattamente dove stai perdendo tempo e denaro — e dove l'IA può intervenire domani.
+          </p>
+
+          {/* CTA principal */}
+          <button
+            onClick={openModal}
+            className="inline-block px-10 py-4 text-xs uppercase tracking-[0.15em] transition-all"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 600,
+              backgroundColor: "#C4704B",
+              color: "#FAFAF7",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Scopri dove stai perdendo tempo →
+          </button>
+
+          <p
+            className="mt-4"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.7rem",
+              color: "#999",
+            }}
+          >
+            Gratis. Nessuna carta di credito richiesta.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          DOBRA 2: O que é a Mappa + resultado que gera
+         ═══════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#fff" }}>
+        <div className="container py-16 lg:py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="max-w-3xl mx-auto">
               <p
                 className="uppercase tracking-[0.15em] mb-3"
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  fontSize: "0.65rem",
+                  fontSize: "0.6rem",
                   color: "#C4704B",
                   fontWeight: 600,
                 }}
               >
-                Per imprenditori PMI con 10–50 dipendenti
+                Cosa ricevi
               </p>
-
-              {/* FIX #2 + #7: Headline com dor + dado "80 processi" */}
-              <h1
-                className="mb-6"
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                  fontWeight: 800,
-                  color: "#1A1A1A",
-                  lineHeight: 1.1,
-                }}
-              >
-                I tuoi concorrenti stanno già usando l'IA.{" "}
-                <span style={{ color: "#C4704B" }}>
-                  Tu sai dove iniziare?
-                </span>
-              </h1>
-
-              {/* FIX #3 + #5: Prova social concreta + Mappa = herói */}
-              <p
-                className="mb-5"
-                style={{
-                  fontFamily: "'Source Serif 4', serif",
-                  fontSize: "1.1rem",
-                  color: "#444",
-                  lineHeight: 1.7,
-                }}
-              >
-                La <strong>Mappa delle Opportunità IA</strong> analizza{" "}
-                <strong>80 processi in 8 reparti</strong> della tua azienda e ti mostra
-                esattamente dove stai perdendo tempo e denaro — e dove l'IA può intervenire domani.
-              </p>
-
-              {/* FIX #5: Guida = bônus (hierarquia clara) */}
-              <p
+              <h2
                 className="mb-8"
                 style={{
-                  fontFamily: "'Source Serif 4', serif",
-                  fontSize: "1.05rem",
-                  color: "#555",
-                  lineHeight: 1.7,
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                  fontWeight: 700,
+                  color: "#1A1A1A",
+                  lineHeight: 1.15,
                 }}
               >
-                In più, ricevi la <strong>Guida Transizione 5.0</strong> — come accedere ai €6,3 miliardi
-                di fondi MIMIT che il Governo ha stanziato per le PMI che innovano.
-              </p>
+                La Mappa delle Opportunità IA
+              </h2>
 
-              {/* FIX #4: Badges com benefícios concretos (não "Newsletter Settimanale") */}
-              <div className="flex flex-wrap gap-3 mb-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                 {[
-                  "Mappa delle Opportunità IA — 80 processi",
-                  "Guida Transizione 5.0 — fondi MIMIT",
-                  "1 caso pratico a settimana nella tua inbox",
-                ].map((badge) => (
-                  <span
-                    key={badge}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.7rem",
-                      fontWeight: 500,
-                      color: "#1B2A4A",
-                      backgroundColor: "rgba(27,42,74,0.06)",
-                      border: "1px solid rgba(27,42,74,0.12)",
-                    }}
-                  >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" strokeWidth="3">
-                      <path d="M20 6L9 17l-5-5" />
-                    </svg>
-                    {badge}
-                  </span>
+                  {
+                    title: "80 processi analizzati",
+                    desc: "Ogni processo della tua azienda — dall'amministrazione alla produzione — valutato per potenziale di automazione con IA.",
+                  },
+                  {
+                    title: "8 reparti coperti",
+                    desc: "Vendite, marketing, operations, HR, finanza, customer service, logistica e IT. Nessun angolo cieco.",
+                  },
+                  {
+                    title: "Priorità chiare",
+                    desc: "Non un elenco generico. Una classifica: dove iniziare, cosa ignorare, cosa delegare all'IA subito.",
+                  },
+                  {
+                    title: "Risultato in 10 minuti",
+                    desc: "Compili la Mappa, e in 10 minuti sa esattamente da dove partire. Senza consulenti, senza attese.",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4">
+                    <div
+                      className="flex-shrink-0 w-8 h-8 flex items-center justify-center"
+                      style={{ backgroundColor: "rgba(196,112,75,0.1)" }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C4704B" strokeWidth="2.5">
+                        <path d="M20 6L9 17l-5-5" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                          color: "#1A1A1A",
+                          marginBottom: "4px",
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: "'Source Serif 4', serif",
+                          fontSize: "0.9rem",
+                          color: "#666",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
                 ))}
               </div>
 
-              {/* FIX #8: Lamberto — foto + credibilidade */}
+              {/* Bônus: Guida */}
               <div
-                className="flex items-center gap-4 p-4"
+                className="p-5 flex items-start gap-4"
                 style={{
                   backgroundColor: "rgba(27,42,74,0.03)",
                   border: "1px solid rgba(27,42,74,0.08)",
                 }}
               >
-                <img
-                  src={LAMBERTO_PHOTO}
-                  alt="Lamberto Grinover"
-                  className="w-14 h-14 rounded-full object-cover"
-                  style={{ border: "2px solid rgba(27,42,74,0.15)" }}
-                />
+                <span
+                  className="flex-shrink-0 inline-block px-2 py-0.5 text-xs uppercase tracking-wider"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 600,
+                    fontSize: "0.55rem",
+                    color: "#1B2A4A",
+                    backgroundColor: "rgba(27,42,74,0.08)",
+                  }}
+                >
+                  Bonus
+                </span>
                 <div>
                   <p
                     style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "0.9rem",
-                      fontWeight: 700,
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
                       color: "#1A1A1A",
-                      marginBottom: "2px",
+                      marginBottom: "4px",
                     }}
                   >
-                    Lamberto Grinover
+                    Guida Transizione 5.0
                   </p>
                   <p
                     style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.7rem",
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "0.85rem",
                       color: "#666",
-                      lineHeight: 1.4,
+                      lineHeight: 1.5,
                     }}
                   >
-                    Ex-direttore operativo. Ha guidato la trasformazione digitale di PMI italiane
-                    in 6 settori. Oggi aiuta imprenditori a implementare l'IA senza sprecare budget.
+                    Come accedere ai €6,3 miliardi di fondi MIMIT che il Governo ha stanziato per le PMI che innovano.
+                    Requisiti, scadenze, e come presentare domanda.
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-          {/* Right: Form */}
-          <div className="lg:col-span-5">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+      {/* ═══════════════════════════════════════════════════════════════
+          DOBRA 3: O que recebe na Newsletter (não é só email)
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="container py-16 lg:py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="max-w-3xl mx-auto">
+            <p
+              className="uppercase tracking-[0.15em] mb-3"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.6rem",
+                color: "#C4704B",
+                fontWeight: 600,
+              }}
             >
-              <form
-                onSubmit={handleSubmit}
-                className="p-6 lg:p-8"
+              Ogni settimana nella tua inbox
+            </p>
+            <h2
+              className="mb-4"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+                fontWeight: 700,
+                color: "#1A1A1A",
+                lineHeight: 1.15,
+              }}
+            >
+              Non è solo una newsletter.
+            </h2>
+            <p
+              className="mb-10"
+              style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "1.05rem",
+                color: "#555",
+                lineHeight: 1.7,
+              }}
+            >
+              È il briefing settimanale che un imprenditore PMI legge in 5 minuti per sapere cosa sta cambiando
+              nel mondo dell'IA — e cosa può fare lunedì mattina.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              {[
+                {
+                  icon: "📰",
+                  title: "1 caso reale di PMI",
+                  desc: "Ogni settimana, un'azienda italiana (10-50 dipendenti) che ha implementato l'IA. Cosa ha fatto, quanto ha speso, che risultato ha ottenuto.",
+                },
+                {
+                  icon: "🔧",
+                  title: "1 strumento testato",
+                  desc: "Non la lista dei 100 tool. Uno solo, testato da Lamberto, con istruzioni per usarlo nella tua operazione.",
+                },
+                {
+                  icon: "📊",
+                  title: "1 dato di mercato",
+                  desc: "Il numero della settimana che ogni titolare dovrebbe conoscere. Incentivi, trend, benchmark di settore.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="p-5"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid rgba(27,42,74,0.08)",
+                  }}
+                >
+                  <span className="text-2xl mb-3 block">{item.icon}</span>
+                  <h3
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
+                      color: "#1A1A1A",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "0.85rem",
+                      color: "#666",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA secundário */}
+            <div className="text-center">
+              <button
+                onClick={openModal}
+                className="inline-block px-8 py-3.5 text-xs uppercase tracking-[0.15em] transition-all"
                 style={{
-                  backgroundColor: "#fff",
-                  border: "1px solid oklch(0.85 0.005 60)",
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 600,
+                  backgroundColor: "#1B2A4A",
+                  color: "#FAFAF7",
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                <div className="w-full mb-5" style={{ borderTop: "3px solid #1B2A4A" }} />
+                Iscriviti e ricevi tutto — gratis →
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          DOBRA 4: Quem é o Lamberto
+         ═══════════════════════════════════════════════════════════════ */}
+      <section style={{ backgroundColor: "#fff" }}>
+        <div className="container py-16 lg:py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                {/* Foto */}
+                <div className="md:col-span-4 flex justify-center">
+                  <img
+                    src={LAMBERTO_PHOTO}
+                    alt="Lamberto Grinover"
+                    className="w-48 h-48 rounded-full object-cover"
+                    style={{ border: "3px solid rgba(27,42,74,0.1)" }}
+                  />
+                </div>
+
+                {/* Bio */}
+                <div className="md:col-span-8">
+                  <p
+                    className="uppercase tracking-[0.15em] mb-2"
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "0.6rem",
+                      color: "#C4704B",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Chi c'è dietro Il Consigliere
+                  </p>
+                  <h2
+                    className="mb-4"
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: "clamp(1.4rem, 3vw, 2rem)",
+                      fontWeight: 700,
+                      color: "#1A1A1A",
+                      lineHeight: 1.15,
+                    }}
+                  >
+                    Lamberto Grinover
+                  </h2>
+                  <p
+                    className="mb-4"
+                    style={{
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "1rem",
+                      color: "#444",
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    Ex-direttore operativo con 20+ anni di esperienza nella trasformazione digitale
+                    di PMI italiane in 6 settori diversi. Non è un tecnico che parla di business —
+                    è un uomo d'azienda che ha imparato a usare la tecnologia dove conta davvero.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "1rem",
+                      color: "#444",
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    Oggi aiuta imprenditori PMI a implementare l'IA senza sprecare budget in soluzioni
+                    che non servono — partendo sempre dai processi, mai dalla tecnologia.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          DOBRA FINAL: CTA + urgência
+         ═══════════════════════════════════════════════════════════════ */}
+      <section className="container py-16 lg:py-20">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2
+            className="mb-4"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "clamp(1.4rem, 3vw, 2rem)",
+              fontWeight: 700,
+              color: "#1A1A1A",
+              lineHeight: 1.15,
+            }}
+          >
+            Ogni mese che passa senza un piano, i tuoi concorrenti avanzano.
+          </h2>
+          <p
+            className="mb-8"
+            style={{
+              fontFamily: "'Source Serif 4', serif",
+              fontSize: "1.05rem",
+              color: "#555",
+              lineHeight: 1.7,
+            }}
+          >
+            La Mappa ti dà chiarezza in 10 minuti. Gratis. Senza impegno.
+          </p>
+          <button
+            onClick={openModal}
+            className="inline-block px-10 py-4 text-xs uppercase tracking-[0.15em] transition-all"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 600,
+              backgroundColor: "#C4704B",
+              color: "#FAFAF7",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Scarica la Mappa — gratis →
+          </button>
+          <p
+            className="mt-4"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "0.7rem",
+              color: "#999",
+            }}
+          >
+            Nessuno spam. Cancellazione in un click. GDPR compliant.
+          </p>
+        </div>
+      </section>
+
+      {/* Footer minimal */}
+      <footer className="container pb-8">
+        <div className="rule-thin mb-6" />
+        <div className="flex items-center justify-center gap-6">
+          <Link
+            href="/privacy-policy"
+            className="no-underline"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms-of-service"
+            className="no-underline"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.7rem", color: "#999" }}
+          >
+            Termini di Servizio
+          </Link>
+        </div>
+      </footer>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          MODAL: Formulário Pop-up
+         ═══════════════════════════════════════════════════════════════ */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowModal(false);
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-md relative"
+              style={{ backgroundColor: "#FAFAF7" }}
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center"
+                style={{ color: "#999", cursor: "pointer", border: "none", background: "none" }}
+                aria-label="Chiudi"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+
+              <form onSubmit={handleSubmit} className="p-8">
+                <div className="w-full mb-5" style={{ borderTop: "3px solid #C4704B" }} />
 
                 <h2
-                  className="mb-5"
+                  className="mb-2"
                   style={{
                     fontFamily: "'Playfair Display', serif",
-                    fontSize: "1.2rem",
+                    fontSize: "1.3rem",
                     fontWeight: 700,
                     color: "#1A1A1A",
                     lineHeight: 1.25,
                   }}
                 >
-                  Scarica la Mappa — gratis.
+                  Ricevi la Mappa — gratis.
                 </h2>
+                <p
+                  className="mb-6"
+                  style={{
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.85rem",
+                    color: "#666",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Compili i campi e riceve subito la Mappa delle Opportunità IA + la Guida Transizione 5.0.
+                </p>
 
                 {/* Nome */}
                 <div className="mb-4">
                   <label
                     htmlFor="lead-name"
                     className="block uppercase tracking-[0.12em] mb-1"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.6rem",
-                      color: "#999",
-                      fontWeight: 500,
-                    }}
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", color: "#999", fontWeight: 500 }}
                   >
                     Nome e Cognome *
                   </label>
@@ -301,7 +690,7 @@ export default function LeadCapturePage() {
                     className="w-full px-3 py-2.5 text-sm outline-none"
                     style={{
                       fontFamily: "'Source Serif 4', serif",
-                      border: "1px solid oklch(0.80 0.005 60)",
+                      border: "1px solid #ddd",
                       backgroundColor: "#fff",
                       color: "#1A1A1A",
                     }}
@@ -313,12 +702,7 @@ export default function LeadCapturePage() {
                   <label
                     htmlFor="lead-email"
                     className="block uppercase tracking-[0.12em] mb-1"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.6rem",
-                      color: "#999",
-                      fontWeight: 500,
-                    }}
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", color: "#999", fontWeight: 500 }}
                   >
                     Email Aziendale *
                   </label>
@@ -333,7 +717,7 @@ export default function LeadCapturePage() {
                     className="w-full px-3 py-2.5 text-sm outline-none"
                     style={{
                       fontFamily: "'Source Serif 4', serif",
-                      border: "1px solid oklch(0.80 0.005 60)",
+                      border: "1px solid #ddd",
                       backgroundColor: "#fff",
                       color: "#1A1A1A",
                     }}
@@ -345,12 +729,7 @@ export default function LeadCapturePage() {
                   <label
                     htmlFor="lead-phone"
                     className="block uppercase tracking-[0.12em] mb-1"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.6rem",
-                      color: "#999",
-                      fontWeight: 500,
-                    }}
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", color: "#999", fontWeight: 500 }}
                   >
                     Telefono
                   </label>
@@ -364,7 +743,7 @@ export default function LeadCapturePage() {
                     className="w-full px-3 py-2.5 text-sm outline-none"
                     style={{
                       fontFamily: "'Source Serif 4', serif",
-                      border: "1px solid oklch(0.80 0.005 60)",
+                      border: "1px solid #ddd",
                       backgroundColor: "#fff",
                       color: "#1A1A1A",
                     }}
@@ -376,12 +755,7 @@ export default function LeadCapturePage() {
                   <label
                     htmlFor="lead-sector"
                     className="block uppercase tracking-[0.12em] mb-1"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.6rem",
-                      color: "#999",
-                      fontWeight: 500,
-                    }}
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", color: "#999", fontWeight: 500 }}
                   >
                     In quale settore opera? *
                   </label>
@@ -393,7 +767,7 @@ export default function LeadCapturePage() {
                     className="w-full px-3 py-2.5 text-sm outline-none appearance-none"
                     style={{
                       fontFamily: "'Source Serif 4', serif",
-                      border: "1px solid oklch(0.80 0.005 60)",
+                      border: "1px solid #ddd",
                       backgroundColor: "#fff",
                       color: sector ? "#1A1A1A" : "#999",
                     }}
@@ -411,19 +785,12 @@ export default function LeadCapturePage() {
 
                 {/* Error */}
                 {error && (
-                  <p
-                    className="mb-3"
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "0.75rem",
-                      color: "#c53030",
-                    }}
-                  >
+                  <p className="mb-3" style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.75rem", color: "#c53030" }}>
                     {error}
                   </p>
                 )}
 
-                {/* FIX #6: CTA com verbo de ação própria */}
+                {/* Submit */}
                 <button
                   type="submit"
                   disabled={submitLead.isPending}
@@ -441,53 +808,17 @@ export default function LeadCapturePage() {
                   {submitLead.isPending ? "Invio in corso..." : "Scopri dove stai perdendo tempo →"}
                 </button>
 
-                {/* Privacy */}
                 <p
                   className="text-center mt-3"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: "0.6rem",
-                    color: "#bbb",
-                    lineHeight: 1.4,
-                  }}
+                  style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.6rem", color: "#bbb", lineHeight: 1.4 }}
                 >
-                  Nessuno spam. Cancellazione in un click.
-                  <br />I tuoi dati sono trattati secondo il GDPR.
+                  Nessuno spam. Cancellazione in un click. I tuoi dati sono trattati secondo il GDPR.
                 </p>
               </form>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer minimal */}
-      <footer className="container pb-8">
-        <div className="rule-thin mb-6" />
-        <div className="flex items-center justify-center gap-6">
-          <Link
-            href="/privacy-policy"
-            className="no-underline"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.7rem",
-              color: "#999",
-            }}
-          >
-            Privacy Policy
-          </Link>
-          <Link
-            href="/terms-of-service"
-            className="no-underline"
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "0.7rem",
-              color: "#999",
-            }}
-          >
-            Termini di Servizio
-          </Link>
-        </div>
-      </footer>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
