@@ -17,7 +17,7 @@ import { trpc } from "@/lib/trpc";
 import { trackLeadSimple, trackFormView, trackCTAClick } from "@/lib/tracking";
 
 const LOGO_ICON = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663033619872/DGHYBvKacnsPXkFQ.png";
-const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-new_6b6d2d62.jpeg";
+const LAMBERTO_PHOTO = "/manus-storage/lamberto-headshot-square_d4983052.jpeg";
 
 const SECTORS = [
   "Manifattura e produzione",
@@ -469,8 +469,8 @@ export default function LeadCapturePage() {
                   <img
                     src={LAMBERTO_PHOTO}
                     alt="Lamberto Grinover"
-                    className="w-40 h-40 rounded-full object-cover"
-                    style={{ border: "3px solid rgba(27,42,74,0.1)", objectPosition: "center 25%" }}
+                    className="w-40 h-40 rounded-full object-cover object-center"
+                    style={{ border: "3px solid rgba(27,42,74,0.1)" }}
                   />
                 </div>
 
