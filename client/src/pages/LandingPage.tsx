@@ -554,11 +554,11 @@ export default function LandingPage() {
             },
             {
               step: "02",
-              title: "Masterclass",
-              subtitle: "Evento Live — €97 · 1 volta al mese",
-              desc: "90 minuti con Lamberto Grinover: diagnosi della tua azienda, piano d'azione concreto e confronto con altri imprenditori. Non è un webinar — è una sessione operativa.",
-              cta: "Scopri la Masterclass",
-              href: "/masterclass",
+              title: "Consulenza",
+              subtitle: "Sessione strategica gratuita · 1:1 con Lamberto",
+              desc: "Una riunione di 30 minuti per analizzare i processi della sua PMI e identificare dove l'IA può generare risultati concreti. Senza impegno, senza vendita.",
+              cta: "Prenota la riunione",
+              href: "/lead",
               isScroll: false,
             },
             {

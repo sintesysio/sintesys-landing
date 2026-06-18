@@ -17,8 +17,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const DataDeletion = lazy(() => import("./pages/DataDeletion"));
 const LeadCapturePage = lazy(() => import("./pages/LeadCapturePage"));
-const MasterclassPage = lazy(() => import("./pages/MasterclassPage"));
-const MasterclassGraziePage = lazy(() => import("./pages/MasterclassGraziePage"));
+
 const NewsletterPopup = lazy(() => import("./components/NewsletterPopup"));
 const AdminLayout = lazy(() => import("./components/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -76,14 +75,14 @@ function Router() {
         <Route path={"/grazie"} component={Grazie} />
         <Route path={"/links"} component={Links} />
         <Route path={"/lead"} component={LeadCapturePage} />
-        <Route path={"/masterclass"} component={MasterclassPage} />
-        <Route path={"/masterclass/grazie"} component={MasterclassGraziePage} />
+        {/* Masterclass removida do ar — foco em aquisição de leads para reunião */}
+        <Route path={"/masterclass"}>{() => <Redirect to="/lead" />}</Route>
+        <Route path={"/masterclass/grazie"}>{() => <Redirect to="/lead" />}</Route>
 
         {/* === REDIRECTS 301 === */}
-        {/* /mentoria eliminada do funil → redireciona para /masterclass */}
-        <Route path={"/mentoria"}>{() => <Redirect to="/masterclass" />}</Route>
-        {/* /contattaci eliminada do funil → redireciona para /masterclass */}
-        <Route path={"/contattaci"}>{() => <Redirect to="/masterclass" />}</Route>
+        {/* /mentoria e /contattaci → redireciona para /lead */}
+        <Route path={"/mentoria"}>{() => <Redirect to="/lead" />}</Route>
+        <Route path={"/contattaci"}>{() => <Redirect to="/lead" />}</Route>
         {/* /mappa agora é grátis via newsletter → redireciona para /lead */}
         <Route path={"/mappa"}>{() => <Redirect to="/lead" />}</Route>
         {/* /mappa/grazie → redireciona para /grazie (lead, não comprador) */}
