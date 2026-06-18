@@ -1,16 +1,16 @@
 /**
- * Email Sequence Processor — Mappa IA Post-Purchase Flow
+ * Email Sequence Processor — Lead Nurturing Flow
  *
- * Handles the automated email sequence after a Mappa IA purchase:
+ * Handles the automated email sequence after a lead signs up via /lead form:
  * - D+0: "D+0 Consegna Mappa — Onboarding Il Consigliere" (template 10054956)
  * - D+3: "D+3 Follow-up — Accesso e Suggerimento Rapido" (template 10055006)
  * - D+5: "D+5 Curiosità IA — Costo Strumenti" (template 10055007)
- * - D+8: "D+8 Settimana Zero — Invito Consulenza" (template 10055008)
- * - After D+8: Apply tag "STATUS_pronto_settimana_zero"
+ * - D+10: "D+10 Settimana Zero — Invito Consulenza" (template 10055008)
+ * - After D+10: Apply tag "STATUS_pronto_consulenza"
  *
  * This module is called by:
- * 1. The Stripe webhook (for immediate D+0 send)
- * 2. A scheduled API endpoint (for D+3, D+5, D+8 processing)
+ * 1. The lead form submission handler (for immediate D+0 send)
+ * 2. A scheduled API endpoint (for D+3, D+5, D+10 processing)
  */
 
 import crypto from "crypto";
@@ -27,10 +27,10 @@ function md5(str: string): string {
 
 /** Template IDs for the email sequence */
 export const SEQUENCE_TEMPLATES = {
-  d0: { id: 10054956, name: "D+0 Consegna Mappa — Onboarding Il Consigliere", subject: "*|FNAME|*, ecco la tua Mappa delle Opportunità IA" },
+  d0: { id: 10054956, name: "D+0 Consegna Mappa — Onboarding Il Consigliere", subject: "*|FNAME|*, ecco la Mappa delle Opportunità IA" },
   d3: { id: 10055006, name: "D+3 Follow-up — Accesso e Suggerimento Rapido", subject: "*|FNAME|*, hai già aperto la Mappa?" },
   d5: { id: 10055007, name: "D+5 Curiosità IA — Costo Strumenti", subject: "Quanto costa davvero l'IA per una PMI?" },
-  d8: { id: 10055008, name: "D+8 Settimana Zero — Invito Consulenza", subject: "*|FNAME|*, il prossimo passo: la Settimana Zero" },
+  d10: { id: 10055008, name: "D+10 Settimana Zero — Invito Consulenza", subject: "*|FNAME|*, il prossimo passo: la consulenza gratuita" },
 } as const;
 
 export type SequenceStep = keyof typeof SEQUENCE_TEMPLATES;
@@ -48,7 +48,6 @@ export async function sendTemplateEmail(
   }
 
   const template = SEQUENCE_TEMPLATES[step];
-  const subscriberHash = md5(email);
 
   try {
     // Step 1: Create a campaign targeting this specific subscriber
@@ -111,10 +110,10 @@ export async function sendTemplateEmail(
 }
 
 /**
- * Apply the STATUS_pronto_settimana_zero tag to a subscriber.
- * Called after D+8 email is sent.
+ * Apply the STATUS_pronto_consulenza tag to a subscriber.
+ * Called after D+10 email is sent — marks lead as ready for Calendly invite.
  */
-export async function applySettimanaZeroTag(
+export async function applyConsulenzaTag(
   email: string
 ): Promise<{ success: boolean; error?: string }> {
   if (!MAILCHIMP_API_KEY || !MAILCHIMP_LIST_ID) {
@@ -129,7 +128,7 @@ export async function applySettimanaZeroTag(
       method: "POST",
       headers: { Authorization: AUTH_HEADER, "Content-Type": "application/json" },
       body: JSON.stringify({
-        tags: [{ name: "STATUS_pronto_settimana_zero", status: "active" }],
+        tags: [{ name: "STATUS_pronto_consulenza", status: "active" }],
       }),
       signal: AbortSignal.timeout(10000),
     });
@@ -139,7 +138,7 @@ export async function applySettimanaZeroTag(
       return { success: false, error: `Tag failed: ${res.status}` };
     }
 
-    console.log(`[EmailSequence] ✓ Tag STATUS_pronto_settimana_zero applied to ${email}`);
+    console.log(`[EmailSequence] ✓ Tag STATUS_pronto_consulenza applied to ${email}`);
     return { success: true };
   } catch (err) {
     return { success: false, error: String(err) };

@@ -14,8 +14,7 @@ import Stripe from "stripe";
 import { notifyOwner } from "./_core/notification";
 import { PRODUCTS } from "./stripe-products";
 import { syncPurchaserToMailchimp } from "./mailchimp";
-import { sendTemplateEmail } from "./email-sequence";
-import { recordPurchase, markEmailSent } from "./db";
+import { recordPurchase } from "./db";
 
 function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
@@ -123,18 +122,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       console.error("[Stripe Webhook] ✗ Failed to record purchase:", err);
     }
 
-    // 3. Send D+0 email immediately (Consegna Mappa)
-    try {
-      const emailResult = await sendTemplateEmail(customerEmail, "d0");
-      if (emailResult.success) {
-        await markEmailSent(customerEmail, session.id, "d0");
-        console.log(`[Stripe Webhook] ✓ D+0 email sent to ${customerEmail}`);
-      } else {
-        console.warn(`[Stripe Webhook] ✗ D+0 email failed for ${customerEmail}: ${emailResult.error}`);
-      }
-    } catch (err) {
-      console.error("[Stripe Webhook] ✗ D+0 email error:", err);
-    }
+    // Note: D+0 email is now sent by the lead form submission handler, not Stripe webhook.
+    // The email sequence is triggered when a lead signs up, not when they purchase.
   }
 
   // Notify owner about the purchase

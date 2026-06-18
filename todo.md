@@ -655,3 +655,13 @@
 - [x] Trocar foto do Lamberto pela nova (headshot enviado)
 - [x] Criar 4 dobras: 1) Headline+Sub, 2) O que é a Mappa + resultado, 3) O que recebe na Newsletter, 4) Quem é o Lamberto
 - [x] Formulário: remover do corpo da página, colocar em modal/pop-up acionado por botão CTA
+- [x] Desconectar email sequence do webhook Stripe
+- [x] Conectar email sequence ao formulário de leads (/lead e landing pages)
+- [x] Atualizar D+8 para D+10 (Invito Consulenza com Calendly)
+- [x] Adicionar colunas de tracking na tabela leads (emailD0Sent, emailD3Sent, emailD5Sent, emailD10Sent, tagConsulenzaApplied)
+- [x] Criar helpers de DB para lead email sequence (markLeadEmailSent, markLeadConsulenzaTagApplied, getPendingLeadEmailSequence)
+- [x] Atualizar scheduled-email-sequence.ts para usar tabela leads
+- [x] Disparar D+0 imediatamente no submit do formulário /lead
+- [x] Disparar D+0 imediatamente no submit do formulário landing page
+- [x] Atualizar tag de STATUS_pronto_settimana_zero para STATUS_pronto_consulenza
+- [x] Atualizar testes vitest para refletir nova lógica

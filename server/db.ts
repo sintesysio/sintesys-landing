@@ -464,3 +464,56 @@ export async function getPendingEmailSequence(): Promise<Purchase[]> {
     )
     .orderBy(asc(purchases.purchasedAt));
 }
+
+/**
+ * Mark a lead email sequence step as sent.
+ * Updates the corresponding timestamp column on the leads table.
+ */
+export async function markLeadEmailSent(
+  email: string,
+  step: "d0" | "d3" | "d5" | "d10"
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  const fieldMap = {
+    d0: leads.emailD0Sent,
+    d3: leads.emailD3Sent,
+    d5: leads.emailD5Sent,
+    d10: leads.emailD10Sent,
+  };
+
+  await db.update(leads)
+    .set({ [fieldMap[step].name]: new Date() })
+    .where(eq(leads.email, email));
+}
+
+/**
+ * Mark the consulenza tag as applied for a lead.
+ */
+export async function markLeadConsulenzaTagApplied(
+  email: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  await db.update(leads)
+    .set({ tagConsulenzaApplied: new Date() })
+    .where(eq(leads.email, email));
+}
+
+/**
+ * Get leads that need email sequence processing.
+ * Returns leads where the full sequence hasn't been completed yet.
+ */
+export async function getPendingLeadEmailSequence(): Promise<Lead[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  // Get all leads that haven't completed the full sequence (tag not applied)
+  return db.select().from(leads)
+    .where(
+      sql`${leads.tagConsulenzaApplied} IS NULL`
+    )
+    .orderBy(asc(leads.createdAt));
+}

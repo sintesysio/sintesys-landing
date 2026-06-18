@@ -36,6 +36,12 @@ export const leads = mysqlTable("leads", {
   phone: varchar("phone", { length: 50 }),
   sector: varchar("sector", { length: 100 }),
   source: varchar("source", { length: 100 }).default("landing_page").notNull(),
+  // Email sequence tracking (D+0, D+3, D+5, D+10)
+  emailD0Sent: timestamp("emailD0Sent"),
+  emailD3Sent: timestamp("emailD3Sent"),
+  emailD5Sent: timestamp("emailD5Sent"),
+  emailD10Sent: timestamp("emailD10Sent"),
+  tagConsulenzaApplied: timestamp("tagConsulenzaApplied"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

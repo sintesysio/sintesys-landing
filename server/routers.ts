@@ -2,9 +2,10 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
-import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads, createClient, updateClient, deleteClient, getClientById, getAllClients, createTransaction, updateTransaction, deleteTransaction, getTransactionsByClient, getAllTransactions, getTransactionsByDateRange, getLeadsStats, getFinancialSummary, getBalanceByClient } from "./db";
+import { createLead, getLeadByEmail, getAllLeads, getDailyEdition, getLatestEdition, createQualifiedLead, getQualifiedLeadByEmail, getAllQualifiedLeads, createClient, updateClient, deleteClient, getClientById, getAllClients, createTransaction, updateTransaction, deleteTransaction, getTransactionsByClient, getAllTransactions, getTransactionsByDateRange, getLeadsStats, getFinancialSummary, getBalanceByClient, markLeadEmailSent } from "./db";
 import { syncSimpleLead, syncQualifiedLead, getMailchimpListStats, getMailchimpCampaigns } from "./mailchimp";
 import { sendWelcomeEmail } from "./welcome-email";
+import { sendTemplateEmail } from "./email-sequence";
 import { syncSimpleLeadToNotion, syncQualifiedLeadToNotion, getNotionPipelineDeals, getNotionDealDetail } from "./notion";
 import { notifyOwner } from "./_core/notification";
 import { storagePut } from "./storage";
@@ -263,14 +264,20 @@ export const appRouter = router({
           console.error("[Notification] ✗ Failed to notify owner about new lead:", err instanceof Error ? err.message : err);
         }
 
-        // Send welcome email (non-blocking, don't fail the lead creation)
+        // Send D+0 onboarding email (Consegna Mappa) immediately
         try {
-          await sendWelcomeEmail(input.email, input.name);
-          console.log(`[WelcomeEmail] ✓ Welcome email triggered for ${input.email}`);
+          const d0Result = await sendTemplateEmail(input.email, "d0");
+          if (d0Result.success) {
+            await markLeadEmailSent(input.email, "d0");
+            console.log(`[EmailSequence] ✓ D+0 email sent to ${input.email} (campaign: ${d0Result.campaignId})`);
+          } else {
+            syncErrors.push({ service: "EmailSequence-D0", error: d0Result.error || "Unknown", timestamp: new Date().toISOString() });
+            console.error(`[EmailSequence] ✗ D+0 failed for ${input.email}: ${d0Result.error}`);
+          }
         } catch (err) {
           const errorMsg = err instanceof Error ? err.message : String(err);
-          syncErrors.push({ service: "WelcomeEmail", error: errorMsg, timestamp: new Date().toISOString() });
-          console.error(`[WelcomeEmail] ✗ Failed to send welcome email to ${input.email}:`, errorMsg);
+          syncErrors.push({ service: "EmailSequence-D0", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[EmailSequence] ✗ D+0 error for ${input.email}:`, errorMsg);
         }
 
         // Log structured summary
@@ -420,6 +427,21 @@ export const appRouter = router({
           });
         } catch (err) {
           console.error("[Notification] ✗ Failed to notify owner about LP lead:", err instanceof Error ? err.message : err);
+        }
+
+        // Send D+0 onboarding email (Consegna Mappa) immediately
+        try {
+          const d0Result = await sendTemplateEmail(input.email, "d0");
+          if (d0Result.success) {
+            console.log(`[EmailSequence] ✓ D+0 email sent to LP lead ${input.email} (campaign: ${d0Result.campaignId})`);
+          } else {
+            syncErrors.push({ service: "EmailSequence-D0", error: d0Result.error || "Unknown", timestamp: new Date().toISOString() });
+            console.error(`[EmailSequence] ✗ D+0 failed for LP lead ${input.email}: ${d0Result.error}`);
+          }
+        } catch (err) {
+          const errorMsg = err instanceof Error ? err.message : String(err);
+          syncErrors.push({ service: "EmailSequence-D0", error: errorMsg, timestamp: new Date().toISOString() });
+          console.error(`[EmailSequence] ✗ D+0 error for LP lead ${input.email}:`, errorMsg);
         }
 
         // Log structured summary
